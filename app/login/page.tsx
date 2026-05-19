@@ -23,19 +23,8 @@ export default function LoginPage() {
       return
     }
 
-    const appRole = data.user?.app_metadata?.role as string | undefined
-    const metaRole = data.user?.user_metadata?.role as string | undefined
-
-    // Also try a direct profile query
-    const { data: profile } = await supabase
-      .from('profiles').select('role').eq('id', data.user.id).single()
-    const profileRole = profile?.role
-
-    const role = appRole ?? metaRole ?? profileRole
-
-    // Show debug info before redirecting
-    setError(`DEBUG — app_metadata.role: "${appRole}" | user_metadata.role: "${metaRole}" | profile.role: "${profileRole}" | routing to: "${role ?? 'school (fallback)'}"`)
-    await new Promise(r => setTimeout(r, 5000))
+    // Call SECURITY DEFINER function — bypasses RLS, always works
+    const { data: role } = await supabase.rpc('get_my_role')
 
     if (role === 'admin' || role === 'board_member') {
       window.location.href = '/admin'

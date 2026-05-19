@@ -6,8 +6,8 @@ export default async function DashboardRedirect() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  // app_metadata is set server-side and always reliable in the JWT
-  const role = (user.app_metadata?.role ?? user.user_metadata?.role) as string | undefined
+  // Use SECURITY DEFINER function — bypasses RLS completely
+  const { data: role } = await supabase.rpc('get_my_role')
 
   if (role === 'admin' || role === 'board_member') redirect('/admin')
   if (role === 'investor') redirect('/investor')
