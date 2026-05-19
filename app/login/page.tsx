@@ -23,10 +23,19 @@ export default function LoginPage() {
       return
     }
 
-    // Role is stored in user_metadata (set when account was created)
-    // Route directly — no server round-trip needed
-    // app_metadata.role is set server-side and always present in the JWT
-    const role = (data.user?.app_metadata?.role ?? data.user?.user_metadata?.role) as string | undefined
+    const appRole = data.user?.app_metadata?.role as string | undefined
+    const metaRole = data.user?.user_metadata?.role as string | undefined
+
+    // Also try a direct profile query
+    const { data: profile } = await supabase
+      .from('profiles').select('role').eq('id', data.user.id).single()
+    const profileRole = profile?.role
+
+    const role = appRole ?? metaRole ?? profileRole
+
+    // Show debug info before redirecting
+    setError(`DEBUG — app_metadata.role: "${appRole}" | user_metadata.role: "${metaRole}" | profile.role: "${profileRole}" | routing to: "${role ?? 'school (fallback)'}"`)
+    await new Promise(r => setTimeout(r, 5000))
 
     if (role === 'admin' || role === 'board_member') {
       window.location.href = '/admin'
