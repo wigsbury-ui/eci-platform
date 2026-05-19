@@ -20,11 +20,20 @@ export default async function SchoolPage() {
   const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single()
 
   const { data: categories } = await supabase.from('document_categories').select('*').order('sort_order')
-  const { data: announcements } = await supabase.from('announcements').select('*')
-    .contains('audience', ['school_partner']).order('is_pinned', { ascending: false }).limit(5)
+  const { data: announcements } = await supabase
+    .from('announcements').select('*')
+    .contains('audience', ['school_partner'])
+    .order('is_pinned', { ascending: false })
+    .limit(5)
 
   return (
-    <PortalShell profile={profile} portalName="School Partner Portal" portalColour="#4C2585" navItems={NAV_ITEMS} activeSection="/school">
+    <PortalShell
+      profile={profile}
+      portalName="School Partner Portal"
+      portalAccent="#4C9A6B"
+      navItems={NAV_ITEMS}
+      activeSection="/school"
+    >
       <SchoolDashboard profile={profile} categories={categories || []} announcements={announcements || []} />
     </PortalShell>
   )

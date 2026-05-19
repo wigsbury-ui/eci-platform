@@ -25,7 +25,7 @@ export default async function DocumentsPage() {
     .order('created_at', { ascending: false })
 
   return (
-    <PortalShell profile={profile} portalName="School Partner Portal" portalColour="#4C2585" navItems={NAV_ITEMS} activeSection="/school/documents">
+    <PortalShell profile={profile} portalName="School Partner Portal" portalAccent="#4C9A6B" navItems={NAV_ITEMS} activeSection="/school/documents">
       <DocumentLibrary categories={categories || []} documents={documents || []} />
     </PortalShell>
   )

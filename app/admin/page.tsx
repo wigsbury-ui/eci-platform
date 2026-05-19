@@ -26,8 +26,19 @@ export default async function AdminPage() {
   const { data: documents } = await supabase.from('documents').select('count').single()
 
   return (
-    <PortalShell profile={profile} portalName="Admin & Governance" portalColour="#2D1654" navItems={NAV_ITEMS} activeSection="/admin">
-      <AdminDashboard schools={schools || []} enquiries={enquiries || []} announcements={announcements || []} documentsCount={(documents as any)?.count || 0} />
+    <PortalShell
+      profile={profile}
+      portalName="Admin & Governance"
+      portalAccent="#E05C5C"
+      navItems={NAV_ITEMS}
+      activeSection="/admin"
+    >
+      <AdminDashboard
+        schools={schools || []}
+        enquiries={enquiries || []}
+        announcements={announcements || []}
+        documentsCount={(documents as any)?.count || 0}
+      />
     </PortalShell>
   )
 }

@@ -7,7 +7,7 @@ import { TrendingUp, FileText, Users, MessageSquare, Home } from 'lucide-react'
 const NAV_ITEMS = [
   { label: 'Overview', href: '/investor', icon: <Home size={16} /> },
   { label: 'Partnership Models', href: '/investor/models', icon: <TrendingUp size={16} /> },
-  { label: 'Due Diligence', href: '/investor/due-diligence', icon: <FileText size={16} /> },
+  { label: 'Due Diligence Pack', href: '/investor/due-diligence', icon: <FileText size={16} /> },
   { label: 'Network Schools', href: '/investor/schools', icon: <Users size={16} /> },
   { label: 'Express Interest', href: '/investor/apply', icon: <MessageSquare size={16} /> },
 ]
@@ -23,10 +23,15 @@ export default async function InvestorPage() {
   }
 
   const { data: schools } = await supabase.from('schools').select('*').eq('is_public', true)
-  const { data: enquiries } = await supabase.from('investor_enquiries').select('count').single()
 
   return (
-    <PortalShell profile={profile} portalName="Investor Portal" portalColour="#4C2585" navItems={NAV_ITEMS} activeSection="/investor">
+    <PortalShell
+      profile={profile}
+      portalName="Investor Portal"
+      portalAccent="#C8A84B"
+      navItems={NAV_ITEMS}
+      activeSection="/investor"
+    >
       <InvestorDashboard schools={schools || []} profile={profile} />
     </PortalShell>
   )
