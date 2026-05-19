@@ -27,13 +27,8 @@ export default function LoginPage() {
     // Route directly — no server round-trip needed
     const role = data.user?.user_metadata?.role as string | undefined
 
-    if (role === 'admin' || role === 'board_member') {
-      window.location.href = '/admin'
-    } else if (role === 'investor') {
-      window.location.href = '/investor'
-    } else {
-      window.location.href = '/school'
-    }
+    // Temporarily redirecting to debug page to diagnose routing issue
+    window.location.href = '/debug'
   }
 
   return (
