@@ -27,8 +27,16 @@ export default function LoginPage() {
     // Route directly — no server round-trip needed
     const role = data.user?.user_metadata?.role as string | undefined
 
-    // Temporarily redirecting to debug page to diagnose routing issue
-    window.location.href = '/debug'
+    // app_metadata.role is set server-side and always present in the JWT
+    const role = data.user?.app_metadata?.role as string | undefined
+
+    if (role === 'admin' || role === 'board_member') {
+      window.location.href = '/admin'
+    } else if (role === 'investor') {
+      window.location.href = '/investor'
+    } else {
+      window.location.href = '/school'
+    }
   }
 
   return (
