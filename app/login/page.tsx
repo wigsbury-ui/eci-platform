@@ -25,10 +25,8 @@ export default function LoginPage() {
 
     // Role is stored in user_metadata (set when account was created)
     // Route directly — no server round-trip needed
-    const role = data.user?.user_metadata?.role as string | undefined
-
     // app_metadata.role is set server-side and always present in the JWT
-    const role = data.user?.app_metadata?.role as string | undefined
+    const role = (data.user?.app_metadata?.role ?? data.user?.user_metadata?.role) as string | undefined
 
     if (role === 'admin' || role === 'board_member') {
       window.location.href = '/admin'
