@@ -13,12 +13,27 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     setError('')
+
     const supabase = createClient()
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) { setError(error.message); setLoading(false); return }
-    // Hard navigation ensures cookies are included in the new request
-    // so the server-side session is available for role-based routing
-    window.location.href = '/dashboard'
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+    if (error) {
+      setError(error.message)
+      setLoading(false)
+      return
+    }
+
+    // Role is stored in user_metadata (set when account was created)
+    // Route directly — no server round-trip needed
+    const role = data.user?.user_metadata?.role as string | undefined
+
+    if (role === 'admin' || role === 'board_member') {
+      window.location.href = '/admin'
+    } else if (role === 'investor') {
+      window.location.href = '/investor'
+    } else {
+      window.location.href = '/school'
+    }
   }
 
   return (
@@ -41,9 +56,9 @@ export default function LoginPage() {
             Your secure gateway to partnership resources, governance tools, and the ECI school network.
           </p>
           <div className="mt-12 space-y-4 text-sm font-jost text-white/50">
-            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> Investor & partnership enquiry portal</p>
+            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> Investor &amp; partnership enquiry portal</p>
             <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> School partner resource library</p>
-            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> Admin & governance dashboard</p>
+            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> Admin &amp; governance dashboard</p>
           </div>
         </div>
       </div>
@@ -62,25 +77,50 @@ export default function LoginPage() {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Email Address</label>
-              <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors" />
+              <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                Email Address
+              </label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors"
+              />
             </div>
             <div>
-              <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">Password</label>
-              <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors" />
+              <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                Password
+              </label>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors"
+              />
             </div>
-            {error && <p className="text-red-500 text-sm font-jost bg-red-50 p-3 rounded-lg">{error}</p>}
-            <button type="submit" disabled={loading}
-              className="w-full bg-eci-purple text-white py-3.5 rounded-lg font-jost font-semibold text-sm hover:bg-eci-purple-dark transition-colors disabled:opacity-50">
-              {loading ? 'Signing in...' : 'Sign In to Portal'}
+
+            {error && (
+              <p className="text-red-500 text-sm font-jost bg-red-50 p-3 rounded-lg">{error}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-eci-purple text-white py-3.5 rounded-lg font-jost font-semibold text-sm hover:bg-eci-purple-dark transition-colors disabled:opacity-50"
+            >
+              {loading ? 'Signing in…' : 'Sign In to Portal'}
             </button>
           </form>
 
           <div className="mt-8 pt-8 border-t border-gray-100">
             <p className="text-xs text-gray-400 font-jost text-center">
-              Not yet registered? <a href="mailto:international@ellesmere.com" className="text-eci-purple hover:underline">Contact ECI</a> to request access.
+              Not yet registered?{' '}
+              <a href="mailto:international@ellesmere.com" className="text-eci-purple hover:underline">
+                Contact ECI
+              </a>{' '}
+              to request access.
             </p>
           </div>
         </div>
