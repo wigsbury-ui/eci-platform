@@ -23,8 +23,21 @@ export default function LoginPage() {
       return
     }
 
-    // Call SECURITY DEFINER function — bypasses RLS, always works
-    const { data: role } = await supabase.rpc('get_my_role')
+    // Use the access token directly from sign-in — no session/cookie dependency
+    const accessToken = data.session?.access_token
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_my_role`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({}),
+      }
+    )
+    const role = (await res.text()).replace(/"/g, '')
 
     if (role === 'admin' || role === 'board_member') {
       window.location.href = '/admin'
