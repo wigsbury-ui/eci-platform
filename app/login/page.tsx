@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function LoginPage() {
@@ -9,7 +8,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -18,10 +16,9 @@ export default function LoginPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) { setError(error.message); setLoading(false); return }
-    // Let the server-side /dashboard route handle role-based redirect
-    // once the session cookie is properly set
-    router.push('/dashboard')
-    router.refresh()
+    // Hard navigation ensures cookies are included in the new request
+    // so the server-side session is available for role-based routing
+    window.location.href = '/dashboard'
   }
 
   return (
