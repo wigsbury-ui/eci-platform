@@ -112,6 +112,10 @@ export interface CalendarEvent {
   all_schools: boolean
   location: string | null
   created_by: string | null
+  /** IANA timezone for the meeting wall clock (e.g. Asia/Riyadh). */
+  timezone: string
+  /** People attending — display names for coordination. */
+  attendees: string[]
 }
 
 export interface MessageThread {

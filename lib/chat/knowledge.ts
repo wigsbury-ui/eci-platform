@@ -79,7 +79,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['school', 'team'],
     title: 'Calendar and messaging',
     source: 'Collaboration',
-    text: 'The ECI calendar lets staff create time blocks and allocate them to the Admin calendar, any individual school calendar, several schools, or all schools at once. Example: an admin visit to Riyadh is added once and shown on both the Admin calendar and the Riyadh school calendar. Partner schools see network-wide events and anything allocated to their school; internal admin-only blocks stay on the team calendar. Messaging remains WhatsApp-style with email notifications for new messages.',
+    text: 'The ECI calendar lets staff create time blocks with an explicit timezone (e.g. Asia/Riyadh), named attendees, and allocation to the Admin calendar, any individual school calendar, several schools, or all schools. Each school has a signature colour on the calendar grid (Riyadh teal, Muscat amber, Doha blue) so visits are easy to spot. Partner schools see network-wide events and anything allocated to their school; admin-only blocks stay on the team calendar.',
   },
   {
     id: 'hpl',

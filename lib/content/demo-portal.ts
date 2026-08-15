@@ -180,6 +180,8 @@ export function demoEvents() {
       all_schools: true,
       location: 'Online',
       created_by: null,
+      timezone: 'Europe/London',
+      attendees: ['Neil Tomalin', 'Heads of School', 'ECI Operations'],
     },
     {
       id: 'e2',
@@ -194,6 +196,8 @@ export function demoEvents() {
       all_schools: false,
       location: 'Ellesmere College Riyadh',
       created_by: null,
+      timezone: 'Asia/Riyadh',
+      attendees: ['Neil Tomalin', 'Riyadh Principal', 'Curriculum Lead'],
     },
     {
       id: 'e3',
@@ -208,6 +212,8 @@ export function demoEvents() {
       all_schools: false,
       location: 'ECI Office',
       created_by: null,
+      timezone: 'Europe/London',
+      attendees: ['Neil Tomalin', 'Board liaison'],
     },
   ]
 }
