@@ -4,16 +4,19 @@ import { Profile, DocumentCategory, Announcement } from '@/lib/types'
 import { FolderOpen, Calendar, MessageSquare, ExternalLink } from 'lucide-react'
 
 export default function SchoolDashboard({
-  profile, categories, announcements
+  profile, categories, announcements, schoolName,
 }: {
   profile: Profile | null
   categories: DocumentCategory[]
   announcements: Announcement[]
+  schoolName?: string
 }) {
   return (
     <div>
       <div className="mb-8">
-        <p className="text-gray-400 text-sm font-jost mb-1">School Partner Portal</p>
+        <p className="text-gray-400 text-sm font-jost mb-1">
+          {schoolName || 'School Partner Portal'}
+        </p>
         <h1 className="font-cormorant text-4xl text-eci-purple-dark">
           Welcome{profile?.full_name ? `, ${profile.full_name.split(' ')[0]}` : ''}
         </h1>

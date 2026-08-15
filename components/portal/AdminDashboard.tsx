@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { CalendarPlus, School as SchoolIcon } from 'lucide-react'
+import { CalendarPlus, School as SchoolIcon, ExternalLink } from 'lucide-react'
 import { School, InvestorEnquiry, Announcement } from '@/lib/types'
 
 const FLAG: Record<string, string> = { China: '🇨🇳', UAE: '🇦🇪', Singapore: '🇸🇬', Kenya: '🇰🇪', Canada: '🇨🇦' }
@@ -100,19 +100,25 @@ export default function AdminDashboard({ schools, enquiries, announcements, docu
           <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-5">Network Schools</h2>
           <div className="space-y-3">
             {schools.map(school => (
-              <div key={school.id} className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
-                <div className="flex items-center gap-3">
+              <div key={school.id} className="flex items-center justify-between gap-3 p-3 rounded-lg bg-gray-50">
+                <div className="flex items-center gap-3 min-w-0">
                   <span className="text-xl">{FLAG[school.country] || '🌍'}</span>
-                  <div>
-                    <p className="font-jost font-semibold text-sm text-gray-800">{school.name}</p>
+                  <div className="min-w-0">
+                    <p className="font-jost font-semibold text-sm text-gray-800 truncate">{school.name}</p>
                     <p className="text-xs text-gray-400 font-jost">{school.city}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  {school.student_count ? <p className="text-xs text-gray-500 font-jost">{school.student_count} students</p> : null}
+                <div className="flex items-center gap-2 shrink-0">
                   <span className={`text-xs font-jost px-2.5 py-1 rounded-full font-semibold ${STATUS_COLOUR[school.status]}`}>
                     {school.status.replace('_', ' ')}
                   </span>
+                  <a
+                    href={`/api/view-school?school=${encodeURIComponent(school.id)}&next=/school`}
+                    className="inline-flex items-center gap-1 text-xs font-jost font-semibold text-eci-purple-dark bg-white border border-eci-gold/50 hover:bg-eci-gold-light px-2.5 py-1.5 rounded-lg transition-colors"
+                  >
+                    <ExternalLink size={12} />
+                    Portal
+                  </a>
                 </div>
               </div>
             ))}

@@ -15,9 +15,19 @@ interface PortalShellProps {
   navItems: NavItem[]
   children: React.ReactNode
   activeSection?: string
+  /** When set, top bar offers a one-click return to Super Admin without signing out. */
+  staffReturnHref?: string | null
 }
 
-export default function PortalShell({ profile, portalName, portalAccent, navItems, children, activeSection }: PortalShellProps) {
+export default function PortalShell({
+  profile,
+  portalName,
+  portalAccent,
+  navItems,
+  children,
+  activeSection,
+  staffReturnHref = null,
+}: PortalShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const router = useRouter()
 
@@ -126,9 +136,19 @@ export default function PortalShell({ profile, portalName, portalAccent, navItem
               </span>
             </div>
           </div>
-          <Link href="/" className="text-xs font-jost text-gray-400 hover:text-eci-purple transition-colors">
-            ← Back to ECI Website
-          </Link>
+          <div className="flex items-center gap-3">
+            {staffReturnHref && (
+              <Link
+                href={staffReturnHref}
+                className="text-xs font-jost font-semibold text-eci-purple-dark bg-eci-gold-light/60 hover:bg-eci-gold-light px-3 py-1.5 rounded-lg transition-colors"
+              >
+                ← Super Admin
+              </Link>
+            )}
+            <Link href="/" className="text-xs font-jost text-gray-400 hover:text-eci-purple transition-colors">
+              ← ECI Website
+            </Link>
+          </div>
         </header>
 
         <main className="flex-1 p-6 lg:p-8">{children}</main>

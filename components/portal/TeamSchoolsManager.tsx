@@ -15,6 +15,7 @@ import {
   Calendar,
   MessageSquare,
   Plus,
+  ExternalLink,
 } from 'lucide-react'
 
 const NAV_ITEMS = [
@@ -155,9 +156,18 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
               <p className="font-jost font-semibold text-gray-800">{school.name}</p>
               <p className="text-xs text-gray-400 font-jost">{school.city}, {school.country}</p>
             </div>
-            <span className="text-xs font-jost px-2.5 py-1 bg-eci-purple-light text-eci-purple capitalize w-fit">
-              {school.status.replace('_', ' ')}
-            </span>
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-jost px-2.5 py-1 bg-eci-purple-light text-eci-purple capitalize w-fit">
+                {school.status.replace('_', ' ')}
+              </span>
+              <a
+                href={`/api/view-school?school=${encodeURIComponent(school.id)}&next=/school`}
+                className="inline-flex items-center gap-1.5 text-xs font-jost font-semibold text-eci-purple-dark bg-eci-gold hover:bg-eci-gold-light px-3 py-2 rounded-lg transition-colors"
+              >
+                <ExternalLink size={13} />
+                Open portal
+              </a>
+            </div>
           </div>
         ))}
       </div>

@@ -1,25 +1,8 @@
-import PortalShell from '@/components/portal/PortalShell'
+import SchoolPortalShell from '@/components/portal/SchoolPortalShell'
 import SchoolDashboard from '@/components/portal/SchoolDashboard'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { DEMO_CATEGORIES } from '@/lib/content/demo-portal'
-import {
-  Home,
-  FolderOpen,
-  Calendar,
-  MessageSquare,
-  Bell,
-  HelpCircle,
-} from 'lucide-react'
-
-const NAV_ITEMS = [
-  { label: 'Dashboard', href: '/school', icon: <Home size={16} /> },
-  { label: 'Documents', href: '/school/documents', icon: <FolderOpen size={16} /> },
-  { label: 'Calendar', href: '/school/calendar', icon: <Calendar size={16} /> },
-  { label: 'Messages', href: '/school/messages', icon: <MessageSquare size={16} /> },
-  { label: 'Announcements', href: '/school/announcements', icon: <Bell size={16} /> },
-  { label: 'Support', href: '/school/support', icon: <HelpCircle size={16} /> },
-]
 
 export default async function SchoolPage() {
   const { profile, supabase, preview } = await requirePortalAccess(
@@ -52,15 +35,18 @@ export default async function SchoolPage() {
   }
 
   return (
-    <PortalShell
-      profile={profile}
-      portalName="School Partner Portal"
-      portalAccent="#4C9A6B"
-      navItems={NAV_ITEMS}
-      activeSection="/school"
-    >
-      <SchoolDashboard profile={profile} categories={categories} announcements={announcements} />
-      <PortalChatbot audience="school" />
-    </PortalShell>
+    <SchoolPortalShell profile={profile} activeSection="/school">
+      {ctx => (
+        <>
+          <SchoolDashboard
+            profile={profile}
+            categories={categories}
+            announcements={announcements}
+            schoolName={ctx.schoolName}
+          />
+          <PortalChatbot audience="school" />
+        </>
+      )}
+    </SchoolPortalShell>
   )
 }
