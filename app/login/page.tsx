@@ -1,9 +1,59 @@
 'use client'
-import { useState } from 'react'
+
+import { Suspense, useMemo, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { portalForRole } from '@/lib/auth/roles'
 
-export default function LoginPage() {
+type AudienceHint = 'investor' | 'school' | 'team'
+
+const AUDIENCE_COPY: Record<
+  AudienceHint,
+  { headline: string; body: string; bullets: string[] }
+> = {
+  investor: {
+    headline: 'Investment &\npartnership access',
+    body: 'Secure access to investor briefings, due-diligence materials, and expansion opportunities across the ECI network.',
+    bullets: [
+      'Market opportunity and partnership models',
+      'Marketing packs and due-diligence library',
+      'Direct channel to the ECI leadership team',
+    ],
+  },
+  school: {
+    headline: 'School partner\nresources',
+    body: 'Your gateway to network archives, setup guidance, calendar collaboration, and messaging with the ECI team.',
+    bullets: [
+      'Network and school document archives',
+      'Shared calendar for visits and training',
+      'WhatsApp-style messaging with ECI staff',
+    ],
+  },
+  team: {
+    headline: 'ECI team\nworkspace',
+    body: 'Internal tools for staff, board, and administrators — schools, documents, calendars, and governance.',
+    bullets: [
+      'Cross-network school and document oversight',
+      'Team calendar and internal messaging',
+      'Admin and governance dashboards',
+    ],
+  },
+}
+
+function resolveAudience(raw: string | null): AudienceHint {
+  if (raw === 'investor' || raw === 'team' || raw === 'school') return raw
+  return 'school'
+}
+
+function LoginForm() {
+  const searchParams = useSearchParams()
+  const audience = useMemo(
+    () => resolveAudience(searchParams.get('audience')),
+    [searchParams]
+  )
+  const copy = AUDIENCE_COPY[audience]
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -23,7 +73,6 @@ export default function LoginPage() {
       return
     }
 
-    // Use the access token directly from sign-in — no session/cookie dependency
     const accessToken = data.session?.access_token
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_my_role`,
@@ -31,25 +80,23 @@ export default function LoginPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-          'Authorization': `Bearer ${accessToken}`,
+          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({}),
       }
     )
     const role = (await res.text()).replace(/"/g, '')
-
-    if (role === 'admin' || role === 'board_member') {
-      window.location.href = '/admin'
-    } else if (role === 'investor') {
-      window.location.href = '/investor'
-    } else {
-      window.location.href = '/school'
-    }
+    window.location.href = portalForRole(role)
   }
 
+  const headlineParts = copy.headline.split('\n')
+
   return (
-    <div className="min-h-screen flex" style={{ background: 'linear-gradient(135deg, #2D1654 0%, #4C2585 100%)' }}>
+    <div
+      className="min-h-screen flex"
+      style={{ background: 'linear-gradient(135deg, #2D1654 0%, #4C2585 100%)' }}
+    >
       <div className="hidden lg:flex lg:w-1/2 items-center justify-center p-16">
         <div>
           <Link href="/" className="flex items-center gap-3 mb-12">
@@ -57,20 +104,28 @@ export default function LoginPage() {
               <span className="font-cormorant font-bold text-eci-purple-dark text-xl">E</span>
             </div>
             <div>
-              <p className="font-cormorant font-semibold text-white text-xl leading-none">Ellesmere College</p>
+              <p className="font-cormorant font-semibold text-white text-xl leading-none">
+                Ellesmere College
+              </p>
               <p className="text-eci-gold text-xs tracking-widest uppercase">International</p>
             </div>
           </Link>
           <h2 className="font-cormorant font-light text-white text-5xl leading-tight mb-6">
-            Welcome to<br /><em className="text-eci-gold">the ECI Portal</em>
+            {headlineParts[0]}
+            {headlineParts[1] && (
+              <>
+                <br />
+                <em className="text-eci-gold">{headlineParts[1]}</em>
+              </>
+            )}
           </h2>
-          <p className="text-white/60 font-jost leading-relaxed max-w-sm">
-            Your secure gateway to partnership resources, governance tools, and the ECI school network.
-          </p>
+          <p className="text-white/60 font-jost leading-relaxed max-w-sm">{copy.body}</p>
           <div className="mt-12 space-y-4 text-sm font-jost text-white/50">
-            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> Investor &amp; partnership enquiry portal</p>
-            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> School partner resource library</p>
-            <p className="flex gap-3 items-start"><span className="text-eci-gold mt-0.5">→</span> Admin &amp; governance dashboard</p>
+            {copy.bullets.map(item => (
+              <p key={item} className="flex gap-3 items-start">
+                <span className="text-eci-gold mt-0.5">→</span> {item}
+              </p>
+            ))}
           </div>
         </div>
       </div>
@@ -81,11 +136,17 @@ export default function LoginPage() {
             <div className="w-9 h-9 bg-eci-purple rounded-full flex items-center justify-center">
               <span className="font-cormorant font-bold text-white text-base">E</span>
             </div>
-            <span className="font-cormorant font-semibold text-eci-purple-dark">Ellesmere College International</span>
+            <span className="font-cormorant font-semibold text-eci-purple-dark">
+              Ellesmere College International
+            </span>
           </div>
 
           <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign In</h3>
-          <p className="text-gray-400 text-sm font-jost mb-8">Access your ECI portal</p>
+          <p className="text-gray-400 text-sm font-jost mb-8">
+            {audience === 'investor' && 'Access the investor portal'}
+            {audience === 'team' && 'Access the ECI team portal'}
+            {audience === 'school' && 'Access your school partner portal'}
+          </p>
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
@@ -129,7 +190,10 @@ export default function LoginPage() {
           <div className="mt-8 pt-8 border-t border-gray-100">
             <p className="text-xs text-gray-400 font-jost text-center">
               Not yet registered?{' '}
-              <a href="mailto:international@ellesmere.com" className="text-eci-purple hover:underline">
+              <a
+                href="mailto:international@ellesmere.com"
+                className="text-eci-purple hover:underline"
+              >
                 Contact ECI
               </a>{' '}
               to request access.
@@ -138,5 +202,22 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div
+          className="min-h-screen flex items-center justify-center"
+          style={{ background: 'linear-gradient(135deg, #2D1654 0%, #4C2585 100%)' }}
+        >
+          <p className="text-white/70 font-jost text-sm">Loading…</p>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   )
 }
