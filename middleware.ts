@@ -34,8 +34,16 @@ export async function middleware(request: NextRequest) {
 
   const { data: { user } } = await supabase.auth.getUser()
 
-  const protectedPrefixes = ['/investor', '/school', '/admin', '/team']
-  const isProtected = protectedPrefixes.some(p => path.startsWith(p))
+  // Use path segment boundaries so /investors (public) is not treated as /investor
+  const isProtected =
+    path === '/investor' ||
+    path.startsWith('/investor/') ||
+    path === '/school' ||
+    path.startsWith('/school/') ||
+    path === '/admin' ||
+    path.startsWith('/admin/') ||
+    path === '/team' ||
+    path.startsWith('/team/')
 
   if (isProtected && !user) {
     const url = request.nextUrl.clone()
