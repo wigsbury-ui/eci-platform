@@ -64,30 +64,42 @@ function LoginForm() {
     setLoading(true)
     setError('')
 
-    const supabase = createClient()
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-
-    if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
-    }
-
-    const accessToken = data.session?.access_token
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_my_role`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({}),
+    try {
+      if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+        // Preview without Supabase: route by audience hint
+        window.location.href =
+          audience === 'investor' ? '/investor' : audience === 'team' ? '/team' : '/school'
+        return
       }
-    )
-    const role = (await res.text()).replace(/"/g, '')
-    window.location.href = portalForRole(role)
+
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+
+      if (error) {
+        setError(error.message)
+        setLoading(false)
+        return
+      }
+
+      const accessToken = data.session?.access_token
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/rpc/get_my_role`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({}),
+        }
+      )
+      const role = (await res.text()).replace(/"/g, '')
+      window.location.href = portalForRole(role)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unable to sign in')
+      setLoading(false)
+    }
   }
 
   const headlineParts = copy.headline.split('\n')

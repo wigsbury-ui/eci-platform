@@ -1,6 +1,16 @@
-export type UserRole = 'investor' | 'school_partner' | 'admin' | 'board_member'
+export type UserRole =
+  | 'investor'
+  | 'school_partner'
+  | 'employee'
+  | 'board_member'
+  | 'admin'
+  | 'super_admin'
+
 export type SchoolStatus = 'prospect' | 'setting_up' | 'active' | 'paused'
-export type DocType = 'guidance' | 'template' | 'policy' | 'form' | 'report'
+export type DocType = 'guidance' | 'template' | 'policy' | 'form' | 'report' | 'marketing' | 'due_diligence'
+export type DocScope = 'network' | 'school' | 'investor_marketing' | 'investor_dd' | 'team'
+export type EventVisibility = 'network' | 'school' | 'internal'
+export type ThreadType = 'direct' | 'school_channel' | 'team'
 
 export interface Profile {
   id: string
@@ -30,6 +40,7 @@ export interface School {
   description: string | null
   short_bio: string | null
   is_public: boolean
+  image_url?: string | null
 }
 
 export interface DocumentCategory {
@@ -47,6 +58,10 @@ export interface Document {
   category_id: string | null
   doc_type: DocType
   access_level: string
+  scope: DocScope
+  school_id: string | null
+  folder_path: string | null
+  parent_folder_id: string | null
   file_url: string | null
   file_name: string | null
   file_size_kb: number | null
@@ -77,4 +92,44 @@ export interface InvestorEnquiry {
   message: string | null
   status: string
   created_at: string
+}
+
+export interface CalendarEvent {
+  id: string
+  title: string
+  description: string | null
+  starts_at: string
+  ends_at: string
+  visibility: EventVisibility
+  school_id: string | null
+  location: string | null
+  created_by: string | null
+}
+
+export interface MessageThread {
+  id: string
+  thread_type: ThreadType
+  title: string | null
+  school_id: string | null
+  updated_at: string
+}
+
+export interface Message {
+  id: string
+  thread_id: string
+  sender_id: string
+  body: string
+  created_at: string
+  attachment_url?: string | null
+}
+
+export interface ChatCitation {
+  title: string
+  source: string
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
+  citations?: ChatCitation[]
 }

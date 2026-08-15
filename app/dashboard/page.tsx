@@ -1,9 +1,13 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient, hasSupabaseEnv } from '@/lib/supabase/server'
 import { portalForRole } from '@/lib/auth/roles'
 import { redirect } from 'next/navigation'
 
 export default async function DashboardRedirect() {
+  if (!hasSupabaseEnv()) redirect('/login')
+
   const supabase = await createClient()
+  if (!supabase) redirect('/login')
+
   const {
     data: { user },
   } = await supabase.auth.getUser()

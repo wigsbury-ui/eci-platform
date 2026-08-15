@@ -1,61 +1,106 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
-export default function PublicNav() {
-  const [scrolled, setScrolled] = useState(false)
+const LINKS = [
+  { label: 'About', href: '/#about' },
+  { label: 'Our Schools', href: '/#schools' },
+  { label: 'Expansion', href: '/#expansion' },
+  { label: 'Investors', href: '/investors' },
+  { label: 'Contact', href: '/#contact' },
+]
+
+export default function PublicNav({ solid = false }: { solid?: boolean }) {
+  const [scrolled, setScrolled] = useState(solid)
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 20)
+    if (solid) return
+    const handler = () => setScrolled(window.scrollY > 24)
+    handler()
     window.addEventListener('scroll', handler)
     return () => window.removeEventListener('scroll', handler)
-  }, [])
+  }, [solid])
+
+  const dark = solid || scrolled
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-eci-purple-dark shadow-lg py-3' : 'bg-transparent py-5'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        dark ? 'bg-[#2D1654]/95 backdrop-blur-md shadow-lg py-3' : 'bg-transparent py-5'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-eci-gold rounded-full flex items-center justify-center">
-            <span className="font-cormorant font-bold text-eci-purple-dark text-lg">E</span>
-          </div>
+        <Link href="/" className="flex items-center gap-3 group">
+          <Image
+            src="/images/brand/eci-crest.png"
+            alt="Ellesmere College"
+            width={44}
+            height={44}
+            className="rounded-full bg-white/10 p-0.5"
+            priority
+          />
           <div>
-            <p className="font-cormorant font-semibold text-white text-lg leading-none">Ellesmere College</p>
-            <p className="text-eci-gold text-xs tracking-widest uppercase leading-none">International</p>
+            <p className="font-cormorant font-semibold text-white text-lg leading-none tracking-wide">
+              Ellesmere College
+            </p>
+            <p className="text-[#C8A84B] text-[10px] tracking-[0.28em] uppercase leading-none mt-1">
+              International
+            </p>
           </div>
         </Link>
 
-        <div className="hidden md:flex items-center gap-8">
-          {[['About ECI', '#about'], ['Our Schools', '#schools'], ['Partnership', '#partnership'], ['Contact', '#contact']].map(([label, href]) => (
-            <a key={label} href={href} className="text-white/80 hover:text-eci-gold text-sm tracking-wide transition-colors font-jost">
+        <div className="hidden lg:flex items-center gap-8">
+          {LINKS.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              className="text-white/80 hover:text-[#C8A84B] text-sm tracking-wide transition-colors font-jost"
+            >
               {label}
-            </a>
+            </Link>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/login" className="bg-eci-gold text-eci-purple-dark px-5 py-2 rounded text-sm font-semibold font-jost hover:bg-yellow-300 transition-colors">
-            Portal Login
+        <div className="hidden lg:flex items-center gap-3">
+          <Link
+            href="/login?audience=school"
+            className="text-white/80 hover:text-white text-sm font-jost px-3 py-2"
+          >
+            School portal
+          </Link>
+          <Link
+            href="/login"
+            className="bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm text-sm font-semibold font-jost hover:bg-[#F0E4B0] transition-colors"
+          >
+            Portal login
           </Link>
         </div>
 
-        <button className="md:hidden text-white" onClick={() => setOpen(!open)}>
+        <button className="lg:hidden text-white" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden bg-eci-purple-dark border-t border-white/10 px-6 py-4 space-y-3">
-          {[['About ECI', '#about'], ['Our Schools', '#schools'], ['Partnership', '#partnership'], ['Contact', '#contact']].map(([label, href]) => (
-            <a key={label} href={href} onClick={() => setOpen(false)} className="block text-white/80 hover:text-eci-gold py-2 text-sm font-jost">
+        <div className="lg:hidden bg-[#2D1654] border-t border-white/10 px-6 py-4 space-y-1">
+          {LINKS.map(({ label, href }) => (
+            <Link
+              key={label}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="block text-white/80 hover:text-[#C8A84B] py-2.5 text-sm font-jost"
+            >
               {label}
-            </a>
+            </Link>
           ))}
-          <Link href="/login" className="block bg-eci-gold text-eci-purple-dark px-5 py-2 rounded text-sm font-semibold text-center mt-4">
-            Portal Login
+          <Link
+            href="/login"
+            className="block bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm text-sm font-semibold text-center mt-3"
+          >
+            Portal login
           </Link>
         </div>
       )}

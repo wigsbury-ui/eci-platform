@@ -1,48 +1,89 @@
-export default function HeroSection() {
-  return (
-    <section className="relative min-h-screen flex items-center" style={{ background: 'linear-gradient(135deg, #2D1654 0%, #4C2585 50%, #6B3DA8 100%)' }}>
-      <div className="absolute inset-0 opacity-10" style={{
-        backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(200,168,75,0.3) 40px, rgba(200,168,75,0.3) 41px)',
-      }} />
+'use client'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
-      <div className="relative max-w-7xl mx-auto px-6 py-32 grid md:grid-cols-2 gap-16 items-center">
-        <div>
-          <p className="text-eci-gold text-sm tracking-[0.3em] uppercase mb-6 font-jost">Ellesmere College International</p>
-          <h1 className="font-cormorant font-light text-white leading-tight mb-6" style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}>
-            British Excellence,<br />
-            <em className="font-normal text-eci-gold">Globally Delivered</em>
+export default function HeroSection() {
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setReady(true))
+    return () => cancelAnimationFrame(t)
+  }, [])
+
+  return (
+    <section className="relative min-h-[100svh] flex items-end overflow-hidden">
+      <Image
+        src="/images/campus/hero-middle-east.jpg"
+        alt="Ellesmere College International campus"
+        fill
+        priority
+        className={`object-cover transition-transform duration-[2.4s] ease-out ${ready ? 'scale-100' : 'scale-110'}`}
+        sizes="100vw"
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(105deg, rgba(26,18,40,0.88) 0%, rgba(45,22,84,0.72) 42%, rgba(45,22,84,0.35) 70%, rgba(26,18,40,0.45) 100%)',
+        }}
+      />
+      <div
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse at 20% 80%, rgba(200,168,75,0.25), transparent 50%)',
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6 pb-24 pt-40 w-full">
+        <div
+          className={`max-w-2xl transition-all duration-1000 ${
+            ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+          }`}
+        >
+          <Image
+            src="/images/brand/eci-crest.png"
+            alt=""
+            width={72}
+            height={72}
+            className="mb-8 drop-shadow-lg"
+            priority
+          />
+          <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-5 font-jost font-medium">
+            Ellesmere College International
+          </p>
+          <h1
+            className="font-cormorant font-light text-white leading-[1.05] mb-6"
+            style={{ fontSize: 'clamp(2.75rem, 7vw, 5rem)' }}
+          >
+            British excellence.
+            <br />
+            <em className="text-[#C8A84B] font-normal">Globally delivered.</em>
           </h1>
-          <p className="text-white/70 text-lg leading-relaxed mb-10 font-jost font-light">
-            ECI partners with schools worldwide to deliver the trusted Ellesmere College standard — 140 years of British educational heritage, brought to your community.
+          <p className="text-white/75 text-lg leading-relaxed mb-10 font-jost font-light max-w-xl">
+            From our Shropshire heritage campus to Ellesmere College Riyadh — and soon Doha —
+            we partner with investors and operators to bring a Life:Ready education to new communities.
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href="#schools" className="bg-eci-gold text-eci-purple-dark px-7 py-3 rounded font-jost font-semibold text-sm hover:bg-yellow-300 transition-colors">
-              Our Schools
-            </a>
-            <a href="#partnership" className="border border-white/40 text-white px-7 py-3 rounded font-jost text-sm hover:border-eci-gold hover:text-eci-gold transition-colors">
-              Partner With Us
+            <Link
+              href="/investors"
+              className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+            >
+              Investment partners
+            </Link>
+            <a
+              href="#schools"
+              className="border border-white/45 text-white px-8 py-3.5 rounded-sm font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+            >
+              Our schools
             </a>
           </div>
         </div>
-
-        <div className="hidden md:grid grid-cols-2 gap-4">
-          {[
-            { number: '5', label: 'Network Schools' },
-            { number: '900+', label: 'Students Globally' },
-            { number: '140', label: 'Years of Heritage' },
-            { number: '4', label: 'Continents' },
-          ].map(({ number, label }) => (
-            <div key={label} className="bg-white/10 backdrop-blur rounded-lg p-6 border border-white/20">
-              <p className="font-cormorant text-eci-gold text-5xl font-light">{number}</p>
-              <p className="text-white/70 text-sm mt-1 font-jost">{label}</p>
-            </div>
-          ))}
-        </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-1.5">
-          <div className="w-1 h-2 bg-white/50 rounded-full" />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block animate-bounce opacity-60">
+        <div className="w-5 h-8 border border-white/40 rounded-full flex items-start justify-center p-1">
+          <div className="w-1 h-2 bg-white/70 rounded-full" />
         </div>
       </div>
     </section>

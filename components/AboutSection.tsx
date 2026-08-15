@@ -1,33 +1,55 @@
+import Image from 'next/image'
+import { HERITAGE } from '@/lib/content/network'
+
 export default function AboutSection() {
   return (
-    <section id="about" className="py-28 bg-eci-cream">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-20 items-center">
-          <div>
-            <p className="text-eci-purple text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">About ECI</p>
-            <h2 className="font-cormorant font-light text-eci-purple-dark leading-tight mb-6" style={{ fontSize: 'clamp(2rem, 3vw, 3rem)' }}>
-              The ECI Standard.<br />
-              <em>Trusted. Transferable. Transformative.</em>
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-6 font-jost">
-              Ellesmere College International (ECI) is the global licensing and partnership arm of Ellesmere College, Shropshire — one of England&apos;s most respected independent boarding schools, founded in 1884.
-            </p>
-            <p className="text-gray-600 leading-relaxed font-jost">
-              Through carefully selected partnerships, ECI extends Ellesmere&apos;s educational philosophy, curriculum frameworks, and quality standards to schools around the world — giving students access to a proven British education wherever they are.
-            </p>
-          </div>
+    <section id="about" className="relative py-28 overflow-hidden bg-[#F8F4EF]">
+      <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
+        <Image
+          src="/images/campus/uk-160-acre.jpg"
+          alt="Ellesmere College Shropshire campus"
+          fill
+          className="object-cover"
+          sizes="50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EF] via-[#F8F4EF]/70 to-transparent" />
+      </div>
 
-          <div className="space-y-6">
+      <div className="relative max-w-7xl mx-auto px-6">
+        <div className="max-w-xl">
+          <p className="text-[#4C2585] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">
+            About ECI
+          </p>
+          <h2
+            className="font-cormorant font-light text-[#2D1654] leading-tight mb-6"
+            style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
+          >
+            140 years of Ellesmere.
+            <br />
+            <em>A growing international family.</em>
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-5 font-jost">
+            Ellesmere College International is the global licensing and partnership arm of Ellesmere
+            College, Shropshire — founded in {HERITAGE.founded} on a {HERITAGE.campusAcres}-acre
+            campus in the English countryside. Our philosophy is simple and demanding:{' '}
+            <strong className="text-[#2D1654] font-medium">{HERITAGE.tagline}</strong> —
+            academic excellence with character, confidence and care.
+          </p>
+          <p className="text-gray-600 leading-relaxed mb-10 font-jost">
+            Through carefully selected partnerships we extend Ellesmere&apos;s curriculum frameworks,
+            High Performance Learning culture, and quality standards to schools across the Middle East
+            and beyond — so students receive a trusted British education wherever they are.
+          </p>
+
+          <div className="grid sm:grid-cols-3 gap-6">
             {[
-              { title: 'Curriculum Excellence', body: 'Full support for IGCSE, A-Level, and IB pathways, with Ellesmere-developed schemes of work and assessment frameworks.' },
-              { title: 'Quality Assurance', body: 'Regular inspection visits, self-evaluation frameworks, and direct oversight from ECI leadership ensure consistent standards.' },
-              { title: 'Global Network', body: 'Access to a growing community of ECI school leaders, shared professional development, and a common identity recognised worldwide.' },
-            ].map(({ title, body }) => (
-              <div key={title} className="flex gap-5 p-6 bg-white rounded-lg border-l-4 border-eci-gold shadow-sm">
-                <div>
-                  <h3 className="font-cormorant font-semibold text-eci-purple-dark text-xl mb-2">{title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed font-jost">{body}</p>
-                </div>
+              { k: '1884', v: 'Founded in Shropshire' },
+              { k: 'HPL', v: 'World Class School' },
+              { k: '30+', v: 'Nationalities at UK campus' },
+            ].map(item => (
+              <div key={item.k} className="border-t border-[#C8A84B] pt-4">
+                <p className="font-cormorant text-3xl text-[#4C2585]">{item.k}</p>
+                <p className="text-sm text-gray-500 font-jost mt-1">{item.v}</p>
               </div>
             ))}
           </div>

@@ -1,30 +1,55 @@
-import { createClient } from '@/lib/supabase/server'
-import { redirect } from 'next/navigation'
 import PortalShell from '@/components/portal/PortalShell'
 import SchoolDashboard from '@/components/portal/SchoolDashboard'
-import { Home, FolderOpen, CheckSquare, Bell, HelpCircle } from 'lucide-react'
+import PortalChatbot from '@/components/portal/PortalChatbot'
+import { requirePortalAccess } from '@/lib/supabase/session'
+import { DEMO_CATEGORIES } from '@/lib/content/demo-portal'
+import {
+  Home,
+  FolderOpen,
+  Calendar,
+  MessageSquare,
+  Bell,
+  HelpCircle,
+} from 'lucide-react'
 
 const NAV_ITEMS = [
   { label: 'Dashboard', href: '/school', icon: <Home size={16} /> },
-  { label: 'Document Library', href: '/school/documents', icon: <FolderOpen size={16} /> },
-  { label: 'Setup Checklist', href: '/school/setup', icon: <CheckSquare size={16} /> },
+  { label: 'Documents', href: '/school/documents', icon: <FolderOpen size={16} /> },
+  { label: 'Calendar', href: '/school/calendar', icon: <Calendar size={16} /> },
+  { label: 'Messages', href: '/school/messages', icon: <MessageSquare size={16} /> },
   { label: 'Announcements', href: '/school/announcements', icon: <Bell size={16} /> },
   { label: 'Support', href: '/school/support', icon: <HelpCircle size={16} /> },
 ]
 
 export default async function SchoolPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect('/login')
+  const { profile, supabase, preview } = await requirePortalAccess(
+    ['school_partner', 'employee', 'admin', 'board_member', 'super_admin'],
+    'school_partner'
+  )
 
-  const { data: profile } = await supabase.from('profiles').select('*').eq('id', user.id).single()
+  let categories = DEMO_CATEGORIES
+  let announcements: { id: string; title: string; body: string; audience: null; is_pinned: boolean; published_at: string }[] = [
+    {
+      id: 'a1',
+      title: 'Doha campus approaching launch',
+      body: 'Please note network communications will include Doha onboarding resources over the coming term.',
+      audience: null,
+      is_pinned: true,
+      published_at: new Date().toISOString(),
+    },
+  ]
 
-  const { data: categories } = await supabase.from('document_categories').select('*').order('sort_order')
-  const { data: announcements } = await supabase
-    .from('announcements').select('*')
-    .contains('audience', ['school_partner'])
-    .order('is_pinned', { ascending: false })
-    .limit(5)
+  if (supabase && !preview) {
+    const { data: cats } = await supabase.from('document_categories').select('*').order('sort_order')
+    if (cats?.length) categories = cats
+    const { data: anns } = await supabase
+      .from('announcements')
+      .select('*')
+      .contains('audience', ['school_partner'])
+      .order('is_pinned', { ascending: false })
+      .limit(5)
+    if (anns?.length) announcements = anns
+  }
 
   return (
     <PortalShell
@@ -34,7 +59,8 @@ export default async function SchoolPage() {
       navItems={NAV_ITEMS}
       activeSection="/school"
     >
-      <SchoolDashboard profile={profile} categories={categories || []} announcements={announcements || []} />
+      <SchoolDashboard profile={profile} categories={categories} announcements={announcements} />
+      <PortalChatbot audience="school" />
     </PortalShell>
   )
 }
