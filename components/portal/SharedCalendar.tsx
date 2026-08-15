@@ -76,7 +76,7 @@ export default function SharedCalendar({
   const [localEvents, setLocalEvents] = useState<CalendarEvent[]>(() =>
     initialEvents.map(e => normalizeEvent(e))
   )
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(() => canCreate && mode === 'team')
   const [saving, setSaving] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
 

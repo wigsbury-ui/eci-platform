@@ -51,9 +51,8 @@ function seedSchools(): School[] {
 
 export default function TeamSchoolsClient({ profile }: { profile: Profile | null }) {
   const [schools, setSchools] = useState<School[]>(seedSchools())
-  const [showForm, setShowForm] = useState(false)
+  const [showForm, setShowForm] = useState(true)
   const [form, setForm] = useState({ name: '', city: '', country: '', status: 'prospect' as School['status'] })
-  const canManage = profile?.role === 'super_admin' || profile?.role === 'admin'
 
   const addSchool = (e: React.FormEvent) => {
     e.preventDefault()
@@ -97,18 +96,23 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
             Add and manage partner schools. Expansion targets appear below for pipeline visibility.
           </p>
         </div>
-        {canManage && (
-          <button
-            onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 bg-eci-purple text-white px-4 py-2.5 text-sm font-jost font-semibold hover:bg-eci-purple-dark"
-          >
-            <Plus size={16} /> Add school
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => setShowForm(v => !v)}
+          className="flex items-center gap-2 bg-eci-gold text-eci-purple-dark px-4 py-2.5 text-sm font-jost font-semibold hover:bg-eci-gold-light transition-colors rounded-lg"
+        >
+          <Plus size={16} /> {showForm ? 'Hide form' : 'Add school'}
+        </button>
       </div>
 
       {showForm && (
-        <form onSubmit={addSchool} className="bg-white border border-gray-100 p-6 mb-8 grid md:grid-cols-2 gap-4">
+        <form onSubmit={addSchool} className="bg-white border border-eci-gold/40 rounded-xl p-6 mb-8 grid md:grid-cols-2 gap-4">
+          <div className="md:col-span-2">
+            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Add a school</h2>
+            <p className="text-sm text-gray-400 font-jost mt-1">
+              New schools appear in the network list and can be targeted on the calendar.
+            </p>
+          </div>
           {(['name', 'city', 'country'] as const).map(field => (
             <div key={field}>
               <label className="block text-xs font-jost uppercase text-gray-500 mb-1">{field}</label>
@@ -116,7 +120,7 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
                 required
                 value={form[field]}
                 onChange={e => setForm({ ...form, [field]: e.target.value })}
-                className="w-full border border-gray-200 px-3 py-2 text-sm font-jost"
+                className="w-full border border-gray-200 px-3 py-2 text-sm font-jost rounded-lg focus:outline-none focus:border-eci-gold"
               />
             </div>
           ))}
@@ -125,7 +129,7 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
             <select
               value={form.status}
               onChange={e => setForm({ ...form, status: e.target.value as School['status'] })}
-              className="w-full border border-gray-200 px-3 py-2 text-sm font-jost"
+              className="w-full border border-gray-200 px-3 py-2 text-sm font-jost rounded-lg focus:outline-none focus:border-eci-gold"
             >
               <option value="prospect">Prospect</option>
               <option value="setting_up">Setting up</option>
@@ -134,8 +138,12 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
             </select>
           </div>
           <div className="md:col-span-2 flex gap-3">
-            <button type="submit" className="bg-eci-purple text-white px-4 py-2 text-sm font-jost font-semibold">Save</button>
-            <button type="button" onClick={() => setShowForm(false)} className="text-sm font-jost text-gray-500">Cancel</button>
+            <button type="submit" className="bg-eci-gold text-eci-purple-dark px-4 py-2 text-sm font-jost font-semibold rounded-lg hover:bg-eci-gold-light">
+              Save school
+            </button>
+            <button type="button" onClick={() => setShowForm(false)} className="text-sm font-jost text-gray-500">
+              Cancel
+            </button>
           </div>
         </form>
       )}

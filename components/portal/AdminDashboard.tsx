@@ -1,4 +1,6 @@
 'use client'
+import Link from 'next/link'
+import { CalendarPlus, School as SchoolIcon } from 'lucide-react'
 import { School, InvestorEnquiry, Announcement } from '@/lib/types'
 
 const FLAG: Record<string, string> = { China: '🇨🇳', UAE: '🇦🇪', Singapore: '🇸🇬', Kenya: '🇰🇪', Canada: '🇨🇦' }
@@ -24,9 +26,54 @@ export default function AdminDashboard({ schools, enquiries, announcements, docu
 
   return (
     <div>
-      <div className="mb-8">
-        <p className="text-gray-400 text-sm font-jost mb-1">Admin & Governance</p>
-        <h1 className="font-cormorant text-4xl text-eci-purple-dark">ECI Network Dashboard</h1>
+      <div className="mb-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div>
+          <p className="text-gray-400 text-sm font-jost mb-1">Admin & Governance</p>
+          <h1 className="font-cormorant text-4xl text-eci-purple-dark">ECI Network Dashboard</h1>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/team/calendar"
+            className="inline-flex items-center gap-2 bg-eci-gold text-eci-purple-dark px-4 py-2.5 rounded-lg text-sm font-jost font-semibold hover:bg-eci-gold-light transition-colors"
+          >
+            <CalendarPlus size={16} />
+            Add calendar block
+          </Link>
+          <Link
+            href="/team/schools"
+            className="inline-flex items-center gap-2 border border-eci-gold text-eci-purple-dark px-4 py-2.5 rounded-lg text-sm font-jost font-semibold hover:bg-eci-gold-light/40 transition-colors"
+          >
+            <SchoolIcon size={16} />
+            Add school
+          </Link>
+        </div>
+      </div>
+
+      <div className="mb-8 grid sm:grid-cols-2 gap-4">
+        <Link
+          href="/team/calendar"
+          className="block bg-white border border-eci-gold/35 rounded-xl p-5 hover:border-eci-gold transition-colors"
+        >
+          <p className="text-[10px] font-jost font-semibold uppercase tracking-wide text-eci-gold mb-1">
+            Calendar
+          </p>
+          <p className="font-cormorant text-2xl text-eci-purple-dark">Create a time block</p>
+          <p className="text-sm text-gray-500 font-jost mt-1">
+            Book visits on Admin and any school calendar in one step — e.g. Admin + Riyadh.
+          </p>
+        </Link>
+        <Link
+          href="/team/schools"
+          className="block bg-white border border-gray-100 rounded-xl p-5 hover:border-eci-gold/50 transition-colors"
+        >
+          <p className="text-[10px] font-jost font-semibold uppercase tracking-wide text-eci-gold mb-1">
+            Schools
+          </p>
+          <p className="font-cormorant text-2xl text-eci-purple-dark">Add a network school</p>
+          <p className="text-sm text-gray-500 font-jost mt-1">
+            Register a partner campus so it appears in the network and calendar targets.
+          </p>
+        </Link>
       </div>
 
       {/* KPI strip */}
