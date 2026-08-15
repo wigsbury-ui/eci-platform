@@ -13,7 +13,7 @@ import {
 } from '@/lib/content/network'
 
 export const metadata: Metadata = {
-  title: 'Investment Partners | Ellesmere College International',
+  title: 'Investment Partners',
   description:
     'Partner with Ellesmere College International to develop British-heritage schools across the Middle East and North Africa.',
 }
