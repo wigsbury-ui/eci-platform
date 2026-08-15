@@ -3,6 +3,9 @@ import SharedCalendar from '@/components/portal/SharedCalendar'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { demoEvents } from '@/lib/content/demo-portal'
+import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
+import { eventAppearsOnSchool, normalizeEvent } from '@/lib/calendar'
+import { CalendarEvent } from '@/lib/types'
 import {
   Home,
   FolderOpen,
@@ -27,10 +30,24 @@ export default async function SchoolCalendarPage() {
     'school_partner'
   )
 
-  let events = demoEvents().filter(e => e.visibility !== 'internal')
+  const schoolId = profile?.school_id ?? 'riyadh'
+  const schools = [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
+    id: s.id,
+    name: s.name,
+    city: s.city,
+  }))
+
+  let events: CalendarEvent[] = demoEvents()
+    .map(normalizeEvent)
+    .filter(e => eventAppearsOnSchool(e, schoolId))
+
   if (supabase && !preview) {
     const { data } = await supabase.from('calendar_events').select('*').order('starts_at')
-    if (data?.length) events = data.filter((e: { visibility: string }) => e.visibility !== 'internal')
+    if (data?.length) {
+      events = (data as CalendarEvent[])
+        .map(row => normalizeEvent(row))
+        .filter(e => eventAppearsOnSchool(e, schoolId))
+    }
   }
 
   return (
@@ -41,13 +58,12 @@ export default async function SchoolCalendarPage() {
       navItems={NAV_ITEMS}
       activeSection="/school/calendar"
     >
-      <div className="mb-8">
-        <h1 className="font-cormorant text-4xl text-eci-purple-dark">Shared calendar</h1>
-        <p className="text-gray-400 text-sm font-jost mt-1">
-          Network and school events shared with the ECI team — visits, training, and key deadlines.
-        </p>
-      </div>
-      <SharedCalendar events={events} mode="school" />
+      <SharedCalendar
+        events={events}
+        mode="school"
+        schools={schools}
+        schoolId={schoolId}
+      />
       <PortalChatbot audience="school" />
     </PortalShell>
   )

@@ -3,6 +3,9 @@ import SharedCalendar from '@/components/portal/SharedCalendar'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { demoEvents } from '@/lib/content/demo-portal'
+import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
+import { normalizeEvent } from '@/lib/calendar'
+import { CalendarEvent } from '@/lib/types'
 import {
   LayoutDashboard, Globe, Users, FileText, Inbox, Settings, Calendar, MessageSquare,
 } from 'lucide-react'
@@ -18,21 +21,47 @@ const NAV_ITEMS = [
   { label: 'Settings', href: '/team/settings', icon: <Settings size={16} /> },
 ]
 
+function networkSchoolOptions(): { id: string; name: string; city?: string }[] {
+  return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
+    id: s.id,
+    name: s.name,
+    city: s.city,
+  }))
+}
+
 export default async function TeamCalendarPage() {
-  const { profile } = await requirePortalAccess(
+  const { profile, supabase, preview } = await requirePortalAccess(
     ['employee', 'admin', 'board_member', 'super_admin'],
     'super_admin'
   )
 
+  let schools = networkSchoolOptions()
+  let events: CalendarEvent[] = demoEvents().map(normalizeEvent)
+
+  if (supabase && !preview) {
+    const { data: s } = await supabase.from('schools').select('id, name, city').order('name')
+    if (s?.length) {
+      schools = (s as { id: string; name: string; city: string | null }[]).map(row => ({
+        id: row.id,
+        name: row.name,
+        city: row.city ?? undefined,
+      }))
+    }
+    const { data } = await supabase.from('calendar_events').select('*').order('starts_at')
+    if (data?.length) {
+      events = (data as CalendarEvent[]).map(row => normalizeEvent(row))
+    }
+  }
+
   return (
-    <PortalShell profile={profile} portalName="ECI Team" portalAccent="#E05C5C" navItems={NAV_ITEMS} activeSection="/team/calendar">
-      <div className="mb-8">
-        <h1 className="font-cormorant text-4xl text-eci-purple-dark">Team & network calendar</h1>
-        <p className="text-gray-400 text-sm font-jost mt-1">
-          Internal, network-wide, and school-scoped events shared with partner schools where appropriate.
-        </p>
-      </div>
-      <SharedCalendar events={demoEvents()} mode="team" />
+    <PortalShell
+      profile={profile}
+      portalName="ECI Team"
+      portalAccent="#C8A84B"
+      navItems={NAV_ITEMS}
+      activeSection="/team/calendar"
+    >
+      <SharedCalendar events={events} mode="team" schools={schools} canCreate />
       <PortalChatbot audience="team" />
     </PortalShell>
   )

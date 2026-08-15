@@ -25,7 +25,7 @@ export default async function TeamMessagesPage() {
   )
 
   return (
-    <PortalShell profile={profile} portalName="ECI Team" portalAccent="#E05C5C" navItems={NAV_ITEMS} activeSection="/team/messages">
+    <PortalShell profile={profile} portalName="ECI Team" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/team/messages">
       <div className="mb-8">
         <h1 className="font-cormorant text-4xl text-eci-purple-dark">Messaging</h1>
         <p className="text-gray-400 text-sm font-jost mt-1">

@@ -79,7 +79,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['school', 'team'],
     title: 'Calendar and messaging',
     source: 'Collaboration',
-    text: 'ECI staff and partner schools share a network calendar for visits, training and deadlines, plus WhatsApp-style internal messaging with email notifications for new messages.',
+    text: 'The ECI calendar lets staff create time blocks and allocate them to the Admin calendar, any individual school calendar, several schools, or all schools at once. Example: an admin visit to Riyadh is added once and shown on both the Admin calendar and the Riyadh school calendar. Partner schools see network-wide events and anything allocated to their school; internal admin-only blocks stay on the team calendar. Messaging remains WhatsApp-style with email notifications for new messages.',
   },
   {
     id: 'hpl',

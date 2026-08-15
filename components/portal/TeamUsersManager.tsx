@@ -34,7 +34,7 @@ export default function TeamUsersManager({ profile }: { profile: Profile | null 
   const canManage = profile?.role === 'super_admin' || profile?.role === 'admin'
 
   return (
-    <PortalShell profile={profile} portalName="Super Admin" portalAccent="#E05C5C" navItems={NAV_ITEMS} activeSection="/team/users">
+    <PortalShell profile={profile} portalName="Super Admin" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/team/users">
       <div className="flex justify-between items-start mb-8 gap-4">
         <div>
           <h1 className="font-cormorant text-4xl text-eci-purple-dark">Users & access</h1>

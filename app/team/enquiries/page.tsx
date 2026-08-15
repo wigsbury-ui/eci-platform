@@ -29,7 +29,7 @@ export default async function TeamEnquiriesPage() {
   }
 
   return (
-    <PortalShell profile={profile} portalName="ECI Team" portalAccent="#E05C5C" navItems={NAV_ITEMS} activeSection="/team/enquiries">
+    <PortalShell profile={profile} portalName="ECI Team" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/team/enquiries">
       <h1 className="font-cormorant text-4xl text-eci-purple-dark mb-2">Investor enquiries</h1>
       <p className="text-gray-400 text-sm font-jost mb-8">Submissions from the public site and investors page.</p>
 

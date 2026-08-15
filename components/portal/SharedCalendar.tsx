@@ -1,8 +1,15 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { FormEvent, useMemo, useState } from 'react'
 import { CalendarEvent } from '@/lib/types'
-import { ChevronLeft, ChevronRight, MapPin, Clock, Eye } from 'lucide-react'
+import {
+  calendarsLabel,
+  deriveVisibility,
+  filterEventsForView,
+  normalizeEvent,
+} from '@/lib/calendar'
+import { hasSupabaseEnv, createClient } from '@/lib/supabase/client'
+import { ChevronLeft, ChevronRight, MapPin, Clock, Layers, Plus, X } from 'lucide-react'
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -41,27 +48,76 @@ function formatTime(iso: string) {
   })
 }
 
-const VISIBILITY_LABEL: Record<string, string> = {
-  network: 'Network',
-  school: 'School',
-  internal: 'Internal',
+function toLocalInputValue(d: Date) {
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
+
+export type CalendarSchoolOption = { id: string; name: string; city?: string }
 
 interface SharedCalendarProps {
   events: CalendarEvent[]
   mode: 'school' | 'team'
+  schools?: CalendarSchoolOption[]
+  /** When mode=school, filter to this school's calendar (+ network / all-schools). */
+  schoolId?: string | null
+  canCreate?: boolean
 }
 
-export default function SharedCalendar({ events, mode }: SharedCalendarProps) {
+export default function SharedCalendar({
+  events: initialEvents,
+  mode,
+  schools = [],
+  schoolId = null,
+  canCreate = false,
+}: SharedCalendarProps) {
   const [cursor, setCursor] = useState(() => startOfMonth(new Date()))
-  const [visibilityFilter, setVisibilityFilter] = useState<'all' | CalendarEvent['visibility']>('all')
-  const today = useMemo(() => new Date(), [])
+  const [calendarFilter, setCalendarFilter] = useState('all')
+  const [localEvents, setLocalEvents] = useState<CalendarEvent[]>(() =>
+    initialEvents.map(e => normalizeEvent(e))
+  )
+  const [showForm, setShowForm] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
 
-  const visibleEvents = useMemo(() => {
-    if (mode !== 'team') return events
-    if (visibilityFilter === 'all') return events
-    return events.filter(e => e.visibility === visibilityFilter)
-  }, [events, mode, visibilityFilter])
+  const today = useMemo(() => new Date(), [])
+  const schoolNames = useMemo(() => {
+    const map: Record<string, string> = {}
+    for (const s of schools) map[s.id] = s.name
+    return map
+  }, [schools])
+
+  const defaultStart = useMemo(() => {
+    const d = new Date()
+    d.setHours(9, 0, 0, 0)
+    d.setDate(d.getDate() + 1)
+    return toLocalInputValue(d)
+  }, [])
+  const defaultEnd = useMemo(() => {
+    const d = new Date()
+    d.setHours(17, 0, 0, 0)
+    d.setDate(d.getDate() + 1)
+    return toLocalInputValue(d)
+  }, [])
+
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [location, setLocation] = useState('')
+  const [startsAt, setStartsAt] = useState(defaultStart)
+  const [endsAt, setEndsAt] = useState(defaultEnd)
+  const [showOnAdmin, setShowOnAdmin] = useState(true)
+  const [allSchools, setAllSchools] = useState(false)
+  const [selectedSchools, setSelectedSchools] = useState<string[]>([])
+
+  const visibleEvents = useMemo(
+    () =>
+      filterEventsForView(localEvents, {
+        mode,
+        schoolId,
+        calendarFilter: mode === 'team' ? calendarFilter : 'all',
+      }),
+    [localEvents, mode, schoolId, calendarFilter]
+  )
 
   const monthEvents = useMemo(() => {
     const y = cursor.getFullYear()
@@ -94,37 +150,306 @@ export default function SharedCalendar({ events, mode }: SharedCalendarProps) {
       return s.getDate() === day
     })
 
+  function toggleSchool(id: string) {
+    setAllSchools(false)
+    setSelectedSchools(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    )
+  }
+
+  function resetForm() {
+    setTitle('')
+    setDescription('')
+    setLocation('')
+    setStartsAt(defaultStart)
+    setEndsAt(defaultEnd)
+    setShowOnAdmin(true)
+    setAllSchools(false)
+    setSelectedSchools([])
+    setFormError(null)
+  }
+
+  async function handleCreate(e: FormEvent) {
+    e.preventDefault()
+    setFormError(null)
+
+    if (!title.trim()) {
+      setFormError('Please add a title.')
+      return
+    }
+    if (!showOnAdmin && !allSchools && selectedSchools.length === 0) {
+      setFormError('Allocate this block to Admin, all schools, or at least one school.')
+      return
+    }
+    const start = new Date(startsAt)
+    const end = new Date(endsAt)
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end <= start) {
+      setFormError('End time must be after start time.')
+      return
+    }
+
+    const school_ids = allSchools ? [] : selectedSchools
+    const visibility = deriveVisibility({
+      show_on_admin: showOnAdmin,
+      all_schools: allSchools,
+      school_ids,
+    })
+
+    const draft = normalizeEvent({
+      id: crypto.randomUUID(),
+      title: title.trim(),
+      description: description.trim() || null,
+      starts_at: start.toISOString(),
+      ends_at: end.toISOString(),
+      location: location.trim() || null,
+      show_on_admin: showOnAdmin,
+      all_schools: allSchools,
+      school_ids,
+      school_id: school_ids[0] ?? null,
+      visibility,
+      created_by: null,
+    })
+
+    setSaving(true)
+    try {
+      if (hasSupabaseEnv()) {
+        const supabase = createClient()
+        const { data, error } = await supabase
+          .from('calendar_events')
+          .insert({
+            title: draft.title,
+            description: draft.description,
+            starts_at: draft.starts_at,
+            ends_at: draft.ends_at,
+            visibility: draft.visibility,
+            school_id: null,
+            location: draft.location,
+            show_on_admin: draft.show_on_admin,
+            all_schools: draft.all_schools,
+            school_ids: draft.school_ids,
+          })
+          .select('*')
+          .single()
+
+        if (!error && data) {
+          setLocalEvents(prev => [...prev, normalizeEvent(data as CalendarEvent)])
+        } else {
+          // Columns may not exist yet on remote — keep the block locally
+          setLocalEvents(prev => [...prev, draft])
+        }
+      } else {
+        setLocalEvents(prev => [...prev, draft])
+      }
+      resetForm()
+      setShowForm(false)
+    } catch {
+      setLocalEvents(prev => [...prev, draft])
+      resetForm()
+      setShowForm(false)
+    } finally {
+      setSaving(false)
+    }
+  }
+
   return (
     <div>
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
           <h1 className="font-cormorant text-4xl text-eci-purple-dark">
-            {mode === 'team' ? 'Team calendar' : 'Network calendar'}
+            {mode === 'team' ? 'Team & school calendars' : 'School calendar'}
           </h1>
-          <p className="text-gray-400 text-sm font-jost mt-1">
-            Visits, training, and shared deadlines across the ECI network
+          <p className="text-gray-400 text-sm font-jost mt-1 max-w-xl">
+            {mode === 'team'
+              ? 'Create time blocks and allocate them to the Admin calendar, individual schools, or all schools.'
+              : 'Visits, training, and shared deadlines allocated to your school or the whole network.'}
           </p>
         </div>
-        {mode === 'team' && (
-          <label className="flex flex-col gap-1.5">
-            <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
-              Visibility
-            </span>
-            <select
-              value={visibilityFilter}
-              onChange={e =>
-                setVisibilityFilter(e.target.value as 'all' | CalendarEvent['visibility'])
-              }
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm font-jost focus:outline-none focus:border-eci-purple bg-white"
+        <div className="flex flex-wrap items-end gap-3">
+          {mode === 'team' && (
+            <label className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
+                View calendar
+              </span>
+              <select
+                value={calendarFilter}
+                onChange={e => setCalendarFilter(e.target.value)}
+                className="border border-gray-200 rounded-lg px-3 py-2 text-sm font-jost focus:outline-none focus:border-eci-gold bg-white min-w-[180px]"
+              >
+                <option value="all">All calendars</option>
+                <option value="admin">Admin only</option>
+                {schools.map(s => (
+                  <option key={s.id} value={`school:${s.id}`}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+          {canCreate && mode === 'team' && (
+            <button
+              type="button"
+              onClick={() => {
+                setShowForm(v => !v)
+                setFormError(null)
+              }}
+              className="inline-flex items-center gap-2 bg-eci-gold text-eci-purple-dark px-4 py-2.5 rounded-lg text-sm font-jost font-semibold hover:bg-eci-gold-light transition-colors"
             >
-              <option value="all">All</option>
-              <option value="network">Network</option>
-              <option value="school">School</option>
-              <option value="internal">Internal</option>
-            </select>
-          </label>
-        )}
+              {showForm ? <X size={16} /> : <Plus size={16} />}
+              {showForm ? 'Close' : 'New time block'}
+            </button>
+          )}
+        </div>
       </div>
+
+      {showForm && canCreate && mode === 'team' && (
+        <form
+          onSubmit={handleCreate}
+          className="mb-8 bg-white border border-gray-100 rounded-xl p-5 sm:p-6 space-y-5"
+        >
+          <div>
+            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Allocate a time block</h2>
+            <p className="text-sm text-gray-400 font-jost mt-1">
+              Example: mark a Riyadh visit on Admin and Riyadh so both calendars show the same block.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <label className="sm:col-span-2 flex flex-col gap-1.5">
+              <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
+                Title
+              </span>
+              <input
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+                placeholder="e.g. Riyadh campus visit"
+                className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-jost focus:outline-none focus:border-eci-gold"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
+                Starts
+              </span>
+              <input
+                type="datetime-local"
+                value={startsAt}
+                onChange={e => setStartsAt(e.target.value)}
+                className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-jost focus:outline-none focus:border-eci-gold"
+              />
+            </label>
+            <label className="flex flex-col gap-1.5">
+              <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
+                Ends
+              </span>
+              <input
+                type="datetime-local"
+                value={endsAt}
+                onChange={e => setEndsAt(e.target.value)}
+                className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-jost focus:outline-none focus:border-eci-gold"
+              />
+            </label>
+            <label className="sm:col-span-2 flex flex-col gap-1.5">
+              <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
+                Location
+              </span>
+              <input
+                value={location}
+                onChange={e => setLocation(e.target.value)}
+                placeholder="Campus, city, or Online"
+                className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-jost focus:outline-none focus:border-eci-gold"
+              />
+            </label>
+            <label className="sm:col-span-2 flex flex-col gap-1.5">
+              <span className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400">
+                Notes
+              </span>
+              <textarea
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                rows={2}
+                className="border border-gray-200 rounded-lg px-3 py-2.5 text-sm font-jost focus:outline-none focus:border-eci-gold resize-none"
+              />
+            </label>
+          </div>
+
+          <fieldset>
+            <legend className="text-[10px] font-jost font-semibold uppercase tracking-wide text-gray-400 mb-3">
+              Appear on calendars
+            </legend>
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center gap-3 rounded-lg border border-gray-100 px-3 py-2.5 cursor-pointer hover:border-eci-gold/40 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={showOnAdmin}
+                  onChange={e => setShowOnAdmin(e.target.checked)}
+                  className="accent-[#C8A84B] w-4 h-4"
+                />
+                <span className="text-sm font-jost text-gray-800">
+                  Admin / ECI team calendar
+                </span>
+              </label>
+              <label className="flex items-center gap-3 rounded-lg border border-gray-100 px-3 py-2.5 cursor-pointer hover:border-eci-gold/40 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={allSchools}
+                  onChange={e => {
+                    setAllSchools(e.target.checked)
+                    if (e.target.checked) setSelectedSchools([])
+                  }}
+                  className="accent-[#C8A84B] w-4 h-4"
+                />
+                <span className="text-sm font-jost text-gray-800">All school calendars</span>
+              </label>
+              {!allSchools && schools.length > 0 && (
+                <div className="grid sm:grid-cols-2 gap-2 pt-1">
+                  {schools.map(s => (
+                    <label
+                      key={s.id}
+                      className="flex items-center gap-3 rounded-lg border border-gray-100 px-3 py-2.5 cursor-pointer hover:border-eci-gold/40 transition-colors"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={selectedSchools.includes(s.id)}
+                        onChange={() => toggleSchool(s.id)}
+                        className="accent-[#C8A84B] w-4 h-4"
+                      />
+                      <span className="text-sm font-jost text-gray-800">
+                        {s.name}
+                        {s.city ? (
+                          <span className="text-gray-400 text-xs ml-1.5">{s.city}</span>
+                        ) : null}
+                      </span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+          </fieldset>
+
+          {formError && (
+            <p className="text-sm font-jost text-red-600">{formError}</p>
+          )}
+
+          <div className="flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => {
+                resetForm()
+                setShowForm(false)
+              }}
+              className="px-4 py-2.5 text-sm font-jost text-gray-500 hover:text-gray-800"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={saving}
+              className="bg-eci-gold text-eci-purple-dark px-5 py-2.5 rounded-lg text-sm font-jost font-semibold hover:bg-eci-gold-light transition-colors disabled:opacity-60"
+            >
+              {saving ? 'Saving…' : 'Create block'}
+            </button>
+          </div>
+        </form>
+      )}
 
       <div className="grid lg:grid-cols-[1.4fr_1fr] gap-8">
         <div className="bg-white border border-gray-100 rounded-xl p-5 sm:p-6">
@@ -214,13 +539,13 @@ export default function SharedCalendar({ events, mode }: SharedCalendarProps) {
         <div className="bg-white border border-gray-100 rounded-xl p-5 sm:p-6">
           <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-4">Upcoming</h2>
           {upcoming.length === 0 ? (
-            <p className="text-sm text-gray-400 font-jost">No upcoming events.</p>
+            <p className="text-sm text-gray-400 font-jost">No upcoming events on this calendar.</p>
           ) : (
             <ul className="space-y-3">
               {upcoming.map(ev => (
                 <li
                   key={ev.id}
-                  className="border border-gray-100 rounded-lg p-4 hover:border-eci-purple/20 transition-colors"
+                  className="border border-gray-100 rounded-lg p-4 hover:border-eci-gold/30 transition-colors"
                 >
                   <p className="font-jost font-semibold text-sm text-gray-800">{ev.title}</p>
                   {ev.description && (
@@ -239,12 +564,10 @@ export default function SharedCalendar({ events, mode }: SharedCalendarProps) {
                         {ev.location}
                       </span>
                     )}
-                    {mode === 'team' && (
-                      <span className="inline-flex items-center gap-1">
-                        <Eye size={12} className="text-eci-gold" />
-                        {VISIBILITY_LABEL[ev.visibility] || ev.visibility}
-                      </span>
-                    )}
+                    <span className="inline-flex items-center gap-1">
+                      <Layers size={12} className="text-eci-gold" />
+                      {calendarsLabel(ev, schoolNames)}
+                    </span>
                   </div>
                 </li>
               ))}

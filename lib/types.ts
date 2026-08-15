@@ -100,8 +100,16 @@ export interface CalendarEvent {
   description: string | null
   starts_at: string
   ends_at: string
+  /** Legacy / RLS hint: derived from calendar targeting. */
   visibility: EventVisibility
+  /** Legacy single-school pointer; prefer school_ids. */
   school_id: string | null
+  /** School calendars this block appears on. */
+  school_ids: string[]
+  /** When true, appears on the admin / ECI team calendar. */
+  show_on_admin: boolean
+  /** When true, appears on every school calendar. */
+  all_schools: boolean
   location: string | null
   created_by: string | null
 }

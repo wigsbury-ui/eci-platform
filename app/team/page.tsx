@@ -71,7 +71,7 @@ export default async function TeamPage() {
     <PortalShell
       profile={profile}
       portalName={profile?.role === 'super_admin' || profile?.role === 'admin' ? 'Super Admin' : 'ECI Team'}
-      portalAccent="#E05C5C"
+      portalAccent="#C8A84B"
       navItems={NAV_ITEMS}
       activeSection="/team"
     >

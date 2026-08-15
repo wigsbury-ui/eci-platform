@@ -86,7 +86,7 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
     <PortalShell
       profile={profile}
       portalName="Super Admin"
-      portalAccent="#E05C5C"
+      portalAccent="#C8A84B"
       navItems={NAV_ITEMS}
       activeSection="/team/schools"
     >

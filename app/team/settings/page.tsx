@@ -24,7 +24,7 @@ export default async function TeamSettingsPage() {
   )
 
   return (
-    <PortalShell profile={profile} portalName="Super Admin" portalAccent="#E05C5C" navItems={NAV_ITEMS} activeSection="/team/settings">
+    <PortalShell profile={profile} portalName="Super Admin" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/team/settings">
       <h1 className="font-cormorant text-4xl text-eci-purple-dark mb-2">Organisation settings</h1>
       <p className="text-gray-400 text-sm font-jost mb-10">Global ECI configuration controlled by super admins.</p>
 
