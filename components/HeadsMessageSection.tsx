@@ -34,15 +34,15 @@ export default function HeadsMessageSection() {
             ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <div className="mx-auto lg:mx-0 w-full max-w-sm xl:max-w-md">
-            <div className="border border-[#C8A84B]/55 p-3">
-              <div className="relative aspect-[3/4] max-h-[min(58svh,480px)] overflow-hidden bg-[#1A1228]">
+          <div className="mx-auto lg:mx-0 w-fit max-w-full">
+            <div className="border border-[#C8A84B]/60 p-2.5 w-fit max-w-full">
+              <div className="relative w-[min(100vw-3rem,18.5rem)] sm:w-[19rem] xl:w-[20.5rem] aspect-[3/4] overflow-hidden bg-[#1A1228]">
                 <Image
                   src="/images/people/jon-shaw.jpg"
                   alt="Jon Shaw, Head of Ellesmere College"
                   fill
                   className="object-cover object-top"
-                  sizes="(max-width: 1024px) 90vw, 420px"
+                  sizes="328px"
                 />
               </div>
             </div>
