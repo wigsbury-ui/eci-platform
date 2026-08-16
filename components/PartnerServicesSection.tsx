@@ -41,7 +41,7 @@ export default function PartnerServicesSection({
     startTransition(() => setActiveGroup(id))
   }
 
-  const dark = variant === 'home'
+  const dark = false
 
   return (
     <section
