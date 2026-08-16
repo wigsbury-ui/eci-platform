@@ -34,12 +34,7 @@ function pathFromRing(ring: [number, number][]) {
   )
 }
 
-/**
- * Simplified but recognisable MENA land rings [lat, lng].
- * North Africa + Arabian Peninsula + Levant + Gulf.
- */
 const LAND_RINGS: [number, number][][] = [
-  // Maghreb → Egypt → Red Sea west → Horn edge → west across Sahara coast return
   [
     [35.9, -5.8],
     [36.8, 3.0],
@@ -63,7 +58,6 @@ const LAND_RINGS: [number, number][][] = [
     [32.0, -9.5],
     [35.0, -6.5],
   ],
-  // Arabian Peninsula
   [
     [29.5, 35.0],
     [31.5, 37.0],
@@ -110,10 +104,16 @@ const STATUS_META = {
   },
 } as const
 
-function curvePath(
-  a: { x: number; y: number },
-  b: { x: number; y: number }
-) {
+/** Tighter zoom for Gulf cluster; wider for Maghreb / Egypt. */
+function zoomForLocation(id: string) {
+  if (['abu-dhabi', 'al-ain', 'doha', 'muscat'].includes(id)) return 3.4
+  if (['riyadh', 'ksa-beyond-riyadh'].includes(id)) return 2.6
+  if (id === 'egypt') return 2.4
+  if (id === 'morocco') return 2.5
+  return 2.3
+}
+
+function curvePath(a: { x: number; y: number }, b: { x: number; y: number }) {
   const mx = (a.x + b.x) / 2
   const my = Math.min(a.y, b.y) - 40 - Math.abs(a.x - b.x) * 0.035
   return `M${a.x},${a.y} Q${mx},${my} ${b.x},${b.y}`
@@ -121,6 +121,7 @@ function curvePath(
 
 export default function ExpansionSection() {
   const [activeId, setActiveId] = useState('egypt')
+  const [zoomed, setZoomed] = useState(true)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -140,6 +141,11 @@ export default function ExpansionSection() {
 
   const active = points.find(p => p.id === activeId) ?? points[0]
   const hub = points.find(p => p.id === 'riyadh')
+  const scale = zoomed ? zoomForLocation(active.id) : 1
+
+  const mapTransform = zoomed
+    ? `translate(50%, 50%) scale(${scale}) translate(${-active.left}%, ${-active.top}%)`
+    : 'translate(0, 0) scale(1)'
 
   const arcs = useMemo(() => {
     if (!hub) return []
@@ -153,6 +159,11 @@ export default function ExpansionSection() {
   }, [points, hub, activeId])
 
   const landPaths = useMemo(() => LAND_RINGS.map(pathFromRing), [])
+
+  function selectLocation(id: string) {
+    setActiveId(id)
+    setZoomed(true)
+  }
 
   return (
     <section
@@ -184,8 +195,8 @@ export default function ExpansionSection() {
               Expansion in motion
             </h2>
             <p className="text-white/60 font-jost leading-relaxed">
-              Live campuses, openings ahead, and priority markets across the Middle East and North
-              Africa. Select a glowing point to explore each opportunity.
+              Select a market and the map zooms to that region — so Al Ain, Cairo or Casablanca
+              each get a clear local view.
             </p>
           </div>
           <div className="flex flex-wrap gap-5 text-xs font-jost">
@@ -212,136 +223,162 @@ export default function ExpansionSection() {
 
         <div className="grid lg:grid-cols-[1.55fr_0.95fr] gap-8 items-stretch">
           <div
-            className={`relative rounded-sm border border-white/10 bg-[#120e1c] overflow-hidden min-h-[360px] transition-opacity duration-1000 ${
+            className={`relative rounded-sm border border-white/10 bg-[#120e1c] overflow-hidden min-h-[380px] lg:min-h-[480px] transition-opacity duration-1000 ${
               visible ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <svg
-              viewBox="0 0 1000 560"
-              className="absolute inset-0 w-full h-full"
-              preserveAspectRatio="xMidYMid meet"
-              aria-hidden
+            <div
+              className="absolute inset-0 eci-map-stage"
+              style={{ transform: mapTransform }}
             >
-              <defs>
-                <radialGradient id="ocean" cx="50%" cy="50%" r="65%">
-                  <stop offset="0%" stopColor="#1a1430" />
-                  <stop offset="100%" stopColor="#0a0712" />
-                </radialGradient>
-                <linearGradient id="landFill" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#3d2468" stopOpacity="0.55" />
-                  <stop offset="100%" stopColor="#2a1848" stopOpacity="0.75" />
-                </linearGradient>
-              </defs>
-              <rect width="1000" height="560" fill="url(#ocean)" />
+              <svg
+                viewBox="0 0 1000 560"
+                className="absolute inset-0 w-full h-full"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden
+              >
+                <defs>
+                  <radialGradient id="ocean" cx="50%" cy="50%" r="65%">
+                    <stop offset="0%" stopColor="#1a1430" />
+                    <stop offset="100%" stopColor="#0a0712" />
+                  </radialGradient>
+                  <linearGradient id="landFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3d2468" stopOpacity="0.55" />
+                    <stop offset="100%" stopColor="#2a1848" stopOpacity="0.75" />
+                  </linearGradient>
+                </defs>
+                <rect width="1000" height="560" fill="url(#ocean)" />
 
-              {/* Grid */}
-              {Array.from({ length: 9 }).map((_, i) => (
-                <line
-                  key={`v${i}`}
-                  x1={(1000 / 8) * i}
-                  y1={0}
-                  x2={(1000 / 8) * i}
-                  y2={560}
-                  stroke="rgba(255,255,255,0.035)"
-                />
-              ))}
-              {Array.from({ length: 6 }).map((_, i) => (
-                <line
-                  key={`h${i}`}
-                  x1={0}
-                  y1={(560 / 5) * i}
-                  x2={1000}
-                  y2={(560 / 5) * i}
-                  stroke="rgba(255,255,255,0.035)"
-                />
-              ))}
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <line
+                    key={`v${i}`}
+                    x1={(1000 / 8) * i}
+                    y1={0}
+                    x2={(1000 / 8) * i}
+                    y2={560}
+                    stroke="rgba(255,255,255,0.035)"
+                  />
+                ))}
+                {Array.from({ length: 6 }).map((_, i) => (
+                  <line
+                    key={`h${i}`}
+                    x1={0}
+                    y1={(560 / 5) * i}
+                    x2={1000}
+                    y2={(560 / 5) * i}
+                    stroke="rgba(255,255,255,0.035)"
+                  />
+                ))}
 
-              {landPaths.map((d, i) => (
-                <path
-                  key={i}
-                  d={d}
-                  fill="url(#landFill)"
-                  stroke="rgba(200,168,75,0.28)"
-                  strokeWidth="1.5"
-                />
-              ))}
+                {landPaths.map((d, i) => (
+                  <path
+                    key={i}
+                    d={d}
+                    fill="url(#landFill)"
+                    stroke="rgba(200,168,75,0.28)"
+                    strokeWidth="1.5"
+                  />
+                ))}
 
-              {arcs.map(arc => (
-                <path
-                  key={arc.id}
-                  d={arc.d}
-                  fill="none"
-                  stroke={arc.active ? '#C8A84B' : 'rgba(200,168,75,0.25)'}
-                  strokeWidth={arc.active ? 2 : 1.2}
-                  strokeDasharray="5 7"
-                  className="eci-map-arc"
-                  opacity={arc.active ? 1 : 0.7}
-                />
-              ))}
-            </svg>
+                {arcs.map(arc => (
+                  <path
+                    key={arc.id}
+                    d={arc.d}
+                    fill="none"
+                    stroke={arc.active ? '#C8A84B' : 'rgba(200,168,75,0.22)'}
+                    strokeWidth={arc.active ? 2 : 1.2}
+                    strokeDasharray="5 7"
+                    className="eci-map-arc"
+                    opacity={zoomed && !arc.active ? 0.25 : arc.active ? 1 : 0.7}
+                  />
+                ))}
+              </svg>
 
-            {/* HTML markers — positioned with left/top so CSS never fights SVG transforms */}
-            <div className="absolute inset-0">
-              {points.map((p, i) => {
-                const meta = STATUS_META[p.status]
-                const selected = p.id === activeId
-                return (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => setActiveId(p.id)}
-                    className="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none eci-map-pin"
-                    style={{
-                      left: `${p.left}%`,
-                      top: `${p.top}%`,
-                      animationDelay: `${150 + i * 80}ms`,
-                      zIndex: selected ? 20 : 10,
-                    }}
-                    aria-label={`${p.shortName}, ${meta.label}`}
-                    aria-pressed={selected}
-                  >
-                    <span
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full eci-map-ripple"
+              <div className="absolute inset-0">
+                {points.map((p, i) => {
+                  const meta = STATUS_META[p.status]
+                  const selected = p.id === activeId
+                  const dimmed = zoomed && !selected
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      onClick={() => selectLocation(p.id)}
+                      className="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none eci-map-pin"
                       style={{
-                        border: `1px solid ${meta.colour}`,
-                        animationDelay: `${i * 0.35}s`,
+                        left: `${p.left}%`,
+                        top: `${p.top}%`,
+                        animationDelay: `${150 + i * 80}ms`,
+                        zIndex: selected ? 30 : 10,
+                        opacity: dimmed ? 0.45 : 1,
                       }}
-                    />
-                    <span
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full eci-map-ripple eci-map-ripple-2"
-                      style={{
-                        border: `1px solid ${meta.colour}`,
-                        animationDelay: `${i * 0.35 + 0.9}s`,
-                      }}
-                    />
-                    <span
-                      className={`relative block rounded-full transition-transform duration-300 ${
-                        selected ? 'scale-125' : 'scale-100 group-hover:scale-110'
-                      }`}
-                      style={{
-                        width: 14,
-                        height: 14,
-                        background: meta.colour,
-                        boxShadow: `0 0 0 3px rgba(14,10,24,0.85), 0 0 18px ${meta.soft}`,
-                      }}
-                    />
-                    <span
-                      className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-jost text-[11px] tracking-wide transition-all duration-300 ${
-                        selected
-                          ? 'text-white -top-8 opacity-100'
-                          : 'text-white/70 -top-7 opacity-90 group-hover:text-white'
-                      }`}
+                      aria-label={`${p.shortName}, ${meta.label}`}
+                      aria-pressed={selected}
                     >
-                      {p.shortName}
-                    </span>
-                  </button>
-                )
-              })}
+                      {selected && (
+                        <>
+                          <span
+                            className="absolute left-1/2 top-1/2 w-16 h-16 rounded-full eci-map-ripple"
+                            style={{ border: `1px solid ${meta.colour}` }}
+                          />
+                          <span
+                            className="absolute left-1/2 top-1/2 w-16 h-16 rounded-full eci-map-ripple eci-map-ripple-2"
+                            style={{ border: `1px solid ${meta.colour}` }}
+                          />
+                        </>
+                      )}
+                      {!selected && (
+                        <span
+                          className="absolute left-1/2 top-1/2 w-10 h-10 rounded-full eci-map-ripple"
+                          style={{
+                            border: `1px solid ${meta.colour}`,
+                            animationDelay: `${i * 0.4}s`,
+                            opacity: 0.7,
+                          }}
+                        />
+                      )}
+                      <span
+                        className={`relative block rounded-full transition-transform duration-300 ${
+                          selected ? 'scale-150' : 'scale-100 group-hover:scale-110'
+                        }`}
+                        style={{
+                          width: selected ? 16 : 12,
+                          height: selected ? 16 : 12,
+                          background: meta.colour,
+                          boxShadow: selected
+                            ? `0 0 0 4px rgba(14,10,24,0.9), 0 0 28px ${meta.soft}`
+                            : `0 0 0 3px rgba(14,10,24,0.85), 0 0 14px ${meta.soft}`,
+                        }}
+                      />
+                      <span
+                        className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-jost tracking-wide transition-all duration-300 ${
+                          selected
+                            ? 'text-white text-sm font-semibold -top-9 opacity-100'
+                            : 'text-white/75 text-[11px] -top-7 opacity-90 group-hover:text-white'
+                        }`}
+                      >
+                        {p.shortName}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
             </div>
 
-            <p className="absolute bottom-3 left-4 text-[10px] font-jost text-white/30 tracking-wide">
-              Middle East &amp; North Africa · illustrative
-            </p>
+            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3 z-40 pointer-events-none">
+              <p className="text-[10px] font-jost text-white/35 tracking-wide">
+                {zoomed
+                  ? `Focused on ${active.shortName}`
+                  : 'Middle East & North Africa · illustrative'}
+              </p>
+              <button
+                type="button"
+                onClick={() => setZoomed(z => !z)}
+                className="pointer-events-auto text-[11px] font-jost font-semibold px-3 py-1.5 border border-white/20 bg-[#0E0A18]/80 text-white/80 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+              >
+                {zoomed ? 'Show full region' : 'Zoom to selection'}
+              </button>
+            </div>
           </div>
 
           <aside className="flex flex-col gap-4">
@@ -369,7 +406,7 @@ export default function ExpansionSection() {
                     <button
                       key={p.id}
                       type="button"
-                      onClick={() => setActiveId(p.id)}
+                      onClick={() => selectLocation(p.id)}
                       className={`px-3 py-1.5 text-xs font-jost border transition-colors ${
                         p.id === activeId
                           ? 'border-[#C8A84B] text-[#C8A84B] bg-[#C8A84B]/10'

@@ -74,3 +74,9 @@ body {
   animation: eci-map-arc-dash 14s linear infinite;
 }
 
+.eci-map-stage {
+  transform-origin: 0 0;
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
