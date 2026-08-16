@@ -13,11 +13,11 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-[100svh] flex items-end overflow-hidden">
       <Image
-        src="/images/campus/hero-middle-east.jpg"
-        alt="Ellesmere College International campus"
+        src="/images/campus/hero-ellesmere-authentic.jpg"
+        alt="Ellesmere College historic campus and grounds in Shropshire"
         fill
         priority
-        className={`object-cover transition-transform duration-[2.4s] ease-out ${ready ? 'scale-100' : 'scale-110'}`}
+        className={`object-cover object-[center_40%] transition-transform duration-[2.4s] ease-out ${ready ? 'scale-100' : 'scale-110'}`}
         sizes="100vw"
       />
       <div
