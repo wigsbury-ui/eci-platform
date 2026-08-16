@@ -146,18 +146,27 @@ export default function PartnerServicesSection({
           } ${dark ? 'border-white/12 bg-[#171225]' : 'border-black/8 bg-white'}`}
         >
           <div
-            className={`px-4 py-2.5 border-b flex items-center justify-between gap-3 ${
+            className={`px-5 py-3 border-b flex items-center justify-between gap-4 ${
               dark ? 'border-white/10 bg-black/20' : 'border-gray-100 bg-[#F8F4EF]/70'
             }`}
           >
+            <div className="min-w-0">
+              <p
+                className="font-jost text-[11px] tracking-[0.18em] uppercase"
+                style={{ color: group.colour }}
+              >
+                {group.label} · {group.title}
+              </p>
+              <p
+                className={`font-jost text-xs mt-0.5 truncate ${
+                  dark ? 'text-white/45' : 'text-gray-500'
+                }`}
+              >
+                {group.subtitle}
+              </p>
+            </div>
             <p
-              className="font-jost text-[11px] tracking-[0.18em] uppercase truncate"
-              style={{ color: group.colour }}
-            >
-              {group.commercialNote}
-            </p>
-            <p
-              className={`font-jost text-[11px] shrink-0 ${
+              className={`font-jost text-xs shrink-0 ${
                 dark ? 'text-white/35' : 'text-gray-400'
               }`}
             >
@@ -165,13 +174,13 @@ export default function PartnerServicesSection({
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-12 lg:h-[min(22rem,42vh)]">
+          <div className="grid lg:grid-cols-12 lg:h-[min(30rem,52vh)]">
             <div
               className={`lg:col-span-4 border-b lg:border-b-0 lg:border-r overflow-y-auto ${
                 dark ? 'border-white/10 bg-[#120e1c]' : 'border-gray-100 bg-[#FAFAF8]'
               }`}
             >
-              <div className="p-2">
+              <div className="p-2.5">
                 {services.map((s, i) => {
                   const on = s.id === activeService?.id
                   return (
@@ -179,7 +188,7 @@ export default function PartnerServicesSection({
                       key={s.id}
                       type="button"
                       onClick={() => startTransition(() => setActiveServiceId(s.id))}
-                      className={`w-full text-left px-3 py-2 transition-colors duration-200 border-l-[3px] ${
+                      className={`w-full text-left px-3.5 py-2.5 transition-colors duration-200 border-l-[3px] ${
                         on
                           ? dark
                             ? 'bg-white/8 text-white'
@@ -198,7 +207,7 @@ export default function PartnerServicesSection({
                       <span className="font-jost text-[10px] tracking-widest opacity-45 mr-2">
                         {String(s.number).padStart(2, '0')}
                       </span>
-                      <span className="font-jost text-[13px]">{s.shortName}</span>
+                      <span className="font-jost text-sm">{s.shortName}</span>
                     </button>
                   )
                 })}
@@ -207,7 +216,7 @@ export default function PartnerServicesSection({
 
             <div
               key={activeService?.id}
-              className={`lg:col-span-8 p-4 md:p-5 psf-panel relative overflow-y-auto ${
+              className={`lg:col-span-8 p-6 md:p-8 psf-panel relative overflow-y-auto flex flex-col ${
                 dark ? 'text-white' : 'text-[#2D1654]'
               }`}
             >
@@ -218,35 +227,36 @@ export default function PartnerServicesSection({
 
               {activeService && (
                 <>
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
-                    <p
-                      className="font-jost text-[10px] tracking-[0.22em] uppercase"
-                      style={{ color: group.colour }}
-                    >
-                      Service {String(activeService.number).padStart(2, '0')}
-                    </p>
-                    <h3 className="font-cormorant text-2xl font-light leading-snug">
-                      {activeService.name}
-                    </h3>
-                  </div>
                   <p
-                    className={`font-jost text-[13px] leading-relaxed mb-4 max-w-2xl ${
-                      dark ? 'text-white/60' : 'text-gray-600'
+                    className="font-jost text-[11px] tracking-[0.25em] uppercase mb-2"
+                    style={{ color: group.colour }}
+                  >
+                    Service {String(activeService.number).padStart(2, '0')}
+                  </p>
+                  <h3
+                    className="font-cormorant font-light leading-snug mb-4"
+                    style={{ fontSize: 'clamp(1.75rem, 2.4vw, 2.35rem)' }}
+                  >
+                    {activeService.name}
+                  </h3>
+                  <p
+                    className={`font-jost text-[15px] leading-relaxed mb-6 max-w-2xl ${
+                      dark ? 'text-white/65' : 'text-gray-600'
                     }`}
                   >
                     {activeService.overview}
                   </p>
 
-                  <ul className="grid sm:grid-cols-2 gap-x-5 gap-y-1.5 mb-4">
+                  <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mb-auto">
                     {activeService.attributes.slice(0, 4).map(attr => (
                       <li
                         key={attr}
-                        className={`font-jost text-[12px] flex gap-2 leading-snug ${
-                          dark ? 'text-white/55' : 'text-gray-600'
+                        className={`font-jost text-sm flex gap-3 leading-snug ${
+                          dark ? 'text-white/60' : 'text-gray-600'
                         }`}
                       >
                         <span
-                          className="mt-1.5 w-1 h-1 rounded-full shrink-0"
+                          className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
                           style={{ backgroundColor: group.colour }}
                         />
                         {attr}
@@ -257,19 +267,37 @@ export default function PartnerServicesSection({
                   {(activeService.educationImpact ||
                     activeService.brandImpact ||
                     activeService.profitPotential) && (
-                    <div className="flex flex-wrap gap-x-5 gap-y-1">
+                    <div
+                      className={`grid grid-cols-3 gap-3 max-w-xl mt-8 pt-5 border-t ${
+                        dark ? 'border-white/10' : 'border-gray-100'
+                      }`}
+                    >
                       {[
                         ['Education', activeService.educationImpact],
                         ['Brand', activeService.brandImpact],
                         ['Commercial', activeService.profitPotential],
                       ].map(([label, value]) =>
                         value && value !== '-' ? (
-                          <p key={label as string} className="font-jost text-[11px]">
-                            <span className={dark ? 'text-white/35' : 'text-gray-400'}>
-                              {label}{' '}
-                            </span>
-                            <span style={{ color: dark ? '#C8A84B' : '#4C2585' }}>{value}</span>
-                          </p>
+                          <div
+                            key={label as string}
+                            className={`px-3 py-2.5 ${
+                              dark ? 'bg-white/[0.04]' : 'bg-[#F8F4EF]'
+                            }`}
+                          >
+                            <p
+                              className={`font-jost text-[10px] tracking-widest uppercase mb-1 ${
+                                dark ? 'text-white/35' : 'text-gray-400'
+                              }`}
+                            >
+                              {label}
+                            </p>
+                            <p
+                              className="font-jost text-sm font-medium"
+                              style={{ color: dark ? '#C8A84B' : '#4C2585' }}
+                            >
+                              {value}
+                            </p>
+                          </div>
                         ) : null
                       )}
                     </div>
