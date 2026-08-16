@@ -41,59 +41,42 @@ export default function PartnerServicesSection({
     startTransition(() => setActiveGroup(id))
   }
 
-  const dark = false
-
   return (
     <section
       id="services"
-      className={`relative overflow-hidden py-12 md:py-14 lg:min-h-[100svh] lg:flex lg:flex-col lg:justify-center ${
-        dark ? 'bg-[#120e1c]' : 'bg-[#F8F4EF]'
-      }`}
+      className="relative overflow-hidden py-12 md:py-16 lg:min-h-[100svh] lg:flex lg:flex-col lg:justify-center bg-white"
     >
       <div
-        className="pointer-events-none absolute inset-0"
+        className="pointer-events-none absolute inset-x-0 top-0 h-40"
         style={{
-          background: dark
-            ? `radial-gradient(ellipse 55% 45% at 0% 0%, ${group.colour}18 0%, transparent 55%)`
-            : `radial-gradient(ellipse 50% 40% at 100% 0%, ${group.colour}14 0%, transparent 50%)`,
+          background: `linear-gradient(180deg, ${group.colour}14 0%, transparent 100%)`,
         }}
       />
 
       <div className="relative max-w-7xl mx-auto px-6 w-full">
-        {/* Compact header row */}
         <div
-          className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-5 transition-all duration-700 ${
+          className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6 transition-all duration-700 ${
             entered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
           }`}
         >
           <div className="max-w-2xl">
-            <p
-              className={`text-[11px] tracking-[0.3em] uppercase mb-2 font-jost font-semibold ${
-                dark ? 'text-[#C8A84B]' : 'text-[#4C2585]'
-              }`}
-            >
+            <p className="text-[#C8A84B] text-[11px] tracking-[0.32em] uppercase mb-2 font-jost font-bold">
               {FRAMEWORK_INTRO.eyebrow}
             </p>
             <h2
-              className={`font-cormorant font-light leading-tight ${
-                dark ? 'text-white' : 'text-[#2D1654]'
-              }`}
-              style={{ fontSize: 'clamp(1.75rem, 3vw, 2.65rem)' }}
+              className="font-cormorant font-semibold text-[#2D1654] leading-tight"
+              style={{ fontSize: 'clamp(1.85rem, 3.2vw, 2.85rem)' }}
             >
               {FRAMEWORK_INTRO.title}
             </h2>
+            <div className="mt-3 w-16 h-1 bg-[#C8A84B]" />
           </div>
-          <p
-            className={`font-jost text-sm font-light leading-snug max-w-md lg:text-right ${
-              dark ? 'text-white/55' : 'text-gray-600'
-            }`}
-          >
+          <p className="font-jost text-sm leading-snug max-w-md lg:text-right text-[#2D1654]/75">
             Three tiers — from non-negotiable foundations to premium specialisation.
           </p>
         </div>
 
-        {/* Tier chooser — compact */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-3">
           {SERVICE_GROUPS.map((g, i) => {
             const selected = g.id === activeGroup
             return (
@@ -101,85 +84,54 @@ export default function PartnerServicesSection({
                 key={g.id}
                 type="button"
                 onClick={() => selectGroup(g.id)}
-                className={`relative text-left px-4 py-3 border transition-all duration-300 ${
+                className={`relative text-left px-4 py-3.5 border-2 transition-all duration-300 ${
                   selected
-                    ? dark
-                      ? 'bg-[#1c1628] border-white/25'
-                      : 'bg-white border-[#2D1654]/25'
-                    : dark
-                      ? 'bg-transparent border-white/10 hover:border-white/25 opacity-70 hover:opacity-100'
-                      : 'bg-white/40 border-black/8 hover:border-black/20 opacity-75 hover:opacity-100'
+                    ? 'bg-[#2D1654] border-[#2D1654] text-white shadow-md'
+                    : 'bg-[#F8F4EF] border-transparent text-[#2D1654] hover:border-[#C8A84B]/60'
                 }`}
                 style={{
                   animation: entered ? `psf-service-in 400ms ease ${i * 50}ms both` : undefined,
                 }}
               >
                 <span
-                  className="absolute top-0 left-0 right-0 h-[2px]"
-                  style={{
-                    backgroundColor: g.colour,
-                    opacity: selected ? 1 : 0.3,
-                  }}
+                  className="absolute top-0 left-0 right-0 h-[3px]"
+                  style={{ backgroundColor: g.colour }}
                 />
                 <p
-                  className="font-jost text-[10px] tracking-[0.2em] uppercase mb-0.5"
-                  style={{ color: selected ? g.colour : dark ? 'rgba(255,255,255,0.4)' : '#9CA3AF' }}
+                  className={`font-jost text-[10px] tracking-[0.22em] uppercase mb-1 font-semibold ${
+                    selected ? 'text-[#C8A84B]' : 'text-[#4C2585]'
+                  }`}
                 >
                   {g.label}
                 </p>
-                <p
-                  className={`font-cormorant text-xl leading-tight ${
-                    dark ? 'text-white' : 'text-[#2D1654]'
-                  }`}
-                >
-                  {g.title}
-                </p>
+                <p className="font-cormorant text-xl leading-tight font-semibold">{g.title}</p>
               </button>
             )
           })}
         </div>
 
-        {/* Explorer — single viewport-friendly frame */}
         <div
-          className={`border transition-opacity duration-300 ${
+          className={`border-2 border-[#2D1654]/12 bg-white shadow-[0_12px_40px_rgba(45,22,84,0.08)] transition-opacity duration-300 ${
             isPending ? 'opacity-70' : 'opacity-100'
-          } ${dark ? 'border-white/12 bg-[#171225]' : 'border-black/8 bg-white'}`}
+          }`}
         >
           <div
-            className={`px-5 py-3 border-b flex items-center justify-between gap-4 ${
-              dark ? 'border-white/10 bg-black/20' : 'border-gray-100 bg-[#F8F4EF]/70'
-            }`}
+            className="px-5 py-3.5 flex items-center justify-between gap-4 text-white"
+            style={{ backgroundColor: '#2D1654' }}
           >
             <div className="min-w-0">
-              <p
-                className="font-jost text-[11px] tracking-[0.18em] uppercase"
-                style={{ color: group.colour }}
-              >
+              <p className="font-jost text-[11px] tracking-[0.2em] uppercase font-semibold text-[#C8A84B]">
                 {group.label} · {group.title}
               </p>
-              <p
-                className={`font-jost text-xs mt-0.5 truncate ${
-                  dark ? 'text-white/45' : 'text-gray-500'
-                }`}
-              >
-                {group.subtitle}
-              </p>
+              <p className="font-jost text-xs mt-0.5 text-white/70 truncate">{group.subtitle}</p>
             </div>
-            <p
-              className={`font-jost text-xs shrink-0 ${
-                dark ? 'text-white/35' : 'text-gray-400'
-              }`}
-            >
+            <p className="font-jost text-xs shrink-0 text-[#C8A84B] font-semibold tabular-nums">
               {services.length} services
             </p>
           </div>
 
           <div className="grid lg:grid-cols-12 lg:h-[min(30rem,52vh)]">
-            <div
-              className={`lg:col-span-4 border-b lg:border-b-0 lg:border-r overflow-y-auto ${
-                dark ? 'border-white/10 bg-[#120e1c]' : 'border-gray-100 bg-[#FAFAF8]'
-              }`}
-            >
+            <div className="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-[#2D1654]/10 bg-[#F8F4EF] overflow-y-auto">
               <div className="p-2.5">
                 {services.map((s, i) => {
                   const on = s.id === activeService?.id
@@ -190,21 +142,17 @@ export default function PartnerServicesSection({
                       onClick={() => startTransition(() => setActiveServiceId(s.id))}
                       className={`w-full text-left px-3.5 py-2.5 transition-colors duration-200 border-l-[3px] ${
                         on
-                          ? dark
-                            ? 'bg-white/8 text-white'
-                            : 'bg-white text-[#2D1654]'
-                          : dark
-                            ? 'border-l-transparent text-white/50 hover:text-white/80 hover:bg-white/[0.04]'
-                            : 'border-l-transparent text-gray-500 hover:text-[#2D1654] hover:bg-white/80'
+                          ? 'bg-white text-[#2D1654] font-medium shadow-sm'
+                          : 'border-l-transparent text-[#2D1654]/55 hover:text-[#2D1654] hover:bg-white/70'
                       }`}
                       style={{
-                        borderLeftColor: on ? group.colour : 'transparent',
+                        borderLeftColor: on ? '#C8A84B' : 'transparent',
                         animation: entered
                           ? `psf-service-in 360ms ease ${60 + i * 18}ms both`
                           : undefined,
                       }}
                     >
-                      <span className="font-jost text-[10px] tracking-widest opacity-45 mr-2">
+                      <span className="font-jost text-[10px] tracking-widest text-[#C8A84B] mr-2 font-semibold">
                         {String(s.number).padStart(2, '0')}
                       </span>
                       <span className="font-jost text-sm">{s.shortName}</span>
@@ -216,48 +164,37 @@ export default function PartnerServicesSection({
 
             <div
               key={activeService?.id}
-              className={`lg:col-span-8 p-6 md:p-8 psf-panel relative overflow-y-auto flex flex-col ${
-                dark ? 'text-white' : 'text-[#2D1654]'
-              }`}
+              className="lg:col-span-8 p-6 md:p-8 psf-panel relative overflow-y-auto flex flex-col text-[#2D1654] bg-white"
             >
               <div
-                className="absolute top-0 bottom-0 left-0 w-1 hidden lg:block"
+                className="absolute top-0 bottom-0 left-0 w-1.5 hidden lg:block"
                 style={{ backgroundColor: group.colour }}
               />
 
               {activeService && (
                 <>
                   <p
-                    className="font-jost text-[11px] tracking-[0.25em] uppercase mb-2"
+                    className="font-jost text-[11px] tracking-[0.25em] uppercase mb-2 font-bold"
                     style={{ color: group.colour }}
                   >
                     Service {String(activeService.number).padStart(2, '0')}
                   </p>
                   <h3
-                    className="font-cormorant font-light leading-snug mb-4"
+                    className="font-cormorant font-semibold leading-snug mb-4"
                     style={{ fontSize: 'clamp(1.75rem, 2.4vw, 2.35rem)' }}
                   >
                     {activeService.name}
                   </h3>
-                  <p
-                    className={`font-jost text-[15px] leading-relaxed mb-6 max-w-2xl ${
-                      dark ? 'text-white/65' : 'text-gray-600'
-                    }`}
-                  >
+                  <p className="font-jost text-[15px] leading-relaxed mb-6 max-w-2xl text-[#2D1654]/75">
                     {activeService.overview}
                   </p>
 
                   <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mb-auto">
                     {activeService.attributes.slice(0, 4).map(attr => (
-                      <li
-                        key={attr}
-                        className={`font-jost text-sm flex gap-3 leading-snug ${
-                          dark ? 'text-white/60' : 'text-gray-600'
-                        }`}
-                      >
+                      <li key={attr} className="font-jost text-sm flex gap-3 leading-snug text-[#2D1654]/80">
                         <span
                           className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{ backgroundColor: group.colour }}
+                          style={{ backgroundColor: '#C8A84B' }}
                         />
                         {attr}
                       </li>
@@ -267,36 +204,18 @@ export default function PartnerServicesSection({
                   {(activeService.educationImpact ||
                     activeService.brandImpact ||
                     activeService.profitPotential) && (
-                    <div
-                      className={`grid grid-cols-3 gap-3 max-w-xl mt-8 pt-5 border-t ${
-                        dark ? 'border-white/10' : 'border-gray-100'
-                      }`}
-                    >
+                    <div className="grid grid-cols-3 gap-3 max-w-xl mt-8 pt-5 border-t-2 border-[#C8A84B]/40">
                       {[
                         ['Education', activeService.educationImpact],
                         ['Brand', activeService.brandImpact],
                         ['Commercial', activeService.profitPotential],
                       ].map(([label, value]) =>
                         value && value !== '-' ? (
-                          <div
-                            key={label as string}
-                            className={`px-3 py-2.5 ${
-                              dark ? 'bg-white/[0.04]' : 'bg-[#F8F4EF]'
-                            }`}
-                          >
-                            <p
-                              className={`font-jost text-[10px] tracking-widest uppercase mb-1 ${
-                                dark ? 'text-white/35' : 'text-gray-400'
-                              }`}
-                            >
+                          <div key={label as string} className="px-3 py-2.5 bg-[#2D1654] text-white">
+                            <p className="font-jost text-[10px] tracking-widest uppercase mb-1 text-[#C8A84B]">
                               {label}
                             </p>
-                            <p
-                              className="font-jost text-sm font-medium"
-                              style={{ color: dark ? '#C8A84B' : '#4C2585' }}
-                            >
-                              {value}
-                            </p>
+                            <p className="font-jost text-sm font-semibold">{value}</p>
                           </div>
                         ) : null
                       )}
@@ -308,23 +227,18 @@ export default function PartnerServicesSection({
           </div>
         </div>
 
-        {/* CTA — single compact row */}
-        <div className="mt-4 flex flex-wrap gap-3 items-center">
+        <div className="mt-5 flex flex-wrap gap-3 items-center">
           {variant === 'home' ? (
             <>
               <Link
                 href="/investors#services"
-                className="bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+                className="bg-[#C8A84B] text-[#2D1654] px-6 py-3 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-sm"
               >
                 Explore for investors
               </Link>
               <Link
                 href="/login?audience=investor"
-                className={`font-jost text-sm transition-colors ${
-                  dark
-                    ? 'text-white/50 hover:text-[#C8A84B]'
-                    : 'text-[#2D1654]/70 hover:text-[#4C2585]'
-                }`}
+                className="font-jost text-sm font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
               >
                 Full detail in Investor Portal →
               </Link>
@@ -333,11 +247,11 @@ export default function PartnerServicesSection({
             <>
               <Link
                 href="/login?audience=investor"
-                className="bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+                className="bg-[#C8A84B] text-[#2D1654] px-6 py-3 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-sm"
               >
                 Open Investor Portal
               </Link>
-              <p className={`font-jost text-xs max-w-md ${dark ? 'text-white/45' : 'text-gray-500'}`}>
+              <p className="font-jost text-xs max-w-md text-[#2D1654]/60">
                 Full 33-service framework inside the password-protected portal.
               </p>
             </>

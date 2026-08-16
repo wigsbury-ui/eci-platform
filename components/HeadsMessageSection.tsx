@@ -53,18 +53,19 @@ export default function HeadsMessageSection() {
           </div>
 
           <div>
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">
+            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
               Head&apos;s message
             </p>
             <h2
-              className="font-cormorant font-light text-white leading-tight mb-6"
+              className="font-cormorant font-semibold text-white leading-tight mb-6"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
             >
               A Life:Ready education,
               <br />
               <em className="text-[#C8A84B]">shared with the world.</em>
             </h2>
-            <div className="space-y-5 text-white/75 font-jost font-light leading-relaxed text-[1.05rem]">
+            <div className="w-14 h-1 bg-[#C8A84B] mb-6" />
+            <div className="space-y-5 text-white/85 font-jost leading-relaxed text-[1.05rem]">
               <p>
                 Ellesmere has always believed that education is about more than examination
                 results. Our purpose is to help young people become confident, kind and capable —

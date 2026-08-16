@@ -49,31 +49,31 @@ export default function HeroSection() {
             className="mb-8 drop-shadow-lg"
             priority
           />
-          <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-5 font-jost font-medium">
+          <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-5 font-jost font-bold">
             Ellesmere College International
           </p>
           <h1
-            className="font-cormorant font-light text-white leading-[1.05] mb-6"
+            className="font-cormorant font-semibold text-white leading-[1.05] mb-6"
             style={{ fontSize: 'clamp(2.75rem, 7vw, 5rem)' }}
           >
             British excellence.
             <br />
             <em className="text-[#C8A84B] font-normal">Globally delivered.</em>
           </h1>
-          <p className="text-white/75 text-lg leading-relaxed mb-10 font-jost font-light max-w-xl">
+          <p className="text-white/85 text-lg leading-relaxed mb-10 font-jost max-w-xl">
             From our Shropshire heritage campus to Ellesmere College Riyadh — and soon Doha —
             we partner with investors and operators to bring a Life:Ready education to new communities.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               href="/investors"
-              className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+              className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-lg shadow-black/20"
             >
               Investment partners
             </Link>
             <a
               href="#schools"
-              className="border border-white/45 text-white px-8 py-3.5 rounded-sm font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+              className="border-2 border-[#C8A84B]/70 text-white px-8 py-3.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
             >
               Our schools
             </a>

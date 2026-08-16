@@ -190,16 +190,17 @@ export default function ExpansionSection() {
           }`}
         >
           <div className="max-w-2xl">
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">
+            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
               Top 10 destinations
             </p>
             <h2
-              className="font-cormorant font-light leading-tight mb-4"
+              className="font-cormorant font-semibold leading-tight mb-4"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
             >
               Where the network grows next
             </h2>
-            <p className="text-white/60 font-jost leading-relaxed">
+            <div className="w-14 h-1 bg-[#C8A84B] mb-4" />
+            <p className="text-white/70 font-jost leading-relaxed">
               Ten open growth markets ranked for demand, income fit, regulatory openness and cultural
               alignment with Ellesmere. Operating campuses stay on the map for context — select any
               destination to focus the region.
