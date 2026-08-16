@@ -4,8 +4,6 @@ import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { MAP_LOCATIONS } from '@/lib/content/network'
 
-type MapLocation = (typeof MAP_LOCATIONS)[number]
-
 const LON_MIN = -12
 const LON_MAX = 64
 const LAT_MIN = 12
