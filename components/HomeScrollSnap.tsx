@@ -4,8 +4,8 @@ import { useEffect } from 'react'
 
 /**
  * Light scroll resistance between homepage full-viewport windows.
- * Accumulatessmall wheel deltas near a window edge, then snaps to the next/prev window.
- * CSS proximity snap handles the settle; this only adds a little "catch" when flicking.
+ * Accumulates small wheel deltas near a window edge, then snaps flush
+ * to the next/prev window (top of frame — fixed nav overlays the panel).
  */
 export default function HomeScrollSnap() {
   useEffect(() => {
@@ -22,18 +22,17 @@ export default function HomeScrollSnap() {
     const windows = () =>
       Array.from(document.querySelectorAll<HTMLElement>('main.home-snap > section.home-window'))
 
-    const navOffset = () => {
-      const pad = getComputedStyle(document.documentElement).scrollPaddingTop
-      const n = Number.parseFloat(pad || '0')
-      return Number.isFinite(n) ? n : 76
+    const sectionTop = (el: HTMLElement) => {
+      const rect = el.getBoundingClientRect()
+      return rect.top + window.scrollY
     }
 
     const nearestIndex = (list: HTMLElement[]) => {
-      const y = window.scrollY + navOffset() + 8
+      const y = window.scrollY
       let best = 0
       let bestDist = Infinity
       list.forEach((el, i) => {
-        const d = Math.abs(el.offsetTop - y)
+        const d = Math.abs(sectionTop(el) - y)
         if (d < bestDist) {
           bestDist = d
           best = i
@@ -43,9 +42,9 @@ export default function HomeScrollSnap() {
     }
 
     const nearEdge = (el: HTMLElement, dir: 1 | -1) => {
-      const top = el.offsetTop
+      const top = sectionTop(el)
       const bottom = top + el.offsetHeight
-      const viewTop = window.scrollY + navOffset()
+      const viewTop = window.scrollY
       const viewBottom = window.scrollY + window.innerHeight
       if (dir > 0) return viewBottom > bottom - window.innerHeight * 0.28
       return viewTop < top + window.innerHeight * 0.28
@@ -54,7 +53,8 @@ export default function HomeScrollSnap() {
     const snapTo = (el: HTMLElement) => {
       cooling = true
       intent = 0
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // Scroll exactly to section top so the window fills the frame (no top strip)
+      window.scrollTo({ top: Math.max(0, sectionTop(el)), behavior: 'smooth' })
       window.clearTimeout(cooldownTimer)
       cooldownTimer = window.setTimeout(() => {
         cooling = false

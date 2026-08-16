@@ -17,16 +17,17 @@ body {
   color: #111827;
 }
 
-/* Homepage full-viewport windows: light snap resistance between sections */
+/* Homepage full-viewport windows: snap flush to the frame (nav overlays) */
 @media (min-width: 768px) {
   html:has(main.home-snap) {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 4.75rem;
+    scroll-padding-top: 0;
   }
 
   main.home-snap > section.home-window {
     scroll-snap-align: start;
     scroll-snap-stop: always;
+    scroll-margin-top: 0;
   }
 }
 
