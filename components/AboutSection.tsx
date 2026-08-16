@@ -57,7 +57,11 @@ export default function AboutSection() {
   }, [startTransition])
 
   return (
-    <section id="about" className="relative py-24 md:py-28 overflow-hidden bg-[#F8F4EF]">
+    <section
+      id="about"
+      className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden bg-[#F8F4EF] py-16 md:py-20 lg:py-24"
+    >
+      {/* Full-bleed campus image on the right half — fills section height */}
       <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
         <Image
           src="/images/campus/uk-160-acre.jpg"
@@ -65,13 +69,14 @@ export default function AboutSection() {
           fill
           className="object-cover"
           sizes="50vw"
+          priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EF] via-[#F8F4EF]/55 to-transparent" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6">
-        {/* Main About copy — pushed down so it sits lower against the campus image */}
-        <div className="max-w-xl lg:pt-20 xl:pt-28">
+      <div className="relative max-w-7xl mx-auto px-6 w-full flex-1 flex flex-col justify-end lg:pb-8">
+        {/* Main About copy — lower half of the window */}
+        <div className="max-w-xl">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
             About ECI
           </p>
