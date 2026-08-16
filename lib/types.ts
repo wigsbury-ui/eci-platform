@@ -5,6 +5,7 @@ export type UserRole =
   | 'board_member'
   | 'admin'
   | 'super_admin'
+  | 'agent'
 
 export type SchoolStatus = 'prospect' | 'setting_up' | 'active' | 'paused'
 export type DocType = 'guidance' | 'template' | 'policy' | 'form' | 'report' | 'marketing' | 'due_diligence'

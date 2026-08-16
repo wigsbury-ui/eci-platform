@@ -14,6 +14,8 @@ type UiMessage = ChatMessage & { error?: boolean }
 const GREETING: Record<KnowledgeAudience, string> = {
   investor:
     'Ask about partnership models, expansion markets, or why operators choose Ellesmere.',
+  agent:
+    'Ask about briefing investors, priority markets, referrals, or how the agent programme works.',
   school: 'Ask about document archives, calendar collaboration, or HPL and network support.',
   public: 'Ask about Ellesmere heritage, network schools, or how to get in touch.',
   team: 'Ask about school portals, internal collaboration, or investor briefing points.',

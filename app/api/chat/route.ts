@@ -4,7 +4,7 @@ import {
   KnowledgeAudience,
 } from '@/lib/chat/knowledge'
 
-const AUDIENCES: KnowledgeAudience[] = ['investor', 'school', 'public', 'team']
+const AUDIENCES: KnowledgeAudience[] = ['investor', 'school', 'public', 'team', 'agent']
 
 function isAudience(value: unknown): value is KnowledgeAudience {
   return typeof value === 'string' && AUDIENCES.includes(value as KnowledgeAudience)

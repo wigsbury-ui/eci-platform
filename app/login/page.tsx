@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { portalForRole } from '@/lib/auth/roles'
 
-type AudienceHint = 'investor' | 'school' | 'team'
+type AudienceHint = 'investor' | 'school' | 'team' | 'agent'
 
 const AUDIENCE_COPY: Record<
   AudienceHint,
@@ -19,6 +19,15 @@ const AUDIENCE_COPY: Record<
       'Market opportunity and partnership models',
       'Marketing packs and due-diligence library',
       'Direct channel to the ECI leadership team',
+    ],
+  },
+  agent: {
+    headline: 'Introduction\nagent access',
+    body: 'Tools for trusted agents who connect aligned investors and operators with Ellesmere College International.',
+    bullets: [
+      'Opportunity briefing and talking points',
+      'Priority market summaries for introductions',
+      'Referral desk to submit and track investor leads',
     ],
   },
   school: {
@@ -42,7 +51,7 @@ const AUDIENCE_COPY: Record<
 }
 
 function resolveAudience(raw: string | null): AudienceHint {
-  if (raw === 'investor' || raw === 'team' || raw === 'school') return raw
+  if (raw === 'investor' || raw === 'team' || raw === 'school' || raw === 'agent') return raw
   return 'school'
 }
 
@@ -68,7 +77,13 @@ function LoginForm() {
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
         // Preview without Supabase: route by audience hint
         window.location.href =
-          audience === 'investor' ? '/investor' : audience === 'team' ? '/team' : '/school'
+          audience === 'investor'
+            ? '/investor'
+            : audience === 'agent'
+              ? '/agent'
+              : audience === 'team'
+                ? '/team'
+                : '/school'
         return
       }
 
@@ -156,6 +171,7 @@ function LoginForm() {
           <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign In</h3>
           <p className="text-gray-400 text-sm font-jost mb-8">
             {audience === 'investor' && 'Access the investor portal'}
+            {audience === 'agent' && 'Access the introduction agent portal'}
             {audience === 'team' && 'Access the ECI team portal'}
             {audience === 'school' && 'Access your school partner portal'}
           </p>

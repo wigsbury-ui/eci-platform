@@ -20,6 +20,7 @@ export function previewProfile(role: UserRole, schoolId: string | null = null): 
   const names: Record<string, string> = {
     school_partner: 'School Partner (Preview)',
     investor: 'Investor (Preview)',
+    agent: 'Introduction Agent (Preview)',
     employee: 'ECI Staff (Preview)',
     admin: 'ECI Admin (Preview)',
     board_member: 'Board Member (Preview)',

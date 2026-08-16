@@ -25,6 +25,7 @@ const SEED: UserRow[] = [
   { id: '1', name: 'Network Director', email: 'international@ellesmere.com', role: 'super_admin', school: '—' },
   { id: '2', name: 'Riyadh Head of School', email: 'head@ellesmerecollegeriyadh.com', role: 'school_partner', school: 'Ellesmere College Riyadh' },
   { id: '3', name: 'Prospective Investor', email: 'partner@example.com', role: 'investor', school: '—' },
+  { id: '4', name: 'Introduction Agent', email: 'agent@example.com', role: 'agent', school: '—' },
 ]
 
 export default function TeamUsersManager({ profile }: { profile: Profile | null }) {
@@ -39,7 +40,7 @@ export default function TeamUsersManager({ profile }: { profile: Profile | null 
         <div>
           <h1 className="font-cormorant text-4xl text-eci-purple-dark">Users & access</h1>
           <p className="text-gray-400 text-sm font-jost mt-1">
-            Invite investors, school partners, and staff. Accounts are invite-only.
+            Invite investors, introduction agents, school partners, and staff. Accounts are invite-only.
           </p>
         </div>
         {canManage && (
@@ -62,6 +63,7 @@ export default function TeamUsersManager({ profile }: { profile: Profile | null 
           <input required type="email" placeholder="Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="border border-gray-200 px-3 py-2 text-sm font-jost" />
           <select value={form.role} onChange={e => setForm({ ...form, role: e.target.value as UserRole })} className="border border-gray-200 px-3 py-2 text-sm font-jost">
             <option value="investor">Investor</option>
+            <option value="agent">Introduction agent</option>
             <option value="school_partner">School partner</option>
             <option value="employee">Employee</option>
             <option value="board_member">Board member</option>

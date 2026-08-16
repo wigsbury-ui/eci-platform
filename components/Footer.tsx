@@ -29,6 +29,8 @@ export default function Footer() {
                 ['About ECI', '/#about'],
                 ['Our Schools', '/#schools'],
                 ['Expansion', '/#expansion'],
+                ['Services', '/#services'],
+                ['Introduction agents', '/agents'],
                 ['Investment partners', '/investors'],
                 ['Contact', '/#contact'],
               ].map(([l, h]) => (
@@ -44,6 +46,7 @@ export default function Footer() {
             <p className="text-white text-xs tracking-widest uppercase font-jost font-semibold mb-4">Portals</p>
             <ul className="space-y-2 text-sm font-jost">
               <li><Link href="/login?audience=investor" className="hover:text-[#C8A84B] transition-colors">Investor portal</Link></li>
+              <li><Link href="/login?audience=agent" className="hover:text-[#C8A84B] transition-colors">Agent portal</Link></li>
               <li><Link href="/login?audience=school" className="hover:text-[#C8A84B] transition-colors">School partner portal</Link></li>
               <li><Link href="/login?audience=team" className="hover:text-[#C8A84B] transition-colors">Staff portal</Link></li>
             </ul>

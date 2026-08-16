@@ -10,6 +10,7 @@ const LINKS = [
   { label: 'Our Schools', href: '/#schools' },
   { label: 'Expansion', href: '/#expansion' },
   { label: 'Services', href: '/#services' },
+  { label: 'Agents', href: '/agents' },
   { label: 'Investors', href: '/investors' },
   { label: 'Contact', href: '/#contact' },
 ]

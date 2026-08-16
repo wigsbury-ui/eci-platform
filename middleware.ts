@@ -38,6 +38,8 @@ export async function middleware(request: NextRequest) {
   const isProtected =
     path === '/investor' ||
     path.startsWith('/investor/') ||
+    path === '/agent' ||
+    path.startsWith('/agent/') ||
     path === '/school' ||
     path.startsWith('/school/') ||
     path === '/admin' ||

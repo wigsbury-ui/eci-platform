@@ -6,8 +6,9 @@ import {
   PARTNERSHIP_MODELS,
 } from '@/lib/content/network'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
+import { AGENT_PROGRAM, AGENT_HOW_IT_WORKS, AGENT_IDEAL_INTROS } from '@/lib/content/agents'
 
-export type KnowledgeAudience = 'investor' | 'school' | 'public' | 'team'
+export type KnowledgeAudience = 'investor' | 'school' | 'public' | 'team' | 'agent'
 
 export type KnowledgeChunk = {
   id: string
@@ -48,21 +49,28 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
   },
   {
     id: 'expansion',
-    audience: ['investor', 'public', 'team'],
+    audience: ['investor', 'public', 'team', 'agent'],
     title: 'Top 10 priority destinations',
     source: 'Investment partners',
     text: `ECI’s Top 10 open growth destinations for investment and operating partners are: ${TOP_DESTINATIONS.map(m => `#${m.rank} ${m.name} (${m.country})`).join('; ')}. Riyadh is an operating campus already allocated to a partner and is not listed among open growth markets. Rankings reflect demand, income fit, fee-band alignment, regulatory climate, competition, UK curriculum readiness and cultural fit with ECI.`,
   },
   {
+    id: 'agents',
+    audience: ['agent', 'public', 'team'],
+    title: 'Introduction agent programme',
+    source: 'Agent programme',
+    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. Agents use the Agent Portal to brief themselves, access marketing resources, and submit investor referrals.`,
+  },
+  {
     id: 'partnerships',
-    audience: ['investor', 'public', 'team'],
+    audience: ['investor', 'public', 'team', 'agent'],
     title: 'Partnership models',
     source: 'Partnership',
     text: PARTNERSHIP_MODELS.map(m => `${m.title}: ${m.summary} Ideal for: ${m.ideal}`).join(' '),
   },
   {
     id: 'investor-value',
-    audience: ['investor', 'public', 'team'],
+    audience: ['investor', 'public', 'team', 'agent'],
     title: 'Why partner with ECI',
     source: 'Investor briefing',
     text: INVESTOR_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' '),
