@@ -49,6 +49,37 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
         </Link>
       </div>
 
+      <div className="bg-white border border-gray-100 p-7 mb-8">
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <div>
+            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Partner Services Framework</h2>
+            <p className="text-sm text-gray-500 font-jost mt-2 max-w-xl">
+              The full three-tier product offering — obligatory commitments, core services, and premium
+              add-ons — with attributes, deliverables and impact signals for every service.
+            </p>
+          </div>
+          <Link
+            href="/investor/services"
+            className="text-sm font-jost font-semibold text-[#2D1654] bg-[#C8A84B] px-5 py-2.5 hover:bg-[#F0E4B0] transition-colors"
+          >
+            Open full framework →
+          </Link>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            { tier: 'Group 1', title: 'Obligatory commitments', note: 'Non-negotiable foundation' },
+            { tier: 'Group 2', title: 'Core services', note: 'Experience & differentiation' },
+            { tier: 'Group 3', title: 'Premium add-ons', note: 'Specialist high-value depth' },
+          ].map(g => (
+            <div key={g.tier} className="border border-gray-100 p-4">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#C8A84B] font-jost mb-1">{g.tier}</p>
+              <p className="font-cormorant text-lg text-eci-purple-dark">{g.title}</p>
+              <p className="text-xs text-gray-500 font-jost mt-1">{g.note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="grid lg:grid-cols-2 gap-8 mb-8">
         <div className="bg-white border border-gray-100 p-7">
           <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-5">Network schools</h2>

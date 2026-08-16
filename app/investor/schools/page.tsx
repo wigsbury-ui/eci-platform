@@ -2,17 +2,8 @@ import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { OPENING_SOON, OPERATING_SCHOOLS, EXPANSION_MARKETS } from '@/lib/content/network'
-import { TrendingUp, FileText, Users, MessageSquare, Home, BookOpen } from 'lucide-react'
+import { INVESTOR_NAV_ITEMS } from '@/components/portal/investorNav'
 import Image from 'next/image'
-
-const NAV_ITEMS = [
-  { label: 'Overview', href: '/investor', icon: <Home size={16} /> },
-  { label: 'Partnership Models', href: '/investor/models', icon: <TrendingUp size={16} /> },
-  { label: 'Marketing Resources', href: '/investor/resources', icon: <BookOpen size={16} /> },
-  { label: 'Due Diligence', href: '/investor/due-diligence', icon: <FileText size={16} /> },
-  { label: 'Network Schools', href: '/investor/schools', icon: <Users size={16} /> },
-  { label: 'Express Interest', href: '/investor/apply', icon: <MessageSquare size={16} /> },
-]
 
 export default async function InvestorSchoolsPage() {
   const { profile } = await requirePortalAccess(
@@ -21,7 +12,7 @@ export default async function InvestorSchoolsPage() {
   )
 
   return (
-    <PortalShell profile={profile} portalName="Investor Portal" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/investor/schools">
+    <PortalShell profile={profile} portalName="Investor Portal" portalAccent="#C8A84B" navItems={INVESTOR_NAV_ITEMS} activeSection="/investor/schools">
       <h1 className="font-cormorant text-4xl text-eci-purple-dark mb-8">Network schools</h1>
       <div className="grid md:grid-cols-2 gap-6 mb-12">
         {[...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => (

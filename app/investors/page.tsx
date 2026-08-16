@@ -4,6 +4,7 @@ import Link from 'next/link'
 import PublicNav from '@/components/PublicNav'
 import Footer from '@/components/Footer'
 import ContactSection from '@/components/ContactSection'
+import PartnerServicesSection from '@/components/PartnerServicesSection'
 import {
   EXPANSION_MARKETS,
   INVESTOR_VALUE_PROPS,
@@ -147,6 +148,8 @@ export default function InvestorsPage() {
           </div>
         </div>
       </section>
+
+      <PartnerServicesSection variant="investors" />
 
       <section className="py-24 bg-[#2D1654] text-white">
         <div className="max-w-7xl mx-auto px-6">

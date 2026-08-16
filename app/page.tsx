@@ -5,6 +5,7 @@ import HeadsMessageSection from '@/components/HeadsMessageSection'
 import SchoolsSection from '@/components/SchoolsSection'
 import ExpansionSection from '@/components/ExpansionSection'
 import PartnershipSection from '@/components/PartnershipSection'
+import PartnerServicesSection from '@/components/PartnerServicesSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 
@@ -17,6 +18,7 @@ export default function HomePage() {
       <HeadsMessageSection />
       <SchoolsSection />
       <ExpansionSection />
+      <PartnerServicesSection variant="home" />
       <PartnershipSection />
       <ContactSection />
       <Footer />
