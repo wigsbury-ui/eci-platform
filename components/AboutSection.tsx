@@ -66,11 +66,12 @@ export default function AboutSection() {
           className="object-cover"
           sizes="50vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EF] via-[#F8F4EF]/75 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EF] via-[#F8F4EF]/55 to-transparent" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="max-w-xl">
+        {/* Main About copy — pushed down so it sits lower against the campus image */}
+        <div className="max-w-xl lg:pt-20 xl:pt-28">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
             About ECI
           </p>
@@ -96,7 +97,7 @@ export default function AboutSection() {
             and beyond.
           </p>
 
-          <div className="grid grid-cols-3 gap-5 mb-10">
+          <div className="grid grid-cols-3 gap-5">
             {[
               { k: '1884', v: 'Founded in Shropshire' },
               { k: 'HPL', v: 'World Class School' },
@@ -110,64 +111,95 @@ export default function AboutSection() {
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Discreet team rotator — below copy so the right-hand image stays clear */}
-          <div className="bg-white/95 border border-[#2D1654]/10 p-5 shadow-sm max-w-md">
-            <p className="text-[#C8A84B] text-[10px] tracking-[0.25em] uppercase mb-3 font-jost font-bold">
-              Meet our team
-            </p>
+        {/* Mobile / tablet: team rotator under copy */}
+        <div className="lg:hidden mt-10 bg-white/95 border border-[#2D1654]/10 p-5 shadow-sm max-w-md">
+          <TeamRotatorPanel
+            member={member}
+            index={index}
+            setIndex={i => startTransition(() => setIndex(i))}
+          />
+        </div>
+      </div>
 
-            <div key={member.id} className="psf-panel flex gap-3.5 items-start">
-              <div className="relative shrink-0">
-                <Avatar member={member} size={64} />
-                <a
-                  href={member.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:bg-[#004182] transition-colors"
-                  aria-label={`${member.name} on LinkedIn`}
-                >
-                  <LinkedInIcon className="w-2.5 h-2.5" />
-                </a>
-              </div>
-              <div className="min-w-0 pt-0.5">
-                <h3 className="font-cormorant text-lg font-semibold text-[#2D1654] leading-tight">
-                  {member.name}
-                </h3>
-                <p className="font-jost text-[11px] text-[#4C2585] font-medium mt-0.5 mb-1.5">
-                  {member.title}
-                </p>
-                <p className="font-jost text-xs text-[#2D1654]/65 leading-relaxed line-clamp-3">
-                  {member.shortBio}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-[#2D1654]/8">
-              <div className="flex gap-1">
-                {TEAM_MEMBERS.map((m, i) => (
-                  <button
-                    key={m.id}
-                    type="button"
-                    onClick={() => startTransition(() => setIndex(i))}
-                    className={`h-1 rounded-full transition-all duration-300 ${
-                      i === index ? 'w-4 bg-[#C8A84B]' : 'w-1 bg-[#2D1654]/20 hover:bg-[#2D1654]/35'
-                    }`}
-                    aria-label={`Show ${m.name}`}
-                    aria-current={i === index}
-                  />
-                ))}
-              </div>
-              <Link
-                href="/#team"
-                className="font-jost text-xs font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
-              >
-                Full team →
-              </Link>
-            </div>
-          </div>
+      {/* Desktop: discreet team module — bottom right of the campus image */}
+      <div className="hidden lg:block absolute bottom-8 right-8 xl:bottom-10 xl:right-10 w-[min(22rem,calc(50vw-3rem))] z-10">
+        <div className="bg-white/95 backdrop-blur-sm border border-[#2D1654]/10 p-5 shadow-md">
+          <TeamRotatorPanel
+            member={member}
+            index={index}
+            setIndex={i => startTransition(() => setIndex(i))}
+          />
         </div>
       </div>
     </section>
+  )
+}
+
+function TeamRotatorPanel({
+  member,
+  index,
+  setIndex,
+}: {
+  member: (typeof TEAM_MEMBERS)[number]
+  index: number
+  setIndex: (i: number) => void
+}) {
+  return (
+    <>
+      <p className="text-[#C8A84B] text-[10px] tracking-[0.25em] uppercase mb-3 font-jost font-bold">
+        Meet our team
+      </p>
+
+      <div key={member.id} className="psf-panel flex gap-3.5 items-start">
+        <div className="relative shrink-0">
+          <Avatar member={member} size={64} />
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:bg-[#004182] transition-colors"
+            aria-label={`${member.name} on LinkedIn`}
+          >
+            <LinkedInIcon className="w-2.5 h-2.5" />
+          </a>
+        </div>
+        <div className="min-w-0 pt-0.5">
+          <h3 className="font-cormorant text-lg font-semibold text-[#2D1654] leading-tight">
+            {member.name}
+          </h3>
+          <p className="font-jost text-[11px] text-[#4C2585] font-medium mt-0.5 mb-1.5">
+            {member.title}
+          </p>
+          <p className="font-jost text-xs text-[#2D1654]/65 leading-relaxed line-clamp-3">
+            {member.shortBio}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-[#2D1654]/8">
+        <div className="flex gap-1">
+          {TEAM_MEMBERS.map((m, i) => (
+            <button
+              key={m.id}
+              type="button"
+              onClick={() => setIndex(i)}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                i === index ? 'w-4 bg-[#C8A84B]' : 'w-1 bg-[#2D1654]/20 hover:bg-[#2D1654]/35'
+              }`}
+              aria-label={`Show ${m.name}`}
+              aria-current={i === index}
+            />
+          ))}
+        </div>
+        <Link
+          href="/#team"
+          className="font-jost text-xs font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
+        >
+          Full team →
+        </Link>
+      </div>
+    </>
   )
 }
