@@ -1,6 +1,7 @@
 'use client'
 import { School, Profile } from '@/lib/types'
-import { EXPANSION_MARKETS, PARTNERSHIP_MODELS } from '@/lib/content/network'
+import { PARTNERSHIP_MODELS } from '@/lib/content/network'
+import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import Link from 'next/link'
 
 export default function InvestorDashboard({ schools, profile }: { schools: School[], profile: Profile | null }) {
@@ -23,7 +24,7 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
           { label: 'Network schools', value: schools.length },
           { label: 'Operating', value: active },
           { label: 'Opening soon', value: schools.filter(s => s.status === 'setting_up').length },
-          { label: 'Expansion markets', value: EXPANSION_MARKETS.length },
+          { label: 'Top destinations', value: TOP_DESTINATIONS.length },
         ].map(({ label, value }) => (
           <div key={label} className="bg-white border border-gray-100 p-5">
             <p className="text-gray-400 text-xs font-jost uppercase tracking-wide mb-2">{label}</p>
@@ -100,15 +101,26 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
           </div>
         </div>
         <div className="bg-white border border-gray-100 p-7">
-          <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-5">Expansion pipeline</h2>
+          <div className="flex items-start justify-between gap-3 mb-5">
+            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Top 10 destinations</h2>
+            <Link href="/investor/markets" className="text-sm font-jost text-eci-purple hover:underline shrink-0">
+              Full brief →
+            </Link>
+          </div>
           <ul className="space-y-3">
-            {EXPANSION_MARKETS.map(m => (
+            {TOP_DESTINATIONS.slice(0, 6).map(m => (
               <li key={m.id} className="border-b border-gray-50 pb-3">
-                <p className="font-jost font-semibold text-sm text-gray-800">{m.name}</p>
-                <p className="text-xs text-gray-500 font-jost mt-1">{m.detail}</p>
+                <p className="font-jost font-semibold text-sm text-gray-800">
+                  <span className="text-eci-gold mr-2">#{m.rank}</span>
+                  {m.shortName}
+                </p>
+                <p className="text-xs text-gray-500 font-jost mt-1">{m.country} · {m.opportunity}</p>
               </li>
             ))}
           </ul>
+          <Link href="/investor/markets" className="inline-block mt-4 text-sm font-jost text-eci-purple hover:underline">
+            View all ten markets →
+          </Link>
         </div>
       </div>
     </div>

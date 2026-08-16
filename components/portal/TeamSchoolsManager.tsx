@@ -172,12 +172,14 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
         ))}
       </div>
 
-      <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-4">Expansion pipeline</h2>
+      <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-4">Top 10 priority destinations</h2>
       <div className="grid md:grid-cols-2 gap-3">
         {EXPANSION_MARKETS.map(m => (
           <div key={m.id} className="bg-white border border-gray-100 p-5">
-            <p className="font-cormorant text-xl text-eci-purple-dark">{m.name}</p>
-            <p className="text-sm text-gray-500 font-jost mt-1">{m.detail}</p>
+            <p className="text-xs text-eci-gold font-jost tracking-widest mb-1">#{m.rank}</p>
+            <p className="font-cormorant text-xl text-eci-purple-dark">{m.city}</p>
+            <p className="text-xs text-gray-400 font-jost">{m.country}</p>
+            <p className="text-sm text-gray-500 font-jost mt-2">{m.detail}</p>
           </div>
         ))}
       </div>

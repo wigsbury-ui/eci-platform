@@ -1,11 +1,11 @@
 import {
-  EXPANSION_MARKETS,
   HERITAGE,
   INVESTOR_VALUE_PROPS,
   OPENING_SOON,
   OPERATING_SCHOOLS,
   PARTNERSHIP_MODELS,
 } from '@/lib/content/network'
+import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 
 export type KnowledgeAudience = 'investor' | 'school' | 'public' | 'team'
 
@@ -49,9 +49,9 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
   {
     id: 'expansion',
     audience: ['investor', 'public', 'team'],
-    title: 'Expansion markets',
+    title: 'Top 10 priority destinations',
     source: 'Investment partners',
-    text: `ECI is seeking investment and operating partners in: ${EXPANSION_MARKETS.map(m => m.name).join('; ')}.`,
+    text: `ECI’s Top 10 priority destinations for investment and operating partners are: ${TOP_DESTINATIONS.map(m => `#${m.rank} ${m.name} (${m.country})`).join('; ')}. Rankings reflect demand, income fit, fee-band alignment, regulatory climate, competition, UK curriculum readiness and cultural fit with ECI.`,
   },
   {
     id: 'partnerships',

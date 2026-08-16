@@ -1,5 +1,10 @@
 /** Canonical public network content for ECI — used when DB is empty or as seed source of truth. */
 
+import {
+  expansionPinDestinations,
+  TOP_DESTINATIONS,
+} from '@/lib/content/expansion-markets'
+
 export type NetworkSchoolCard = {
   id: string
   name: string
@@ -66,48 +71,17 @@ export const OPENING_SOON: NetworkSchoolCard[] = [
   },
 ]
 
-export const EXPANSION_MARKETS = [
-  {
-    id: 'egypt',
-    name: 'Egypt',
-    city: 'Cairo',
-    detail: 'Seeking investment and operating partners for a flagship Ellesmere campus.',
-    lat: 30.0444,
-    lng: 31.2357,
-  },
-  {
-    id: 'ksa-beyond-riyadh',
-    name: 'Saudi Arabia (beyond Riyadh)',
-    city: 'Jeddah & beyond',
-    detail: 'Expanding the Ellesmere model to additional cities across the Kingdom.',
-    lat: 21.4858,
-    lng: 39.1925,
-  },
-  {
-    id: 'abu-dhabi',
-    name: 'Abu Dhabi',
-    city: 'Abu Dhabi',
-    detail: 'UAE expansion opportunity for partners aligned with British independent-school standards.',
-    lat: 24.4539,
-    lng: 54.3773,
-  },
-  {
-    id: 'al-ain',
-    name: 'Al Ain',
-    city: 'Al Ain',
-    detail: 'Garden city campus opportunity within the UAE corridor.',
-    lat: 24.2075,
-    lng: 55.7447,
-  },
-  {
-    id: 'morocco',
-    name: 'Morocco',
-    city: 'Casablanca',
-    detail: 'North Africa entry point for the Ellesmere international network.',
-    lat: 33.5731,
-    lng: -7.5898,
-  },
-] as const
+/** @deprecated Prefer TOP_DESTINATIONS — kept as a thin adapter for existing imports. */
+export const EXPANSION_MARKETS = TOP_DESTINATIONS.map(d => ({
+  id: d.id,
+  name: d.name,
+  city: d.shortName,
+  detail: d.publicSummary,
+  lat: d.lat,
+  lng: d.lng,
+  rank: d.rank,
+  country: d.country,
+}))
 
 /** Network + pipeline locations for the expansion map. */
 export const MAP_LOCATIONS = [
@@ -115,10 +89,11 @@ export const MAP_LOCATIONS = [
     id: 'riyadh',
     name: 'Ellesmere College Riyadh',
     shortName: 'Riyadh',
-    detail: 'Operating now — including the Salwa Compound campus.',
+    detail: 'Operating now — including the Salwa Compound campus. Ranked among ECI’s top expansion destinations for further scale.',
     lat: 24.7136,
     lng: 46.6753,
     status: 'open' as const,
+    rank: 2 as number | undefined,
   },
   {
     id: 'muscat',
@@ -128,6 +103,7 @@ export const MAP_LOCATIONS = [
     lat: 23.588,
     lng: 58.3829,
     status: 'open' as const,
+    rank: undefined as number | undefined,
   },
   {
     id: 'doha',
@@ -137,15 +113,17 @@ export const MAP_LOCATIONS = [
     lat: 25.2854,
     lng: 51.531,
     status: 'opening' as const,
+    rank: undefined as number | undefined,
   },
-  ...EXPANSION_MARKETS.map(m => ({
-    id: m.id,
-    name: m.name,
-    shortName: m.city,
-    detail: m.detail,
-    lat: m.lat,
-    lng: m.lng,
+  ...expansionPinDestinations().map(d => ({
+    id: d.id,
+    name: d.name,
+    shortName: d.shortName,
+    detail: d.publicSummary,
+    lat: d.lat,
+    lng: d.lng,
     status: 'expansion' as const,
+    rank: d.rank as number | undefined,
   })),
 ] as const
 
@@ -184,7 +162,7 @@ export const INVESTOR_VALUE_PROPS = [
   },
   {
     title: 'Defined expansion map',
-    body: 'Priority markets include Egypt, wider Saudi Arabia, Abu Dhabi, Al Ain, and Morocco — with structured partnership models for capital and operators.',
+    body: 'A ranked Top 10 destination set — from New Cairo and Riyadh to Bahrain, Morocco, Abu Dhabi, Sohar and Jeddah — selected through consistent multi-country market analysis.',
   },
   {
     title: 'Quality & brand protection',

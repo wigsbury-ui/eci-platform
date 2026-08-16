@@ -106,10 +106,11 @@ const STATUS_META = {
 
 /** Tighter zoom for Gulf cluster; wider for Maghreb / Egypt. */
 function zoomForLocation(id: string) {
-  if (['abu-dhabi', 'al-ain', 'doha', 'muscat'].includes(id)) return 3.4
-  if (['riyadh', 'ksa-beyond-riyadh'].includes(id)) return 2.6
-  if (id === 'egypt') return 2.4
-  if (id === 'morocco') return 2.5
+  if (['abu-dhabi', 'doha', 'muscat', 'bahrain-north', 'bahrain-south', 'sohar'].includes(id))
+    return 3.4
+  if (['riyadh', 'jeddah'].includes(id)) return 2.6
+  if (['new-cairo', 'october-sheikh-zayed'].includes(id)) return 2.5
+  if (['rabat', 'bouskoura'].includes(id)) return 2.5
   return 2.3
 }
 
@@ -120,7 +121,7 @@ function curvePath(a: { x: number; y: number }, b: { x: number; y: number }) {
 }
 
 export default function ExpansionSection() {
-  const [activeId, setActiveId] = useState('egypt')
+  const [activeId, setActiveId] = useState('new-cairo')
   const [zoomed, setZoomed] = useState(true)
   const [visible, setVisible] = useState(false)
 
@@ -186,17 +187,17 @@ export default function ExpansionSection() {
         >
           <div className="max-w-2xl">
             <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">
-              Where we are going
+              Top 10 destinations
             </p>
             <h2
               className="font-cormorant font-light leading-tight mb-4"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
             >
-              Expansion in motion
+              Where the network grows next
             </h2>
             <p className="text-white/60 font-jost leading-relaxed">
-              Select a market and the map zooms to that region — so Al Ain, Cairo or Casablanca
-              each get a clear local view.
+              Ten priority markets ranked for demand, income fit, regulatory openness and cultural
+              alignment with Ellesmere — select any destination and the map focuses on that city.
             </p>
           </div>
           <div className="flex flex-wrap gap-5 text-xs font-jost">
@@ -204,7 +205,7 @@ export default function ExpansionSection() {
               [
                 ['open', 'Operating'],
                 ['opening', 'Opening soon'],
-                ['expansion', 'Expansion'],
+                ['expansion', 'Top 10'],
               ] as const
             ).map(([key, label]) => (
               <span key={key} className="inline-flex items-center gap-2 text-white/70">
@@ -357,6 +358,7 @@ export default function ExpansionSection() {
                             : 'text-white/75 text-[11px] -top-7 opacity-90 group-hover:text-white'
                         }`}
                       >
+                        {p.rank ? `${p.rank} · ` : ''}
                         {p.shortName}
                       </span>
                     </button>
@@ -391,7 +393,9 @@ export default function ExpansionSection() {
                 className="text-[10px] font-jost font-semibold tracking-[0.25em] uppercase mb-3"
                 style={{ color: STATUS_META[active.status].colour }}
               >
-                {STATUS_META[active.status].label}
+                {active.rank
+                  ? `Priority #${active.rank} · ${STATUS_META[active.status].label}`
+                  : STATUS_META[active.status].label}
               </p>
               <h3 className="font-cormorant text-3xl text-white mb-2 leading-tight">
                 {active.name}
@@ -399,9 +403,10 @@ export default function ExpansionSection() {
               <p className="text-white/45 text-sm font-jost mb-5">{active.shortName}</p>
               <p className="text-white/70 font-jost leading-relaxed mb-8">{active.detail}</p>
 
-              <div className="flex flex-wrap gap-2 mb-8">
+              <div className="flex flex-wrap gap-2 mb-8 max-h-36 overflow-y-auto">
                 {points
-                  .filter(p => p.status === 'expansion')
+                  .filter(p => p.status === 'expansion' || p.rank)
+                  .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
                   .map(p => (
                     <button
                       key={p.id}
@@ -413,13 +418,14 @@ export default function ExpansionSection() {
                           : 'border-white/15 text-white/55 hover:border-white/35 hover:text-white'
                       }`}
                     >
+                      {p.rank ? `${p.rank}. ` : ''}
                       {p.shortName}
                     </button>
                   ))}
               </div>
 
               <Link
-                href="/investors"
+                href="/investors#top-destinations"
                 className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
               >
                 Partner on this market
@@ -430,7 +436,7 @@ export default function ExpansionSection() {
               {[
                 { n: points.filter(p => p.status === 'open').length, l: 'Open' },
                 { n: points.filter(p => p.status === 'opening').length, l: 'Soon' },
-                { n: points.filter(p => p.status === 'expansion').length, l: 'Targets' },
+                { n: 10, l: 'Top 10' },
               ].map(stat => (
                 <li key={stat.l} className="border border-white/10 bg-white/[0.03] py-3">
                   <p className="font-cormorant text-2xl text-[#C8A84B]">{stat.n}</p>

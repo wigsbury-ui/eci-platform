@@ -1,9 +1,11 @@
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
-import { OPENING_SOON, OPERATING_SCHOOLS, EXPANSION_MARKETS } from '@/lib/content/network'
+import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
+import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import { INVESTOR_NAV_ITEMS } from '@/components/portal/investorNav'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default async function InvestorSchoolsPage() {
   const { profile } = await requirePortalAccess(
@@ -28,12 +30,19 @@ export default async function InvestorSchoolsPage() {
           </article>
         ))}
       </div>
-      <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-4">Expansion markets</h2>
+      <div className="flex items-end justify-between gap-4 mb-4">
+        <h2 className="font-cormorant text-2xl text-eci-purple-dark">Top 10 priority destinations</h2>
+        <Link href="/investor/markets" className="text-sm font-jost text-eci-purple hover:underline">
+          Open full market brief →
+        </Link>
+      </div>
       <ul className="grid md:grid-cols-2 gap-3">
-        {EXPANSION_MARKETS.map(m => (
+        {TOP_DESTINATIONS.map(m => (
           <li key={m.id} className="bg-white border border-gray-100 p-5">
-            <p className="font-cormorant text-xl text-eci-purple-dark">{m.name}</p>
-            <p className="text-sm text-gray-500 font-jost mt-1">{m.detail}</p>
+            <p className="text-xs text-eci-gold font-jost tracking-widest mb-1">#{m.rank}</p>
+            <p className="font-cormorant text-xl text-eci-purple-dark">{m.shortName}</p>
+            <p className="text-xs text-gray-400 font-jost mt-0.5">{m.country}</p>
+            <p className="text-sm text-gray-500 font-jost mt-2">{m.publicSummary}</p>
           </li>
         ))}
       </ul>

@@ -6,12 +6,12 @@ import Footer from '@/components/Footer'
 import ContactSection from '@/components/ContactSection'
 import PartnerServicesSection from '@/components/PartnerServicesSection'
 import {
-  EXPANSION_MARKETS,
   INVESTOR_VALUE_PROPS,
   OPENING_SOON,
   OPERATING_SCHOOLS,
   PARTNERSHIP_MODELS,
 } from '@/lib/content/network'
+import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 
 export const metadata: Metadata = {
   title: 'Investment Partners',
@@ -47,7 +47,8 @@ export default function InvestorsPage() {
           <p className="text-white/75 text-lg font-jost font-light max-w-xl mb-10 leading-relaxed">
             ECI seeks aligned capital and operating partners to grow a network of British-heritage
             schools — starting from live campuses in Riyadh and Muscat, with Doha opening soon, and
-            defined opportunities in Egypt, wider Saudi Arabia, Abu Dhabi, Al Ain and Morocco.
+            a ranked Top 10 destination set spanning Egypt, Saudi Arabia, Bahrain, Morocco, the UAE
+            and Oman.
           </p>
           <div className="flex flex-wrap gap-4">
             <a
@@ -135,13 +136,26 @@ export default function InvestorsPage() {
             </div>
           </div>
 
-          <div>
-            <h3 className="font-cormorant text-3xl text-[#2D1654] mb-8">Priority expansion markets</h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {EXPANSION_MARKETS.map(m => (
-                <div key={m.id} className="border border-gray-150 bg-[#F8F4EF] p-6">
-                  <h4 className="font-cormorant text-xl text-[#2D1654] mb-2">{m.name}</h4>
-                  <p className="text-sm text-gray-600 font-jost leading-relaxed">{m.detail}</p>
+          <div id="top-destinations">
+            <h3 className="font-cormorant text-3xl text-[#2D1654] mb-3">Top 10 priority destinations</h3>
+            <p className="text-gray-500 font-jost text-sm max-w-2xl mb-8 leading-relaxed">
+              Ranked markets for partner capital — combining demand, income fit, regulatory
+              openness and cultural alignment with the Ellesmere model. Deeper scorecards and
+              thesis notes sit inside the Investor Portal.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              {TOP_DESTINATIONS.map(m => (
+                <div key={m.id} className="border border-gray-150 bg-[#F8F4EF] p-5">
+                  <p className="text-[#C8A84B] font-jost text-[11px] tracking-[0.2em] uppercase mb-2">
+                    #{m.rank}
+                  </p>
+                  <h4 className="font-cormorant text-xl text-[#2D1654] mb-1 leading-snug">
+                    {m.shortName}
+                  </h4>
+                  <p className="text-xs text-gray-400 font-jost mb-3">{m.country}</p>
+                  <p className="text-sm text-gray-600 font-jost leading-relaxed line-clamp-4">
+                    {m.publicSummary}
+                  </p>
                 </div>
               ))}
             </div>
