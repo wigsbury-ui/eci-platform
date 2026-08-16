@@ -59,7 +59,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden bg-[#F8F4EF] py-16 md:py-20 lg:py-24"
+      className="home-window relative min-h-[100svh] flex flex-col justify-end overflow-hidden bg-[#F8F4EF] py-16 md:py-20 lg:py-24"
     >
       {/* Full-bleed campus image on the right half — fills section height */}
       <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">

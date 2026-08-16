@@ -14,7 +14,7 @@ export default function HeadsMessageSection() {
   return (
     <section
       id="heads-message"
-      className="relative py-24 md:py-28 overflow-hidden"
+      className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden py-20 md:py-24"
       style={{
         background:
           'linear-gradient(165deg, #2D1654 0%, #3d1f6e 48%, #1A1228 100%)',
@@ -28,15 +28,15 @@ export default function HeadsMessageSection() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative max-w-7xl mx-auto px-6 w-full">
         <div
-          className={`grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] gap-12 lg:gap-16 items-center transition-all duration-1000 ${
+          className={`grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-10 lg:gap-16 items-center transition-all duration-1000 ${
             ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
-          <div className="relative mx-auto lg:mx-0 w-full max-w-md">
+          <div className="relative mx-auto lg:mx-0 w-full max-w-sm xl:max-w-md">
             <div className="absolute -inset-3 border border-[#C8A84B]/35 pointer-events-none" />
-            <div className="relative aspect-[3/4] overflow-hidden bg-[#1A1228]">
+            <div className="relative aspect-[3/4] max-h-[min(62svh,520px)] overflow-hidden bg-[#1A1228]">
               <Image
                 src="/images/people/jon-shaw.jpg"
                 alt="Jon Shaw, Head of Ellesmere College"
@@ -57,15 +57,15 @@ export default function HeadsMessageSection() {
               Head&apos;s message
             </p>
             <h2
-              className="font-cormorant font-semibold text-white leading-tight mb-6"
+              className="font-cormorant font-semibold text-white leading-tight mb-5"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
             >
               A Life:Ready education,
               <br />
               <em className="text-[#C8A84B]">shared with the world.</em>
             </h2>
-            <div className="w-14 h-1 bg-[#C8A84B] mb-6" />
-            <div className="space-y-5 text-white/85 font-jost leading-relaxed text-[1.05rem]">
+            <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
+            <div className="space-y-4 text-white/85 font-jost leading-relaxed text-[1.02rem] max-w-xl">
               <p>
                 Ellesmere has always believed that education is about more than examination
                 results. Our purpose is to help young people become confident, kind and capable —
@@ -82,7 +82,7 @@ export default function HeadsMessageSection() {
                 anywhere.
               </p>
             </div>
-            <p className="mt-8 font-cormorant text-2xl text-[#C8A84B] italic">Jon Shaw</p>
+            <p className="mt-7 font-cormorant text-2xl text-[#C8A84B] italic">Jon Shaw</p>
             <p className="text-white/45 text-xs font-jost mt-1">
               Sample welcome — final wording to be provided by the Head.
             </p>
@@ -90,7 +90,7 @@ export default function HeadsMessageSection() {
               href="https://www.ellesmere.com/about-us/headmasters-welcome"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block mt-8 text-sm font-jost text-white/80 border-b border-[#C8A84B]/60 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors pb-0.5"
+              className="inline-block mt-7 text-sm font-jost text-white/80 border-b border-[#C8A84B]/60 hover:text-[#C8A84B] hover:border-[#C8A84B] transition-colors pb-0.5"
             >
               Read more on ellesmere.com
             </Link>

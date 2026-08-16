@@ -11,7 +11,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative min-h-[100svh] flex items-end overflow-hidden">
+    <section className="home-window relative min-h-[100svh] flex items-end overflow-hidden">
       <Image
         src="/images/campus/hero-ellesmere-authentic.jpg"
         alt="Ellesmere College historic campus and grounds in Shropshire"

@@ -44,7 +44,7 @@ export default function PartnerServicesSection({
   return (
     <section
       id="services"
-      className="relative overflow-hidden py-12 md:py-16 lg:min-h-[100svh] lg:flex lg:flex-col lg:justify-center bg-white"
+      className="home-window relative overflow-hidden py-12 md:py-16 lg:min-h-[100svh] lg:flex lg:flex-col lg:justify-center bg-white"
     >
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-40"

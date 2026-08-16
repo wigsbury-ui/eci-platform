@@ -17,6 +17,19 @@ body {
   color: #111827;
 }
 
+/* Homepage full-viewport windows: light snap resistance between sections */
+@media (min-width: 768px) {
+  html:has(main.home-snap) {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: 4.75rem;
+  }
+
+  main.home-snap > section.home-window {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
 .font-cormorant { font-family: 'Cormorant Garamond', Georgia, serif !important; }
 .font-jost { font-family: 'Jost', system-ui, sans-serif !important; }
 .bg-eci-purple { background-color: var(--eci-purple) !important; }
