@@ -40,7 +40,7 @@ export default function PublicNav({ solid = false }: { solid?: boolean }) {
             alt="Ellesmere College"
             width={44}
             height={44}
-            className="rounded-full bg-white/10 p-0.5"
+            className="shrink-0"
             priority
           />
           <div>
