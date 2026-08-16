@@ -10,12 +10,10 @@ import AgentsSection from '@/components/AgentsSection'
 import TeamSection from '@/components/TeamSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
-import HomeScrollSnap from '@/components/HomeScrollSnap'
 
 export default function HomePage() {
   return (
     <main className="home-snap">
-      <HomeScrollSnap />
       <PublicNav />
       <HeroSection />
       <AboutSection />

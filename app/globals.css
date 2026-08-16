@@ -17,7 +17,7 @@ body {
   color: #111827;
 }
 
-/* Homepage full-viewport windows: snap flush to the frame (nav overlays) */
+/* Soft edge stickiness for full-viewport homepage modules — no forced jumps */
 @media (min-width: 768px) {
   html:has(main.home-snap) {
     scroll-snap-type: y proximity;
@@ -26,7 +26,6 @@ body {
 
   main.home-snap > section.home-window {
     scroll-snap-align: start;
-    scroll-snap-stop: always;
     scroll-margin-top: 0;
   }
 }
