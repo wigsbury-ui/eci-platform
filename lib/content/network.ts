@@ -70,28 +70,83 @@ export const EXPANSION_MARKETS = [
   {
     id: 'egypt',
     name: 'Egypt',
+    city: 'Cairo',
     detail: 'Seeking investment and operating partners for a flagship Ellesmere campus.',
+    lat: 30.0444,
+    lng: 31.2357,
   },
   {
     id: 'ksa-beyond-riyadh',
     name: 'Saudi Arabia (beyond Riyadh)',
+    city: 'Jeddah & beyond',
     detail: 'Expanding the Ellesmere model to additional cities across the Kingdom.',
+    lat: 21.4858,
+    lng: 39.1925,
   },
   {
     id: 'abu-dhabi',
     name: 'Abu Dhabi',
+    city: 'Abu Dhabi',
     detail: 'UAE expansion opportunity for partners aligned with British independent-school standards.',
+    lat: 24.4539,
+    lng: 54.3773,
   },
   {
     id: 'al-ain',
     name: 'Al Ain',
+    city: 'Al Ain',
     detail: 'Garden city campus opportunity within the UAE corridor.',
+    lat: 24.2075,
+    lng: 55.7447,
   },
   {
     id: 'morocco',
     name: 'Morocco',
+    city: 'Casablanca',
     detail: 'North Africa entry point for the Ellesmere international network.',
+    lat: 33.5731,
+    lng: -7.5898,
   },
+] as const
+
+/** Network + pipeline locations for the expansion map. */
+export const MAP_LOCATIONS = [
+  {
+    id: 'riyadh',
+    name: 'Ellesmere College Riyadh',
+    shortName: 'Riyadh',
+    detail: 'Operating now — including the Salwa Compound campus.',
+    lat: 24.7136,
+    lng: 46.6753,
+    status: 'open' as const,
+  },
+  {
+    id: 'muscat',
+    name: 'Ellesmere College Muscat',
+    shortName: 'Muscat',
+    detail: 'Operating campus delivering the Ellesmere Life:Ready ethos in Oman.',
+    lat: 23.588,
+    lng: 58.3829,
+    status: 'open' as const,
+  },
+  {
+    id: 'doha',
+    name: 'Ellesmere College Doha',
+    shortName: 'Doha',
+    detail: 'Purpose-built campus opening soon in partnership with Education Avenue Group.',
+    lat: 25.2854,
+    lng: 51.531,
+    status: 'opening' as const,
+  },
+  ...EXPANSION_MARKETS.map(m => ({
+    id: m.id,
+    name: m.name,
+    shortName: m.city,
+    detail: m.detail,
+    lat: m.lat,
+    lng: m.lng,
+    status: 'expansion' as const,
+  })),
 ] as const
 
 export const PARTNERSHIP_MODELS = [
