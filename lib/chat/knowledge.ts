@@ -7,6 +7,7 @@ import {
 } from '@/lib/content/network'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import { AGENT_PROGRAM, AGENT_HOW_IT_WORKS, AGENT_IDEAL_INTROS } from '@/lib/content/agents'
+import { RAINMAKER_PROGRAM, RAINMAKER_VALUE_PROPS, RAINMAKER_VS_AGENT } from '@/lib/content/rainmakers'
 
 export type KnowledgeAudience = 'investor' | 'school' | 'public' | 'team' | 'agent'
 
@@ -58,8 +59,15 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     id: 'agents',
     audience: ['agent', 'public', 'team'],
     title: 'Introduction agent programme',
-    source: 'Agent programme',
-    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. Agents use the Agent Portal to brief themselves, access marketing resources, and submit investor referrals.`,
+    source: 'Growth',
+    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. Agents use the Agent Portal to brief themselves, access marketing resources, and submit investor referrals. See the public Growth page at /growth.`,
+  },
+  {
+    id: 'rainmakers',
+    audience: ['agent', 'public', 'team', 'investor'],
+    title: 'Rainmaker referral network',
+    source: 'Growth',
+    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Comparison with agents: ${RAINMAKER_VS_AGENT.map(r => `${r.category} — rainmaker: ${r.rainmaker} agent: ${r.agent}`).join(' ')}`,
   },
   {
     id: 'partnerships',
