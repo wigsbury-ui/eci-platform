@@ -17,7 +17,7 @@ body {
   color: #111827;
 }
 
-/* Soft edge stickiness for full-viewport homepage modules — no forced jumps */
+/* Soft edge stickiness for full-viewport modules (home + growth) */
 @media (min-width: 768px) {
   html:has(main.home-snap) {
     scroll-snap-type: y proximity;

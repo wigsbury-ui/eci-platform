@@ -6,12 +6,15 @@ type Props = {
   title?: string
   subtitle?: string
   defaultInterest?: string
+  /** Extra classes on the outer section (e.g. full-viewport module layouts). */
+  className?: string
 }
 
 export default function ContactSection({
   title = 'Start a conversation with our team',
   subtitle = 'Whether you are exploring a full partnership, an investment opportunity, or simply want to learn more about ECI, we welcome your enquiry.',
   defaultInterest = '',
+  className = '',
 }: Props) {
   const [form, setForm] = useState({
     full_name: '',
@@ -37,7 +40,7 @@ export default function ContactSection({
 
   if (status === 'sent') {
     return (
-      <section id="contact" className="py-28 bg-[#F8F4EF]">
+      <section id="contact" className={`py-28 bg-[#F8F4EF] ${className}`.trim()}>
         <div className="max-w-lg mx-auto px-6 text-center">
           <div className="w-16 h-16 bg-[#4C2585] rounded-full flex items-center justify-center mx-auto mb-6">
             <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,7 +57,7 @@ export default function ContactSection({
   }
 
   return (
-    <section id="contact" className="py-28 bg-[#F8F4EF]">
+    <section id="contact" className={`py-28 bg-[#F8F4EF] ${className}`.trim()}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-20 items-start">
           <div>
