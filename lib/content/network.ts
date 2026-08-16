@@ -89,11 +89,12 @@ export const MAP_LOCATIONS = [
     id: 'riyadh',
     name: 'Ellesmere College Riyadh',
     shortName: 'Riyadh',
-    detail: 'Operating now — including the Salwa Compound campus. Ranked among ECI’s top expansion destinations for further scale.',
+    detail:
+      'Operating campus — including the Salwa Compound site. This market is already allocated to an investment partner and is not open for new growth bids.',
     lat: 24.7136,
     lng: 46.6753,
     status: 'open' as const,
-    rank: 2 as number | undefined,
+    rank: undefined as number | undefined,
   },
   {
     id: 'muscat',
@@ -162,7 +163,7 @@ export const INVESTOR_VALUE_PROPS = [
   },
   {
     title: 'Defined expansion map',
-    body: 'A ranked Top 10 destination set — from New Cairo and Riyadh to Bahrain, Morocco, Abu Dhabi, Sohar and Jeddah — selected through consistent multi-country market analysis.',
+    body: 'A ranked Top 10 growth set — from New Cairo and Northern Bahrain to Rabat, Abu Dhabi, Jeddah and Sharjah — selected through consistent multi-country market analysis. Allocated campuses such as Riyadh are excluded.',
   },
   {
     title: 'Quality & brand protection',

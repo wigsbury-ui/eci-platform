@@ -51,7 +51,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['investor', 'public', 'team'],
     title: 'Top 10 priority destinations',
     source: 'Investment partners',
-    text: `ECI’s Top 10 priority destinations for investment and operating partners are: ${TOP_DESTINATIONS.map(m => `#${m.rank} ${m.name} (${m.country})`).join('; ')}. Rankings reflect demand, income fit, fee-band alignment, regulatory climate, competition, UK curriculum readiness and cultural fit with ECI.`,
+    text: `ECI’s Top 10 open growth destinations for investment and operating partners are: ${TOP_DESTINATIONS.map(m => `#${m.rank} ${m.name} (${m.country})`).join('; ')}. Riyadh is an operating campus already allocated to a partner and is not listed among open growth markets. Rankings reflect demand, income fit, fee-band alignment, regulatory climate, competition, UK curriculum readiness and cultural fit with ECI.`,
   },
   {
     id: 'partnerships',

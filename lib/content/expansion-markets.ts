@@ -64,7 +64,7 @@ export const MARKET_METHODOLOGY = {
     'Rankings blend local scorecards with strategic weight — scale, brand visibility and regional influence — so high-impact cities sit alongside clear first-mover corridors.',
 }
 
-/** Investor-facing Top 10 priority destinations (from ECI multi-country targeting). */
+/** Investor-facing Top 10 growth destinations (allocated operating markets such as Riyadh are excluded). */
 export const TOP_DESTINATIONS: TopDestination[] = [
   {
     id: 'new-cairo',
@@ -100,42 +100,8 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     },
   },
   {
-    id: 'riyadh',
-    rank: 2,
-    compositeScore: 91,
-    name: 'Riyadh',
-    shortName: 'Riyadh',
-    country: 'Saudi Arabia',
-    cityLabel: 'Riyadh',
-    lat: 24.7136,
-    lng: 46.6753,
-    publicSummary:
-      'The Kingdom’s largest city — vast mid-fee demand, a strengthening investor landscape, and proven Ellesmere presence.',
-    investorThesis:
-      'Riyadh combines unmatched market scale with Vision 2030 momentum. ECI already operates here, giving partners a live proof point and a platform for further capacity, additional campuses, or deeper network density in the Kingdom’s primary growth engine.',
-    whyNow: [
-      'Largest Saudi private-school catchment with long-term scalability',
-      'Improving investor frameworks and special economic / education zones',
-      'Strong appetite for trusted UK-heritage brands',
-      'Operating Ellesmere campus reduces concept risk for follow-on investment',
-    ],
-    partnerFit:
-      'Suited to partners who want to build on an operating brand foothold rather than enter Riyadh cold.',
-    opportunity: 'Very High',
-    networkStatus: 'operating',
-    scores: {
-      demand: 5,
-      incomeFit: 5,
-      feeAlignment: 5,
-      regulatory: 5,
-      competition: 3,
-      ukCurriculum: 5,
-      culturalFit: 5,
-    },
-  },
-  {
     id: 'bahrain-north',
-    rank: 3,
+    rank: 2,
     compositeScore: 90,
     name: 'Northern Governorate (Saar / Budaiya)',
     shortName: 'Northern Bahrain',
@@ -168,7 +134,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'rabat',
-    rank: 4,
+    rank: 3,
     compositeScore: 89,
     name: 'Rabat',
     shortName: 'Rabat',
@@ -201,7 +167,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'october-sheikh-zayed',
-    rank: 5,
+    rank: 4,
     compositeScore: 88,
     name: '6th of October / Sheikh Zayed',
     shortName: 'Sheikh Zayed',
@@ -234,7 +200,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'abu-dhabi',
-    rank: 6,
+    rank: 5,
     compositeScore: 87,
     name: 'Abu Dhabi',
     shortName: 'Abu Dhabi',
@@ -267,7 +233,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'bouskoura',
-    rank: 7,
+    rank: 6,
     compositeScore: 86,
     name: 'Bouskoura (Casablanca suburbs)',
     shortName: 'Bouskoura',
@@ -300,7 +266,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'sohar',
-    rank: 8,
+    rank: 7,
     compositeScore: 85,
     name: 'Sohar',
     shortName: 'Sohar',
@@ -333,7 +299,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'jeddah',
-    rank: 9,
+    rank: 8,
     compositeScore: 84,
     name: 'Jeddah',
     shortName: 'Jeddah',
@@ -366,7 +332,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
   },
   {
     id: 'bahrain-south',
-    rank: 10,
+    rank: 9,
     compositeScore: 83,
     name: 'Southern Governorate (Riffa)',
     shortName: 'Southern Bahrain',
@@ -397,15 +363,50 @@ export const TOP_DESTINATIONS: TopDestination[] = [
       culturalFit: 5,
     },
   },
+
+  {
+    id: 'sharjah',
+    rank: 10,
+    compositeScore: 82,
+    name: 'Sharjah',
+    shortName: 'Sharjah',
+    country: 'United Arab Emirates',
+    cityLabel: 'Sharjah',
+    lat: 25.3463,
+    lng: 55.4209,
+    publicSummary:
+      'A more accessible UAE market with rising demand for quality schooling at moderate fees — and room for a distinctive British offer.',
+    investorThesis:
+      'Sharjah combines a large private-student base with more moderate fee expectations than Abu Dhabi or Dubai. Fewer premium British options today create space for an Ellesmere campus positioned on quality, pastoral care and fee realism — a strong UAE corridor play alongside Abu Dhabi.',
+    whyNow: [
+      'Large and growing private K–12 enrolment base',
+      'Demand for quality at mid-fee price points remains underserved',
+      'Cultural fit with ECI’s ethos and family-centred model',
+      'Complements an Abu Dhabi strategy across the northern Emirates',
+    ],
+    partnerFit:
+      'Attractive for partners seeking UAE exposure with clearer white space than Dubai’s saturated premium tier.',
+    opportunity: 'High',
+    scores: {
+      demand: 4,
+      incomeFit: 3,
+      feeAlignment: 3,
+      regulatory: 4,
+      competition: 4,
+      ukCurriculum: 3,
+      culturalFit: 4,
+    },
+  },
+
 ]
 
 export function topDestinationById(id: string) {
   return TOP_DESTINATIONS.find(d => d.id === id)
 }
 
-/** Destinations shown as expansion pins (excludes markets already marked operating on the live campus map). */
+/** Destinations shown as expansion / growth pins on the public map. */
 export function expansionPinDestinations() {
-  return TOP_DESTINATIONS.filter(d => d.networkStatus !== 'operating')
+  return TOP_DESTINATIONS
 }
 
 export function signalFromScore(score: number, invertCompetition = false): MarketSignal {

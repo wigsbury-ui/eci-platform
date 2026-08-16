@@ -64,10 +64,10 @@ export default function ExpansionMarketsDetail() {
         </p>
         <h1 className="font-cormorant text-4xl text-[#2D1654] mb-3">Top 10 priority destinations</h1>
         <p className="text-gray-500 font-jost text-sm leading-relaxed">
-          Investor-facing view of ECI’s ranked destination set — selected for demand strength,
-          fee-band fit, regulatory openness and cultural alignment with the Ellesmere model. This
-          is the opportunity map for capital and operating partners; commercial schedules remain in
-          due-diligence packs.
+          Investor-facing view of ECI’s ranked growth destinations — selected for demand strength,
+          fee-band fit, regulatory openness and cultural alignment with the Ellesmere model.
+          Markets already allocated to partners (including Riyadh) are excluded from this list.
+          Commercial schedules remain in due-diligence packs.
         </p>
       </div>
 

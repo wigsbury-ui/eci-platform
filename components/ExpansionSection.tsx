@@ -106,7 +106,11 @@ const STATUS_META = {
 
 /** Tighter zoom for Gulf cluster; wider for Maghreb / Egypt. */
 function zoomForLocation(id: string) {
-  if (['abu-dhabi', 'doha', 'muscat', 'bahrain-north', 'bahrain-south', 'sohar'].includes(id))
+  if (
+    ['abu-dhabi', 'doha', 'muscat', 'bahrain-north', 'bahrain-south', 'sohar', 'sharjah'].includes(
+      id
+    )
+  )
     return 3.4
   if (['riyadh', 'jeddah'].includes(id)) return 2.6
   if (['new-cairo', 'october-sheikh-zayed'].includes(id)) return 2.5
@@ -196,8 +200,9 @@ export default function ExpansionSection() {
               Where the network grows next
             </h2>
             <p className="text-white/60 font-jost leading-relaxed">
-              Ten priority markets ranked for demand, income fit, regulatory openness and cultural
-              alignment with Ellesmere — select any destination and the map focuses on that city.
+              Ten open growth markets ranked for demand, income fit, regulatory openness and cultural
+              alignment with Ellesmere. Operating campuses stay on the map for context — select any
+              destination to focus the region.
             </p>
           </div>
           <div className="flex flex-wrap gap-5 text-xs font-jost">
@@ -310,8 +315,8 @@ export default function ExpansionSection() {
                         left: `${p.left}%`,
                         top: `${p.top}%`,
                         animationDelay: `${150 + i * 80}ms`,
-                        zIndex: selected ? 30 : 10,
-                        opacity: dimmed ? 0.45 : 1,
+                        zIndex: selected ? 40 : 10,
+                        opacity: dimmed ? 0.35 : 1,
                       }}
                       aria-label={`${p.shortName}, ${meta.label}`}
                       aria-pressed={selected}
@@ -328,37 +333,28 @@ export default function ExpansionSection() {
                           />
                         </>
                       )}
-                      {!selected && (
-                        <span
-                          className="absolute left-1/2 top-1/2 w-10 h-10 rounded-full eci-map-ripple"
-                          style={{
-                            border: `1px solid ${meta.colour}`,
-                            animationDelay: `${i * 0.4}s`,
-                            opacity: 0.7,
-                          }}
-                        />
-                      )}
                       <span
                         className={`relative block rounded-full transition-transform duration-300 ${
-                          selected ? 'scale-150' : 'scale-100 group-hover:scale-110'
+                          selected ? 'scale-150' : 'scale-100 group-hover:scale-125'
                         }`}
                         style={{
-                          width: selected ? 16 : 12,
-                          height: selected ? 16 : 12,
+                          width: selected ? 16 : 11,
+                          height: selected ? 16 : 11,
                           background: meta.colour,
                           boxShadow: selected
                             ? `0 0 0 4px rgba(14,10,24,0.9), 0 0 28px ${meta.soft}`
                             : `0 0 0 3px rgba(14,10,24,0.85), 0 0 14px ${meta.soft}`,
                         }}
                       />
+                      {/* Labels only for selected pin (or hover) to avoid Gulf-cluster collisions */}
                       <span
-                        className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-jost tracking-wide transition-all duration-300 ${
+                        className={`pointer-events-none absolute left-1/2 -translate-x-1/2 -top-9 whitespace-nowrap font-jost text-sm font-semibold tracking-wide px-2 py-0.5 transition-opacity duration-200 ${
                           selected
-                            ? 'text-white text-sm font-semibold -top-9 opacity-100'
-                            : 'text-white/75 text-[11px] -top-7 opacity-90 group-hover:text-white'
+                            ? 'opacity-100 text-white bg-[#0E0A18]/85'
+                            : 'opacity-0 group-hover:opacity-100 text-white bg-[#0E0A18]/90 z-50'
                         }`}
                       >
-                        {p.rank ? `${p.rank} · ` : ''}
+                        {p.rank ? `#${p.rank} ` : ''}
                         {p.shortName}
                       </span>
                     </button>
@@ -405,7 +401,7 @@ export default function ExpansionSection() {
 
               <div className="flex flex-wrap gap-2 mb-8 max-h-36 overflow-y-auto">
                 {points
-                  .filter(p => p.status === 'expansion' || p.rank)
+                  .filter(p => p.status === 'expansion')
                   .sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99))
                   .map(p => (
                     <button
@@ -424,12 +420,21 @@ export default function ExpansionSection() {
                   ))}
               </div>
 
-              <Link
-                href="/investors#top-destinations"
-                className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
-              >
-                Partner on this market
-              </Link>
+              {active.status === 'expansion' ? (
+                <Link
+                  href="/investors#top-destinations"
+                  className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+                >
+                  Partner on this market
+                </Link>
+              ) : (
+                <Link
+                  href="/investors#top-destinations"
+                  className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+                >
+                  Explore open growth markets
+                </Link>
+              )}
             </div>
 
             <ul className="grid grid-cols-3 gap-2 text-center">
