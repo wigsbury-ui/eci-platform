@@ -8,8 +8,7 @@ const LINKS = [
   { label: "Head's Message", href: '/#heads-message' },
   { label: 'Our Schools', href: '/#schools' },
   { label: 'Team', href: '/#team' },
-  { label: 'Agents', href: '/agents' },
-  { label: 'Investors', href: '/investors' },
+  { label: 'Growth', href: '/growth' },
   { label: 'Contact', href: '/#contact' },
 ]
 

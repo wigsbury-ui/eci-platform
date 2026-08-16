@@ -114,6 +114,7 @@ export default function ContactSection({
                 <option value="">Please select...</option>
                 <option>Investment Opportunity</option>
                 <option>Agent / Introduction Partner</option>
+                <option>Rainmaker / Referral Partner</option>
                 <option>Full Partnership</option>
                 <option>Curriculum Licensing</option>
                 <option>Advisory Partnership</option>

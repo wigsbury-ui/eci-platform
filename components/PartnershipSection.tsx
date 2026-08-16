@@ -48,7 +48,7 @@ export default function PartnershipSection() {
 
         <div className="flex flex-wrap justify-center gap-4">
           <Link
-            href="/investors"
+            href="/growth"
             className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors"
           >
             For investment partners

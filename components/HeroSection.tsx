@@ -66,7 +66,7 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/investors"
+              href="/growth"
               className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-lg shadow-black/20"
             >
               Investment partners

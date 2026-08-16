@@ -423,14 +423,14 @@ export default function ExpansionSection() {
 
               {active.status === 'expansion' ? (
                 <Link
-                  href="/investors#top-destinations"
+                  href="/growth#top-destinations"
                   className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
                 >
                   Partner on this market
                 </Link>
               ) : (
                 <Link
-                  href="/investors#top-destinations"
+                  href="/growth#top-destinations"
                   className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
                 >
                   Explore open growth markets

@@ -28,8 +28,9 @@ export default function Footer() {
               {[
                 ['Our Schools', '/#schools'],
                 ['Our team', '/#team'],
-                ['Introduction agents', '/agents'],
-                ['Investment partners', '/investors'],
+                ['Growth', '/growth'],
+                ['Investors', '/growth#investors'],
+                ['Agents & rainmakers', '/growth#agents'],
                 ['Contact', '/#contact'],
               ].map(([l, h]) => (
                 <li key={l}>

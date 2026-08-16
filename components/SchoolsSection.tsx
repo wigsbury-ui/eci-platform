@@ -93,7 +93,7 @@ export default function SchoolsSection() {
               </p>
               <h3 className="font-cormorant text-3xl text-[#2D1654] font-semibold">Opening soon in Doha</h3>
             </div>
-            <Link href="/investors" className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B]">
+            <Link href="/growth" className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B]">
               Partner on the next campus →
             </Link>
           </div>
