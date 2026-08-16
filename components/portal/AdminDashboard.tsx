@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { CalendarPlus, School as SchoolIcon, ExternalLink } from 'lucide-react'
+import { CalendarPlus, School as SchoolIcon, ExternalLink, Briefcase, Handshake, Building2, LayoutDashboard } from 'lucide-react'
 import { School, InvestorEnquiry, Announcement } from '@/lib/types'
 
 const FLAG: Record<string, string> = { China: '🇨🇳', UAE: '🇦🇪', Singapore: '🇸🇬', Kenya: '🇰🇪', Canada: '🇨🇦' }
@@ -47,6 +47,49 @@ export default function AdminDashboard({ schools, enquiries, announcements, docu
             Add school
           </Link>
         </div>
+      </div>
+
+      <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {[
+          {
+            href: '/team',
+            label: 'Super Admin',
+            hint: 'Team & governance',
+            icon: LayoutDashboard,
+          },
+          {
+            href: '/investor',
+            label: 'Investor portal',
+            hint: 'Briefings & markets',
+            icon: Briefcase,
+          },
+          {
+            href: '/agent',
+            label: 'Agent portal',
+            hint: 'Referrals & resources',
+            icon: Handshake,
+          },
+          {
+            href: '/school',
+            label: 'School portal',
+            hint: 'Partner school view',
+            icon: Building2,
+          },
+        ].map(p => (
+          <Link
+            key={p.href}
+            href={p.href}
+            className="flex items-start gap-3 bg-white border border-eci-gold/30 rounded-xl p-4 hover:border-eci-gold transition-colors"
+          >
+            <span className="mt-0.5 text-eci-gold">
+              <p.icon size={18} />
+            </span>
+            <span>
+              <span className="block font-jost text-sm font-semibold text-eci-purple-dark">{p.label}</span>
+              <span className="block text-xs text-gray-500 font-jost mt-0.5">{p.hint}</span>
+            </span>
+          </Link>
+        ))}
       </div>
 
       <div className="mb-8 grid sm:grid-cols-2 gap-4">

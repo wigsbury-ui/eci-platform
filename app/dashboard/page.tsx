@@ -1,8 +1,12 @@
 import { createClient, hasSupabaseEnv } from '@/lib/supabase/server'
-import { portalForRole } from '@/lib/auth/roles'
+import { resolvePortalDestination } from '@/lib/auth/roles'
 import { redirect } from 'next/navigation'
 
-export default async function DashboardRedirect() {
+export default async function DashboardRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<{ redirectTo?: string; audience?: string }>
+}) {
   if (!hasSupabaseEnv()) redirect('/login')
 
   const supabase = await createClient()
@@ -13,6 +17,12 @@ export default async function DashboardRedirect() {
   } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
+  const params = await searchParams
   const { data: role } = await supabase.rpc('get_my_role')
-  redirect(portalForRole(typeof role === 'string' ? role : null))
+  redirect(
+    resolvePortalDestination(typeof role === 'string' ? role : null, {
+      redirectTo: params.redirectTo ?? null,
+      audience: params.audience ?? null,
+    })
+  )
 }

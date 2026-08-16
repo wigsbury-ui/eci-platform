@@ -4,7 +4,7 @@ import { Suspense, useMemo, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { portalForRole } from '@/lib/auth/roles'
+import { resolvePortalDestination } from '@/lib/auth/roles'
 
 type AudienceHint = 'investor' | 'school' | 'team' | 'agent'
 
@@ -61,6 +61,7 @@ function LoginForm() {
     () => resolveAudience(searchParams.get('audience')),
     [searchParams]
   )
+  const redirectTo = searchParams.get('redirectTo')
   const copy = AUDIENCE_COPY[audience]
 
   const [email, setEmail] = useState('')
@@ -75,15 +76,11 @@ function LoginForm() {
 
     try {
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        // Preview without Supabase: route by audience hint
-        window.location.href =
-          audience === 'investor'
-            ? '/investor'
-            : audience === 'agent'
-              ? '/agent'
-              : audience === 'team'
-                ? '/team'
-                : '/school'
+        // Preview without Supabase: route by audience / redirect hint
+        window.location.href = resolvePortalDestination('super_admin', {
+          redirectTo,
+          audience,
+        })
         return
       }
 
@@ -110,7 +107,8 @@ function LoginForm() {
         }
       )
       const role = (await res.text()).replace(/"/g, '')
-      window.location.href = portalForRole(role)
+      // Staff can open any portal they are allowed into — honour audience / redirectTo
+      window.location.href = resolvePortalDestination(role, { redirectTo, audience })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to sign in')
       setLoading(false)

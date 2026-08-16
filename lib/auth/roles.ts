@@ -6,6 +6,22 @@ export const INVESTOR_ROLES: UserRole[] = ['investor', 'super_admin', 'admin', '
 export const SCHOOL_ROLES: UserRole[] = ['school_partner', 'super_admin', 'admin', 'employee', 'board_member']
 export const AGENT_ROLES: UserRole[] = ['agent', 'super_admin', 'admin', 'board_member']
 
+export type PortalKey = 'team' | 'investor' | 'agent' | 'school'
+
+export const PORTAL_HOMES: Record<PortalKey, string> = {
+  team: '/team',
+  investor: '/investor',
+  agent: '/agent',
+  school: '/school',
+}
+
+const PORTAL_META: { key: PortalKey; label: string; shortLabel: string }[] = [
+  { key: 'team', label: 'Super Admin / Team', shortLabel: 'Team' },
+  { key: 'investor', label: 'Investor portal', shortLabel: 'Investor' },
+  { key: 'agent', label: 'Agent portal', shortLabel: 'Agent' },
+  { key: 'school', label: 'School partner portal', shortLabel: 'School' },
+]
+
 export function isStaff(role?: string | null): boolean {
   return !!role && STAFF_ROLES.includes(role as UserRole)
 }
@@ -36,4 +52,45 @@ export function canAccessPath(pathname: string, role?: string | null): boolean {
   }
   if (pathname.startsWith('/team') || pathname.startsWith('/admin')) return isStaff(role)
   return true
+}
+
+export function accessiblePortals(role?: string | null) {
+  return PORTAL_META.filter(p => canAccessPath(PORTAL_HOMES[p.key], role)).map(p => ({
+    key: p.key,
+    href: PORTAL_HOMES[p.key],
+    label: p.key === 'team' && isSuperAdmin(role) ? 'Super Admin' : p.label,
+    shortLabel: p.key === 'team' && isSuperAdmin(role) ? 'Admin' : p.shortLabel,
+  }))
+}
+
+/** Prefer an explicit redirect or audience portal when the role is allowed there. */
+export function resolvePortalDestination(
+  role?: string | null,
+  opts?: { redirectTo?: string | null; audience?: string | null }
+): string {
+  const redirectTo = opts?.redirectTo?.trim()
+  if (
+    redirectTo &&
+    redirectTo.startsWith('/') &&
+    !redirectTo.startsWith('//') &&
+    canAccessPath(redirectTo, role)
+  ) {
+    return redirectTo
+  }
+
+  const audience = opts?.audience
+  if (audience === 'investor' || audience === 'agent' || audience === 'school' || audience === 'team') {
+    const href = PORTAL_HOMES[audience]
+    if (canAccessPath(href, role)) return href
+  }
+
+  return portalForRole(role)
+}
+
+export function portalKeyFromPath(pathname: string): PortalKey | null {
+  if (pathname === '/investor' || pathname.startsWith('/investor/')) return 'investor'
+  if (pathname === '/agent' || pathname.startsWith('/agent/')) return 'agent'
+  if (pathname === '/school' || pathname.startsWith('/school/')) return 'school'
+  if (pathname.startsWith('/team') || pathname.startsWith('/admin')) return 'team'
+  return null
 }

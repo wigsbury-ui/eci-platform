@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { Profile } from '@/lib/types'
 import { Menu, LogOut, ChevronRight } from 'lucide-react'
+import PortalSwitcher from '@/components/portal/PortalSwitcher'
 
 interface NavItem { label: string; href: string; icon: React.ReactNode }
 
@@ -66,6 +67,7 @@ export default function PortalShell({
               {portalName}
             </p>
           </div>
+          <PortalSwitcher role={profile?.role} accent={portalAccent} />
         </div>
 
         {/* Nav */}

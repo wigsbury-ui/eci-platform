@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import { canAccessPath, portalForRole } from '@/lib/auth/roles'
+import { canAccessPath, portalForRole, resolvePortalDestination } from '@/lib/auth/roles'
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
@@ -55,7 +55,12 @@ export async function middleware(request: NextRequest) {
   }
 
   if (user && path === '/login') {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
+    const { data: role } = await supabase.rpc('get_my_role')
+    const dest = resolvePortalDestination(typeof role === 'string' ? role : null, {
+      redirectTo: request.nextUrl.searchParams.get('redirectTo'),
+      audience: request.nextUrl.searchParams.get('audience'),
+    })
+    return NextResponse.redirect(new URL(dest, request.url))
   }
 
   if (user && path.startsWith('/admin')) {
