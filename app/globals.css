@@ -41,37 +41,36 @@ body {
   animation: eci-fade-up 0.8s ease-out both;
 }
 
-@keyframes eci-map-pulse {
-  0% { transform: scale(0.55); opacity: 0.85; }
-  70% { transform: scale(1.35); opacity: 0; }
-  100% { transform: scale(1.35); opacity: 0; }
+@keyframes eci-map-ripple {
+  0% { transform: translate(-50%, -50%) scale(0.35); opacity: 0.75; }
+  75% { transform: translate(-50%, -50%) scale(1.15); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 0; }
 }
 
-@keyframes eci-map-marker-in {
-  from { opacity: 0; transform: translateY(8px) scale(0.7); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+@keyframes eci-map-pin-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes eci-map-arc-dash {
-  to { stroke-dashoffset: -56; }
+  to { stroke-dashoffset: -48; }
 }
 
-.eci-map-pulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: eci-map-pulse 2.8s ease-out infinite;
+.eci-map-ripple {
+  animation: eci-map-ripple 2.6s ease-out infinite;
+  pointer-events: none;
 }
 
-.eci-map-pulse-delay {
-  animation-duration: 2.8s;
+.eci-map-ripple-2 {
+  animation-duration: 2.6s;
 }
 
-.eci-map-marker {
-  animation: eci-map-marker-in 0.7s ease-out both;
+.eci-map-pin {
+  animation: eci-map-pin-in 0.6s ease-out both;
 }
 
 .eci-map-arc {
   stroke-dashoffset: 0;
-  animation: eci-map-arc-dash 12s linear infinite;
+  animation: eci-map-arc-dash 14s linear infinite;
 }
 
