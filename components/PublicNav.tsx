@@ -5,11 +5,9 @@ import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
 const LINKS = [
-  { label: 'About', href: '/#about' },
   { label: "Head's Message", href: '/#heads-message' },
   { label: 'Our Schools', href: '/#schools' },
-  { label: 'Expansion', href: '/#expansion' },
-  { label: 'Services', href: '/#services' },
+  { label: 'Team', href: '/#team' },
   { label: 'Agents', href: '/agents' },
   { label: 'Investors', href: '/investors' },
   { label: 'Contact', href: '/#contact' },

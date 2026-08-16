@@ -26,10 +26,8 @@ export default function Footer() {
             <p className="text-white text-xs tracking-widest uppercase font-jost font-semibold mb-4">Explore</p>
             <ul className="space-y-2 text-sm font-jost">
               {[
-                ['About ECI', '/#about'],
                 ['Our Schools', '/#schools'],
-                ['Expansion', '/#expansion'],
-                ['Services', '/#services'],
+                ['Our team', '/#team'],
                 ['Introduction agents', '/agents'],
                 ['Investment partners', '/investors'],
                 ['Contact', '/#contact'],

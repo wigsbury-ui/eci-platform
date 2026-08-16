@@ -7,6 +7,7 @@ import ExpansionSection from '@/components/ExpansionSection'
 import PartnershipSection from '@/components/PartnershipSection'
 import PartnerServicesSection from '@/components/PartnerServicesSection'
 import AgentsSection from '@/components/AgentsSection'
+import TeamSection from '@/components/TeamSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 
@@ -21,6 +22,7 @@ export default function HomePage() {
       <ExpansionSection />
       <PartnerServicesSection variant="home" />
       <AgentsSection />
+      <TeamSection />
       <PartnershipSection />
       <ContactSection />
       <Footer />
