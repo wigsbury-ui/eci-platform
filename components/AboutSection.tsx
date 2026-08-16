@@ -70,104 +70,100 @@ export default function AboutSection() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          <div className="max-w-xl">
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
-              About ECI
-            </p>
-            <h2
-              className="font-cormorant font-semibold text-[#2D1654] leading-tight mb-5"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
-            >
-              140 years of Ellesmere.
-              <br />
-              <em className="text-[#4C2585]">A growing international family.</em>
-            </h2>
-            <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
-            <p className="text-[#2D1654]/80 leading-relaxed mb-4 font-jost">
-              Ellesmere College International is the global licensing and partnership arm of Ellesmere
-              College, Shropshire — founded in {HERITAGE.founded} on a {HERITAGE.campusAcres}-acre
-              campus in the English countryside. Our philosophy is simple and demanding:{' '}
-              <strong className="text-[#2D1654] font-semibold">{HERITAGE.tagline}</strong> —
-              academic excellence with character, confidence and care.
-            </p>
-            <p className="text-[#2D1654]/75 leading-relaxed mb-8 font-jost">
-              Through carefully selected partnerships we extend Ellesmere&apos;s curriculum frameworks,
-              High Performance Learning culture, and quality standards to schools across the Middle East
-              and beyond.
-            </p>
+        <div className="max-w-xl">
+          <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
+            About ECI
+          </p>
+          <h2
+            className="font-cormorant font-semibold text-[#2D1654] leading-tight mb-5"
+            style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
+          >
+            140 years of Ellesmere.
+            <br />
+            <em className="text-[#4C2585]">A growing international family.</em>
+          </h2>
+          <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
+          <p className="text-[#2D1654]/80 leading-relaxed mb-4 font-jost">
+            Ellesmere College International is the global licensing and partnership arm of Ellesmere
+            College, Shropshire — founded in {HERITAGE.founded} on a {HERITAGE.campusAcres}-acre
+            campus in the English countryside. Our philosophy is simple and demanding:{' '}
+            <strong className="text-[#2D1654] font-semibold">{HERITAGE.tagline}</strong> —
+            academic excellence with character, confidence and care.
+          </p>
+          <p className="text-[#2D1654]/75 leading-relaxed mb-8 font-jost">
+            Through carefully selected partnerships we extend Ellesmere&apos;s curriculum frameworks,
+            High Performance Learning culture, and quality standards to schools across the Middle East
+            and beyond.
+          </p>
 
-            <div className="grid grid-cols-3 gap-5">
-              {[
-                { k: '1884', v: 'Founded in Shropshire' },
-                { k: 'HPL', v: 'World Class School' },
-                { k: '30+', v: 'Nationalities at UK campus' },
-              ].map(item => (
-                <div key={item.k} className="border-t-2 border-[#C8A84B] pt-3">
-                  <p className="font-cormorant text-3xl text-[#2D1654] font-semibold">{item.k}</p>
-                  <p className="text-xs text-[#2D1654]/65 font-jost mt-1 font-medium leading-snug">
-                    {item.v}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-3 gap-5 mb-10">
+            {[
+              { k: '1884', v: 'Founded in Shropshire' },
+              { k: 'HPL', v: 'World Class School' },
+              { k: '30+', v: 'Nationalities at UK campus' },
+            ].map(item => (
+              <div key={item.k} className="border-t-2 border-[#C8A84B] pt-3">
+                <p className="font-cormorant text-3xl text-[#2D1654] font-semibold">{item.k}</p>
+                <p className="text-xs text-[#2D1654]/65 font-jost mt-1 font-medium leading-snug">
+                  {item.v}
+                </p>
+              </div>
+            ))}
           </div>
 
-          {/* Discreet team rotator */}
-          <div className="lg:max-w-sm lg:justify-self-end w-full relative z-10">
-            <div className="bg-white/90 backdrop-blur-sm border border-[#2D1654]/10 p-6 shadow-sm">
-              <p className="text-[#C8A84B] text-[10px] tracking-[0.25em] uppercase mb-4 font-jost font-bold">
-                Meet our team
-              </p>
+          {/* Discreet team rotator — below copy so the right-hand image stays clear */}
+          <div className="bg-white/95 border border-[#2D1654]/10 p-5 shadow-sm max-w-md">
+            <p className="text-[#C8A84B] text-[10px] tracking-[0.25em] uppercase mb-3 font-jost font-bold">
+              Meet our team
+            </p>
 
-              <div key={member.id} className="psf-panel flex gap-4 items-start">
-                <div className="relative shrink-0">
-                  <Avatar member={member} size={72} />
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute -bottom-0.5 -right-0.5 w-6 h-6 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:bg-[#004182] transition-colors"
-                    aria-label={`${member.name} on LinkedIn`}
-                  >
-                    <LinkedInIcon className="w-3 h-3" />
-                  </a>
-                </div>
-                <div className="min-w-0 pt-0.5">
-                  <h3 className="font-cormorant text-xl font-semibold text-[#2D1654] leading-tight">
-                    {member.name}
-                  </h3>
-                  <p className="font-jost text-xs text-[#4C2585] font-medium mt-0.5 mb-2">
-                    {member.title}
-                  </p>
-                  <p className="font-jost text-xs text-[#2D1654]/65 leading-relaxed line-clamp-3">
-                    {member.shortBio}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between gap-3 mt-5 pt-4 border-t border-[#2D1654]/8">
-                <div className="flex gap-1">
-                  {TEAM_MEMBERS.map((m, i) => (
-                    <button
-                      key={m.id}
-                      type="button"
-                      onClick={() => startTransition(() => setIndex(i))}
-                      className={`h-1 rounded-full transition-all duration-300 ${
-                        i === index ? 'w-4 bg-[#C8A84B]' : 'w-1 bg-[#2D1654]/20 hover:bg-[#2D1654]/35'
-                      }`}
-                      aria-label={`Show ${m.name}`}
-                      aria-current={i === index}
-                    />
-                  ))}
-                </div>
-                <Link
-                  href="/#team"
-                  className="font-jost text-xs font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
+            <div key={member.id} className="psf-panel flex gap-3.5 items-start">
+              <div className="relative shrink-0">
+                <Avatar member={member} size={64} />
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute -bottom-0.5 -right-0.5 w-5 h-5 rounded-full bg-[#0A66C2] text-white flex items-center justify-center hover:bg-[#004182] transition-colors"
+                  aria-label={`${member.name} on LinkedIn`}
                 >
-                  Full team →
-                </Link>
+                  <LinkedInIcon className="w-2.5 h-2.5" />
+                </a>
               </div>
+              <div className="min-w-0 pt-0.5">
+                <h3 className="font-cormorant text-lg font-semibold text-[#2D1654] leading-tight">
+                  {member.name}
+                </h3>
+                <p className="font-jost text-[11px] text-[#4C2585] font-medium mt-0.5 mb-1.5">
+                  {member.title}
+                </p>
+                <p className="font-jost text-xs text-[#2D1654]/65 leading-relaxed line-clamp-3">
+                  {member.shortBio}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 mt-4 pt-3 border-t border-[#2D1654]/8">
+              <div className="flex gap-1">
+                {TEAM_MEMBERS.map((m, i) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() => startTransition(() => setIndex(i))}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      i === index ? 'w-4 bg-[#C8A84B]' : 'w-1 bg-[#2D1654]/20 hover:bg-[#2D1654]/35'
+                    }`}
+                    aria-label={`Show ${m.name}`}
+                    aria-current={i === index}
+                  />
+                ))}
+              </div>
+              <Link
+                href="/#team"
+                className="font-jost text-xs font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
+              >
+                Full team →
+              </Link>
             </div>
           </div>
         </div>
