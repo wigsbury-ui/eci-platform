@@ -19,7 +19,7 @@ export default function DohaSpotlightSection() {
     >
       <Image
         src={DOHA_SCHOOL.spotlightImage}
-        alt="Ellesmere College Doha campus atrium"
+        alt="Ellesmere College Doha entrance lobby"
         fill
         className={`object-cover transition-transform duration-[2.2s] ease-out ${
           ready ? 'scale-100' : 'scale-110'

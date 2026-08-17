@@ -61,7 +61,7 @@ export const OPENING_SOON: NetworkSchoolCard[] = [
     city: 'Doha',
     country: 'Qatar',
     status: 'setting_up',
-    image: '/images/schools/doha/sports-courtyard.jpg',
+    image: '/images/schools/doha/lobby-windows.jpg',
     curriculum: ['Early Years', 'British Primary'],
     highlight: 'Purpose-built campus — founding year',
     short_bio:

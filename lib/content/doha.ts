@@ -1,4 +1,5 @@
-/** Draft public content for Ellesmere College Doha — adapted from Teacher Horizons profile + ECI network notes. */
+/** Draft public content for Ellesmere College Doha — adapted from Teacher Horizons profile + ECI network notes.
+ *  Campus photography taken from the TH Doha profile gallery (UK Shropshire heritage shots excluded). */
 
 export const DOHA_SCHOOL = {
   name: 'Ellesmere College Doha',
@@ -15,8 +16,8 @@ export const DOHA_SCHOOL = {
   levels: ['Pre-school', 'Primary'],
   curricula: ['Early Years Foundation Stage (EYFS)', 'British Primary'],
   languages: ['English', 'Arabic'],
-  heroImage: '/images/schools/doha/sports-courtyard.jpg',
-  spotlightImage: '/images/schools/doha/atrium-lounge.jpg',
+  heroImage: '/images/schools/doha/lobby-windows.jpg',
+  spotlightImage: '/images/schools/doha/entrance-lobby.jpg',
   tagline: 'British heritage education, purpose-built for Doha.',
   mission:
     'To offer a student experience that combines curricular and extra-curricular opportunities matching those available at Ellesmere College in Shropshire — so that, upon graduation, students are Life:Ready and take their places at universities of their choice.',
@@ -47,44 +48,44 @@ export const DOHA_HIGHLIGHTS = [
 
 export const DOHA_GALLERY = [
   {
-    src: '/images/schools/doha/sports-courtyard.jpg',
-    alt: 'Outdoor sports courts and campus facade at Ellesmere College Doha',
-    caption: 'Sports courtyard',
+    src: '/images/schools/doha/lobby-windows.jpg',
+    alt: 'Daylit lobby with floor-to-ceiling windows at Ellesmere College Doha',
+    caption: 'Main lobby',
   },
   {
-    src: '/images/schools/doha/atrium-lounge.jpg',
-    alt: 'Daylit atrium lounge at Ellesmere College Doha',
-    caption: 'Atrium lounge',
+    src: '/images/schools/doha/entrance-lobby.jpg',
+    alt: 'Entrance lobby at Ellesmere College Doha',
+    caption: 'Entrance hall',
   },
   {
-    src: '/images/schools/doha/plaza-seating.jpg',
-    alt: 'Outdoor plaza seating at Ellesmere College Doha',
-    caption: 'Campus plaza',
+    src: '/images/schools/doha/auditorium.jpg',
+    alt: 'Auditorium at Ellesmere College Doha',
+    caption: 'Auditorium',
   },
   {
-    src: '/images/schools/doha/swimming-pool.jpg',
-    alt: 'Swimming pool facilities at Ellesmere College Doha',
-    caption: 'Aquatic facilities',
+    src: '/images/schools/doha/rooftop-doha.jpg',
+    alt: 'Rooftop view over Doha from Ellesmere College Doha',
+    caption: 'Campus outlook',
   },
   {
-    src: '/images/schools/doha/facilities-1.jpg',
-    alt: 'Campus facilities at Ellesmere College Doha',
-    caption: 'Campus facilities',
+    src: '/images/schools/doha/classroom-library.jpg',
+    alt: 'Classroom library at Ellesmere College Doha',
+    caption: 'Classroom library',
   },
   {
-    src: '/images/schools/doha/facilities-2.jpg',
-    alt: 'Learning spaces at Ellesmere College Doha',
-    caption: 'Learning spaces',
+    src: '/images/schools/doha/digital-art.jpg',
+    alt: 'Pupil working on digital art at Ellesmere College Doha',
+    caption: 'Digital creativity',
   },
   {
-    src: '/images/schools/doha/interior-1.jpg',
-    alt: 'Interior spaces at Ellesmere College Doha',
-    caption: 'Interior',
+    src: '/images/schools/doha/student-artwork.jpg',
+    alt: 'Student artwork at Ellesmere College Doha',
+    caption: 'Creative learning',
   },
   {
-    src: '/images/schools/doha/interior-2.jpg',
-    alt: 'Campus interior at Ellesmere College Doha',
-    caption: 'Campus interior',
+    src: '/images/schools/doha/campus-visit.jpg',
+    alt: 'Visit to Ellesmere College Doha campus',
+    caption: 'Campus visit',
   },
 ] as const
 
