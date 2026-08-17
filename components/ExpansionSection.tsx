@@ -124,7 +124,15 @@ function curvePath(a: { x: number; y: number }, b: { x: number; y: number }) {
   return `M${a.x},${a.y} Q${mx},${my} ${b.x},${b.y}`
 }
 
-export default function ExpansionSection() {
+export default function ExpansionSection({
+  asModule = false,
+  sectionId = 'expansion',
+  ctaHref = '/growth#investors',
+}: {
+  asModule?: boolean
+  sectionId?: string
+  ctaHref?: string
+}) {
   const [activeId, setActiveId] = useState('new-cairo')
   const [zoomed, setZoomed] = useState(true)
   const [visible, setVisible] = useState(false)
@@ -172,8 +180,12 @@ export default function ExpansionSection() {
 
   return (
     <section
-      id="expansion"
-      className="relative py-24 md:py-28 overflow-hidden bg-[#0E0A18] text-white"
+      id={sectionId}
+      className={
+        asModule
+          ? 'home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#0E0A18] text-white py-16 md:py-20'
+          : 'relative py-24 md:py-28 overflow-hidden bg-[#0E0A18] text-white'
+      }
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -230,9 +242,9 @@ export default function ExpansionSection() {
 
         <div className="grid lg:grid-cols-[1.55fr_0.95fr] gap-8 items-stretch">
           <div
-            className={`relative rounded-sm border border-white/10 bg-[#120e1c] overflow-hidden min-h-[380px] lg:min-h-[480px] transition-opacity duration-1000 ${
-              visible ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`relative rounded-sm border border-white/10 bg-[#120e1c] overflow-hidden min-h-[380px] transition-opacity duration-1000 ${
+              asModule ? 'lg:min-h-[560px]' : 'lg:min-h-[480px]'
+            } ${visible ? 'opacity-100' : 'opacity-0'}`}
           >
             <div
               className="absolute inset-0 eci-map-stage"
@@ -423,14 +435,14 @@ export default function ExpansionSection() {
 
               {active.status === 'expansion' ? (
                 <Link
-                  href="/growth#top-destinations"
+                  href={ctaHref}
                   className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
                 >
                   Partner on this market
                 </Link>
               ) : (
                 <Link
-                  href="/growth#top-destinations"
+                  href={ctaHref}
                   className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
                 >
                   Explore open growth markets
