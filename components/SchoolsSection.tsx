@@ -10,6 +10,7 @@ const STATUS: Record<string, { label: string; className: string }> = {
 
 function SchoolCard({ school }: { school: NetworkSchoolCard }) {
   const status = STATUS[school.status]
+  const detailHref = school.id === 'doha' ? '/schools/doha' : school.website
   return (
     <article className="group relative overflow-hidden bg-white border-2 border-[#2D1654]/10 hover:border-[#C8A84B]/70 shadow-sm hover:shadow-xl transition-all duration-500">
       <div className="relative h-56 overflow-hidden">
@@ -43,15 +44,24 @@ function SchoolCard({ school }: { school: NetworkSchoolCard }) {
             </span>
           ))}
         </div>
-        {school.website && (
-          <a
-            href={school.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
-          >
-            Visit school website →
-          </a>
+        {detailHref && (
+          school.id === 'doha' ? (
+            <Link
+              href={detailHref}
+              className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
+            >
+              View campus page →
+            </Link>
+          ) : (
+            <a
+              href={detailHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
+            >
+              Visit school website →
+            </a>
+          )
         )}
       </div>
     </article>
@@ -93,8 +103,8 @@ export default function SchoolsSection() {
               </p>
               <h3 className="font-cormorant text-3xl text-[#2D1654] font-semibold">Opening soon in Doha</h3>
             </div>
-            <Link href="/growth" className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B]">
-              Partner on the next campus →
+            <Link href="/schools/doha" className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B]">
+              Explore Ellesmere College Doha →
             </Link>
           </div>
           <div className="grid md:grid-cols-2 gap-8">

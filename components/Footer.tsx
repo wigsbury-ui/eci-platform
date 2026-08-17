@@ -27,6 +27,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm font-jost">
               {[
                 ['Our Schools', '/#schools'],
+                ['Ellesmere College Doha', '/schools/doha'],
                 ['Our team', '/#team'],
                 ['Growth', '/growth'],
                 ['Investors', '/growth#investors'],

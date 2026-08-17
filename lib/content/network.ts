@@ -61,13 +61,13 @@ export const OPENING_SOON: NetworkSchoolCard[] = [
     city: 'Doha',
     country: 'Qatar',
     status: 'setting_up',
-    image: '/images/schools/doha-horizon.jpg',
-    curriculum: ['British Curriculum', 'Co-curricular Excellence'],
-    highlight: 'Opening soon',
+    image: '/images/schools/doha/sports-courtyard.jpg',
+    curriculum: ['Early Years', 'British Primary'],
+    highlight: 'Purpose-built campus — founding year',
     short_bio:
-      'Purpose-built campus in Qatar offering world-class British education with cutting-edge facilities, in partnership with the Education Avenue Group.',
+      'Purpose-built British-heritage campus in Qatar offering EYFS and Primary pathways, with English and Arabic teaching languages and the Ellesmere Life:Ready ethos.',
     description:
-      'Ellesmere College Doha is the newest addition to the Ellesmere international family. The purpose-built campus will offer British education with outstanding facilities and a broad academic and co-curricular programme designed to cultivate critical thinking, creativity and leadership.',
+      'Ellesmere College Doha is the newest addition to the Ellesmere international family, in partnership with the Education Avenue Group. The purpose-built campus offers British education with outstanding facilities and a broad academic and co-curricular programme designed to cultivate critical thinking, creativity and leadership.',
   },
 ]
 
