@@ -9,7 +9,7 @@ const LINKS = [
   { label: 'Our Schools', href: '/#schools' },
   { label: 'Team', href: '/#team' },
   { label: 'Growth', href: '/growth' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact', href: '/growth#contact' },
 ]
 
 export default function PublicNav({ solid = false }: { solid?: boolean }) {
