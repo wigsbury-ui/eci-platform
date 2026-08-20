@@ -2,59 +2,54 @@
 
 export const AGENT_PROGRAM = {
   eyebrow: 'Introduction agents',
-  title: 'Connect capital with Ellesmere',
+  title: 'Introduce capital that can build',
   summary:
-    'ECI works with trusted agents who introduce aligned investment and operating partners to our international school network — with clear briefing materials, ranked markets, and a dedicated portal.',
+    'Invited agents open doors to investors and operators who can fund and run a British-heritage campus. ECI briefs you, qualifies the introduction, and leads the partnership.',
   punchline: 'You open the door. We deliver the partnership.',
 }
 
-export const AGENT_VALUE_PROPS = [
+/** Keep this short — agents need a clear brief, not a brochure. */
+export const AGENT_WHAT_YOU_DO = [
   {
-    title: 'A defined product to introduce',
-    body: 'British-heritage schooling with live campuses, a ranked Top 10 growth map, and a clear Partner Services Framework — so conversations start with substance, not speculation.',
+    title: 'Who to introduce',
+    body: 'Family offices, education funds, experienced operators, and developers with land or campus projects in our ranked growth markets.',
   },
   {
-    title: 'Serious counterparties only',
-    body: 'We seek capital and operators who value educational quality and long-term brand stewardship. Your introductions are qualified against that standard.',
-  },
-  {
-    title: 'Supported engagement',
-    body: 'Invited agents receive briefing packs, market summaries, and a direct channel into the ECI team — so every introduction is briefed and tracked.',
-  },
-  {
-    title: 'Transparent process',
-    body: 'From first introduction through qualification and handoff, the agent portal keeps status visible. Commercial terms for successful introductions are agreed separately with ECI.',
+    title: 'What you get',
+    body: 'Portal briefing, approved materials, ranked destinations, and a named ECI contact. Status on every referral stays visible.',
   },
 ] as const
+
+export const AGENT_VALUE_PROPS = AGENT_WHAT_YOU_DO
 
 export const AGENT_HOW_IT_WORKS = [
   {
     step: '01',
-    title: 'Become an invited agent',
-    body: 'ECI grants portal access to agents who understand education investment and our MENA focus.',
+    title: 'Get invited',
+    body: 'ECI grants portal access to agents who know education investment and our MENA focus.',
   },
   {
     step: '02',
-    title: 'Brief yourself on the opportunity',
-    body: 'Use the portal for partnership models, Top 10 destinations, and the Partner Services story.',
+    title: 'Brief yourself',
+    body: 'Partnership models, Top 10 destinations, and the services framework — ready to use in conversation.',
   },
   {
     step: '03',
-    title: 'Introduce aligned investors',
-    body: 'Submit qualified investor or operator introductions with context — market interest, capacity, and timing.',
+    title: 'Introduce with context',
+    body: 'Submit the investor or operator with market interest, capacity, and timing — not a cold name dump.',
   },
   {
     step: '04',
-    title: 'ECI leads the partnership',
-    body: 'Our team takes diligence and structuring. You stay informed as the introduction progresses.',
+    title: 'ECI leads',
+    body: 'Diligence and structuring sit with us. You stay informed as the introduction moves.',
   },
 ] as const
 
 export const AGENT_IDEAL_INTROS = [
   'Family offices and education-focused funds seeking MENA school platforms',
-  'Experienced school operators exploring British-heritage affiliation',
-  'Developers with education land or campus projects in priority destinations',
-  'Strategic partners with regulatory access in Egypt, KSA, Bahrain, Morocco, UAE or Oman',
+  'Operators exploring British-heritage affiliation',
+  'Developers with education land in priority destinations',
+  'Partners with regulatory access in Egypt, KSA, Bahrain, Morocco, UAE or Oman',
 ]
 
 export const AGENT_PORTAL_HIGHLIGHTS = [
