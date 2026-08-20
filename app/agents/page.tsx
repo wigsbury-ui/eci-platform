@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import PublicNav from '@/components/PublicNav'
 import Footer from '@/components/Footer'
 import ContactSection from '@/components/ContactSection'
+import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import {
   AGENT_HOW_IT_WORKS,
   AGENT_IDEAL_INTROS,
@@ -24,60 +26,84 @@ export const metadata: Metadata = {
 
 export default function AgentsPage() {
   return (
-    <main>
+    <main className="home-snap">
       <PublicNav solid />
 
-      {/* Hero */}
-      <section className="relative min-h-[70svh] flex flex-col justify-end overflow-hidden bg-[#2D1654] pt-28 pb-16 md:pb-20">
-        <div
-          className="absolute inset-0 pointer-events-none opacity-50"
-          style={{
-            background:
-              'radial-gradient(ellipse 70% 55% at 85% 15%, rgba(200,168,75,0.22), transparent 50%), radial-gradient(ellipse 50% 40% at 10% 90%, rgba(76,37,133,0.45), transparent 55%)',
-          }}
+      {/* 1 — Hero: mirrored Investors layout (video left, text right) */}
+      <section className="home-window relative min-h-[100svh] flex flex-col overflow-hidden">
+        <Image
+          src="/images/agents/hero-dusk.jpg"
+          alt="International campus at dusk"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
         />
-        <div className="relative max-w-7xl mx-auto px-6 w-full">
-          <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-4 font-jost font-bold">
-            Introduction partners
-          </p>
-          <h1
-            className="font-cormorant font-semibold text-white leading-[1.05] max-w-3xl mb-5"
-            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.25rem)' }}
-          >
-            Agents &amp; rainmakers
-          </h1>
-          <div className="w-14 h-1 bg-[#C8A84B] mb-6" />
-          <p className="text-white/75 font-jost leading-relaxed max-w-xl mb-8">
-            Help us reach the right investors and operators. Agents and rainmakers are introduction
-            channels into one pipeline — brand licensing conversations with capital ready to build
-            under the Ellesmere name.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/login?audience=agent"
-              className="bg-[#C8A84B] text-[#2D1654] px-7 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
-            >
-              Partner portal
-            </Link>
-            <a
-              href="#contact"
-              className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
-            >
-              Register your interest
-            </a>
-            <Link
-              href="/investors"
-              className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
-            >
-              Brand licensing offer
-            </Link>
+        <div className="absolute inset-0 bg-gradient-to-l from-[#1A1228]/90 via-[#2D1654]/58 to-[#2D1654]/18" />
+        <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-stretch">
+            <div className="order-1 flex items-start justify-center lg:justify-start pt-8 lg:pt-20">
+              <GrowthHeroVideo
+                title="Introducing Ellesmere College International"
+                durationLabel="90 second video"
+              />
+            </div>
+
+            <div className="order-2 flex flex-col justify-end pb-4 lg:pb-8 lg:-translate-y-10">
+              <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-4 font-jost font-bold">
+                Agents &amp; rainmakers
+              </p>
+              <h1
+                className="font-cormorant font-semibold text-white leading-[1.05] max-w-3xl mb-5"
+                style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.25rem)' }}
+              >
+                Open the door
+                <br />
+                <em className="text-[#C8A84B] font-normal">to the right capital.</em>
+              </h1>
+              <p className="text-white/75 font-jost max-w-xl mb-10 leading-relaxed">
+                Agents and rainmakers introduce aligned investors and operators into one pipeline —
+                brand licensing conversations with partners ready to build under the Ellesmere name.
+              </p>
+
+              <div className="flex flex-wrap gap-3 mb-8">
+                <a
+                  href="#how-it-works"
+                  className="bg-[#C8A84B] text-[#2D1654] px-7 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+                >
+                  How introductions work
+                </a>
+                <Link
+                  href="/login?audience=agent"
+                  className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+                >
+                  Partner portal
+                </Link>
+                <a
+                  href="#contact"
+                  className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+                >
+                  Register your interest
+                </a>
+              </div>
+
+              <p className="font-jost text-sm text-white/50">
+                Exploring brand licensing yourself?{' '}
+                <Link href="/investors" className="text-[#C8A84B] hover:underline">
+                  Investors
+                </Link>
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Shared process */}
-      <section className="relative bg-[#F8F4EF] py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section
+        id="how-it-works"
+        className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#F8F4EF] py-16 md:py-20"
+      >
+        <div className="max-w-7xl mx-auto px-6 w-full">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
             How introductions work
           </p>
@@ -103,8 +129,8 @@ export default function AgentsPage() {
       </section>
 
       {/* Agents */}
-      <section id="agents" className="relative bg-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="agents" className="home-window relative min-h-[100svh] flex flex-col justify-center bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="max-w-2xl mb-10">
             <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
               {AGENT_PROGRAM.eyebrow}
@@ -146,8 +172,11 @@ export default function AgentsPage() {
       </section>
 
       {/* Rainmakers */}
-      <section id="rainmakers" className="relative bg-[#F8F4EF] py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section
+        id="rainmakers"
+        className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#F8F4EF] py-16 md:py-20"
+      >
+        <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="max-w-2xl mb-10">
             <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
               {RAINMAKER_PROGRAM.eyebrow}
@@ -192,8 +221,8 @@ export default function AgentsPage() {
       </section>
 
       {/* Alignment */}
-      <section className="relative bg-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="home-window relative min-h-[100svh] flex flex-col justify-center bg-white py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-6 w-full">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
             Working together
           </p>
@@ -219,6 +248,7 @@ export default function AgentsPage() {
         title="Become an introduction partner"
         subtitle="Tell us whether you are exploring the agent channel or the rainmaker network. We typically respond within three working days."
         defaultInterest="Agent / Introduction Partner"
+        className="home-window min-h-[100svh] flex flex-col justify-center !py-20"
       />
 
       <Footer />
