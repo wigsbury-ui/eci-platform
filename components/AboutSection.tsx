@@ -61,17 +61,17 @@ export default function AboutSection() {
       id="about"
       className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#F8F4EF] py-16 md:py-20 lg:py-0"
     >
-      {/* Full-bleed campus image on the right half — fills section height */}
+      {/* Full-bleed campus image on the right half — students on the Shropshire campus */}
       <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
         <Image
-          src="/images/campus/uk-160-acre.jpg"
-          alt="Ellesmere College Shropshire campus"
+          src="/images/campus/uk-historic.jpg"
+          alt="Ellesmere College students on the historic Shropshire campus"
           fill
-          className="object-cover"
+          className="object-cover object-[center_35%]"
           sizes="50vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EF] via-[#F8F4EF]/55 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F8F4EF] via-[#F8F4EF]/45 to-transparent" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 w-full flex flex-col justify-center">
