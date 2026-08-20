@@ -9,6 +9,8 @@ if [[ -z "$SRC" ]]; then
   for candidate in \
     "$HOME/Downloads/Investor_Intro_with_captions.mp4" \
     "/workspace/Downloads/Investor_Intro_with_captions.mp4" \
+    "/workspace/inbox/videos/Investor_Intro_with_captions.mp4" \
+    "./inbox/videos/Investor_Intro_with_captions.mp4" \
     "./Investor_Intro_with_captions.mp4"
   do
     if [[ -f "$candidate" ]]; then SRC="$candidate"; break; fi
