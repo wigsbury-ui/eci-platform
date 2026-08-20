@@ -11,6 +11,8 @@ export const INVESTOR_BENEFITS_INTRO = {
 
 export type InvestorBenefit = {
   id: string
+  /** Short index label — not the full headline */
+  label: string
   title: string
   benefit: string
   evidence: string
@@ -19,6 +21,7 @@ export type InvestorBenefit = {
 export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   {
     id: 'demand-signal',
+    label: 'Demand proven',
     title: 'Proven parental demand for the brand',
     benefit:
       'You are not guessing whether families will pay for an Ellesmere campus. The brand has already attracted enrolment at pace in a live Middle East market — reducing the demand risk that kills most greenfield school launches.',
@@ -27,6 +30,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'brand-equity',
+    label: 'Brand equity',
     title: 'Brand equity you do not have to build from zero',
     benefit:
       'Launching under Ellesmere means entering the market with a British independent-school identity already recognised by quality-conscious families — instead of spending years and marketing budget creating trust for an unknown name.',
@@ -35,6 +39,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'transferable-product',
+    label: 'School product',
     title: 'A transferable school product, not a logo licence',
     benefit:
       'Partners receive curriculum frameworks, quality assurance, leadership mentoring and network support — the operating DNA of the school — so the campus can open to a defined standard rather than inventing pedagogy, pastoral systems and brand rules alone.',
@@ -43,6 +48,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'replication',
+    label: 'Replication',
     title: 'Evidence the model can be replicated',
     benefit:
       'A single successful campus can be an anecdote. A second campus in the same city, plus a third country opening, shows the operating and brand model transfers — which matters if your thesis is multi-site or multi-market.',
@@ -51,6 +57,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'market-map',
+    label: 'Market map',
     title: 'A ranked expansion map instead of opportunistic site-picking',
     benefit:
       'Capital can underwrite a location thesis against the same criteria ECI uses — demand, income and fee-band fit, competition, regulation, UK-curriculum readiness and cultural fit — rather than chasing the loudest broker pitch in each city.',
@@ -59,6 +66,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'local-economics',
+    label: 'Campus economics',
     title: 'You keep the campus economics; we protect the brand',
     benefit:
       'The partnership model is built for investors and operators who build and run the school. ECI’s role is licensing, standards and network support — so commercial control of the campus sits with the partner, while brand and quality risk is actively managed by the licensor.',
@@ -67,6 +75,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'quality-governance',
+    label: 'Quality governance',
     title: 'Quality governance that protects asset value',
     benefit:
       'A premium school’s long-term value depends on reputation. Network inspection frameworks and brand protection reduce the downside of quality drift that can destroy fees, enrolment and exit optionality.',
@@ -75,6 +84,7 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   },
   {
     id: 'partner-infrastructure',
+    label: 'Local partners',
     title: 'Local operating partners already proven in market',
     benefit:
       'Where ECI has entered, it has done so with established education groups — shortening the path from licence to a functioning school with local regulatory and operating capacity.',
