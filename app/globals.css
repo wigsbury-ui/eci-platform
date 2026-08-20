@@ -19,26 +19,16 @@ body {
   color: #111827;
 }
 
-/* Soft edge stickiness for full-viewport modules (home + growth).
-   Align snap / anchors to the bottom of the fixed nav, not the viewport top. */
+/* Full-viewport marketing modules (home + growth).
+   No scroll-snap — previous proximity snap felt sticky and fought the fixed nav.
+   Keep scroll-padding so #hash links clear the menu. */
 html:has(main.home-snap) {
   scroll-padding-top: var(--eci-nav-offset, 5rem);
 }
 
-@media (min-width: 768px) {
-  html:has(main.home-snap) {
-    scroll-snap-type: y proximity;
-  }
-
-  main.home-snap > section.home-window {
-    scroll-snap-align: start;
-  }
-
-  /* Hero can sit under the nav; every module after it clears the menu. */
-  main.home-snap > section.home-window:not(:first-of-type) {
-    scroll-margin-top: var(--eci-nav-offset, 5rem);
-    min-height: calc(100svh - var(--eci-nav-offset, 5rem));
-  }
+main.home-snap > section.home-window {
+  scroll-snap-align: none;
+  scroll-margin-top: 0;
 }
 
 .font-cormorant { font-family: 'Cormorant Garamond', Georgia, serif !important; }
