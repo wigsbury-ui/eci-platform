@@ -108,7 +108,7 @@ export default function GrowthHeroVideo({
 
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#1A1228]/85 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black p-4"
           role="dialog"
           aria-modal="true"
           aria-label="Introducing Ellesmere College International"
@@ -132,7 +132,7 @@ export default function GrowthHeroVideo({
               controls
               playsInline
               preload="auto"
-              poster={POSTER_FALLBACK}
+              poster={POSTER_SRC}
               src={VIDEO_SRC}
             />
           </div>
