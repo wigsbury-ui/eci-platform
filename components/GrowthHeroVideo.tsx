@@ -72,7 +72,7 @@ export default function GrowthHeroVideo({
         type="button"
         onClick={() => setOpen(true)}
         className={`group relative w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 ${
-          isFrame ? className : `max-w-xl ${className}`
+          className || (isFrame ? '' : 'max-w-xl')
         }`}
         aria-label={`Play ${title}`}
       >
