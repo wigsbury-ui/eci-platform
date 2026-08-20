@@ -2,7 +2,6 @@ import {
   BookOpen,
   FileText,
   Home,
-  LineChart,
   MapPinned,
   MessageSquare,
 } from 'lucide-react'
@@ -11,7 +10,6 @@ import {
 export const INVESTOR_NAV_ITEMS = [
   { label: 'Overview', href: '/investor', icon: <Home size={16} /> },
   { label: 'Priority Markets', href: '/investor/markets', icon: <MapPinned size={16} /> },
-  { label: 'Research', href: '/investor/research', icon: <LineChart size={16} /> },
   { label: 'Resources', href: '/investor/resources', icon: <BookOpen size={16} /> },
   { label: 'Due Diligence', href: '/investor/due-diligence', icon: <FileText size={16} /> },
   { label: 'Express Interest', href: '/investor/apply', icon: <MessageSquare size={16} /> },
