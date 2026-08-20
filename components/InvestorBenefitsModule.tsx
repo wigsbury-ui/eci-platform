@@ -12,7 +12,7 @@ const VH_PER_BENEFIT = 78
 
 /**
  * Viewport-pinned partnership benefits on a light ground.
- * Topic rail above; copy left + small framed campus plate right.
+ * Topic rail above; copy left + small framed UK campus plate right.
  */
 export default function InvestorBenefitsModule() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -167,7 +167,7 @@ export default function InvestorBenefitsModule() {
               </div>
 
               <p className="mt-6 font-jost text-[12px] text-[#2D1654]/45">
-                Commercial schedules stay in the{' '}
+                For fee schedules and full terms, open the{' '}
                 <Link
                   href="/login?audience=investor"
                   className="text-[#4C2585] underline-offset-2 hover:underline"
