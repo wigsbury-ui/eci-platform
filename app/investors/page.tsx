@@ -55,10 +55,10 @@ export default function InvestorsPage() {
 
               <div className="flex flex-wrap gap-3 mb-8">
                 <a
-                  href="#investors"
+                  href="#offer"
                   className="bg-[#C8A84B] text-[#2D1654] px-7 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
                 >
-                  For investors
+                  Brand licensing offer
                 </a>
                 <Link
                   href="/login?audience=investor"
@@ -89,9 +89,9 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* 2 — Investors: core offer + proof */}
+      {/* 2 — Brand licensing offer + proof */}
       <section
-        id="investors"
+        id="offer"
         className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#F8F4EF] py-16 md:py-20"
       >
         <div className="max-w-7xl mx-auto px-6 w-full">
@@ -279,7 +279,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* 4 — Expansion map */}
-      <ExpansionSection asModule sectionId="top-destinations" ctaHref="/investors#investors" />
+      <ExpansionSection asModule sectionId="top-destinations" ctaHref="/investors#offer" />
 
       {/* 5 — Contact */}
       <ContactSection

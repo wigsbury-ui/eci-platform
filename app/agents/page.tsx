@@ -66,7 +66,7 @@ export default function AgentsPage() {
               Register your interest
             </a>
             <Link
-              href="/investors#investors"
+              href="/investors"
               className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
             >
               Brand licensing offer

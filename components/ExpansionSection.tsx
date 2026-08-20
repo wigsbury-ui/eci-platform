@@ -127,7 +127,7 @@ function curvePath(a: { x: number; y: number }, b: { x: number; y: number }) {
 export default function ExpansionSection({
   asModule = false,
   sectionId = 'expansion',
-  ctaHref = '/investors#contact',
+  ctaHref = '/#contact',
 }: {
   asModule?: boolean
   sectionId?: string

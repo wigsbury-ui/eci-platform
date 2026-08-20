@@ -59,7 +59,7 @@ export default function AgentsSection() {
 
         <div className="flex flex-wrap gap-3 items-center">
           <Link
-            href="/investors#investors"
+            href="/investors"
             className="bg-[#0E7490] text-white px-6 py-3 font-jost font-bold text-sm hover:bg-[#0F766E] transition-colors"
           >
             Brand licensing offer
