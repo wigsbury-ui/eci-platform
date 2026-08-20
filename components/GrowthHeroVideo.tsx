@@ -3,20 +3,27 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Play, X } from 'lucide-react'
 
-const VIDEO_SRC = '/videos/investor-intro.mp4'
-/** Dedicated poster when available; campus still works as a fallback. */
-const POSTER_SRC = '/videos/investor-intro-poster.jpg'
+const DEFAULT_VIDEO_SRC = '/videos/investor-intro.mp4'
+const DEFAULT_POSTER_SRC = '/videos/investor-intro-poster.jpg'
 const POSTER_FALLBACK = '/images/schools/doha-horizon.jpg'
 
 type GrowthHeroVideoProps = {
   /** card = titled hero tile; frame = video + play only (for module placeholders). */
   variant?: 'card' | 'frame'
   className?: string
+  videoSrc?: string
+  posterSrc?: string
+  title?: string
+  durationLabel?: string
 }
 
 export default function GrowthHeroVideo({
   variant = 'card',
   className = '',
+  videoSrc = DEFAULT_VIDEO_SRC,
+  posterSrc = DEFAULT_POSTER_SRC,
+  title = 'Introducing Ellesmere College International',
+  durationLabel = '90 second video',
 }: GrowthHeroVideoProps) {
   const [open, setOpen] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -67,7 +74,7 @@ export default function GrowthHeroVideo({
         className={`group relative w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 ${
           isFrame ? className : `max-w-xl ${className}`
         }`}
-        aria-label="Play introducing Ellesmere College International — 90 second video"
+        aria-label={`Play ${title}`}
       >
         <div
           className={`overflow-hidden rounded-2xl shadow-2xl shadow-black/40 ${
@@ -79,7 +86,7 @@ export default function GrowthHeroVideo({
           <div className="relative aspect-video overflow-hidden bg-black">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={POSTER_SRC}
+              src={posterSrc}
               alt=""
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               onError={e => {
@@ -98,9 +105,9 @@ export default function GrowthHeroVideo({
           {!isFrame && (
             <div className="px-5 py-4">
               <p className="font-cormorant whitespace-nowrap text-lg font-semibold leading-none text-white sm:text-xl">
-                Introducing Ellesmere College International
+                {title}
               </p>
-              <p className="mt-1.5 font-jost text-sm text-[#C8A84B]">90 second video</p>
+              <p className="mt-1.5 font-jost text-sm text-[#C8A84B]">{durationLabel}</p>
             </div>
           )}
         </div>
@@ -111,7 +118,7 @@ export default function GrowthHeroVideo({
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black p-4"
           role="dialog"
           aria-modal="true"
-          aria-label="Introducing Ellesmere College International"
+          aria-label={title}
           onClick={close}
         >
           <div
@@ -132,8 +139,8 @@ export default function GrowthHeroVideo({
               controls
               playsInline
               preload="auto"
-              poster={POSTER_SRC}
-              src={VIDEO_SRC}
+              poster={posterSrc}
+              src={videoSrc}
             />
           </div>
         </div>

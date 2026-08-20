@@ -138,7 +138,13 @@ export default function GrowthPage() {
             </div>
 
             <div className="w-full self-center">
-              <GrowthHeroVideo variant="frame" />
+              <GrowthHeroVideo
+                variant="frame"
+                videoSrc="/videos/brand-licensing.mp4"
+                posterSrc="/videos/brand-licensing-poster.jpg"
+                title="Brand licensing with Ellesmere College International"
+                durationLabel="90 second video"
+              />
             </div>
           </div>
 
