@@ -37,7 +37,7 @@ export default function GrowthPage() {
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1228]/95 via-[#2D1654]/78 to-[#2D1654]/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1228]/88 via-[#2D1654]/55 to-[#2D1654]/15" />
         <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-stretch">
             <div className="order-2 lg:order-1 flex flex-col justify-end">

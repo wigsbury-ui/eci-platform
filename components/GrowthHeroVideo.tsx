@@ -57,8 +57,8 @@ export default function GrowthHeroVideo() {
         className="group relative w-full max-w-xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
         aria-label="Play introducing Ellesmere College International — 90 second video"
       >
-        <div className="overflow-hidden rounded-2xl border border-white/20 bg-[#1A1228]/55 shadow-2xl shadow-black/40 backdrop-blur-sm">
-          <div className="relative aspect-video overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border border-white/35 bg-[#2D1654] shadow-2xl shadow-black/50">
+          <div className="relative aspect-video overflow-hidden bg-black">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={POSTER_SRC}
@@ -70,7 +70,7 @@ export default function GrowthHeroVideo() {
                 img.src = POSTER_FALLBACK
               }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1A1228]/90 via-[#2D1654]/35 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
             <span className="absolute inset-0 flex items-center justify-center">
               <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#C8A84B] text-[#2D1654] shadow-lg transition group-hover:scale-105 group-hover:bg-[#F0E4B0]">
                 <Play size={28} fill="currentColor" className="ml-1" />
