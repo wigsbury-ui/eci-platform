@@ -70,7 +70,7 @@ function SchoolCard({ school }: { school: NetworkSchoolCard }) {
 
 export default function SchoolsSection() {
   return (
-    <section id="schools" className="py-28 bg-[#F8F4EF]">
+    <section id="schools" className="py-28 bg-[#F8F4EF] scroll-mt-[var(--eci-nav-offset)]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-2xl mb-14">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">

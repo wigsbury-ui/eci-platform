@@ -12,7 +12,10 @@ function LinkedInIcon({ className = 'w-4 h-4' }: { className?: string }) {
 
 export default function TeamSection() {
   return (
-    <section id="team" className="relative py-24 md:py-28 bg-white">
+    <section
+      id="team"
+      className="relative py-24 md:py-28 bg-white scroll-mt-[var(--eci-nav-offset)]"
+    >
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-2xl mb-14">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">

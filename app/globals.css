@@ -21,13 +21,20 @@ body {
 
 /* Full-viewport marketing modules (home + growth).
    No scroll-snap — previous proximity snap felt sticky and fought the fixed nav.
-   Keep scroll-padding so #hash links clear the menu. */
+   Do NOT use scroll-padding-top here: it leaves a body-coloured strip between the
+   fixed nav and dark modules (e.g. Head’s Message) when hash-navigating.
+   Content clears the nav via each section’s own padding / vertical centering. */
 html:has(main.home-snap) {
-  scroll-padding-top: var(--eci-nav-offset, 5rem);
+  scroll-padding-top: 0;
 }
 
 main.home-snap > section.home-window {
   scroll-snap-align: none;
+  scroll-margin-top: 0;
+}
+
+/* When a full-bleed module is the hash target, keep its paint flush under the nav. */
+main.home-snap > section.home-window[id] {
   scroll-margin-top: 0;
 }
 

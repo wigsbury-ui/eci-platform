@@ -14,7 +14,7 @@ export default function HeadsMessageSection() {
   return (
     <section
       id="heads-message"
-      className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden py-20 md:py-24"
+      className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden pt-[max(5.5rem,var(--eci-nav-offset))] pb-20 md:pb-24"
       style={{
         background:
           'linear-gradient(165deg, #2D1654 0%, #3d1f6e 48%, #1A1228 100%)',
@@ -30,7 +30,7 @@ export default function HeadsMessageSection() {
 
       <div className="relative max-w-7xl mx-auto px-6 w-full">
         <div
-          className={`grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-10 lg:gap-16 items-center transition-all duration-1000 ${
+          className={`grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-10 lg:gap-16 lg:items-start transition-all duration-1000 ${
             ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
