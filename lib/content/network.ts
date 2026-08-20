@@ -162,19 +162,19 @@ export const PARTNERSHIP_ADDONS = PARTNERSHIP_MODELS.filter(m => !m.primary)
 
 export const INVESTOR_VALUE_PROPS = [
   {
-    title: 'Proven British heritage',
+    title: 'British heritage',
     body: 'Ellesmere College, Shropshire — founded 1884 — provides the academic DNA, quality culture, and Life:Ready philosophy behind every branded international campus.',
   },
   {
-    title: 'Operating proof points',
+    title: 'Operating proof',
     body: 'Live campuses in Riyadh and Muscat, with Doha opening soon, show that the Ellesmere standard transfers across the Middle East.',
   },
   {
-    title: 'Brand licensing, done properly',
+    title: 'Brand protection',
     body: 'You invest and build under the Ellesmere name. ECI protects standards through licensing, quality assurance, leadership support, and network governance.',
   },
   {
-    title: 'Clear growth markets',
+    title: 'Growth markets',
     body: 'A ranked Top 10 destination set helps aim capital where demand, income fit, regulation, and cultural alignment support an Ellesmere school.',
   },
 ] as const

@@ -8,8 +8,6 @@ import ExpansionSection from '@/components/ExpansionSection'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import {
   INVESTOR_VALUE_PROPS,
-  OPENING_SOON,
-  OPERATING_SCHOOLS,
   PARTNERSHIP_ADDONS,
   PRIMARY_PARTNERSHIP,
 } from '@/lib/content/network'
@@ -97,7 +95,7 @@ export default function GrowthPage() {
       {/* 2 — Investors: core offer + proof */}
       <section
         id="investors"
-        className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#F8F4EF] py-16 md:py-20"
+        className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#F8F4EF] py-16 md:py-20"
       >
         <div className="max-w-7xl mx-auto px-6 w-full">
           <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-center mb-12">
@@ -144,10 +142,10 @@ export default function GrowthPage() {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {INVESTOR_VALUE_PROPS.map(item => (
-              <div key={item.title} className="bg-white p-6 border-l-4 border-[#C8A84B] h-full">
-                <h3 className="font-cormorant text-xl text-[#2D1654] font-semibold mb-3">
+              <div key={item.title} className="border-t-2 border-[#C8A84B] pt-4">
+                <h3 className="font-cormorant text-xl text-[#2D1654] font-semibold mb-2 whitespace-nowrap">
                   {item.title}
                 </h3>
                 <p className="text-[#2D1654]/70 text-sm font-jost leading-relaxed">{item.body}</p>
@@ -155,37 +153,22 @@ export default function GrowthPage() {
             ))}
           </div>
 
-          <div className="bg-white border border-[#2D1654]/8 p-6 md:p-8 mb-8">
-            <p className="text-[#2D1654]/45 text-[10px] tracking-[0.25em] uppercase font-jost font-bold mb-4">
+          <div className="border-t border-[#2D1654]/10 pt-8">
+            <p className="text-[#2D1654]/40 text-[10px] tracking-[0.25em] uppercase font-jost font-bold mb-5">
               Optional add-ons
             </p>
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-8 max-w-4xl">
               {PARTNERSHIP_ADDONS.map(model => (
                 <div key={model.id}>
-                  <h4 className="font-cormorant text-xl text-[#2D1654] font-semibold mb-2">
+                  <h4 className="font-cormorant text-lg text-[#2D1654] font-semibold mb-1.5">
                     {model.title}
                   </h4>
-                  <p className="text-[#2D1654]/65 text-sm font-jost leading-relaxed">
+                  <p className="text-[#2D1654]/55 text-sm font-jost leading-relaxed">
                     {model.summary}
                   </p>
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="grid sm:grid-cols-3 gap-3">
-            {[...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => (
-              <div key={s.id} className="bg-white/80 border border-[#2D1654]/8 px-5 py-4">
-                <p className="font-cormorant text-xl text-[#2D1654] font-semibold">{s.name}</p>
-                <p className="font-jost text-sm text-[#2D1654]/55 mt-1">
-                  {s.city}, {s.country}
-                  <span className="text-[#C8A84B]">
-                    {' '}
-                    · {s.status === 'active' ? 'Operating' : 'Opening soon'}
-                  </span>
-                </p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
