@@ -20,20 +20,24 @@ body {
 }
 
 /* Soft edge stickiness for full-viewport modules (home + growth).
-   Snap below the fixed nav so module tops are not cropped under the menu. */
+   Align snap / anchors to the bottom of the fixed nav, not the viewport top. */
+html:has(main.home-snap) {
+  scroll-padding-top: var(--eci-nav-offset, 5rem);
+}
+
 @media (min-width: 768px) {
   html:has(main.home-snap) {
     scroll-snap-type: y proximity;
-    scroll-padding-top: var(--eci-nav-offset, 5rem);
   }
 
   main.home-snap > section.home-window {
     scroll-snap-align: start;
   }
 
-  /* Hero may bleed under a transparent nav; later modules clear the bar. */
+  /* Hero can sit under the nav; every module after it clears the menu. */
   main.home-snap > section.home-window:not(:first-of-type) {
     scroll-margin-top: var(--eci-nav-offset, 5rem);
+    min-height: calc(100svh - var(--eci-nav-offset, 5rem));
   }
 }
 
