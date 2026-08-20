@@ -170,10 +170,120 @@ export default function GrowthPage() {
         </div>
       </section>
 
-      {/* 3 — Expansion map */}
+      {/* 3 — Riyadh success story */}
+      <section
+        id="riyadh"
+        className="home-window relative min-h-[100svh] flex flex-col justify-center bg-white py-16 md:py-20"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-70"
+          style={{
+            background:
+              'radial-gradient(ellipse 80% 60% at 100% 0%, rgba(237,229,247,0.55), transparent 55%), radial-gradient(ellipse 70% 50% at 0% 100%, rgba(248,244,239,0.8), transparent 50%)',
+          }}
+        />
+        <div className="relative max-w-7xl mx-auto px-6 w-full">
+          <div className="grid lg:grid-cols-[1fr_1.05fr] gap-10 lg:gap-14 items-center mb-10 md:mb-12">
+            <div className="eci-fade-up">
+              <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
+                Success story
+              </p>
+              <h2
+                className="font-cormorant font-semibold text-[#2D1654] leading-tight mb-4"
+                style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
+              >
+                Ellesmere College Riyadh
+              </h2>
+              <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
+              <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-5 max-w-xl">
+                From a standing start to more than{' '}
+                <span className="text-[#2D1654] font-semibold">600 students</span> in just over two
+                years — a clear signal that families recognise the Ellesmere standard, and that brand
+                licensing can scale with pace.
+              </p>
+              <p className="text-[#2D1654]/55 font-jost text-sm leading-relaxed max-w-xl mb-6">
+                Operating today across campuses in the Kingdom, including Al Hamra and Salwa Compound,
+                with British-heritage pathways and the Life:Ready ethos at the centre.
+              </p>
+              <a
+                href="https://ellesmerecollegeriyadh.com"
+                target="_blank"
+                rel="noreferrer"
+                className="font-jost text-sm text-[#4C2585] hover:text-[#2D1654] hover:underline underline-offset-2"
+              >
+                Visit the school website
+              </a>
+            </div>
+
+            <div
+              className="w-full eci-fade-up"
+              style={{ animationDelay: '120ms' }}
+              aria-label="Riyadh school video placeholder"
+            >
+              <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#1A1228] border border-[#2D1654]/10">
+                <Image
+                  src="/images/schools/riyadh/exterior.jpg"
+                  alt=""
+                  fill
+                  className="object-cover opacity-45"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-[#1A1228]/55" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/35 text-white mb-4">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                  <p className="font-cormorant text-xl text-white">Video coming soon</p>
+                  <p className="font-jost text-xs text-white/55 mt-1.5 tracking-wide">
+                    Ellesmere College Riyadh
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+            {[
+              {
+                src: '/images/schools/riyadh/classroom-bright.jpg',
+                alt: 'Bright classroom at Ellesmere College Riyadh',
+                delay: '180ms',
+              },
+              {
+                src: '/images/schools/riyadh/playground.jpg',
+                alt: 'Shaded playground at Ellesmere College Riyadh',
+                delay: '260ms',
+              },
+              {
+                src: '/images/schools/riyadh/classroom.jpg',
+                alt: 'Students learning together at Ellesmere College Riyadh',
+                delay: '340ms',
+              },
+            ].map(img => (
+              <div
+                key={img.src}
+                className="relative aspect-[4/3] overflow-hidden eci-fade-up"
+                style={{ animationDelay: img.delay }}
+              >
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4 — Expansion map */}
       <ExpansionSection asModule sectionId="top-destinations" ctaHref="/growth#investors" />
 
-      {/* 4 — Introduction channels (secondary) */}
+      {/* 5 — Introduction channels (secondary) */}
       <section
         id="introductions"
         className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#2D1654] py-16 md:py-20"
