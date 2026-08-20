@@ -1,23 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { PUBLIC_CAMPUSES, type NetworkSchoolCard } from '@/lib/content/network'
+import { OPENING_SOON, OPERATING_SCHOOLS, type NetworkSchoolCard } from '@/lib/content/network'
 
 const STATUS: Record<string, { label: string; className: string }> = {
-  heritage: { label: 'Heritage', className: 'bg-[#C8A84B] text-[#2D1654]' },
   active: { label: 'Open', className: 'bg-[#C8A84B] text-[#2D1654]' },
   setting_up: { label: 'Opening soon', className: 'bg-[#2D1654] text-[#C8A84B]' },
   prospect: { label: 'Proposed', className: 'bg-[#4C2585] text-white' },
 }
 
-function campusHref(school: NetworkSchoolCard) {
-  if (school.href) return school.href
-  return school.website
-}
-
 function SchoolCard({ school }: { school: NetworkSchoolCard }) {
   const status = STATUS[school.status]
-  const href = campusHref(school)
-  const internal = Boolean(school.href)
+  const detailHref = school.id === 'doha' ? '/schools/doha' : school.website
   return (
     <article className="group relative overflow-hidden bg-white border-2 border-[#2D1654]/10 hover:border-[#C8A84B]/70 shadow-sm hover:shadow-xl transition-all duration-500">
       <div className="relative h-56 overflow-hidden">
@@ -51,24 +44,25 @@ function SchoolCard({ school }: { school: NetworkSchoolCard }) {
             </span>
           ))}
         </div>
-        {href &&
-          (internal ? (
+        {detailHref && (
+          school.id === 'doha' ? (
             <Link
-              href={href}
+              href={detailHref}
               className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
             >
               View campus page →
             </Link>
           ) : (
             <a
-              href={href}
+              href={detailHref}
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
             >
               Visit school website →
             </a>
-          ))}
+          )
+        )}
       </div>
     </article>
   )
@@ -78,35 +72,71 @@ export default function SchoolsSection() {
   return (
     <section id="schools" className="py-28 bg-[#F8F4EF]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-2xl mb-10">
+        <div className="max-w-2xl mb-14">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
-            Our schools
+            Our network
           </p>
           <h2
             className="font-cormorant font-semibold text-[#2D1654] leading-tight"
             style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
           >
-            Shropshire, Riyadh, Doha
+            Schools carrying the Ellesmere standard
           </h2>
           <div className="w-14 h-1 bg-[#C8A84B] mt-4 mb-4" />
           <p className="text-[#2D1654]/70 font-jost leading-relaxed">
-            The founding college in Shropshire, two operating campuses in Riyadh, and Ellesmere
-            College Doha opening soon.
+            Each campus is rooted in its community and united by shared standards, High Performance
+            Learning, and the Ellesmere commitment to Life:Ready education.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-10">
-          {PUBLIC_CAMPUSES.map(school => (
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {OPERATING_SCHOOLS.map(school => (
             <SchoolCard key={school.id} school={school} />
           ))}
         </div>
 
-        <Link
-          href="/schools"
-          className="inline-block bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
-        >
-          Our schools
-        </Link>
+        <div className="border-t-2 border-[#C8A84B]/40 pt-16">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+            <div>
+              <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
+                Next campus
+              </p>
+              <h3 className="font-cormorant text-3xl text-[#2D1654] font-semibold">Opening soon in Doha</h3>
+            </div>
+            <Link href="/schools/doha" className="text-sm font-jost font-semibold text-[#2D1654] hover:text-[#C8A84B]">
+              Explore Ellesmere College Doha →
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            {OPENING_SOON.map(school => (
+              <SchoolCard key={school.id} school={school} />
+            ))}
+            <div className="relative min-h-[320px] overflow-hidden bg-[#2D1654] text-white p-10 flex flex-col justify-end">
+              <Image
+                src="/images/campus/uk-campus-life.jpg"
+                alt=""
+                fill
+                className="object-cover opacity-35"
+              />
+              <div className="relative">
+                <p className="text-[#C8A84B] text-xs tracking-[0.25em] uppercase mb-3 font-jost">Heritage</p>
+                <h3 className="font-cormorant text-3xl mb-4">Ellesmere College, UK</h3>
+                <p className="text-white/75 text-sm font-jost leading-relaxed mb-6 max-w-md">
+                  The founding school — Shropshire, 1884 — remains the source of curriculum quality,
+                  pastoral culture, and the Life:Ready ambition behind every international campus.
+                </p>
+                <a
+                  href="https://www.ellesmere.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-jost text-[#C8A84B] hover:text-white transition-colors"
+                >
+                  ellesmere.com →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   )

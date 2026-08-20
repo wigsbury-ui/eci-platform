@@ -72,12 +72,12 @@ export default function HeroSection() {
             >
               Build an Ellesmere school
             </Link>
-            <Link
-              href="/schools"
+            <a
+              href="#schools"
               className="border-2 border-[#C8A84B]/70 text-white px-8 py-3.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
             >
               Our schools
-            </Link>
+            </a>
           </div>
         </div>
       </div>
