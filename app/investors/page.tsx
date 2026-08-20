@@ -7,11 +7,11 @@ import ContactSection from '@/components/ContactSection'
 import ExpansionSection from '@/components/ExpansionSection'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import ParallaxHeroBackground from '@/components/ParallaxHeroBackground'
+import InvestorBenefitsModule from '@/components/InvestorBenefitsModule'
 import {
   INVESTOR_VALUE_PROPS,
   PRIMARY_PARTNERSHIP,
 } from '@/lib/content/network'
-import { INVESTOR_BENEFITS, INVESTOR_BENEFITS_INTRO } from '@/lib/content/investor-benefits'
 
 export const metadata: Metadata = {
   title: 'Investors',
@@ -167,78 +167,8 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* 3 — Concrete partnership benefits */}
-      <section
-        id="benefits"
-        className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#2D1654] py-16 md:py-20"
-      >
-        <div
-          className="absolute inset-0 pointer-events-none opacity-40"
-          style={{
-            background:
-              'radial-gradient(ellipse at 15% 20%, rgba(200,168,75,0.16), transparent 45%), radial-gradient(ellipse at 90% 80%, rgba(76,37,133,0.5), transparent 50%)',
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 w-full">
-          <div className="max-w-3xl mb-12 md:mb-14">
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
-              {INVESTOR_BENEFITS_INTRO.eyebrow}
-            </p>
-            <h2
-              className="font-cormorant font-semibold text-white leading-tight mb-5"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
-            >
-              {INVESTOR_BENEFITS_INTRO.title}
-            </h2>
-            <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
-            <p className="text-white/75 font-jost text-base md:text-lg leading-relaxed">
-              {INVESTOR_BENEFITS_INTRO.summary}
-            </p>
-          </div>
-
-          <ol className="space-y-0 border-t border-white/15">
-            {INVESTOR_BENEFITS.map((item, index) => (
-              <li
-                key={item.id}
-                className="grid lg:grid-cols-[4.5rem_1fr] gap-4 lg:gap-8 border-b border-white/15 py-8 md:py-10"
-              >
-                <p className="font-jost text-xs tracking-[0.25em] text-[#C8A84B] font-bold pt-1">
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <div className="grid lg:grid-cols-[1fr_1.05fr] gap-5 lg:gap-10 items-start">
-                  <div>
-                    <h3 className="font-cormorant text-2xl md:text-3xl text-white font-semibold mb-3 leading-snug">
-                      {item.title}
-                    </h3>
-                    <p className="font-jost text-base text-white/80 leading-relaxed">
-                      {item.benefit}
-                    </p>
-                  </div>
-                  <div className="border-l border-[#C8A84B]/50 pl-5 md:pl-6">
-                    <p className="font-jost text-[11px] tracking-[0.22em] uppercase text-[#C8A84B] font-semibold mb-2">
-                      Evidence
-                    </p>
-                    <p className="font-jost text-sm md:text-[0.95rem] text-white/65 leading-relaxed">
-                      {item.evidence}
-                    </p>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <p className="mt-10 font-jost text-sm text-white/45 max-w-3xl leading-relaxed">
-            Commercial schedules, fee structures and diligence packs are released inside the{' '}
-            <Link
-              href="/login?audience=investor"
-              className="text-[#C8A84B] hover:underline underline-offset-2"
-            >
-              Investor Portal
-            </Link>{' '}
-            after NDA where required — they are not published on this page.
-          </p>
-        </div>
-      </section>
+      {/* 3 — Concrete partnership benefits (viewport-locked; scrolls inside) */}
+      <InvestorBenefitsModule />
 
       {/* 4 — Riyadh success story */}
       <section
