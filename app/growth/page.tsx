@@ -372,7 +372,7 @@ export default function GrowthPage() {
         </div>
       </section>
 
-      {/* 5 — Contact */}
+      {/* 6 — Contact */}
       <ContactSection
         title="Start a growth conversation"
         subtitle="Tell us if you want to build under the Ellesmere brand, introduce investors as an agent, or refer as a rainmaker. We typically respond within three working days."
