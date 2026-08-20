@@ -3,23 +3,101 @@
 import Link from 'next/link'
 import { Profile } from '@/lib/types'
 import {
-  AGENT_HOW_IT_WORKS,
-  DEMO_AGENT_REFERRALS,
-} from '@/lib/content/agents'
-import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
+  hasAcceptedPartnerAccess,
+  partnerChannelLabel,
+  partnerStatusLabel,
+} from '@/lib/auth/partnerAccess'
 import { AGENT_PORTAL_ACCENT } from '@/components/portal/agentNav'
+import PreviewPartnerTierToggle from '@/components/portal/PreviewPartnerTierToggle'
+import { DEMO_AGENT_REFERRALS } from '@/lib/content/agents'
 
-export default function AgentDashboard({ profile }: { profile: Profile | null }) {
-  const firstName = profile?.full_name?.split(' ')[0] || 'Agent'
+export default function AgentDashboard({
+  profile,
+  preview = false,
+}: {
+  profile: Profile | null
+  preview?: boolean
+}) {
+  const firstName = profile?.full_name?.split(' ')[0] || 'Partner'
+  const accepted = hasAcceptedPartnerAccess(profile)
+  const channel = partnerChannelLabel(profile?.partner_channel)
+
+  if (!accepted) {
+    return (
+      <div>
+        <PreviewPartnerTierToggle accepted={false} visible={preview} />
+
+        <div className="mb-8">
+          <p className="text-gray-400 text-sm font-jost mb-1">Welcome, {firstName}</p>
+          <h1 className="font-cormorant text-4xl text-[#2D1654]">Applicant overview</h1>
+          <p className="text-sm text-gray-500 font-jost mt-2 max-w-2xl">
+            You are reviewing ECI as a prospective {channel.toLowerCase()}. Learn who we are, why
+            investors partner with us, and read the sample contract for your channel. Marketing packs
+            unlock when an ECI admin accepts you.
+          </p>
+          <p className="mt-3 inline-block text-xs font-jost font-semibold uppercase tracking-wider px-2.5 py-1 bg-amber-50 text-amber-800">
+            {partnerStatusLabel(profile?.partner_status)} · {channel}
+          </p>
+        </div>
+
+        <div className="bg-white border border-gray-100 p-7 mb-8">
+          <h2 className="font-cormorant text-2xl text-[#2D1654] mb-4">Your three pages</h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              {
+                href: '/agent/about',
+                title: 'About ECI',
+                body: 'Heritage, campuses, and the brand-licensing offer.',
+              },
+              {
+                href: '/agent/why-partner',
+                title: 'Why partner',
+                body: 'The short case for introducing investors to Ellesmere.',
+              },
+              {
+                href: '/agent/contracts',
+                title: 'Sample contracts',
+                body: 'Agent and rainmaker agreements to review before joining.',
+              },
+            ].map(item => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="border border-gray-100 p-5 hover:border-[#0E7490]/40 transition-colors"
+              >
+                <div className="w-8 h-1 mb-4" style={{ background: AGENT_PORTAL_ACCENT }} />
+                <p className="font-cormorant text-xl text-[#2D1654] mb-1">{item.title}</p>
+                <p className="text-xs text-gray-500 font-jost leading-relaxed">{item.body}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="border border-gray-100 bg-[#F8F4EF] p-6">
+          <p className="font-cormorant text-xl text-[#2D1654] mb-2">Next step</p>
+          <p className="text-sm text-gray-600 font-jost leading-relaxed max-w-2xl">
+            When you are ready, ECI will review your application and accept you as a full{' '}
+            {channel.toLowerCase()}. You will then receive marketing resources and investor
+            promotional materials to support introductions.
+          </p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>
+      <PreviewPartnerTierToggle accepted visible={preview} />
+
       <div className="mb-8">
         <p className="text-gray-400 text-sm font-jost mb-1">Welcome back, {firstName}</p>
-        <h1 className="font-cormorant text-4xl text-[#2D1654]">Agent overview</h1>
+        <h1 className="font-cormorant text-4xl text-[#2D1654]">Partner overview</h1>
         <p className="text-sm text-gray-500 font-jost mt-2 max-w-2xl">
-          Introduce investors who want to build a school under the Ellesmere brand. Curriculum and
-          advisory are add-ons — mention them only if asked. ECI closes and delivers.
+          Introduce investors who want to build a school under the Ellesmere brand. Use approved
+          marketing and investor materials only — then log every introduction as a referral.
+        </p>
+        <p className="mt-3 inline-block text-xs font-jost font-semibold uppercase tracking-wider px-2.5 py-1 bg-[#F0FDFA] text-[#0E7490]">
+          {partnerStatusLabel('accepted')} · {channel}
         </p>
       </div>
 
@@ -31,21 +109,20 @@ export default function AgentDashboard({ profile }: { profile: Profile | null })
           Brand licensing introductions
         </h2>
         <p className="font-jost text-sm text-white/85 max-w-2xl leading-relaxed mb-5">
-          Lead with one offer: partner with ECI to open an Ellesmere school. Check the market is
-          open, use the briefing, then log the introduction.
+          Lead with one offer. Share only approved packs. Submit the referral so ECI can close.
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/agent/briefing"
+            href="/agent/resources"
             className="bg-white text-[#0E7490] px-5 py-2.5 text-sm font-jost font-semibold hover:bg-[#F0FDFA] transition-colors"
           >
-            Brand briefing
+            Marketing resources
           </Link>
           <Link
-            href="/agent/markets"
+            href="/agent/materials"
             className="border border-white/40 text-white px-5 py-2.5 text-sm font-jost font-semibold hover:border-white transition-colors"
           >
-            Priority markets
+            Investor materials
           </Link>
           <Link
             href="/agent/referrals"
@@ -53,36 +130,6 @@ export default function AgentDashboard({ profile }: { profile: Profile | null })
           >
             Submit a referral
           </Link>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4 mb-8">
-        {[
-          { label: 'Open growth markets', value: TOP_DESTINATIONS.length },
-          { label: 'Active referrals', value: DEMO_AGENT_REFERRALS.length },
-        ].map(({ label, value }) => (
-          <div key={label} className="bg-white border border-gray-100 p-5">
-            <p className="text-gray-400 text-xs font-jost uppercase tracking-wide mb-2">{label}</p>
-            <p className="font-cormorant text-4xl text-[#2D1654]">{value}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-white border border-gray-100 p-7 mb-8">
-        <h2 className="font-cormorant text-2xl text-[#2D1654] mb-5">How introductions work</h2>
-        <div className="grid md:grid-cols-4 gap-5">
-          {AGENT_HOW_IT_WORKS.map(step => (
-            <div key={step.step}>
-              <p
-                className="font-jost text-xs tracking-[0.2em] uppercase mb-2"
-                style={{ color: AGENT_PORTAL_ACCENT }}
-              >
-                {step.step}
-              </p>
-              <p className="font-cormorant text-xl text-[#2D1654] mb-2">{step.title}</p>
-              <p className="text-xs text-gray-600 font-jost leading-relaxed">{step.body}</p>
-            </div>
-          ))}
         </div>
       </div>
 

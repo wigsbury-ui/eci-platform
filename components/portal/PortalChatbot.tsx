@@ -15,7 +15,7 @@ const GREETING: Record<KnowledgeAudience, string> = {
   investor:
     'Ask about brand licensing, expansion markets, or why investors choose Ellesmere.',
   agent:
-    'Ask about briefing investors, priority markets, referrals, or how the agent programme works.',
+    'Ask about About ECI, why partner, sample contracts, or — if you are an accepted partner — marketing and investor materials.',
   school: 'Ask about document archives, calendar collaboration, or HPL and network support.',
   public: 'Ask about Ellesmere heritage, network schools, or how to get in touch.',
   team: 'Ask about school portals, internal collaboration, or investor briefing points.',

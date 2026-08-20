@@ -7,6 +7,10 @@ export type UserRole =
   | 'super_admin'
   | 'agent'
 
+/** Introduction partner lifecycle inside the agent/rainmaker portal. */
+export type PartnerStatus = 'applicant' | 'accepted'
+export type PartnerChannel = 'agent' | 'rainmaker'
+
 export type SchoolStatus = 'prospect' | 'setting_up' | 'active' | 'paused'
 export type DocType = 'guidance' | 'template' | 'policy' | 'form' | 'report' | 'marketing' | 'due_diligence'
 export type DocScope = 'network' | 'school' | 'investor_marketing' | 'investor_dd' | 'team'
@@ -22,6 +26,9 @@ export interface Profile {
   phone: string | null
   avatar_url: string | null
   created_at: string
+  /** Null for non-introduction roles. Applicants see briefing; accepted unlock marketing. */
+  partner_status: PartnerStatus | null
+  partner_channel: PartnerChannel | null
 }
 
 export interface School {

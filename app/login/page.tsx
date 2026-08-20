@@ -22,12 +22,12 @@ const AUDIENCE_COPY: Record<
     ],
   },
   agent: {
-    headline: 'Introduction\nagent access',
-    body: 'Tools for trusted agents who connect aligned investors and operators with Ellesmere College International.',
+    headline: 'Agents &\nrainmakers',
+    body: 'Applicant access covers ECI, why partner, and sample contracts. Accepted partners unlock marketing resources and investor promotional materials.',
     bullets: [
-      'Opportunity briefing and talking points',
-      'Priority market summaries for introductions',
-      'Referral desk to submit and track investor leads',
+      'About ECI and the brand-licensing offer',
+      'Why investors partner with Ellesmere',
+      'Sample agent and rainmaker agreements',
     ],
   },
   school: {
@@ -169,7 +169,7 @@ function LoginForm() {
           <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign In</h3>
           <p className="text-gray-400 text-sm font-jost mb-8">
             {audience === 'investor' && 'Access the investor portal'}
-            {audience === 'agent' && 'Access the introduction agent portal'}
+            {audience === 'agent' && 'Access the agents & rainmakers portal'}
             {audience === 'team' && 'Access the ECI team portal'}
             {audience === 'school' && 'Access your school partner portal'}
           </p>

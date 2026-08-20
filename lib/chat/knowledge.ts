@@ -61,7 +61,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['agent', 'public', 'team'],
     title: 'Introduction agent programme',
     source: 'Growth',
-    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. Agents use the Agent Portal to brief themselves, access marketing resources, and submit investor referrals. See the public Growth page at /growth.`,
+    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. The Agents & rainmakers portal has two tiers: applicants see About ECI, why partner, and sample contracts; accepted partners unlock marketing resources, investor promotional materials, and referrals. See /growth.`,
   },
   {
     id: 'rainmakers',

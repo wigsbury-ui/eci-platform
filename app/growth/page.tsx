@@ -247,7 +247,7 @@ export default function GrowthPage() {
                 href="/login?audience=agent"
                 className="inline-block border border-[#C8A84B]/60 text-white px-5 py-2.5 font-jost text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
               >
-                Agent portal
+                Partner portal
               </Link>
             </div>
 
@@ -264,12 +264,12 @@ export default function GrowthPage() {
               <p className="font-cormorant text-lg text-[#C8A84B] italic mb-6">
                 {RAINMAKER_PROGRAM.punchline}
               </p>
-              <a
-                href="#contact"
+              <Link
+                href="/login?audience=agent"
                 className="inline-block border border-[#C8A84B]/60 text-white px-5 py-2.5 font-jost text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
               >
-                Enquire as a rainmaker
-              </a>
+                Partner portal
+              </Link>
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-/** Engagement notes folded into Overview / referrals for a leaner agent portal. */
+/** Engagement notes removed — lean partner portal. */
 export default function AgentEngagementRedirect() {
   redirect('/agent')
 }

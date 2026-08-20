@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react'
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
-import { AGENT_NAV_ITEMS, AGENT_PORTAL_ACCENT } from '@/components/portal/agentNav'
+import { AGENT_PORTAL_ACCENT, AGENT_PORTAL_NAME, agentNavForProfile } from '@/components/portal/agentNav'
 import { DEMO_AGENT_REFERRALS } from '@/lib/content/agents'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import { Profile } from '@/lib/types'
@@ -25,9 +25,9 @@ export default function AgentReferralsClient({ profile }: { profile: Profile | n
   return (
     <PortalShell
       profile={profile}
-      portalName="Agent Portal"
+      portalName={AGENT_PORTAL_NAME}
       portalAccent={AGENT_PORTAL_ACCENT}
-      navItems={AGENT_NAV_ITEMS}
+      navItems={agentNavForProfile(profile)}
       activeSection="/agent/referrals"
     >
       <div className="mb-10 max-w-3xl">
