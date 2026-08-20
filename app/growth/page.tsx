@@ -8,7 +8,6 @@ import ExpansionSection from '@/components/ExpansionSection'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import {
   INVESTOR_VALUE_PROPS,
-  PARTNERSHIP_ADDONS,
   PRIMARY_PARTNERSHIP,
 } from '@/lib/content/network'
 import { AGENT_HOW_IT_WORKS, AGENT_PROGRAM } from '@/lib/content/agents'
