@@ -6,11 +6,11 @@ import { Menu, X } from 'lucide-react'
 
 const LINKS = [
   { label: "Head's Message", href: '/#heads-message' },
-  { label: 'Our Schools', href: '/#schools' },
-  { label: 'Doha', href: '/schools/doha' },
+  { label: 'Our Schools', href: '/schools' },
+  { label: 'Investors', href: '/investors' },
+  { label: 'Agents', href: '/agents' },
   { label: 'Team', href: '/#team' },
-  { label: 'Growth', href: '/growth' },
-  { label: 'Contact', href: '/growth#contact' },
+  { label: 'Contact', href: '/investors#contact' },
 ]
 
 export default function PublicNav({ solid = false }: { solid?: boolean }) {
@@ -65,13 +65,7 @@ export default function PublicNav({ solid = false }: { solid?: boolean }) {
           ))}
         </div>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
-            href="/login?audience=school"
-            className="text-white/80 hover:text-white text-sm font-jost px-3 py-2"
-          >
-            School portal
-          </Link>
+        <div className="hidden lg:flex items-center">
           <Link
             href="/login"
             className="bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm text-sm font-semibold font-jost hover:bg-[#F0E4B0] transition-colors"

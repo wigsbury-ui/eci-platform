@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: '%s | Ellesmere College International',
   },
   description:
-    'Ellesmere College International partners with investors and operators to deliver British-heritage, Life:Ready education — from Riyadh and Muscat to Doha and beyond.',
+    'Ellesmere College International partners with investors and operators to deliver British-heritage, Life:Ready education — from Shropshire and Riyadh to Doha and beyond.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

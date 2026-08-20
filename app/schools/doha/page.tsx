@@ -51,7 +51,7 @@ export default function DohaSchoolPage() {
               About the campus
             </a>
             <Link
-              href="/growth#contact"
+              href="/investors#contact"
               className="border border-white/40 text-white px-6 py-3.5 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
             >
               Register interest
@@ -177,13 +177,13 @@ export default function DohaSchoolPage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/growth#contact"
+              href="/investors#contact"
               className="bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
             >
               Contact ECI
             </Link>
             <Link
-              href="/#schools"
+              href="/schools"
               className="border border-[#2D1654]/25 text-[#2D1654] px-6 py-3.5 font-jost text-sm hover:border-[#C8A84B] transition-colors"
             >
               All schools

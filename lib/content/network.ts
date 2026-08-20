@@ -10,17 +10,39 @@ export type NetworkSchoolCard = {
   name: string
   city: string
   country: string
-  status: 'active' | 'setting_up' | 'prospect'
+  status: 'active' | 'setting_up' | 'prospect' | 'heritage'
   short_bio: string
   description: string
   curriculum: string[]
   year_joined?: number
   website?: string
+  href?: string
   image: string
   highlight?: string
 }
 
-export const OPERATING_SCHOOLS: NetworkSchoolCard[] = [
+export type PartnerSchoolCard = Omit<NetworkSchoolCard, 'status'> & {
+  status: Exclude<NetworkSchoolCard['status'], 'heritage'>
+}
+
+export const HERITAGE_CAMPUS: NetworkSchoolCard = {
+  id: 'shropshire',
+  name: 'Ellesmere College',
+  city: 'Ellesmere',
+  country: 'United Kingdom',
+  status: 'heritage',
+  year_joined: 1884,
+  website: 'https://www.ellesmere.com',
+  image: '/images/campus/uk-160-acre.jpg',
+  curriculum: ['GCSE', 'A Level', 'BTEC', 'Boarding'],
+  highlight: 'Founded 1884 — the source campus',
+  short_bio:
+    'The founding school in Shropshire: 160 acres, High Performance Learning, and the Life:Ready ethos behind every international campus.',
+  description:
+    'Ellesmere College, Shropshire, was founded in 1884. It remains the academic and pastoral source of Ellesmere College International — curriculum quality, character education, and the Life:Ready ambition carried by partner campuses.',
+}
+
+export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
   {
     id: 'riyadh',
     name: 'Ellesmere College Riyadh',
@@ -31,30 +53,31 @@ export const OPERATING_SCHOOLS: NetworkSchoolCard[] = [
     website: 'https://ellesmerecollegeriyadh.com',
     image: '/images/schools/riyadh-campus.webp',
     curriculum: ['Early Years', 'IGCSE', 'IB Pathways', 'American Diploma'],
-    highlight: 'Open now — including the new Salwa Compound campus',
+    highlight: 'Open now',
     short_bio:
       'British-heritage education for ages 3–18 in the heart of Riyadh, delivering High Performance Learning in a nurturing, inclusive community.',
     description:
       'Ellesmere College Riyadh brings the Ellesmere educational philosophy to the Kingdom of Saudi Arabia through partnership with the Glory & Princeton International Schools Group. Pupils enjoy Early Years through pre-university pathways, with a focus on academic excellence, wellbeing, and character.',
   },
   {
-    id: 'muscat',
-    name: 'Ellesmere College Muscat',
-    city: 'Muscat',
-    country: 'Oman',
+    id: 'riyadh-salwa',
+    name: 'Ellesmere College Riyadh — Salwa Compound',
+    city: 'Riyadh',
+    country: 'Saudi Arabia',
     status: 'active',
-    year_joined: 2023,
-    image: '/images/campus/uk-learning.jpg',
-    curriculum: ['IB Continuum', 'Early Years to Grade 12'],
-    highlight: 'Opened 2023',
+    year_joined: 2025,
+    website: 'https://ellesmerecollegeriyadh.com',
+    image: '/images/schools/riyadh-community.webp',
+    curriculum: ['Early Years', 'Primary', 'Secondary'],
+    highlight: 'Open now — Salwa Compound',
     short_bio:
-      'A vibrant international school combining the International Baccalaureate with Ellesmere’s Life:Ready ethos in Oman’s capital.',
+      'The Salwa Compound campus of Ellesmere College Riyadh, extending the same British-heritage offer to families in this Riyadh community.',
     description:
-      'Opened in 2023, Ellesmere College Muscat serves students from early years to Grade 12, fostering critical thinking, creativity and global-minded leadership while preparing learners to be Life:Ready.',
+      'Ellesmere College Riyadh’s Salwa Compound campus is a second operating site in the Kingdom, delivering the same Ellesmere standards, High Performance Learning culture and Life:Ready ethos as the principal Riyadh campus.',
   },
 ]
 
-export const OPENING_SOON: NetworkSchoolCard[] = [
+export const OPENING_SOON: PartnerSchoolCard[] = [
   {
     id: 'doha',
     name: 'Ellesmere College Doha',
@@ -62,6 +85,7 @@ export const OPENING_SOON: NetworkSchoolCard[] = [
     country: 'Qatar',
     status: 'setting_up',
     image: '/images/schools/doha/lobby-windows.jpg',
+    href: '/schools/doha',
     curriculum: ['Early Years', 'British Primary'],
     highlight: 'Purpose-built campus — founding year',
     short_bio:
@@ -93,16 +117,6 @@ export const MAP_LOCATIONS = [
       'Operating campus — including the Salwa Compound site. This market is already allocated to an investment partner and is not open for new growth bids.',
     lat: 24.7136,
     lng: 46.6753,
-    status: 'open' as const,
-    rank: undefined as number | undefined,
-  },
-  {
-    id: 'muscat',
-    name: 'Ellesmere College Muscat',
-    shortName: 'Muscat',
-    detail: 'Operating campus delivering the Ellesmere Life:Ready ethos in Oman.',
-    lat: 23.588,
-    lng: 58.3829,
     status: 'open' as const,
     rank: undefined as number | undefined,
   },
@@ -159,7 +173,7 @@ export const INVESTOR_VALUE_PROPS = [
   },
   {
     title: 'Operating proof points',
-    body: 'Live campuses in Riyadh and Muscat, with Doha opening soon, demonstrate transferable standards across the Middle East.',
+    body: 'Live campuses in Riyadh — including Salwa Compound — with Doha opening soon, demonstrate transferable standards across the Middle East.',
   },
   {
     title: 'Defined expansion map',
@@ -181,3 +195,10 @@ export const HERITAGE = {
   ukSite: 'https://www.ellesmere.com',
   tagline: 'Life:Ready',
 } as const
+
+/** Public network page: Shropshire, two Riyadh campuses, Doha. */
+export const PUBLIC_CAMPUSES: NetworkSchoolCard[] = [
+  HERITAGE_CAMPUS,
+  ...OPERATING_SCHOOLS,
+  ...OPENING_SOON,
+]

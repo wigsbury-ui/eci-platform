@@ -69,7 +69,7 @@ export default function DohaSpotlightSection() {
               Explore Ellesmere College Doha
             </Link>
             <Link
-              href="/growth#contact"
+              href="/investors#contact"
               className="border border-white/40 text-white px-6 py-3.5 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
             >
               Enquire about the campus

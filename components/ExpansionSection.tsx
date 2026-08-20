@@ -107,7 +107,7 @@ const STATUS_META = {
 /** Tighter zoom for Gulf cluster; wider for Maghreb / Egypt. */
 function zoomForLocation(id: string) {
   if (
-    ['abu-dhabi', 'doha', 'muscat', 'bahrain-north', 'bahrain-south', 'sohar', 'sharjah'].includes(
+    ['abu-dhabi', 'doha', 'bahrain-north', 'bahrain-south', 'sohar', 'sharjah'].includes(
       id
     )
   )
@@ -127,7 +127,7 @@ function curvePath(a: { x: number; y: number }, b: { x: number; y: number }) {
 export default function ExpansionSection({
   asModule = false,
   sectionId = 'expansion',
-  ctaHref = '/growth#investors',
+  ctaHref = '/investors#contact',
 }: {
   asModule?: boolean
   sectionId?: string

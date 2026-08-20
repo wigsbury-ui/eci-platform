@@ -80,7 +80,7 @@ export default function AgentsSection() {
 
         <div className="flex flex-wrap gap-3 items-center">
           <Link
-            href="/growth#agents"
+            href="/agents"
             className="bg-[#0E7490] text-white px-6 py-3 rounded-sm font-jost font-bold text-sm hover:bg-[#0F766E] transition-colors"
           >
             Learn about growth pathways
@@ -92,7 +92,7 @@ export default function AgentsSection() {
             Agent portal login →
           </Link>
           <Link
-            href="/growth#rainmakers"
+            href="/agents#rainmakers"
             className="font-jost text-sm font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
           >
             Rainmaker network →

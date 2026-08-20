@@ -35,11 +35,11 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     text: OPERATING_SCHOOLS.find(s => s.id === 'riyadh')!.description + ' Website: https://ellesmerecollegeriyadh.com',
   },
   {
-    id: 'muscat',
+    id: 'riyadh-salwa',
     audience: ['investor', 'school', 'public', 'team'],
-    title: 'Ellesmere College Muscat',
+    title: 'Ellesmere College Riyadh — Salwa Compound',
     source: 'Network schools',
-    text: OPERATING_SCHOOLS.find(s => s.id === 'muscat')!.description,
+    text: OPERATING_SCHOOLS.find(s => s.id === 'riyadh-salwa')!.description + ' Website: https://ellesmerecollegeriyadh.com',
   },
   {
     id: 'doha',
@@ -59,14 +59,14 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     id: 'agents',
     audience: ['agent', 'public', 'team'],
     title: 'Introduction agent programme',
-    source: 'Growth',
-    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. Agents use the Agent Portal to brief themselves, access marketing resources, and submit investor referrals. See the public Growth page at /growth.`,
+    source: 'Agents',
+    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. Agents use the Agent Portal to brief themselves, access marketing resources, and submit investor referrals. See the public Agents page at /agents.`,
   },
   {
     id: 'rainmakers',
     audience: ['agent', 'public', 'team', 'investor'],
     title: 'Rainmaker referral network',
-    source: 'Growth',
+    source: 'Agents',
     text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Comparison with agents: ${RAINMAKER_VS_AGENT.map(r => `${r.category} — rainmaker: ${r.rainmaker} agent: ${r.agent}`).join(' ')}`,
   },
   {
@@ -95,7 +95,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['school', 'team'],
     title: 'Calendar and messaging',
     source: 'Collaboration',
-    text: 'The ECI calendar lets staff create time blocks with an explicit timezone (e.g. Asia/Riyadh), named attendees, and allocation to the Admin calendar, any individual school calendar, several schools, or all schools. Each school has a signature colour on the calendar grid (Riyadh teal, Muscat amber, Doha blue) so visits are easy to spot. Partner schools see network-wide events and anything allocated to their school; admin-only blocks stay on the team calendar.',
+    text: 'The ECI calendar lets staff create time blocks with an explicit timezone (e.g. Asia/Riyadh), named attendees, and allocation to the Admin calendar, any individual school calendar, several schools, or all schools. Each school has a signature colour on the calendar grid so visits are easy to spot. Partner schools see network-wide events and anything allocated to their school; admin-only blocks stay on the team calendar.',
   },
   {
     id: 'hpl',
