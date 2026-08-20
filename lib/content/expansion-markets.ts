@@ -242,24 +242,24 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 33.448,
     lng: -7.65,
     publicSummary:
-      'Modern suburban Casablanca — limited British competition and strong residential appeal for family campuses.',
+      'Modern suburban Casablanca — strong residential growth and room to differentiate amid existing British provision.',
     investorThesis:
-      'Bouskoura sits in Casablanca’s affluent growth belt with modern residential development and comparatively light British-school competition. It offers a first-mover suburban play adjacent to Morocco’s largest commercial population — without the saturation of the city centre.',
+      'Bouskoura sits in Casablanca’s affluent growth belt with modern residential development and easier campus delivery than the city centre. British schools are already present (including BISC and London Academy), so the thesis is differentiation on heritage brand and pastoral quality — not virgin white space — beside Morocco’s largest commercial catchment.',
     whyNow: [
       'Affluent suburban catchment with family-oriented housing growth',
-      'Lower competitive intensity than central Casablanca',
+      'Lower site friction than saturated central Casablanca',
       'Supportive investment-zone dynamics',
       'Natural pairing with a Rabat or Casablanca network strategy',
     ],
     partnerFit:
-      'Excellent for partners seeking suburban land efficiency and a clear white-space narrative.',
+      'Excellent for partners seeking suburban land efficiency and a clear mid-premium British differentiator.',
     opportunity: 'Very High',
     scores: {
       demand: 4,
       incomeFit: 5,
       feeAlignment: 5,
       regulatory: 4,
-      competition: 2,
+      competition: 3,
       ukCurriculum: 3,
       culturalFit: 5,
     },
