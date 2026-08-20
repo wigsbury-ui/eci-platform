@@ -148,7 +148,7 @@ export default function GrowthPage() {
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {INVESTOR_VALUE_PROPS.map(item => (
               <div key={item.title} className="border-t-2 border-[#C8A84B] pt-4">
                 <h3 className="font-cormorant text-xl text-[#2D1654] font-semibold mb-2 whitespace-nowrap">
@@ -157,24 +157,6 @@ export default function GrowthPage() {
                 <p className="text-[#2D1654]/70 text-sm font-jost leading-relaxed">{item.body}</p>
               </div>
             ))}
-          </div>
-
-          <div className="border-t border-[#2D1654]/10 pt-8">
-            <p className="text-[#2D1654]/40 text-[10px] tracking-[0.25em] uppercase font-jost font-bold mb-5">
-              Optional add-ons
-            </p>
-            <div className="grid sm:grid-cols-2 gap-8 max-w-4xl">
-              {PARTNERSHIP_ADDONS.map(model => (
-                <div key={model.id}>
-                  <h4 className="font-cormorant text-lg text-[#2D1654] font-semibold mb-1.5">
-                    {model.title}
-                  </h4>
-                  <p className="text-[#2D1654]/55 text-sm font-jost leading-relaxed">
-                    {model.summary}
-                  </p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
