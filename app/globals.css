@@ -9,6 +9,8 @@
   --eci-gold-light: #F0E4B0;
   --eci-cream: #F8F4EF;
   --eci-dark: #1A1228;
+  /* Fixed public nav height — keeps scroll-snap / anchors clear of the menu */
+  --eci-nav-offset: 5rem;
 }
 
 body {
@@ -17,16 +19,21 @@ body {
   color: #111827;
 }
 
-/* Soft edge stickiness for full-viewport modules (home + growth) */
+/* Soft edge stickiness for full-viewport modules (home + growth).
+   Snap below the fixed nav so module tops are not cropped under the menu. */
 @media (min-width: 768px) {
   html:has(main.home-snap) {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 0;
+    scroll-padding-top: var(--eci-nav-offset, 5rem);
   }
 
   main.home-snap > section.home-window {
     scroll-snap-align: start;
-    scroll-margin-top: 0;
+  }
+
+  /* Hero may bleed under a transparent nav; later modules clear the bar. */
+  main.home-snap > section.home-window:not(:first-of-type) {
+    scroll-margin-top: var(--eci-nav-offset, 5rem);
   }
 }
 
