@@ -8,9 +8,19 @@ const VIDEO_SRC = '/videos/investor-intro.mp4'
 const POSTER_SRC = '/videos/investor-intro-poster.jpg'
 const POSTER_FALLBACK = '/images/schools/doha-horizon.jpg'
 
-export default function GrowthHeroVideo() {
+type GrowthHeroVideoProps = {
+  /** card = titled hero tile; frame = video + play only (for module placeholders). */
+  variant?: 'card' | 'frame'
+  className?: string
+}
+
+export default function GrowthHeroVideo({
+  variant = 'card',
+  className = '',
+}: GrowthHeroVideoProps) {
   const [open, setOpen] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const isFrame = variant === 'frame'
 
   const close = useCallback(() => {
     const el = videoRef.current
@@ -54,10 +64,18 @@ export default function GrowthHeroVideo() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group relative w-full max-w-xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+        className={`group relative w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 ${
+          isFrame ? className : `max-w-xl ${className}`
+        }`}
         aria-label="Play introducing Ellesmere College International — 90 second video"
       >
-        <div className="overflow-hidden rounded-2xl border border-white/35 bg-[#2D1654] shadow-2xl shadow-black/50">
+        <div
+          className={`overflow-hidden rounded-2xl shadow-2xl shadow-black/40 ${
+            isFrame
+              ? 'border border-[#2D1654]/12 bg-black'
+              : 'border border-white/35 bg-[#2D1654] shadow-black/50'
+          }`}
+        >
           <div className="relative aspect-video overflow-hidden bg-black">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -77,12 +95,14 @@ export default function GrowthHeroVideo() {
               </span>
             </span>
           </div>
-          <div className="px-5 py-4">
-            <p className="font-cormorant whitespace-nowrap text-lg font-semibold leading-none text-white sm:text-xl">
-              Introducing Ellesmere College International
-            </p>
-            <p className="mt-1.5 font-jost text-sm text-[#C8A84B]">90 second video</p>
-          </div>
+          {!isFrame && (
+            <div className="px-5 py-4">
+              <p className="font-cormorant whitespace-nowrap text-lg font-semibold leading-none text-white sm:text-xl">
+                Introducing Ellesmere College International
+              </p>
+              <p className="mt-1.5 font-jost text-sm text-[#C8A84B]">90 second video</p>
+            </div>
+          )}
         </div>
       </button>
 

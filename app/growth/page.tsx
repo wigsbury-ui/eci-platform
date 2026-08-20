@@ -139,22 +139,8 @@ export default function GrowthPage() {
               </Link>
             </div>
 
-            <div className="relative min-h-[320px] lg:min-h-[420px] overflow-hidden">
-              <Image
-                src="/images/schools/riyadh-community.webp"
-                alt="Ellesmere College Riyadh community"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 45vw"
-              />
-              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#2D1654] via-[#2D1654]/70 to-transparent p-6 md:p-8">
-                <p className="text-[#C8A84B] text-xs tracking-widest uppercase font-jost mb-1">
-                  Operating proof
-                </p>
-                <p className="text-white font-cormorant text-2xl md:text-3xl">
-                  Riyadh · Muscat · Doha soon
-                </p>
-              </div>
+            <div className="w-full self-center">
+              <GrowthHeroVideo variant="frame" />
             </div>
           </div>
 
