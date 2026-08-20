@@ -17,20 +17,16 @@ body {
   color: #111827;
 }
 
-html {
-  scroll-padding-top: 5.5rem;
-}
-
-/* Soft edge stickiness for full-viewport modules */
+/* Soft edge stickiness for full-viewport modules (home + growth) */
 @media (min-width: 768px) {
   html:has(main.home-snap) {
     scroll-snap-type: y proximity;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 0;
   }
 
   main.home-snap > section.home-window {
     scroll-snap-align: start;
-    scroll-margin-top: 5.5rem;
+    scroll-margin-top: 0;
   }
 }
 

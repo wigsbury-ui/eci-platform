@@ -78,11 +78,15 @@ export default function HeadsMessageSection() {
                 Riyadh today to Doha and further markets ahead.
               </p>
               <p>
-                I look forward to working with partners who share our conviction that a British
-                heritage education, delivered with heart, can flourish anywhere.
+                I look forward to welcoming families, partners and colleagues who share our
+                conviction that a British heritage education, delivered with heart, can flourish
+                anywhere.
               </p>
             </div>
             <p className="mt-7 font-cormorant text-2xl text-[#C8A84B] italic">Jon Shaw</p>
+            <p className="text-white/45 text-xs font-jost mt-1">
+              Sample welcome — final wording to be provided by the Head.
+            </p>
             <Link
               href="https://www.ellesmere.com/about-us/headmasters-welcome"
               target="_blank"

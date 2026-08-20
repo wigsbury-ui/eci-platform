@@ -51,7 +51,7 @@ export default function DohaSchoolPage() {
               About the campus
             </a>
             <Link
-              href="/#contact"
+              href="/growth#contact"
               className="border border-white/40 text-white px-6 py-3.5 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
             >
               Register interest
@@ -76,6 +76,10 @@ export default function DohaSchoolPage() {
               <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
               <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-5">{DOHA_SCHOOL.summary}</p>
               <p className="text-[#2D1654]/70 font-jost leading-relaxed mb-8">{DOHA_SCHOOL.mission}</p>
+              <p className="text-sm font-jost text-[#2D1654]/55 italic">
+                Draft profile adapted from public school materials — final wording to be confirmed
+                with Ellesmere College Doha leadership.
+              </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -164,16 +168,16 @@ export default function DohaSchoolPage() {
               Join the journey
             </p>
             <h2 className="font-cormorant text-3xl md:text-4xl text-[#2D1654] font-semibold mb-3">
-              A network campus, opening soon
+              Families, educators and partners welcome
             </h2>
             <p className="font-jost text-[#2D1654]/70 leading-relaxed">
-              Doha is the next Ellesmere College International campus — proof of an operating model
-              that investors and operators can partner into, not a paper franchise.
+              Whether you are exploring a place for your child, joining a founding teaching team, or
+              partnering with ECI, we would be glad to hear from you.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/#contact"
+              href="/growth#contact"
               className="bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
             >
               Contact ECI

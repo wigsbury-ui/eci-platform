@@ -66,16 +66,16 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
-              href="#partnership"
+              href="/growth"
               className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-lg shadow-black/20"
             >
-              Partner with us
+              Investment partners
             </Link>
             <a
               href="#schools"
               className="border-2 border-[#C8A84B]/70 text-white px-8 py-3.5 rounded-sm font-jost font-semibold text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
             >
-              Our network
+              Our schools
             </a>
           </div>
         </div>

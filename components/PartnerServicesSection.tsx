@@ -230,17 +230,17 @@ export default function PartnerServicesSection({
         <div className="mt-5 flex flex-wrap gap-3 items-center">
           {variant === 'home' ? (
             <>
-              <a
-                href="#contact"
+              <Link
+                href="/growth#services"
                 className="bg-[#C8A84B] text-[#2D1654] px-6 py-3 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-sm"
               >
-                Discuss services
-              </a>
+                Explore for investors
+              </Link>
               <Link
                 href="/login?audience=investor"
                 className="font-jost text-sm font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
               >
-                Full framework in Investor Portal →
+                Full detail in Investor Portal →
               </Link>
             </>
           ) : (

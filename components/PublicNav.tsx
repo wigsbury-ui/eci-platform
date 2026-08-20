@@ -5,12 +5,12 @@ import Image from 'next/image'
 import { Menu, X } from 'lucide-react'
 
 const LINKS = [
-  { label: 'About', href: '/#about' },
-  { label: 'Network', href: '/#schools' },
-  { label: 'Partnership', href: '/#partnership' },
-  { label: 'Markets', href: '/#expansion' },
-  { label: 'Investors & agents', href: '/growth' },
-  { label: 'Contact', href: '/#contact' },
+  { label: "Head's Message", href: '/#heads-message' },
+  { label: 'Our Schools', href: '/#schools' },
+  { label: 'Doha', href: '/schools/doha' },
+  { label: 'Team', href: '/#team' },
+  { label: 'Growth', href: '/growth' },
+  { label: 'Contact', href: '/growth#contact' },
 ]
 
 export default function PublicNav({ solid = false }: { solid?: boolean }) {
@@ -53,7 +53,7 @@ export default function PublicNav({ solid = false }: { solid?: boolean }) {
           </div>
         </Link>
 
-        <div className="hidden lg:flex items-center gap-7">
+        <div className="hidden lg:flex items-center gap-8">
           {LINKS.map(({ label, href }) => (
             <Link
               key={label}
@@ -67,10 +67,16 @@ export default function PublicNav({ solid = false }: { solid?: boolean }) {
 
         <div className="hidden lg:flex items-center gap-3">
           <Link
+            href="/login?audience=school"
+            className="text-white/80 hover:text-white text-sm font-jost px-3 py-2"
+          >
+            School portal
+          </Link>
+          <Link
             href="/login"
             className="bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm text-sm font-semibold font-jost hover:bg-[#F0E4B0] transition-colors"
           >
-            Sign in
+            Portal login
           </Link>
         </div>
 
@@ -95,7 +101,7 @@ export default function PublicNav({ solid = false }: { solid?: boolean }) {
             href="/login"
             className="block bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 rounded-sm text-sm font-semibold text-center mt-3"
           >
-            Sign in
+            Portal login
           </Link>
         </div>
       )}
