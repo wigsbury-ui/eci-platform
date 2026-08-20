@@ -4,7 +4,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Play, X } from 'lucide-react'
 
 const VIDEO_SRC = '/videos/investor-intro.mp4'
-const POSTER_SRC = '/images/schools/doha-horizon.jpg'
+/** Dedicated poster when available; campus still works as a fallback. */
+const POSTER_SRC = '/videos/investor-intro-poster.jpg'
+const POSTER_FALLBACK = '/images/schools/doha-horizon.jpg'
 
 export default function GrowthHeroVideo() {
   const [open, setOpen] = useState(false)
@@ -62,6 +64,11 @@ export default function GrowthHeroVideo() {
               src={POSTER_SRC}
               alt=""
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+              onError={e => {
+                const img = e.currentTarget
+                if (img.src.endsWith(POSTER_FALLBACK)) return
+                img.src = POSTER_FALLBACK
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#1A1228]/90 via-[#2D1654]/35 to-transparent" />
             <span className="absolute inset-0 flex items-center justify-center">
@@ -105,7 +112,7 @@ export default function GrowthHeroVideo() {
               controls
               playsInline
               preload="auto"
-              poster={POSTER_SRC}
+              poster={POSTER_FALLBACK}
               src={VIDEO_SRC}
             />
           </div>
