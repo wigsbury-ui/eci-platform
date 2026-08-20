@@ -5,6 +5,7 @@ import PublicNav from '@/components/PublicNav'
 import Footer from '@/components/Footer'
 import ContactSection from '@/components/ContactSection'
 import ExpansionSection from '@/components/ExpansionSection'
+import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import {
   INVESTOR_VALUE_PROPS,
   OPENING_SOON,
@@ -27,7 +28,7 @@ export default function GrowthPage() {
       <PublicNav solid />
 
       {/* 1 — Hero: brand licensing first */}
-      <section className="home-window relative min-h-[100svh] flex flex-col justify-end overflow-hidden">
+      <section className="home-window relative min-h-[100svh] flex flex-col overflow-hidden">
         <Image
           src="/images/schools/doha-horizon.jpg"
           alt="International campus expansion"
@@ -37,51 +38,59 @@ export default function GrowthPage() {
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A1228]/95 via-[#2D1654]/78 to-[#2D1654]/35" />
-        <div className="relative max-w-7xl mx-auto px-6 pb-16 md:pb-20 w-full pt-28">
-          <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-4 font-jost font-bold">
-            Growth
-          </p>
-          <h1
-            className="font-cormorant font-semibold text-white leading-[1.05] max-w-3xl mb-5"
-            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.25rem)' }}
-          >
-            Build a school
-            <br />
-            <em className="text-[#C8A84B] font-normal">under the Ellesmere brand.</em>
-          </h1>
-          <p className="text-white/75 font-jost max-w-xl mb-10 leading-relaxed">
-            Brand licensing is the core of how we grow: investors and operators work with ECI to
-            open an Ellesmere campus. Curriculum and advisory support are available as add-ons —
-            not parallel products.
-          </p>
+        <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-stretch">
+            <div className="order-2 lg:order-1 flex flex-col justify-end">
+              <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-4 font-jost font-bold">
+                Growth
+              </p>
+              <h1
+                className="font-cormorant font-semibold text-white leading-[1.05] max-w-3xl mb-5"
+                style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.25rem)' }}
+              >
+                Build a school
+                <br />
+                <em className="text-[#C8A84B] font-normal">under the Ellesmere brand.</em>
+              </h1>
+              <p className="text-white/75 font-jost max-w-xl mb-10 leading-relaxed">
+                Brand licensing is the core of how we grow: investors and operators work with ECI to
+                open an Ellesmere campus. Curriculum and advisory support are available as add-ons —
+                not parallel products.
+              </p>
 
-          <div className="flex flex-wrap gap-3 mb-8">
-            <a
-              href="#investors"
-              className="bg-[#C8A84B] text-[#2D1654] px-7 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
-            >
-              For investors
-            </a>
-            <Link
-              href="/login?audience=investor"
-              className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
-            >
-              Investor portal
-            </Link>
-            <a
-              href="#contact"
-              className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
-            >
-              Start a conversation
-            </a>
+              <div className="flex flex-wrap gap-3 mb-8">
+                <a
+                  href="#investors"
+                  className="bg-[#C8A84B] text-[#2D1654] px-7 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+                >
+                  For investors
+                </a>
+                <Link
+                  href="/login?audience=investor"
+                  className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+                >
+                  Investor portal
+                </Link>
+                <a
+                  href="#contact"
+                  className="border border-white/40 text-white px-5 py-3 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+                >
+                  Start a conversation
+                </a>
+              </div>
+
+              <p className="font-jost text-sm text-white/50">
+                Know someone who should build with us?{' '}
+                <a href="#introductions" className="text-[#C8A84B] hover:underline">
+                  Agents &amp; rainmakers
+                </a>
+              </p>
+            </div>
+
+            <div className="order-1 lg:order-2 flex items-start justify-center lg:justify-end pt-2 lg:pt-4">
+              <GrowthHeroVideo />
+            </div>
           </div>
-
-          <p className="font-jost text-sm text-white/50">
-            Know someone who should build with us?{' '}
-            <a href="#introductions" className="text-[#C8A84B] hover:underline">
-              Agents &amp; rainmakers
-            </a>
-          </p>
         </div>
       </section>
 
