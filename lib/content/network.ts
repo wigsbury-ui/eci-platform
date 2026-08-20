@@ -166,6 +166,10 @@ export const PARTNERSHIP_MODELS = [
   },
 ] as const
 
+export const PRIMARY_PARTNERSHIP = PARTNERSHIP_MODELS.find(m => m.id === 'full')!
+
+export const PARTNERSHIP_ADDONS = PARTNERSHIP_MODELS.filter(m => m.id !== 'full')
+
 export const INVESTOR_VALUE_PROPS = [
   {
     title: 'Proven British heritage',

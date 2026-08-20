@@ -14,6 +14,10 @@ export const ACCEPTED_ONLY_AGENT_PATHS = [
   '/agent/resources',
   '/agent/materials',
   '/agent/referrals',
+  '/agent/briefing',
+  '/agent/toolkit',
+  '/agent/markets',
+  '/agent/engagement',
 ] as const
 
 export function isIntroductionPartnerRole(role?: string | null): boolean {
