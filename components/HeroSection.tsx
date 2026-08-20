@@ -61,15 +61,16 @@ export default function HeroSection() {
             <em className="text-[#C8A84B] font-normal">Globally delivered.</em>
           </h1>
           <p className="text-white/85 text-lg leading-relaxed mb-10 font-jost max-w-xl">
-            From our Shropshire heritage campus to Ellesmere College Riyadh — and soon Doha —
-            we partner with investors and operators to bring a Life:Ready education to new communities.
+            From our Shropshire heritage campus to Ellesmere College Riyadh — and soon Doha — we
+            license the Ellesmere brand so investors can build schools that carry a Life:Ready
+            education into new communities.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
               href="/growth"
               className="bg-[#C8A84B] text-[#2D1654] px-8 py-3.5 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-lg shadow-black/20"
             >
-              Investment partners
+              Build an Ellesmere school
             </Link>
             <a
               href="#schools"

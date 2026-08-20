@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
 
 export default function AgentsRedirect() {
-  redirect('/growth#agents')
+  redirect('/growth#introductions')
 }

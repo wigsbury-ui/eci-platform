@@ -130,46 +130,55 @@ export const MAP_LOCATIONS = [
 
 export const PARTNERSHIP_MODELS = [
   {
-    id: 'full',
-    title: 'Full Partnership',
+    id: 'brand',
+    title: 'Brand licensing',
+    primary: true,
     summary:
-      'Complete ECI branding, curriculum frameworks, quality assurance, leadership mentoring, and ongoing network support for new or established schools.',
-    ideal: 'New school investors and operators seeking full Ellesmere affiliation.',
+      'Work with ECI to build and operate a school under the Ellesmere brand: curriculum frameworks, quality assurance, leadership mentoring, and ongoing network support.',
+    ideal: 'Investors and operators building a new Ellesmere campus.',
   },
   {
     id: 'curriculum',
-    title: 'Curriculum Licensing',
+    title: 'Curriculum support',
+    primary: false,
     summary:
-      'License Ellesmere curriculum and assessment frameworks while retaining your existing school brand and identity.',
-    ideal: 'Established schools adopting British curriculum standards.',
+      'An optional add-on for partners who need Ellesmere curriculum and assessment frameworks without full brand affiliation.',
+    ideal: 'Selected partners seeking curriculum depth alongside a wider relationship.',
   },
   {
     id: 'advisory',
-    title: 'Advisory Partnership',
+    title: 'Advisory support',
+    primary: false,
     summary:
-      'Access ECI expertise, inspection readiness support, and professional development without full brand integration.',
-    ideal: 'Schools seeking quality assurance and leadership development.',
+      'An optional add-on for quality assurance, inspection readiness, and professional development where full brand licensing is not the primary path.',
+    ideal: 'Selected partners needing specialist advisory support.',
   },
 ] as const
+
+/** The central investor offer: build a school under the Ellesmere brand. */
+export const PRIMARY_PARTNERSHIP = PARTNERSHIP_MODELS.find(m => m.primary)!
+
+export const PARTNERSHIP_ADDONS = PARTNERSHIP_MODELS.filter(m => !m.primary)
 
 export const INVESTOR_VALUE_PROPS = [
   {
     title: 'Proven British heritage',
-    body: 'Ellesmere College, Shropshire — founded 1884 — provides the academic DNA, quality culture, and Life:Ready philosophy behind every international campus.',
+    body: 'Ellesmere College, Shropshire — founded 1884 — provides the academic DNA, quality culture, and Life:Ready philosophy behind every branded international campus.',
   },
   {
     title: 'Operating proof points',
-    body: 'Live campuses in Riyadh and Muscat, with Doha opening soon, demonstrate transferable standards across the Middle East.',
+    body: 'Live campuses in Riyadh and Muscat, with Doha opening soon, show that the Ellesmere standard transfers across the Middle East.',
   },
   {
-    title: 'Defined expansion map',
-    body: 'A ranked Top 10 growth set — from New Cairo and Northern Bahrain to Rabat, Abu Dhabi, Jeddah and Sharjah — selected through consistent multi-country market analysis. Allocated campuses such as Riyadh are excluded.',
+    title: 'Brand licensing, done properly',
+    body: 'You invest and build under the Ellesmere name. ECI protects standards through licensing, quality assurance, leadership support, and network governance.',
   },
   {
-    title: 'Quality & brand protection',
-    body: 'Licensing, inspection frameworks, and network governance protect the Ellesmere name while enabling local partnership.',
+    title: 'Clear growth markets',
+    body: 'A ranked Top 10 destination set helps aim capital where demand, income fit, regulation, and cultural alignment support an Ellesmere school.',
   },
 ] as const
+
 
 export const HERITAGE = {
   founded: 1884,

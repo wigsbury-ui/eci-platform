@@ -2,10 +2,10 @@
 
 export const RAINMAKER_PROGRAM = {
   eyebrow: 'Rainmakers',
-  title: 'A trusted referral network',
+  title: 'Warm introductions to brand licensing',
   summary:
-    'Alongside introduction agents, ECI cultivates a rainmaker network — trusted alumni, former parents and well-connected friends of Ellesmere who open doors formal outreach might miss.',
-  punchline: 'Loyalty, local trust, and warm introductions.',
+    'Trusted alumni, former parents and friends of Ellesmere who open doors to investors ready to build a school under our brand — introductions formal outreach might miss.',
+  punchline: 'Loyalty, local trust, and one clear offer.',
 }
 
 export const RAINMAKER_VALUE_PROPS = [
@@ -19,7 +19,7 @@ export const RAINMAKER_VALUE_PROPS = [
   },
   {
     title: 'Structured incentives',
-    body: 'Successful referrals can attract a calibrated share of the initial franchise or licensing fee, with milestone recognition when a school opens or hits early enrolment — keeping rainmakers engaged through launch.',
+    body: 'Successful referrals can attract a calibrated share of the initial licensing fee, with milestone recognition when a school opens or hits early enrolment — keeping rainmakers engaged through launch.',
   },
   {
     title: 'Clear eligibility',
@@ -54,9 +54,9 @@ export const RAINMAKER_VS_AGENT = [
   {
     category: 'Incentives',
     rainmaker:
-      'Success-based rewards — share of franchise or licence revenue, milestone bonuses, and recognition. Non-financial perks matter too.',
+      'Success-based rewards — share of licensing revenue, milestone bonuses, and recognition. Non-financial perks matter too.',
     agent:
-      'Commission or finder’s fees — typically a percentage of franchise fees. Primarily financially driven.',
+      'Commission or finder’s fees — typically a percentage of licensing fees. Primarily financially driven.',
   },
   {
     category: 'Reach & network',

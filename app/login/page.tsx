@@ -16,8 +16,8 @@ const AUDIENCE_COPY: Record<
     headline: 'Investment &\npartnership access',
     body: 'Secure access to investor briefings, due-diligence materials, and expansion opportunities across the ECI network.',
     bullets: [
-      'Market opportunity and partnership models',
-      'Marketing packs and due-diligence library',
+      'Brand licensing to build an Ellesmere school',
+      'Priority markets and operating proof points',
       'Direct channel to the ECI leadership team',
     ],
   },

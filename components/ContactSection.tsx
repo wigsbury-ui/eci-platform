@@ -115,12 +115,10 @@ export default function ContactSection({
                 className="w-full border border-gray-200 rounded-sm px-4 py-3 text-sm font-jost focus:outline-none focus:border-[#4C2585]"
               >
                 <option value="">Please select...</option>
-                <option>Investment Opportunity</option>
+                <option>Brand licensing / new Ellesmere school</option>
                 <option>Agent / Introduction Partner</option>
                 <option>Rainmaker / Referral Partner</option>
-                <option>Full Partnership</option>
-                <option>Curriculum Licensing</option>
-                <option>Advisory Partnership</option>
+                <option>Curriculum or advisory add-on</option>
                 <option>General Enquiry</option>
               </select>
             </div>

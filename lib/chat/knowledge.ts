@@ -3,11 +3,12 @@ import {
   INVESTOR_VALUE_PROPS,
   OPENING_SOON,
   OPERATING_SCHOOLS,
-  PARTNERSHIP_MODELS,
+  PARTNERSHIP_ADDONS,
+  PRIMARY_PARTNERSHIP,
 } from '@/lib/content/network'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import { AGENT_PROGRAM, AGENT_HOW_IT_WORKS, AGENT_IDEAL_INTROS } from '@/lib/content/agents'
-import { RAINMAKER_PROGRAM, RAINMAKER_VALUE_PROPS, RAINMAKER_VS_AGENT } from '@/lib/content/rainmakers'
+import { RAINMAKER_PROGRAM, RAINMAKER_VALUE_PROPS } from '@/lib/content/rainmakers'
 
 export type KnowledgeAudience = 'investor' | 'school' | 'public' | 'team' | 'agent'
 
@@ -67,14 +68,14 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['agent', 'public', 'team', 'investor'],
     title: 'Rainmaker referral network',
     source: 'Growth',
-    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Comparison with agents: ${RAINMAKER_VS_AGENT.map(r => `${r.category} — rainmaker: ${r.rainmaker} agent: ${r.agent}`).join(' ')}`,
+    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Rainmakers and agents are complementary introduction channels into one brand-licensing pipeline.`,
   },
   {
     id: 'partnerships',
     audience: ['investor', 'public', 'team', 'agent'],
-    title: 'Partnership models',
+    title: 'Brand licensing',
     source: 'Partnership',
-    text: PARTNERSHIP_MODELS.map(m => `${m.title}: ${m.summary} Ideal for: ${m.ideal}`).join(' '),
+    text: `Core offer — ${PRIMARY_PARTNERSHIP.title}: ${PRIMARY_PARTNERSHIP.summary} Ideal for: ${PRIMARY_PARTNERSHIP.ideal}. Optional add-ons: ${PARTNERSHIP_ADDONS.map(m => `${m.title}: ${m.summary}`).join(' ')}`,
   },
   {
     id: 'investor-value',

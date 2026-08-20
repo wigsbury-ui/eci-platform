@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Profile } from '@/lib/types'
 import {
   AGENT_HOW_IT_WORKS,
-  AGENT_PORTAL_HIGHLIGHTS,
   DEMO_AGENT_REFERRALS,
 } from '@/lib/content/agents'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
@@ -19,17 +18,48 @@ export default function AgentDashboard({ profile }: { profile: Profile | null })
         <p className="text-gray-400 text-sm font-jost mb-1">Welcome back, {firstName}</p>
         <h1 className="font-cormorant text-4xl text-[#2D1654]">Agent overview</h1>
         <p className="text-sm text-gray-500 font-jost mt-2 max-w-2xl">
-          Brief yourself, introduce aligned investors and operators, and track referrals as ECI leads
-          the partnership conversation.
+          Introduce investors who want to build a school under the Ellesmere brand. Curriculum and
+          advisory are add-ons — mention them only if asked. ECI closes and delivers.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div className="bg-[#0E7490] text-white p-6 sm:p-7 mb-8">
+        <p className="font-jost text-[11px] tracking-[0.25em] uppercase text-white/70 mb-2">
+          Your focus
+        </p>
+        <h2 className="font-cormorant text-2xl sm:text-3xl leading-snug mb-3">
+          Brand licensing introductions
+        </h2>
+        <p className="font-jost text-sm text-white/85 max-w-2xl leading-relaxed mb-5">
+          Lead with one offer: partner with ECI to open an Ellesmere school. Check the market is
+          open, use the briefing, then log the introduction.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/agent/briefing"
+            className="bg-white text-[#0E7490] px-5 py-2.5 text-sm font-jost font-semibold hover:bg-[#F0FDFA] transition-colors"
+          >
+            Brand briefing
+          </Link>
+          <Link
+            href="/agent/markets"
+            className="border border-white/40 text-white px-5 py-2.5 text-sm font-jost font-semibold hover:border-white transition-colors"
+          >
+            Priority markets
+          </Link>
+          <Link
+            href="/agent/referrals"
+            className="border border-white/40 text-white px-5 py-2.5 text-sm font-jost font-semibold hover:border-white transition-colors"
+          >
+            Submit a referral
+          </Link>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mb-8">
         {[
           { label: 'Open growth markets', value: TOP_DESTINATIONS.length },
           { label: 'Active referrals', value: DEMO_AGENT_REFERRALS.length },
-          { label: 'In review', value: DEMO_AGENT_REFERRALS.filter(r => r.status === 'In review').length },
-          { label: 'Qualified', value: DEMO_AGENT_REFERRALS.filter(r => r.status === 'Qualified').length },
         ].map(({ label, value }) => (
           <div key={label} className="bg-white border border-gray-100 p-5">
             <p className="text-gray-400 text-xs font-jost uppercase tracking-wide mb-2">{label}</p>
@@ -38,28 +68,15 @@ export default function AgentDashboard({ profile }: { profile: Profile | null })
         ))}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4 mb-10">
-        {AGENT_PORTAL_HIGHLIGHTS.map(item => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="bg-white border border-gray-100 p-6 hover:border-[#0E7490]/50 transition-colors group"
-          >
-            <div className="w-10 h-1 mb-4" style={{ background: AGENT_PORTAL_ACCENT }} />
-            <h2 className="font-cormorant text-2xl text-[#2D1654] mb-2 group-hover:text-[#0E7490] transition-colors">
-              {item.title}
-            </h2>
-            <p className="text-sm text-gray-600 font-jost leading-relaxed">{item.body}</p>
-          </Link>
-        ))}
-      </div>
-
       <div className="bg-white border border-gray-100 p-7 mb-8">
         <h2 className="font-cormorant text-2xl text-[#2D1654] mb-5">How introductions work</h2>
         <div className="grid md:grid-cols-4 gap-5">
           {AGENT_HOW_IT_WORKS.map(step => (
             <div key={step.step}>
-              <p className="font-jost text-xs tracking-[0.2em] uppercase mb-2" style={{ color: AGENT_PORTAL_ACCENT }}>
+              <p
+                className="font-jost text-xs tracking-[0.2em] uppercase mb-2"
+                style={{ color: AGENT_PORTAL_ACCENT }}
+              >
                 {step.step}
               </p>
               <p className="font-cormorant text-xl text-[#2D1654] mb-2">{step.title}</p>
@@ -72,7 +89,11 @@ export default function AgentDashboard({ profile }: { profile: Profile | null })
       <div className="bg-white border border-gray-100 p-7">
         <div className="flex items-center justify-between gap-3 mb-5">
           <h2 className="font-cormorant text-2xl text-[#2D1654]">Recent referrals</h2>
-          <Link href="/agent/referrals" className="text-sm font-jost font-semibold" style={{ color: AGENT_PORTAL_ACCENT }}>
+          <Link
+            href="/agent/referrals"
+            className="text-sm font-jost font-semibold"
+            style={{ color: AGENT_PORTAL_ACCENT }}
+          >
             Manage referrals →
           </Link>
         </div>

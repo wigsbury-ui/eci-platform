@@ -2,20 +2,15 @@ import {
   BookOpen,
   FileText,
   Home,
-  Layers,
   MapPinned,
   MessageSquare,
-  TrendingUp,
-  Users,
 } from 'lucide-react'
 
+/** Lean investor portal: brand licensing focus, not a product catalogue. */
 export const INVESTOR_NAV_ITEMS = [
   { label: 'Overview', href: '/investor', icon: <Home size={16} /> },
-  { label: 'Partnership Models', href: '/investor/models', icon: <TrendingUp size={16} /> },
-  { label: 'Partner Services', href: '/investor/services', icon: <Layers size={16} /> },
   { label: 'Priority Markets', href: '/investor/markets', icon: <MapPinned size={16} /> },
-  { label: 'Marketing Resources', href: '/investor/resources', icon: <BookOpen size={16} /> },
+  { label: 'Resources', href: '/investor/resources', icon: <BookOpen size={16} /> },
   { label: 'Due Diligence', href: '/investor/due-diligence', icon: <FileText size={16} /> },
-  { label: 'Network Schools', href: '/investor/schools', icon: <Users size={16} /> },
   { label: 'Express Interest', href: '/investor/apply', icon: <MessageSquare size={16} /> },
 ]
