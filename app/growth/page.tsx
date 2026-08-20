@@ -106,7 +106,7 @@ export default function GrowthPage() {
                 className="font-cormorant font-semibold text-[#2D1654] leading-tight mb-4"
                 style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
               >
-                {PRIMARY_PARTNERSHIP.title}
+                Brand licensing and more…
               </h2>
               <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
               <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-4 max-w-xl">
