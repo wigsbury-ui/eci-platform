@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { Profile, DocumentCategory, Announcement } from '@/lib/types'
 import { FolderOpen, Calendar, MessageSquare, ExternalLink } from 'lucide-react'
+import { HERITAGE } from '@/lib/content/network'
 
 export default function SchoolDashboard({
   profile, categories, announcements, schoolName,
@@ -76,6 +77,18 @@ export default function SchoolDashboard({
             </div>
           )}
         </div>
+      </div>
+
+      <div className="mt-8 bg-white border border-gray-100 p-7 max-w-xl">
+        <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-2">ECI office</h2>
+        <p className="text-sm text-gray-500 font-jost mb-4">
+          Use Messages for day-to-day coordination. For formal support:
+        </p>
+        <p className="text-sm font-jost text-gray-600">
+          {HERITAGE.email}
+          <br />
+          {HERITAGE.phone}
+        </p>
       </div>
     </div>
   )

@@ -2,7 +2,7 @@ import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import ContactSection from '@/components/ContactSection'
 import { requirePortalAccess } from '@/lib/supabase/session'
-import { INVESTOR_NAV_ITEMS } from '@/components/portal/investorNav'
+import { INVESTOR_NAV_ITEMS, INVESTOR_PORTAL_ACCENT, INVESTOR_PORTAL_NAME } from '@/components/portal/investorNav'
 
 export default async function InvestorApplyPage() {
   const { profile } = await requirePortalAccess(
@@ -11,10 +11,16 @@ export default async function InvestorApplyPage() {
   )
 
   return (
-    <PortalShell profile={profile} portalName="Investor Portal" portalAccent="#C8A84B" navItems={INVESTOR_NAV_ITEMS} activeSection="/investor/apply">
+    <PortalShell
+      profile={profile}
+      portalName={INVESTOR_PORTAL_NAME}
+      portalAccent={INVESTOR_PORTAL_ACCENT}
+      navItems={INVESTOR_NAV_ITEMS}
+      activeSection="/investor/apply"
+    >
       <ContactSection
-        title="Express further interest"
-        subtitle="Share markets, capital profile, and timing. Our team will follow up with next steps."
+        title="Request next steps"
+        subtitle="Already inside the portal — tell us markets, capital profile and timing, or request diligence access. Our team will follow up."
         defaultInterest="Investment Opportunity"
       />
       <PortalChatbot audience="investor" />

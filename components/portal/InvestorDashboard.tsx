@@ -1,6 +1,6 @@
 'use client'
 import { School, Profile } from '@/lib/types'
-import { PRIMARY_PARTNERSHIP, PARTNERSHIP_ADDONS } from '@/lib/content/network'
+import { PARTNERSHIP_MODELS } from '@/lib/content/network'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import Link from 'next/link'
 
@@ -15,16 +15,17 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
         </p>
         <h1 className="font-cormorant text-4xl text-eci-purple-dark">Investment overview</h1>
         <p className="text-sm text-gray-500 font-jost mt-2 max-w-2xl">
-          Build an Ellesmere school with ECI. This portal gives you markets, marketing packs, and
-          due-diligence materials for brand licensing conversations.
+          Network status and the partnership opportunity. Full models and services sit under
+          Opportunity; marketing and diligence packs sit under Documents.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         {[
-          { label: 'Operating campuses', value: active },
+          { label: 'Network schools', value: schools.length },
+          { label: 'Operating', value: active },
           { label: 'Opening soon', value: schools.filter(s => s.status === 'setting_up').length },
-          { label: 'Priority markets', value: TOP_DESTINATIONS.length },
+          { label: 'Top destinations', value: TOP_DESTINATIONS.length },
         ].map(({ label, value }) => (
           <div key={label} className="bg-white border border-gray-100 p-5">
             <p className="text-gray-400 text-xs font-jost uppercase tracking-wide mb-2">{label}</p>
@@ -34,24 +35,50 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
       </div>
 
       <div className="bg-white border border-gray-100 p-7 mb-8">
-        <p className="text-[10px] tracking-[0.2em] uppercase text-eci-gold font-jost font-bold mb-2">
-          Core offer
-        </p>
-        <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-3">{PRIMARY_PARTNERSHIP.title}</h2>
-        <p className="text-sm text-gray-600 font-jost leading-relaxed max-w-2xl mb-4">
-          {PRIMARY_PARTNERSHIP.summary}
-        </p>
-        <p className="text-xs text-eci-gold font-jost italic mb-6">{PRIMARY_PARTNERSHIP.ideal}</p>
-        <div className="border-t border-gray-100 pt-5">
-          <p className="text-xs text-gray-400 font-jost uppercase tracking-wide mb-3">Optional add-ons</p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {PARTNERSHIP_ADDONS.map(a => (
-              <div key={a.id}>
-                <p className="font-cormorant text-lg text-eci-purple-dark">{a.title}</p>
-                <p className="text-xs text-gray-500 font-jost mt-1 leading-relaxed">{a.summary}</p>
-              </div>
-            ))}
+        <h2 className="font-cormorant text-2xl text-eci-purple-dark mb-5">Partnership models</h2>
+        <div className="grid md:grid-cols-3 gap-6">
+          {PARTNERSHIP_MODELS.map(model => (
+            <div key={model.id} className="border border-gray-100 p-5">
+              <div className="w-8 h-0.5 bg-eci-gold mb-4" />
+              <h3 className="font-cormorant text-xl text-eci-purple-dark mb-2">{model.title}</h3>
+              <p className="text-xs text-gray-600 font-jost leading-relaxed mb-3">{model.summary}</p>
+              <p className="text-xs text-eci-gold font-jost italic">{model.ideal}</p>
+            </div>
+          ))}
+        </div>
+        <Link href="/investor/opportunity#models" className="inline-block mt-6 text-sm font-jost text-eci-purple hover:underline">
+          Open opportunity →
+        </Link>
+      </div>
+
+      <div className="bg-white border border-gray-100 p-7 mb-8">
+        <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <div>
+            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Partner Services Framework</h2>
+            <p className="text-sm text-gray-500 font-jost mt-2 max-w-xl">
+              The full three-tier product offering — obligatory commitments, core services, and premium
+              add-ons — with attributes, deliverables and impact signals for every service.
+            </p>
           </div>
+          <Link
+            href="/investor/opportunity#services"
+            className="text-sm font-jost font-semibold text-[#2D1654] bg-[#C8A84B] px-5 py-2.5 hover:bg-[#F0E4B0] transition-colors"
+          >
+            Open opportunity →
+          </Link>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            { tier: 'Group 1', title: 'Obligatory commitments', note: 'Non-negotiable foundation' },
+            { tier: 'Group 2', title: 'Core services', note: 'Experience & differentiation' },
+            { tier: 'Group 3', title: 'Premium add-ons', note: 'Specialist high-value depth' },
+          ].map(g => (
+            <div key={g.tier} className="border border-gray-100 p-4">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-[#C8A84B] font-jost mb-1">{g.tier}</p>
+              <p className="font-cormorant text-lg text-eci-purple-dark">{g.title}</p>
+              <p className="text-xs text-gray-500 font-jost mt-1">{g.note}</p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -76,7 +103,7 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
         </div>
         <div className="bg-white border border-gray-100 p-7">
           <div className="flex items-start justify-between gap-3 mb-5">
-            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Priority markets</h2>
+            <h2 className="font-cormorant text-2xl text-eci-purple-dark">Top 10 destinations</h2>
             <Link href="/investor/markets" className="text-sm font-jost text-eci-purple hover:underline shrink-0">
               Full brief →
             </Link>
@@ -96,21 +123,6 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
             View all ten markets →
           </Link>
         </div>
-      </div>
-
-      <div className="flex flex-wrap gap-3">
-        <Link
-          href="/investor/apply"
-          className="bg-eci-gold text-eci-purple-dark px-6 py-3 text-sm font-jost font-semibold hover:bg-eci-gold-light transition-colors"
-        >
-          Express interest
-        </Link>
-        <Link
-          href="/investor/resources"
-          className="border border-gray-200 text-eci-purple-dark px-6 py-3 text-sm font-jost font-semibold hover:border-eci-gold transition-colors"
-        >
-          Marketing resources
-        </Link>
       </div>
     </div>
   )

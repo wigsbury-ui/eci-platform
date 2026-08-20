@@ -33,7 +33,10 @@ export default function PortalSwitcher({
               className="rounded-md px-2 py-1.5 text-[11px] font-jost font-semibold text-center transition-colors"
               style={
                 active
-                  ? { background: accent, color: '#2D1654' }
+                  ? {
+                      background: accent,
+                      color: accent === '#C8A84B' || accent === '#F0E4B0' ? '#2D1654' : '#fff',
+                    }
                   : { background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.75)' }
               }
               aria-current={active ? 'page' : undefined}

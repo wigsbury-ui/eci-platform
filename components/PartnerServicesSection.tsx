@@ -231,7 +231,7 @@ export default function PartnerServicesSection({
           {variant === 'home' ? (
             <>
               <Link
-                href="/growth#services"
+                href="/investors#services"
                 className="bg-[#C8A84B] text-[#2D1654] px-6 py-3 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-sm"
               >
                 Explore for investors

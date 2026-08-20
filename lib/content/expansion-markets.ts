@@ -277,12 +277,12 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     publicSummary:
       'Oman’s northern economic hub — limited competition and strong cultural alignment with the Ellesmere ethos.',
     investorThesis:
-      'Sohar is a regional diversification play with genuine white space for an international British campus. Lower saturation than Muscat, supportive regional development policy, and close cultural fit make it a compelling complementary market alongside ECI’s existing Omani presence.',
+      'Sohar is a regional diversification play with genuine white space for an international British campus. Supportive regional development policy and close cultural fit make it a compelling market for a first British-heritage campus in northern Oman.',
     whyNow: [
-      'Clear competitive white space versus Muscat’s denser market',
+      'Clear competitive white space in a growing industrial city',
       'Industrial and port economy supporting mid-income family demand',
       'Government interest in regional education diversification',
-      'Complements the operating Muscat campus geographically',
+      'Strong cultural alignment with the Ellesmere ethos',
     ],
     partnerFit:
       'Appeals to partners who want Oman exposure with a first-mover regional story.',

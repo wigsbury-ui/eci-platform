@@ -10,17 +10,39 @@ export type NetworkSchoolCard = {
   name: string
   city: string
   country: string
-  status: 'active' | 'setting_up' | 'prospect'
+  status: 'active' | 'setting_up' | 'prospect' | 'heritage'
   short_bio: string
   description: string
   curriculum: string[]
   year_joined?: number
   website?: string
+  href?: string
   image: string
   highlight?: string
 }
 
-export const OPERATING_SCHOOLS: NetworkSchoolCard[] = [
+export type PartnerSchoolCard = Omit<NetworkSchoolCard, 'status'> & {
+  status: Exclude<NetworkSchoolCard['status'], 'heritage'>
+}
+
+export const HERITAGE_CAMPUS: NetworkSchoolCard = {
+  id: 'shropshire',
+  name: 'Ellesmere College',
+  city: 'Ellesmere',
+  country: 'United Kingdom',
+  status: 'heritage',
+  year_joined: 1884,
+  website: 'https://www.ellesmere.com',
+  image: '/images/campus/uk-160-acre.jpg',
+  curriculum: ['GCSE', 'A Level', 'BTEC', 'Boarding'],
+  highlight: 'Founded 1884 — the source campus',
+  short_bio:
+    'The founding school in Shropshire: 160 acres, High Performance Learning, and the Life:Ready ethos behind every international campus.',
+  description:
+    'Ellesmere College, Shropshire, was founded in 1884. It remains the academic and pastoral source of Ellesmere College International — curriculum quality, character education, and the Life:Ready ambition carried by partner campuses.',
+}
+
+export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
   {
     id: 'riyadh',
     name: 'Ellesmere College Riyadh',
@@ -31,30 +53,31 @@ export const OPERATING_SCHOOLS: NetworkSchoolCard[] = [
     website: 'https://ellesmerecollegeriyadh.com',
     image: '/images/schools/riyadh-campus.webp',
     curriculum: ['Early Years', 'IGCSE', 'IB Pathways', 'American Diploma'],
-    highlight: 'Open now — including the new Salwa Compound campus',
+    highlight: 'Open now',
     short_bio:
       'British-heritage education for ages 3–18 in the heart of Riyadh, delivering High Performance Learning in a nurturing, inclusive community.',
     description:
       'Ellesmere College Riyadh brings the Ellesmere educational philosophy to the Kingdom of Saudi Arabia through partnership with the Glory & Princeton International Schools Group. Pupils enjoy Early Years through pre-university pathways, with a focus on academic excellence, wellbeing, and character.',
   },
   {
-    id: 'muscat',
-    name: 'Ellesmere College Muscat',
-    city: 'Muscat',
-    country: 'Oman',
+    id: 'riyadh-salwa',
+    name: 'Ellesmere College Riyadh — Salwa Compound',
+    city: 'Riyadh',
+    country: 'Saudi Arabia',
     status: 'active',
-    year_joined: 2023,
-    image: '/images/campus/uk-learning.jpg',
-    curriculum: ['IB Continuum', 'Early Years to Grade 12'],
-    highlight: 'Opened 2023',
+    year_joined: 2025,
+    website: 'https://ellesmerecollegeriyadh.com',
+    image: '/images/schools/riyadh-community.webp',
+    curriculum: ['Early Years', 'Primary', 'Secondary'],
+    highlight: 'Open now — Salwa Compound',
     short_bio:
-      'A vibrant international school combining the International Baccalaureate with Ellesmere’s Life:Ready ethos in Oman’s capital.',
+      'The Salwa Compound campus of Ellesmere College Riyadh, extending the same British-heritage offer to families in this Riyadh community.',
     description:
-      'Opened in 2023, Ellesmere College Muscat serves students from early years to Grade 12, fostering critical thinking, creativity and global-minded leadership while preparing learners to be Life:Ready.',
+      'Ellesmere College Riyadh’s Salwa Compound campus is a second operating site in the Kingdom, delivering the same Ellesmere standards, High Performance Learning culture and Life:Ready ethos as the principal Riyadh campus.',
   },
 ]
 
-export const OPENING_SOON: NetworkSchoolCard[] = [
+export const OPENING_SOON: PartnerSchoolCard[] = [
   {
     id: 'doha',
     name: 'Ellesmere College Doha',
@@ -62,6 +85,7 @@ export const OPENING_SOON: NetworkSchoolCard[] = [
     country: 'Qatar',
     status: 'setting_up',
     image: '/images/schools/doha/lobby-windows.jpg',
+    href: '/schools/doha',
     curriculum: ['Early Years', 'British Primary'],
     highlight: 'Purpose-built campus — founding year',
     short_bio:
@@ -97,16 +121,6 @@ export const MAP_LOCATIONS = [
     rank: undefined as number | undefined,
   },
   {
-    id: 'muscat',
-    name: 'Ellesmere College Muscat',
-    shortName: 'Muscat',
-    detail: 'Operating campus delivering the Ellesmere Life:Ready ethos in Oman.',
-    lat: 23.588,
-    lng: 58.3829,
-    status: 'open' as const,
-    rank: undefined as number | undefined,
-  },
-  {
     id: 'doha',
     name: 'Ellesmere College Doha',
     shortName: 'Doha',
@@ -130,55 +144,46 @@ export const MAP_LOCATIONS = [
 
 export const PARTNERSHIP_MODELS = [
   {
-    id: 'brand',
-    title: 'Brand licensing',
-    primary: true,
+    id: 'full',
+    title: 'Full Partnership',
     summary:
-      'Work with ECI to build and operate a school under the Ellesmere brand: curriculum frameworks, quality assurance, leadership mentoring, and ongoing network support.',
-    ideal: 'Investors and operators building a new Ellesmere campus.',
+      'Complete ECI branding, curriculum frameworks, quality assurance, leadership mentoring, and ongoing network support for new or established schools.',
+    ideal: 'New school investors and operators seeking full Ellesmere affiliation.',
   },
   {
     id: 'curriculum',
-    title: 'Curriculum support',
-    primary: false,
+    title: 'Curriculum Licensing',
     summary:
-      'An optional add-on for partners who need Ellesmere curriculum and assessment frameworks without full brand affiliation.',
-    ideal: 'Selected partners seeking curriculum depth alongside a wider relationship.',
+      'License Ellesmere curriculum and assessment frameworks while retaining your existing school brand and identity.',
+    ideal: 'Established schools adopting British curriculum standards.',
   },
   {
     id: 'advisory',
-    title: 'Advisory support',
-    primary: false,
+    title: 'Advisory Partnership',
     summary:
-      'An optional add-on for quality assurance, inspection readiness, and professional development where full brand licensing is not the primary path.',
-    ideal: 'Selected partners needing specialist advisory support.',
+      'Access ECI expertise, inspection readiness support, and professional development without full brand integration.',
+    ideal: 'Schools seeking quality assurance and leadership development.',
   },
 ] as const
-
-/** The central investor offer: build a school under the Ellesmere brand. */
-export const PRIMARY_PARTNERSHIP = PARTNERSHIP_MODELS.find(m => m.primary)!
-
-export const PARTNERSHIP_ADDONS = PARTNERSHIP_MODELS.filter(m => !m.primary)
 
 export const INVESTOR_VALUE_PROPS = [
   {
-    title: 'British heritage',
-    body: 'Ellesmere College, Shropshire — founded 1884 — provides the academic DNA, quality culture, and Life:Ready philosophy behind every branded international campus.',
+    title: 'Proven British heritage',
+    body: 'Ellesmere College, Shropshire — founded 1884 — provides the academic DNA, quality culture, and Life:Ready philosophy behind every international campus.',
   },
   {
-    title: 'Operating proof',
-    body: 'Live campuses in Riyadh and Muscat, with Doha opening soon, show that the Ellesmere standard transfers across the Middle East.',
+    title: 'Operating proof points',
+    body: 'Live campuses in Riyadh — including Salwa Compound — with Doha opening soon, demonstrate transferable standards across the Middle East.',
   },
   {
-    title: 'Brand protection',
-    body: 'You invest and build under the Ellesmere name. ECI protects standards through licensing, quality assurance, leadership support, and network governance.',
+    title: 'Defined expansion map',
+    body: 'A ranked Top 10 growth set — from New Cairo and Northern Bahrain to Rabat, Abu Dhabi, Jeddah and Sharjah — selected through consistent multi-country market analysis. Allocated campuses such as Riyadh are excluded.',
   },
   {
-    title: 'Growth markets',
-    body: 'A ranked Top 10 destination set helps aim capital where demand, income fit, regulation, and cultural alignment support an Ellesmere school.',
+    title: 'Quality & brand protection',
+    body: 'Licensing, inspection frameworks, and network governance protect the Ellesmere name while enabling local partnership.',
   },
 ] as const
-
 
 export const HERITAGE = {
   founded: 1884,
@@ -190,3 +195,10 @@ export const HERITAGE = {
   ukSite: 'https://www.ellesmere.com',
   tagline: 'Life:Ready',
 } as const
+
+/** Public network page: Shropshire, two Riyadh campuses, Doha. */
+export const PUBLIC_CAMPUSES: NetworkSchoolCard[] = [
+  HERITAGE_CAMPUS,
+  ...OPERATING_SCHOOLS,
+  ...OPENING_SOON,
+]

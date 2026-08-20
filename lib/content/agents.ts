@@ -2,16 +2,16 @@
 
 export const AGENT_PROGRAM = {
   eyebrow: 'Introduction agents',
-  title: 'Connect investors with Ellesmere',
+  title: 'Connect capital with Ellesmere',
   summary:
-    'ECI works with trusted agents who introduce aligned investors and operators ready to build a school under the Ellesmere brand, with clear briefing materials and a dedicated portal.',
+    'ECI works with trusted agents who introduce aligned investment and operating partners to our international school network — with clear briefing materials, ranked markets, and a dedicated portal.',
   punchline: 'You open the door. We deliver the partnership.',
 }
 
 export const AGENT_VALUE_PROPS = [
   {
-    title: 'A clear offer to introduce',
-    body: 'Brand licensing to build an Ellesmere school: British heritage, live campuses, and quality protection. Conversations start with substance.',
+    title: 'A defined product to introduce',
+    body: 'British-heritage schooling with live campuses, a ranked Top 10 growth map, and a clear Partner Services Framework — so conversations start with substance, not speculation.',
   },
   {
     title: 'Serious counterparties only',
@@ -35,8 +35,8 @@ export const AGENT_HOW_IT_WORKS = [
   },
   {
     step: '02',
-    title: 'Brief yourself on the offer',
-    body: 'Use the portal for the brand-licensing pitch, priority destinations, and approved talking points.',
+    title: 'Brief yourself on the opportunity',
+    body: 'Use the portal for partnership models, Top 10 destinations, and the Partner Services story.',
   },
   {
     step: '03',
@@ -56,6 +56,24 @@ export const AGENT_IDEAL_INTROS = [
   'Developers with education land or campus projects in priority destinations',
   'Strategic partners with regulatory access in Egypt, KSA, Bahrain, Morocco, UAE or Oman',
 ]
+
+export const AGENT_PORTAL_HIGHLIGHTS = [
+  {
+    title: 'Opportunity briefing',
+    body: 'Talking points, partnership models, and how to work with ECI.',
+    href: '/agent/briefing',
+  },
+  {
+    title: 'Toolkit',
+    body: 'Ranked markets and approved materials for investor conversations.',
+    href: '/agent/toolkit',
+  },
+  {
+    title: 'Referral desk',
+    body: 'Submit and track investor introductions through a structured referral form.',
+    href: '/agent/referrals',
+  },
+] as const
 
 export const DEMO_AGENT_REFERRALS = [
   {
