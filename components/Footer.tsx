@@ -31,7 +31,7 @@ export default function Footer() {
                 ['Our team', '/#team'],
                 ['Growth', '/growth'],
                 ['Investors', '/growth#investors'],
-                ['Agents & rainmakers', '/growth#introductions'],
+                ['Agents & rainmakers', '/agents'],
                 ['Contact', '/growth#contact'],
               ].map(([l, h]) => (
                 <li key={l}>

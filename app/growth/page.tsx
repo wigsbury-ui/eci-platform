@@ -10,13 +10,11 @@ import {
   INVESTOR_VALUE_PROPS,
   PRIMARY_PARTNERSHIP,
 } from '@/lib/content/network'
-import { AGENT_HOW_IT_WORKS, AGENT_PROGRAM } from '@/lib/content/agents'
-import { RAINMAKER_PROGRAM } from '@/lib/content/rainmakers'
 
 export const metadata: Metadata = {
   title: 'Growth',
   description:
-    'Partner with Ellesmere College International to build a school under the Ellesmere brand. Agents and rainmakers help introduce aligned investors.',
+    'Partner with Ellesmere College International to build a school under the Ellesmere brand.',
 }
 
 export default function GrowthPage() {
@@ -78,9 +76,9 @@ export default function GrowthPage() {
 
               <p className="font-jost text-sm text-white/50">
                 Know someone who should build with us?{' '}
-                <a href="#introductions" className="text-[#C8A84B] hover:underline">
+                <Link href="/agents" className="text-[#C8A84B] hover:underline">
                   Agents &amp; rainmakers
-                </a>
+                </Link>
               </p>
             </div>
 
@@ -283,99 +281,10 @@ export default function GrowthPage() {
       {/* 4 — Expansion map */}
       <ExpansionSection asModule sectionId="top-destinations" ctaHref="/growth#investors" />
 
-      {/* 5 — Introduction channels (secondary) */}
-      <section
-        id="introductions"
-        className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#2D1654] py-16 md:py-20"
-      >
-        <div
-          className="absolute inset-0 pointer-events-none opacity-40"
-          style={{
-            background:
-              'radial-gradient(ellipse at 20% 80%, rgba(200,168,75,0.16), transparent 45%)',
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 w-full">
-          <div className="max-w-2xl mb-10">
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
-              Introduction channels
-            </p>
-            <h2
-              className="font-cormorant font-semibold text-white leading-tight mb-4"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
-            >
-              Help us reach the right investors
-            </h2>
-            <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
-            <p className="text-white/70 font-jost leading-relaxed max-w-xl">
-              Agents and rainmakers are how introductions reach ECI — not separate products. Both
-              channels feed one pipeline: brand licensing conversations with aligned capital and
-              operators.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-6 mb-10">
-            <div id="agents" className="border border-white/15 bg-white/[0.05] p-7 md:p-8">
-              <p className="text-[#C8A84B] text-[10px] tracking-[0.25em] uppercase font-jost font-bold mb-3">
-                {AGENT_PROGRAM.eyebrow}
-              </p>
-              <h3 className="font-cormorant text-2xl md:text-3xl text-white font-semibold mb-3">
-                {AGENT_PROGRAM.title}
-              </h3>
-              <p className="text-white/70 font-jost text-sm leading-relaxed mb-4">
-                {AGENT_PROGRAM.summary}
-              </p>
-              <p className="font-cormorant text-lg text-[#C8A84B] italic mb-6">
-                {AGENT_PROGRAM.punchline}
-              </p>
-              <Link
-                href="/login?audience=agent"
-                className="inline-block border border-[#C8A84B]/60 text-white px-5 py-2.5 font-jost text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
-              >
-                Partner portal
-              </Link>
-            </div>
-
-            <div id="rainmakers" className="border border-white/15 bg-white/[0.05] p-7 md:p-8">
-              <p className="text-[#C8A84B] text-[10px] tracking-[0.25em] uppercase font-jost font-bold mb-3">
-                {RAINMAKER_PROGRAM.eyebrow}
-              </p>
-              <h3 className="font-cormorant text-2xl md:text-3xl text-white font-semibold mb-3">
-                {RAINMAKER_PROGRAM.title}
-              </h3>
-              <p className="text-white/70 font-jost text-sm leading-relaxed mb-4">
-                {RAINMAKER_PROGRAM.summary}
-              </p>
-              <p className="font-cormorant text-lg text-[#C8A84B] italic mb-6">
-                {RAINMAKER_PROGRAM.punchline}
-              </p>
-              <Link
-                href="/login?audience=agent"
-                className="inline-block border border-[#C8A84B]/60 text-white px-5 py-2.5 font-jost text-sm hover:bg-[#C8A84B] hover:text-[#2D1654] transition-colors"
-              >
-                Partner portal
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {AGENT_HOW_IT_WORKS.map(step => (
-              <div key={step.step} className="border border-white/10 px-4 py-4">
-                <p className="font-jost text-[10px] tracking-[0.2em] text-[#C8A84B] font-bold mb-1">
-                  {step.step}
-                </p>
-                <p className="font-cormorant text-lg text-white font-semibold mb-1">{step.title}</p>
-                <p className="font-jost text-xs text-white/55 leading-relaxed">{step.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6 — Contact */}
+      {/* 5 — Contact */}
       <ContactSection
         title="Start a growth conversation"
-        subtitle="Tell us if you want to build under the Ellesmere brand, introduce investors as an agent, or refer as a rainmaker. We typically respond within three working days."
+        subtitle="Tell us about markets, capital profile, and timing if you want to build under the Ellesmere brand. We typically respond within three working days."
         defaultInterest="Brand licensing / new Ellesmere school"
         className="home-window min-h-[100svh] flex flex-col justify-center !py-20"
       />

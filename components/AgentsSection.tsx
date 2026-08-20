@@ -71,7 +71,7 @@ export default function AgentsSection() {
             Agent portal login →
           </Link>
           <Link
-            href="/growth#introductions"
+            href="/agents"
             className="font-jost text-sm font-semibold text-[#2D1654] hover:text-[#C8A84B] transition-colors"
           >
             Agents &amp; rainmakers →

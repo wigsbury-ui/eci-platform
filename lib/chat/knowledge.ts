@@ -61,14 +61,14 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['agent', 'public', 'team'],
     title: 'Introduction agent programme',
     source: 'Growth',
-    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. The Agents & rainmakers portal has two tiers: applicants see About ECI, why partner, and sample contracts; accepted partners unlock marketing resources, investor promotional materials, and referrals. See /growth.`,
+    text: `${AGENT_PROGRAM.title}. ${AGENT_PROGRAM.summary} How it works: ${AGENT_HOW_IT_WORKS.map(s => `${s.title}: ${s.body}`).join(' ')} Ideal introductions: ${AGENT_IDEAL_INTROS.join('; ')}. The Agents & rainmakers portal has two tiers: applicants see About ECI, why partner, and sample contracts; accepted partners unlock marketing resources, investor promotional materials, and referrals. See /agents.`,
   },
   {
     id: 'rainmakers',
     audience: ['agent', 'public', 'team', 'investor'],
     title: 'Rainmaker referral network',
     source: 'Growth',
-    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Rainmakers and agents are complementary introduction channels into one brand-licensing pipeline.`,
+    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Rainmakers and agents are complementary introduction channels into one brand-licensing pipeline. See /agents.`,
   },
   {
     id: 'partnerships',

@@ -10,6 +10,7 @@ const LINKS = [
   { label: 'Doha', href: '/schools/doha' },
   { label: 'Team', href: '/#team' },
   { label: 'Growth', href: '/growth' },
+  { label: 'Agents & rainmakers', href: '/agents' },
   { label: 'Contact', href: '/growth#contact' },
 ]
 
