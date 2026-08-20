@@ -1,41 +1,19 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  Award,
-  Building2,
-  Copy,
-  Layers,
-  MapPinned,
-  Scale,
-  ShieldCheck,
-  TrendingUp,
-  type LucideIcon,
-} from 'lucide-react'
-import {
   INVESTOR_BENEFITS,
   INVESTOR_BENEFITS_INTRO,
-  type InvestorBenefit,
 } from '@/lib/content/investor-benefits'
 
-const ICONS: Record<InvestorBenefit['id'], LucideIcon> = {
-  'demand-signal': TrendingUp,
-  'brand-equity': Award,
-  'transferable-product': Layers,
-  replication: Copy,
-  'market-map': MapPinned,
-  'local-economics': Scale,
-  'quality-governance': ShieldCheck,
-  'partner-infrastructure': Building2,
-}
-
 /** Viewport-heights of page scroll allotted per benefit while the frame is pinned. */
-const VH_PER_BENEFIT = 85
+const VH_PER_BENEFIT = 80
 
 /**
- * Partnership benefits stay locked to the screen: a tall scroll runway pins a
- * full-viewport frame, and page scroll advances which benefit is shown inside it.
+ * Partnership benefits stay locked to the screen. Slim index + large title on the
+ * left; authentic campus photography and copy on the right advance with scroll.
  */
 export default function InvestorBenefitsModule() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -55,8 +33,7 @@ export default function InvestorBenefitsModule() {
     const scrolled = Math.min(Math.max(-el.getBoundingClientRect().top, 0), total)
     const p = scrolled / total
     setProgress(p)
-    const idx = Math.min(count - 1, Math.floor(p * count + 1e-6))
-    setActive(idx)
+    setActive(Math.min(count - 1, Math.floor(p * count + 1e-6)))
   }, [count])
 
   useEffect(() => {
@@ -73,12 +50,13 @@ export default function InvestorBenefitsModule() {
     const el = sectionRef.current
     if (!el) return
     const total = el.offsetHeight - window.innerHeight
-    const target = el.offsetTop + (index / count) * total + 1
-    window.scrollTo({ top: target, behavior: 'smooth' })
+    window.scrollTo({
+      top: el.offsetTop + (index / count) * total + 1,
+      behavior: 'smooth',
+    })
   }
 
   const item = INVESTOR_BENEFITS[active]
-  const Icon = ICONS[item.id]
   const runwayVh = count * VH_PER_BENEFIT
 
   return (
@@ -89,39 +67,10 @@ export default function InvestorBenefitsModule() {
       style={{ height: `${runwayVh}vh` }}
       aria-label="Partnership benefits"
     >
-      {/* Pinned frame — stays in the viewport for the full runway */}
-      <div className="sticky top-0 h-[100svh] max-h-[100svh] overflow-hidden bg-[#2D1654] flex flex-col">
-        {/* Atmosphere */}
-        <div className="pointer-events-none absolute inset-0 opacity-50" aria-hidden>
-          <div
-            className="absolute -top-24 -left-16 h-72 w-72 rounded-full"
-            style={{
-              background: 'radial-gradient(circle, rgba(200,168,75,0.22), transparent 68%)',
-            }}
-          />
-          <div
-            className="absolute bottom-0 right-0 h-96 w-96"
-            style={{
-              background: 'radial-gradient(circle, rgba(76,37,133,0.55), transparent 65%)',
-            }}
-          />
-          <svg
-            className="absolute inset-0 h-full w-full opacity-[0.07]"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden
-          >
-            <defs>
-              <pattern id="eci-benefits-grid" width="48" height="48" patternUnits="userSpaceOnUse">
-                <path d="M48 0H0V48" fill="none" stroke="#C8A84B" strokeWidth="0.6" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#eci-benefits-grid)" />
-          </svg>
-        </div>
-
-        {/* Progress rail along the top of the frame */}
+      <div className="sticky top-0 h-[100svh] max-h-[100svh] overflow-hidden bg-[#1A1228]">
+        {/* Progress */}
         <div
-          className="absolute inset-x-0 top-0 z-20 h-[3px] bg-white/10"
+          className="absolute inset-x-0 top-0 z-30 h-[2px] bg-white/10"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={100}
@@ -134,96 +83,65 @@ export default function InvestorBenefitsModule() {
           />
         </div>
 
-        <div className="relative z-10 flex h-full min-h-0 flex-col lg:flex-row max-w-7xl mx-auto w-full px-6 pt-[max(5.25rem,var(--eci-nav-offset))] pb-5 md:pb-6 gap-5 lg:gap-10">
-          {/* Left: briefing + index */}
-          <aside className="lg:w-[min(22rem,34%)] shrink-0 flex flex-col min-h-0 lg:py-2">
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
+        <div className="relative z-10 grid h-full min-h-0 grid-cols-1 lg:grid-cols-[minmax(15rem,22%)_minmax(0,1fr)]">
+          {/* Slim left rail */}
+          <aside className="relative flex min-h-0 flex-col border-b border-white/10 bg-[#2D1654] px-5 pt-[max(5.25rem,var(--eci-nav-offset))] pb-4 lg:border-b-0 lg:border-r lg:border-white/10 lg:px-6 lg:pb-6">
+            <p className="mb-2 font-jost text-[10px] font-bold uppercase tracking-[0.28em] text-[#C8A84B]">
               {INVESTOR_BENEFITS_INTRO.eyebrow}
             </p>
             <h2
-              className="font-cormorant font-semibold text-white leading-tight mb-3"
-              style={{ fontSize: 'clamp(1.65rem, 2.8vw, 2.5rem)' }}
+              className="font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-white"
+              style={{ fontSize: 'clamp(2.15rem, 3.6vw, 3.35rem)' }}
             >
               {INVESTOR_BENEFITS_INTRO.title}
             </h2>
-            <div className="w-14 h-1 bg-[#C8A84B] mb-4" />
-            <p className="hidden md:block font-jost text-sm text-white/70 leading-relaxed mb-5 max-w-sm">
+            <div className="mt-4 mb-3 h-1 w-12 bg-[#C8A84B]" />
+            <p className="mb-5 hidden max-w-[16rem] font-jost text-[13px] leading-relaxed text-white/65 xl:block">
               {INVESTOR_BENEFITS_INTRO.summary}
             </p>
 
-            {/* Relationship diagram */}
-            <div className="hidden xl:block mb-5 border border-white/15 bg-white/[0.04] p-4">
-              <p className="font-jost text-[10px] tracking-[0.2em] uppercase text-[#C8A84B] mb-3">
-                How value splits
-              </p>
-              <div className="grid grid-cols-[1fr_auto_1fr] gap-2 items-center text-center">
-                <div className="border border-[#C8A84B]/35 bg-[#C8A84B]/10 px-2 py-3">
-                  <p className="font-cormorant text-lg text-white">You</p>
-                  <p className="font-jost text-[11px] text-white/60 mt-1 leading-snug">
-                    Capital · campus · operations
-                  </p>
-                </div>
-                <div className="flex flex-col items-center gap-1 text-[#C8A84B]" aria-hidden>
-                  <span className="h-8 w-px bg-[#C8A84B]/50" />
-                  <span className="font-jost text-[10px] tracking-wider">LICENCE</span>
-                  <span className="h-8 w-px bg-[#C8A84B]/50" />
-                </div>
-                <div className="border border-white/20 bg-white/[0.06] px-2 py-3">
-                  <p className="font-cormorant text-lg text-white">ECI</p>
-                  <p className="font-jost text-[11px] text-white/60 mt-1 leading-snug">
-                    Brand · standards · network
-                  </p>
-                </div>
-              </div>
-            </div>
-
             <nav
-              className="hidden lg:flex flex-col gap-1 overflow-y-auto min-h-0 pr-1 eci-benefits-scroll"
+              className="hidden min-h-0 flex-1 flex-col gap-0.5 overflow-y-auto eci-benefits-scroll lg:flex"
               aria-label="Benefit index"
             >
               {INVESTOR_BENEFITS.map((benefit, index) => {
-                const NavIcon = ICONS[benefit.id]
                 const isActive = index === active
                 return (
                   <button
                     key={benefit.id}
                     type="button"
                     onClick={() => scrollToBenefit(index)}
-                    className={`flex items-center gap-3 text-left px-2.5 py-2 transition-colors ${
-                      isActive
-                        ? 'bg-white/10 text-white'
-                        : 'text-white/45 hover:text-white/80 hover:bg-white/[0.04]'
+                    className={`group flex items-baseline gap-2.5 py-1.5 text-left transition-colors ${
+                      isActive ? 'text-white' : 'text-white/40 hover:text-white/75'
                     }`}
                     aria-current={isActive ? 'true' : undefined}
                   >
                     <span
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center ${
-                        isActive ? 'bg-[#C8A84B] text-[#2D1654]' : 'bg-white/10 text-[#C8A84B]'
+                      className={`w-5 shrink-0 font-jost text-[10px] tracking-[0.14em] ${
+                        isActive ? 'text-[#C8A84B]' : 'text-white/35 group-hover:text-white/55'
                       }`}
                     >
-                      <NavIcon size={15} strokeWidth={1.75} />
+                      {String(index + 1).padStart(2, '0')}
                     </span>
-                    <span className="min-w-0">
-                      <span className="font-jost text-[10px] tracking-[0.18em] uppercase block opacity-70">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="font-jost text-xs leading-snug line-clamp-2">
-                        {benefit.title}
-                      </span>
+                    <span
+                      className={`min-w-0 font-jost text-[12px] leading-snug line-clamp-2 ${
+                        isActive ? 'border-b border-[#C8A84B]/70 pb-px' : ''
+                      }`}
+                    >
+                      {benefit.title}
                     </span>
                   </button>
                 )
               })}
             </nav>
 
-            {/* Mobile / tablet progress dots */}
-            <div className="flex lg:hidden gap-1.5 mt-1 mb-1" aria-hidden>
+            <div className="mt-3 flex gap-1.5 lg:hidden" aria-hidden>
               {INVESTOR_BENEFITS.map((benefit, index) => (
                 <button
                   key={benefit.id}
                   type="button"
                   onClick={() => scrollToBenefit(index)}
-                  className={`h-1.5 rounded-full transition-all ${
+                  className={`h-1 rounded-full transition-all ${
                     index === active ? 'w-5 bg-[#C8A84B]' : 'w-1.5 bg-white/25'
                   }`}
                   aria-label={`Benefit ${index + 1}`}
@@ -232,53 +150,65 @@ export default function InvestorBenefitsModule() {
             </div>
           </aside>
 
-          {/* Right: active benefit (stays inside the frame) */}
-          <div className="relative flex-1 min-h-0 flex flex-col justify-center">
-            <article
-              key={item.id}
-              className="eci-benefits-card border border-white/12 bg-white/[0.04] p-5 md:p-8 lg:p-10"
-            >
-              <div className="flex items-start gap-4 mb-5">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center bg-[#C8A84B] text-[#2D1654]">
-                  <Icon size={22} strokeWidth={1.75} />
-                </span>
-                <div className="min-w-0 pt-0.5">
-                  <p className="font-jost text-[11px] tracking-[0.22em] uppercase text-[#C8A84B] mb-1.5">
-                    Benefit {String(active + 1).padStart(2, '0')} of{' '}
-                    {String(count).padStart(2, '0')}
-                  </p>
-                  <h3 className="font-cormorant text-[1.65rem] md:text-[2.05rem] text-white font-semibold leading-snug">
-                    {item.title}
-                  </h3>
+          {/* Photo + copy */}
+          <div className="relative flex min-h-0 flex-col lg:flex-row">
+            <div className="relative min-h-[38svh] flex-1 lg:min-h-0 lg:w-[48%]">
+              {INVESTOR_BENEFITS.map((benefit, index) => (
+                <div
+                  key={benefit.id}
+                  className={`absolute inset-0 transition-opacity duration-500 ease-out ${
+                    index === active ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  aria-hidden={index !== active}
+                >
+                  <Image
+                    src={benefit.image}
+                    alt={benefit.imageAlt}
+                    fill
+                    priority={index === 0}
+                    sizes="(max-width: 1024px) 100vw, 48vw"
+                    className="object-cover"
+                  />
                 </div>
-              </div>
+              ))}
+              <div
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1A1228]/55 via-transparent to-[#1A1228]/25 lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[#1A1228]/35"
+                aria-hidden
+              />
+            </div>
 
-              <p className="font-jost text-base md:text-[1.05rem] text-white/80 leading-relaxed mb-6 md:pl-[4rem]">
-                {item.benefit}
-              </p>
-
-              <div className="md:ml-[4rem] border-l-2 border-[#C8A84B]/55 bg-[#C8A84B]/[0.07] pl-4 pr-3 py-3.5">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-[#C8A84B]" aria-hidden />
-                  <p className="font-jost text-[11px] tracking-[0.2em] uppercase text-[#C8A84B] font-semibold">
+            <div className="relative flex min-h-0 flex-1 flex-col justify-center bg-[#1A1228] px-5 py-5 md:px-8 md:py-8 lg:w-[52%] lg:px-10 lg:py-10 lg:pt-[max(5.25rem,var(--eci-nav-offset))]">
+              <div key={item.id} className="eci-benefits-card max-w-xl">
+                <p className="mb-3 font-jost text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
+                  {String(active + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+                </p>
+                <h3
+                  className="font-cormorant font-semibold leading-[1.12] tracking-[-0.02em] text-white"
+                  style={{ fontSize: 'clamp(1.55rem, 2.4vw, 2.15rem)' }}
+                >
+                  {item.title}
+                </h3>
+                <p className="mt-4 font-jost text-[15px] leading-relaxed text-white/78 md:text-base">
+                  {item.benefit}
+                </p>
+                <div className="mt-6 border-l-2 border-[#C8A84B] pl-4">
+                  <p className="mb-1.5 font-jost text-[10px] font-semibold uppercase tracking-[0.2em] text-[#C8A84B]">
                     Evidence
                   </p>
+                  <p className="font-jost text-sm leading-relaxed text-white/60">{item.evidence}</p>
                 </div>
-                <p className="font-jost text-sm text-white/65 leading-relaxed">{item.evidence}</p>
+                <p className="mt-6 font-jost text-[12px] leading-relaxed text-white/40">
+                  Commercial schedules stay in the{' '}
+                  <Link
+                    href="/login?audience=investor"
+                    className="text-[#C8A84B] underline-offset-2 hover:underline"
+                  >
+                    Investor Portal
+                  </Link>
+                  .
+                </p>
               </div>
-            </article>
-
-            <p className="mt-5 font-jost text-sm text-white/45 leading-relaxed max-w-2xl">
-              Commercial schedules stay in the{' '}
-              <Link
-                href="/login?audience=investor"
-                className="text-[#C8A84B] hover:underline underline-offset-2"
-              >
-                Investor Portal
-              </Link>
-              . Keep scrolling for the next benefit
-              {active < count - 1 ? '' : ' — or continue down the page'}.
-            </p>
+            </div>
           </div>
         </div>
       </div>
