@@ -41,15 +41,16 @@ export default function AgentsPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-l from-[#1A1228]/90 via-[#2D1654]/58 to-[#2D1654]/18" />
         <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-stretch">
-            <div className="order-1 flex items-start justify-center lg:justify-start pt-8 lg:pt-20">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-center">
+            <div className="order-1 flex items-center justify-center lg:justify-start w-full">
               <GrowthHeroVideo
+                className="w-full max-w-none"
                 title="Introducing Ellesmere College International"
                 durationLabel="90 second video"
               />
             </div>
 
-            <div className="order-2 flex flex-col justify-end pb-4 lg:pb-8 lg:-translate-y-10">
+            <div className="order-2 flex flex-col justify-center">
               <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-4 font-jost font-bold">
                 Agents &amp; rainmakers
               </p>
