@@ -45,8 +45,10 @@ export default function AgentsPage() {
             <div className="order-1 flex items-center justify-center lg:justify-start w-full">
               <GrowthHeroVideo
                 className="w-full max-w-none"
-                title="Introducing Ellesmere College International"
-                durationLabel="90 second video"
+                videoSrc="/videos/agent-intro.mp4"
+                posterSrc="/videos/agent-intro-poster.jpg"
+                title="Partner with Ellesmere College International"
+                durationLabel="50 second video"
               />
             </div>
 
