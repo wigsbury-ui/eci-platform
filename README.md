@@ -4,11 +4,12 @@ Next.js 16 + Supabase platform for the ECI public site and password-controlled p
 
 ## What is included
 
-- **Public site** — authentic marketing homepage (Riyadh operating, Doha opening soon, expansion markets)
-- **`/investors`** — public investment partners page
-- **Investor portal** — marketing resources + due diligence + models
-- **School portal** — dual document archives (network + school), shared calendar, messaging, chatbot
-- **Team / super-admin portal** (`/team`) — schools, users, documents, calendar, messaging, settings
+- **Public site** — partner-facing homepage (network, partnership models, markets, services, contact)
+- **`/growth`** — investors, agents and rainmakers conversion page (`/investors` and `/agents` redirect here)
+- **Investor portal** — opportunity, markets, documents, next steps
+- **Agent portal** — briefing, toolkit, referrals
+- **School portal** — documents, calendar, messaging
+- **Team / super-admin portal** (`/team`) — schools, people, documents, calendar, messaging, pipeline, settings
 - **First-party chatbot** — `/api/chat` RAG over in-repo knowledge; optional self-hosted `LLM_BASE_URL`
 
 ## Setup

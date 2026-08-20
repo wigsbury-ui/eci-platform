@@ -3,66 +3,73 @@
 import { Suspense, useMemo, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { resolvePortalDestination } from '@/lib/auth/roles'
 
 type AudienceHint = 'investor' | 'school' | 'team' | 'agent'
 
 const AUDIENCE_COPY: Record<
   AudienceHint,
-  { headline: string; body: string; bullets: string[] }
+  { headline: string; body: string; bullets: string[]; label: string }
 > = {
   investor: {
+    label: 'Investor',
     headline: 'Investment &\npartnership access',
     body: 'Secure access to investor briefings, due-diligence materials, and expansion opportunities across the ECI network.',
     bullets: [
-      'Market opportunity and partnership models',
-      'Marketing packs and due-diligence library',
+      'Partnership models and partner services',
+      'Priority markets and document library',
       'Direct channel to the ECI leadership team',
     ],
   },
   agent: {
+    label: 'Agent',
     headline: 'Introduction\nagent access',
     body: 'Tools for trusted agents who connect aligned investors and operators with Ellesmere College International.',
     bullets: [
       'Opportunity briefing and talking points',
-      'Priority market summaries for introductions',
-      'Referral desk to submit and track investor leads',
+      'Markets and approved marketing resources',
+      'Referral desk to submit and track introductions',
     ],
   },
   school: {
+    label: 'School partner',
     headline: 'School partner\nresources',
-    body: 'Your gateway to network archives, setup guidance, calendar collaboration, and messaging with the ECI team.',
+    body: 'Your gateway to network archives, calendar collaboration, and messaging with the ECI team.',
     bullets: [
       'Network and school document archives',
       'Shared calendar for visits and training',
-      'WhatsApp-style messaging with ECI staff',
+      'Direct messaging with ECI staff',
     ],
   },
   team: {
+    label: 'Staff',
     headline: 'ECI team\nworkspace',
-    body: 'Internal tools for staff, board, and administrators — schools, documents, calendars, and governance.',
+    body: 'Internal tools for staff, board, and administrators — schools, documents, calendars, and pipeline.',
     bullets: [
-      'Cross-network school and document oversight',
-      'Team calendar and internal messaging',
-      'Admin and governance dashboards',
+      'Network school and user administration',
+      'Documents, calendar and messaging',
+      'Enquiry and referral pipeline',
     ],
   },
 }
 
-function resolveAudience(raw: string | null): AudienceHint {
+const AUDIENCE_ORDER: AudienceHint[] = ['investor', 'agent', 'school', 'team']
+
+function resolveAudience(raw: string | null): AudienceHint | null {
   if (raw === 'investor' || raw === 'team' || raw === 'school' || raw === 'agent') return raw
-  return 'school'
+  return null
 }
 
 function LoginForm() {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const audience = useMemo(
     () => resolveAudience(searchParams.get('audience')),
     [searchParams]
   )
   const redirectTo = searchParams.get('redirectTo')
-  const copy = AUDIENCE_COPY[audience]
+  const copy = audience ? AUDIENCE_COPY[audience] : null
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -76,7 +83,6 @@ function LoginForm() {
 
     try {
       if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-        // Preview without Supabase: route by audience / redirect hint
         window.location.href = resolvePortalDestination('super_admin', {
           redirectTo,
           audience,
@@ -107,7 +113,6 @@ function LoginForm() {
         }
       )
       const role = (await res.text()).replace(/"/g, '')
-      // Staff can open any portal they are allowed into — honour audience / redirectTo
       window.location.href = resolvePortalDestination(role, { redirectTo, audience })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to sign in')
@@ -115,7 +120,13 @@ function LoginForm() {
     }
   }
 
-  const headlineParts = copy.headline.split('\n')
+  const selectAudience = (next: AudienceHint) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('audience', next)
+    router.replace(`/login?${params.toString()}`)
+  }
+
+  const headlineParts = copy?.headline.split('\n') ?? ['Choose your portal']
 
   return (
     <div
@@ -144,14 +155,19 @@ function LoginForm() {
               </>
             )}
           </h2>
-          <p className="text-white/60 font-jost leading-relaxed max-w-sm">{copy.body}</p>
-          <div className="mt-12 space-y-4 text-sm font-jost text-white/50">
-            {copy.bullets.map(item => (
-              <p key={item} className="flex gap-3 items-start">
-                <span className="text-eci-gold mt-0.5">→</span> {item}
-              </p>
-            ))}
-          </div>
+          <p className="text-white/60 font-jost leading-relaxed max-w-sm">
+            {copy?.body ??
+              'Sign in to the investor, agent, school partner, or staff workspace. Access is invite-only.'}
+          </p>
+          {copy && (
+            <div className="mt-12 space-y-4 text-sm font-jost text-white/50">
+              {copy.bullets.map(item => (
+                <p key={item} className="flex gap-3 items-start">
+                  <span className="text-eci-gold mt-0.5">→</span> {item}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -166,52 +182,93 @@ function LoginForm() {
             </span>
           </div>
 
-          <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign In</h3>
-          <p className="text-gray-400 text-sm font-jost mb-8">
-            {audience === 'investor' && 'Access the investor portal'}
-            {audience === 'agent' && 'Access the introduction agent portal'}
-            {audience === 'team' && 'Access the ECI team portal'}
-            {audience === 'school' && 'Access your school partner portal'}
-          </p>
+          {!audience ? (
+            <>
+              <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign in</h3>
+              <p className="text-gray-400 text-sm font-jost mb-8">
+                Choose the portal you have been invited to.
+              </p>
+              <div className="space-y-3">
+                {AUDIENCE_ORDER.map(key => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => selectAudience(key)}
+                    className="w-full text-left border border-gray-200 hover:border-eci-purple px-5 py-4 transition-colors"
+                  >
+                    <p className="font-cormorant text-xl text-eci-purple-dark">
+                      {AUDIENCE_COPY[key].label}
+                    </p>
+                    <p className="font-jost text-xs text-gray-500 mt-1 leading-relaxed">
+                      {AUDIENCE_COPY[key].body}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign in</h3>
+              <p className="text-gray-400 text-sm font-jost mb-8">
+                {audience === 'investor' && 'Access the investor portal'}
+                {audience === 'agent' && 'Access the introduction agent portal'}
+                {audience === 'team' && 'Access the ECI team portal'}
+                {audience === 'school' && 'Access your school partner portal'}
+              </p>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                Email Address
-              </label>
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
-                Password
-              </label>
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors"
-              />
-            </div>
+              <form onSubmit={handleLogin} className="space-y-5">
+                <div>
+                  <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-jost font-semibold text-gray-500 uppercase tracking-wide mb-1.5">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm font-jost focus:outline-none focus:border-eci-purple transition-colors"
+                  />
+                </div>
 
-            {error && (
-              <p className="text-red-500 text-sm font-jost bg-red-50 p-3 rounded-lg">{error}</p>
-            )}
+                {error && (
+                  <p className="text-red-500 text-sm font-jost bg-red-50 p-3 rounded-lg">{error}</p>
+                )}
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-eci-purple text-white py-3.5 rounded-lg font-jost font-semibold text-sm hover:bg-eci-purple-dark transition-colors disabled:opacity-50"
-            >
-              {loading ? 'Signing in…' : 'Sign In to Portal'}
-            </button>
-          </form>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-eci-purple text-white py-3.5 rounded-lg font-jost font-semibold text-sm hover:bg-eci-purple-dark transition-colors disabled:opacity-50"
+                >
+                  {loading ? 'Signing in…' : 'Sign in to portal'}
+                </button>
+              </form>
+
+              <button
+                type="button"
+                onClick={() => {
+                  const params = new URLSearchParams(searchParams.toString())
+                  params.delete('audience')
+                  const q = params.toString()
+                  router.replace(q ? `/login?${q}` : '/login')
+                }}
+                className="mt-4 text-xs font-jost text-gray-400 hover:text-eci-purple"
+              >
+                Choose a different portal
+              </button>
+            </>
+          )}
 
           <div className="mt-8 pt-8 border-t border-gray-100">
             <p className="text-xs text-gray-400 font-jost text-center">

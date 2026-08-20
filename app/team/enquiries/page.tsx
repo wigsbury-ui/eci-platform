@@ -1,20 +1,7 @@
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
-import {
-  LayoutDashboard, Globe, Users, FileText, Inbox, Settings, Calendar, MessageSquare,
-} from 'lucide-react'
-
-const NAV_ITEMS = [
-  { label: 'Dashboard', href: '/team', icon: <LayoutDashboard size={16} /> },
-  { label: 'Schools', href: '/team/schools', icon: <Globe size={16} /> },
-  { label: 'Users', href: '/team/users', icon: <Users size={16} /> },
-  { label: 'Documents', href: '/team/documents', icon: <FileText size={16} /> },
-  { label: 'Calendar', href: '/team/calendar', icon: <Calendar size={16} /> },
-  { label: 'Messages', href: '/team/messages', icon: <MessageSquare size={16} /> },
-  { label: 'Enquiries', href: '/team/enquiries', icon: <Inbox size={16} /> },
-  { label: 'Settings', href: '/team/settings', icon: <Settings size={16} /> },
-]
+import { teamShellProps } from '@/components/portal/teamNav'
 
 export default async function TeamEnquiriesPage() {
   const { profile, supabase, preview } = await requirePortalAccess(
@@ -29,13 +16,15 @@ export default async function TeamEnquiriesPage() {
   }
 
   return (
-    <PortalShell profile={profile} portalName="ECI Team" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/team/enquiries">
-      <h1 className="font-cormorant text-4xl text-eci-purple-dark mb-2">Investor enquiries</h1>
-      <p className="text-gray-400 text-sm font-jost mb-8">Submissions from the public site and investors page.</p>
+    <PortalShell {...teamShellProps(profile, '/team/enquiries')}>
+      <h1 className="font-cormorant text-4xl text-eci-purple-dark mb-2">Pipeline</h1>
+      <p className="text-gray-400 text-sm font-jost mb-8">
+        Enquiries from the public site. Agent referrals will join this list once the referral desk is connected.
+      </p>
 
       {enquiries.length === 0 ? (
         <div className="bg-white border border-gray-100 p-10 text-center text-gray-400 font-jost text-sm">
-          No enquiries in the database yet. New submissions from /investors and the homepage contact form will appear here once Supabase is connected.
+          No enquiries yet. Submissions from the homepage and pathways contact form appear here once Supabase is connected.
         </div>
       ) : (
         <div className="space-y-3">

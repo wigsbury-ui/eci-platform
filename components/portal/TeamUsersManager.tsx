@@ -4,20 +4,8 @@ import { useState } from 'react'
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { Profile, UserRole } from '@/lib/types'
-import {
-  LayoutDashboard, Globe, Users, FileText, Inbox, Settings, Calendar, MessageSquare, Plus,
-} from 'lucide-react'
-
-const NAV_ITEMS = [
-  { label: 'Dashboard', href: '/team', icon: <LayoutDashboard size={16} /> },
-  { label: 'Schools', href: '/team/schools', icon: <Globe size={16} /> },
-  { label: 'Users', href: '/team/users', icon: <Users size={16} /> },
-  { label: 'Documents', href: '/team/documents', icon: <FileText size={16} /> },
-  { label: 'Calendar', href: '/team/calendar', icon: <Calendar size={16} /> },
-  { label: 'Messages', href: '/team/messages', icon: <MessageSquare size={16} /> },
-  { label: 'Enquiries', href: '/team/enquiries', icon: <Inbox size={16} /> },
-  { label: 'Settings', href: '/team/settings', icon: <Settings size={16} /> },
-]
+import { teamShellProps } from '@/components/portal/teamNav'
+import { Plus } from 'lucide-react'
 
 type UserRow = { id: string; name: string; email: string; role: UserRole; school: string }
 
@@ -35,7 +23,7 @@ export default function TeamUsersManager({ profile }: { profile: Profile | null 
   const canManage = profile?.role === 'super_admin' || profile?.role === 'admin'
 
   return (
-    <PortalShell profile={profile} portalName="Super Admin" portalAccent="#C8A84B" navItems={NAV_ITEMS} activeSection="/team/users">
+    <PortalShell {...teamShellProps(profile, '/team/users')}>
       <div className="flex justify-between items-start mb-8 gap-4">
         <div>
           <h1 className="font-cormorant text-4xl text-eci-purple-dark">Users & access</h1>

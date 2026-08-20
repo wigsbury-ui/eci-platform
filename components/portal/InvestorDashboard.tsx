@@ -15,7 +15,8 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
         </p>
         <h1 className="font-cormorant text-4xl text-eci-purple-dark">Investment overview</h1>
         <p className="text-sm text-gray-500 font-jost mt-2 max-w-2xl">
-          Marketing context, partnership models, and network status. Substantive due-diligence packs live under Due Diligence.
+          Network status and the partnership opportunity. Full models and services sit under
+          Opportunity; marketing and diligence packs sit under Documents.
         </p>
       </div>
 
@@ -45,8 +46,8 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
             </div>
           ))}
         </div>
-        <Link href="/investor/models" className="inline-block mt-6 text-sm font-jost text-eci-purple hover:underline">
-          View full model details →
+        <Link href="/investor/opportunity#models" className="inline-block mt-6 text-sm font-jost text-eci-purple hover:underline">
+          Open opportunity →
         </Link>
       </div>
 
@@ -60,10 +61,10 @@ export default function InvestorDashboard({ schools, profile }: { schools: Schoo
             </p>
           </div>
           <Link
-            href="/investor/services"
+            href="/investor/opportunity#services"
             className="text-sm font-jost font-semibold text-[#2D1654] bg-[#C8A84B] px-5 py-2.5 hover:bg-[#F0E4B0] transition-colors"
           >
-            Open full framework →
+            Open opportunity →
           </Link>
         </div>
         <div className="grid md:grid-cols-3 gap-4">

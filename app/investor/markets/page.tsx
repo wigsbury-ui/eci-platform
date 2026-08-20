@@ -1,7 +1,7 @@
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import ExpansionMarketsDetail from '@/components/portal/ExpansionMarketsDetail'
-import { INVESTOR_NAV_ITEMS } from '@/components/portal/investorNav'
+import { INVESTOR_NAV_ITEMS, INVESTOR_PORTAL_ACCENT, INVESTOR_PORTAL_NAME } from '@/components/portal/investorNav'
 import { requirePortalAccess } from '@/lib/supabase/session'
 
 export default async function InvestorMarketsPage() {
@@ -13,8 +13,8 @@ export default async function InvestorMarketsPage() {
   return (
     <PortalShell
       profile={profile}
-      portalName="Investor Portal"
-      portalAccent="#C8A84B"
+      portalName={INVESTOR_PORTAL_NAME}
+      portalAccent={INVESTOR_PORTAL_ACCENT}
       navItems={INVESTOR_NAV_ITEMS}
       activeSection="/investor/markets"
     >

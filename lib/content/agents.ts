@@ -60,23 +60,18 @@ export const AGENT_IDEAL_INTROS = [
 export const AGENT_PORTAL_HIGHLIGHTS = [
   {
     title: 'Opportunity briefing',
-    body: 'Concise talking points for introducing ECI to investors and operators.',
+    body: 'Talking points, partnership models, and how to work with ECI.',
     href: '/agent/briefing',
   },
   {
-    title: 'Priority markets',
-    body: 'The ranked Top 10 growth destinations — ready for investor conversations.',
-    href: '/agent/markets',
+    title: 'Toolkit',
+    body: 'Ranked markets and approved materials for investor conversations.',
+    href: '/agent/toolkit',
   },
   {
     title: 'Referral desk',
     body: 'Submit and track investor introductions through a structured referral form.',
     href: '/agent/referrals',
-  },
-  {
-    title: 'Marketing resources',
-    body: 'Approved overview materials for external sharing with prospective partners.',
-    href: '/agent/resources',
   },
 ] as const
 

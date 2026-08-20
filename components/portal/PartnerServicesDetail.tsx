@@ -120,13 +120,14 @@ function ServiceRow({ service, open, onToggle }: {
   )
 }
 
-export default function PartnerServicesDetail() {
+export default function PartnerServicesDetail({ embedded = false }: { embedded?: boolean }) {
   const [activeGroup, setActiveGroup] = useState<ServiceGroupId>(1)
   const [openId, setOpenId] = useState<string | null>(PARTNER_SERVICES[0]?.id ?? null)
   const [, startTransition] = useTransition()
 
   const group = SERVICE_GROUPS.find(g => g.id === activeGroup)!
   const services = servicesByGroup(activeGroup)
+  const Title = embedded ? 'h2' : 'h1'
 
   return (
     <div>
@@ -134,7 +135,7 @@ export default function PartnerServicesDetail() {
         <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-semibold">
           {FRAMEWORK_INTRO.eyebrow}
         </p>
-        <h1 className="font-cormorant text-4xl text-[#2D1654] mb-3">{FRAMEWORK_INTRO.title}</h1>
+        <Title className="font-cormorant text-4xl text-[#2D1654] mb-3">{FRAMEWORK_INTRO.title}</Title>
         <p className="text-gray-500 font-jost text-sm leading-relaxed mb-4">
           {FRAMEWORK_INTRO.summary} This portal view includes the full programme detail across all{' '}
           {PARTNER_SERVICES.length} services, partner commitments, and impact signals.

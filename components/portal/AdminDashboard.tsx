@@ -195,13 +195,18 @@ export default function AdminDashboard({ schools, enquiries, announcements, docu
 
       {/* Investor enquiries */}
       <div className="bg-white rounded-xl border border-gray-100 p-7">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="font-cormorant text-2xl text-eci-purple-dark">Investor Enquiries</h2>
-          {newEnquiries > 0 && (
-            <span className="bg-eci-gold text-white text-xs font-jost font-semibold px-3 py-1 rounded-full">
-              {newEnquiries} new
-            </span>
-          )}
+        <div className="flex items-center justify-between mb-5 gap-3">
+          <h2 className="font-cormorant text-2xl text-eci-purple-dark">Pipeline</h2>
+          <div className="flex items-center gap-3">
+            {newEnquiries > 0 && (
+              <span className="bg-eci-gold text-white text-xs font-jost font-semibold px-3 py-1 rounded-full">
+                {newEnquiries} new
+              </span>
+            )}
+            <Link href="/team/enquiries" className="text-sm font-jost text-eci-purple hover:underline">
+              View all →
+            </Link>
+          </div>
         </div>
         {enquiries.length === 0 ? (
           <p className="text-gray-400 text-sm font-jost">No enquiries yet.</p>

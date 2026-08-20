@@ -5,29 +5,11 @@ import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { Profile, School } from '@/lib/types'
 import { OPENING_SOON, OPERATING_SCHOOLS, EXPANSION_MARKETS } from '@/lib/content/network'
+import { teamShellProps } from '@/components/portal/teamNav'
 import {
-  LayoutDashboard,
-  Globe,
-  Users,
-  FileText,
-  Inbox,
-  Settings,
-  Calendar,
-  MessageSquare,
   Plus,
   ExternalLink,
 } from 'lucide-react'
-
-const NAV_ITEMS = [
-  { label: 'Dashboard', href: '/team', icon: <LayoutDashboard size={16} /> },
-  { label: 'Schools', href: '/team/schools', icon: <Globe size={16} /> },
-  { label: 'Users', href: '/team/users', icon: <Users size={16} /> },
-  { label: 'Documents', href: '/team/documents', icon: <FileText size={16} /> },
-  { label: 'Calendar', href: '/team/calendar', icon: <Calendar size={16} /> },
-  { label: 'Messages', href: '/team/messages', icon: <MessageSquare size={16} /> },
-  { label: 'Enquiries', href: '/team/enquiries', icon: <Inbox size={16} /> },
-  { label: 'Settings', href: '/team/settings', icon: <Settings size={16} /> },
-]
 
 function seedSchools(): School[] {
   return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
@@ -83,13 +65,7 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
   }
 
   return (
-    <PortalShell
-      profile={profile}
-      portalName="Super Admin"
-      portalAccent="#C8A84B"
-      navItems={NAV_ITEMS}
-      activeSection="/team/schools"
-    >
+    <PortalShell {...teamShellProps(profile, '/team/schools')}>
       <div className="flex items-start justify-between gap-4 mb-8">
         <div>
           <h1 className="font-cormorant text-4xl text-eci-purple-dark">Network schools</h1>

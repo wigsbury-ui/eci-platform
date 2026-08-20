@@ -7,17 +7,13 @@ import {
   FolderOpen,
   Calendar,
   MessageSquare,
-  Bell,
-  HelpCircle,
 } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { label: 'Dashboard', href: '/school', icon: <Home size={16} /> },
+  { label: 'Home', href: '/school', icon: <Home size={16} /> },
   { label: 'Documents', href: '/school/documents', icon: <FolderOpen size={16} /> },
   { label: 'Calendar', href: '/school/calendar', icon: <Calendar size={16} /> },
   { label: 'Messages', href: '/school/messages', icon: <MessageSquare size={16} /> },
-  { label: 'Announcements', href: '/school/announcements', icon: <Bell size={16} /> },
-  { label: 'Support', href: '/school/support', icon: <HelpCircle size={16} /> },
 ]
 
 export type SchoolPortalCtx = Awaited<ReturnType<typeof resolveSchoolPortalContext>>

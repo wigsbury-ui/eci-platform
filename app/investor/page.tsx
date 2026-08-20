@@ -4,7 +4,7 @@ import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
 import { School } from '@/lib/types'
-import { INVESTOR_NAV_ITEMS } from '@/components/portal/investorNav'
+import { INVESTOR_NAV_ITEMS, INVESTOR_PORTAL_ACCENT, INVESTOR_PORTAL_NAME } from '@/components/portal/investorNav'
 
 function toSchools(): School[] {
   return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
@@ -42,8 +42,8 @@ export default async function InvestorPage() {
   return (
     <PortalShell
       profile={profile}
-      portalName="Investor Portal"
-      portalAccent="#C8A84B"
+      portalName={INVESTOR_PORTAL_NAME}
+      portalAccent={INVESTOR_PORTAL_ACCENT}
       navItems={INVESTOR_NAV_ITEMS}
       activeSection="/investor"
     >

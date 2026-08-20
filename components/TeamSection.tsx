@@ -85,7 +85,7 @@ export default function TeamSection() {
         <p className="mt-10 text-sm font-jost text-[#2D1654]/55">
           Names and photographs for additional colleagues can be updated as the ECI team is
           confirmed.{' '}
-          <Link href="/growth#contact" className="text-[#2D1654] font-semibold hover:text-[#C8A84B]">
+          <Link href="/#contact" className="text-[#2D1654] font-semibold hover:text-[#C8A84B]">
             Get in touch →
           </Link>
         </p>

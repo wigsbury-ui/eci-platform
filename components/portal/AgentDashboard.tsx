@@ -38,7 +38,7 @@ export default function AgentDashboard({ profile }: { profile: Profile | null })
         ))}
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4 mb-10">
+      <div className="grid md:grid-cols-3 gap-4 mb-10">
         {AGENT_PORTAL_HIGHLIGHTS.map(item => (
           <Link
             key={item.href}
