@@ -46,7 +46,7 @@ export default function AgentsPage() {
                 videoSrc="/videos/agent-intro.mp4"
                 posterSrc="/videos/agent-intro-poster.jpg"
                 title="Partner with Ellesmere College International"
-                durationLabel="44 second video"
+                durationLabel="41 second video"
               />
             </div>
 
