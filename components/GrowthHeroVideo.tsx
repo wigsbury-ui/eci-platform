@@ -54,7 +54,7 @@ export default function GrowthHeroVideo() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="group relative w-full max-w-md text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+        className="group relative w-full max-w-xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C8A84B] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
         aria-label="Play introducing Ellesmere College International — 90 second video"
       >
         <div className="overflow-hidden rounded-2xl border border-white/20 bg-[#1A1228]/55 shadow-2xl shadow-black/40 backdrop-blur-sm">
@@ -78,10 +78,10 @@ export default function GrowthHeroVideo() {
             </span>
           </div>
           <div className="px-5 py-4">
-            <p className="font-cormorant text-xl font-semibold leading-snug text-white sm:text-2xl">
+            <p className="font-cormorant whitespace-nowrap text-lg font-semibold leading-none text-white sm:text-xl">
               Introducing Ellesmere College International
             </p>
-            <p className="mt-1 font-jost text-sm text-[#C8A84B]">90 second video</p>
+            <p className="mt-1.5 font-jost text-sm text-[#C8A84B]">90 second video</p>
           </div>
         </div>
       </button>
