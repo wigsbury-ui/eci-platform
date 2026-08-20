@@ -36,8 +36,8 @@ export default function GrowthPage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A1228]/88 via-[#2D1654]/55 to-[#2D1654]/15" />
         <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-center">
-            <div className="order-2 lg:order-1 flex flex-col justify-center lg:pr-4 lg:-translate-y-6">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 flex-1 items-stretch">
+            <div className="order-2 lg:order-1 flex flex-col justify-start pt-6 lg:pt-10">
               <p className="text-[#C8A84B] text-xs tracking-[0.35em] uppercase mb-4 font-jost font-bold">
                 Growth
               </p>
@@ -84,7 +84,7 @@ export default function GrowthPage() {
               </p>
             </div>
 
-            <div className="order-1 lg:order-2 flex items-center justify-center lg:justify-end lg:translate-y-8 lg:pt-8">
+            <div className="order-1 lg:order-2 flex items-end justify-center lg:justify-end pb-2 lg:pb-10">
               <GrowthHeroVideo />
             </div>
           </div>
