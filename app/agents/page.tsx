@@ -5,6 +5,7 @@ import PublicNav from '@/components/PublicNav'
 import Footer from '@/components/Footer'
 import ContactSection from '@/components/ContactSection'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
+import ParallaxHeroBackground from '@/components/ParallaxHeroBackground'
 import {
   AGENT_HOW_IT_WORKS,
   AGENT_IDEAL_INTROS,
@@ -31,13 +32,10 @@ export default function AgentsPage() {
 
       {/* Hero — mirrored Investors layout */}
       <section className="home-window relative min-h-[100svh] flex flex-col overflow-hidden">
-        <Image
+        <ParallaxHeroBackground
           src="/images/agents/hero-dusk.jpg"
           alt="International campus at dusk"
-          fill
           priority
-          className="object-cover"
-          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-l from-[#1A1228]/90 via-[#2D1654]/58 to-[#2D1654]/18" />
         <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">

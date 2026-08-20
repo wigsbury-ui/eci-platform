@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import ContactSection from '@/components/ContactSection'
 import ExpansionSection from '@/components/ExpansionSection'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
+import ParallaxHeroBackground from '@/components/ParallaxHeroBackground'
 import {
   INVESTOR_VALUE_PROPS,
   PRIMARY_PARTNERSHIP,
@@ -25,13 +26,10 @@ export default function InvestorsPage() {
 
       {/* 1 — Hero: brand licensing first */}
       <section className="home-window relative min-h-[100svh] flex flex-col overflow-hidden">
-        <Image
+        <ParallaxHeroBackground
           src="/images/schools/doha-horizon.jpg"
           alt="International campus expansion"
-          fill
           priority
-          className="object-cover"
-          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1A1228]/88 via-[#2D1654]/55 to-[#2D1654]/15" />
         <div className="relative max-w-7xl mx-auto px-6 w-full pt-28 pb-16 md:pb-20 flex-1 flex flex-col">
