@@ -128,12 +128,22 @@ export default function GrowthPage() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/login?audience=investor"
-                className="inline-block bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
-              >
-                Open Investor Portal
-              </Link>
+              <div>
+                <a
+                  href="#contact"
+                  className="inline-block bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
+                >
+                  Register your interest
+                </a>
+                <p className="mt-3 font-jost text-sm text-[#2D1654]/55">
+                  <Link
+                    href="/login?audience=investor"
+                    className="text-[#4C2585] hover:text-[#2D1654] hover:underline underline-offset-2"
+                  >
+                    Gain access to the investor portal
+                  </Link>
+                </p>
+              </div>
             </div>
 
             <div className="w-full self-center">
