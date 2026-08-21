@@ -90,7 +90,7 @@ export default function InvestorBenefitsModule() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(5.25rem,var(--eci-nav-offset))] pb-6 md:pb-8">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(4.75rem,calc(var(--eci-nav-offset)+0.25rem))] pb-5 md:pb-6">
           <header className="relative shrink-0">
             <p className="mb-2 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
               {INVESTOR_BENEFITS_INTRO.eyebrow}
@@ -101,11 +101,11 @@ export default function InvestorBenefitsModule() {
             >
               {INVESTOR_BENEFITS_INTRO.title}
             </h2>
-            <div className="mt-4 h-1 w-14 bg-[#C8A84B]" />
+            <div className="mt-3 h-1 w-14 bg-[#C8A84B]" />
           </header>
 
           <nav
-            className="mt-5 flex shrink-0 gap-1 overflow-x-auto pb-1 eci-benefits-scroll md:flex-wrap md:gap-x-1 md:gap-y-2 md:overflow-visible"
+            className="mt-4 flex shrink-0 gap-1 overflow-x-auto pb-1 eci-benefits-scroll md:flex-wrap md:gap-x-1 md:gap-y-2 md:overflow-visible"
             aria-label="Benefit topics"
           >
             {INVESTOR_BENEFITS.map((benefit, index) => {
@@ -134,7 +134,7 @@ export default function InvestorBenefitsModule() {
 
           <article
             key={item.id}
-            className="eci-benefits-card mt-4 grid min-h-0 flex-1 grid-cols-1 items-start gap-6 md:mt-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.7fr)] lg:gap-10"
+            className="eci-benefits-card mt-3 grid min-h-0 flex-1 grid-cols-1 items-start gap-6 md:mt-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.65fr)] lg:gap-10"
           >
             <div className="min-w-0">
               <p className="mb-2 font-jost text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
@@ -142,15 +142,15 @@ export default function InvestorBenefitsModule() {
               </p>
               <h3
                 className="font-cormorant font-semibold leading-[1.12] tracking-[-0.02em] text-[#2D1654]"
-                style={{ fontSize: 'clamp(1.7rem, 3.1vw, 2.55rem)' }}
+                style={{ fontSize: 'clamp(1.55rem, 2.6vw, 2.15rem)' }}
               >
                 {item.title}
               </h3>
-              <p className="mt-4 max-w-xl font-jost text-[15px] leading-relaxed text-[#2D1654]/80 md:mt-5 md:text-base">
+              <p className="mt-3 max-w-xl font-jost text-[15px] leading-relaxed text-[#2D1654]/80 md:mt-4 md:text-base">
                 {item.benefit}
               </p>
 
-              <div className="mt-6 grid max-w-xl gap-3 border border-[#C8A84B]/45 bg-white/70 p-4 md:mt-7 md:grid-cols-[7.5rem_minmax(0,1fr)] md:gap-5 md:p-5">
+              <div className="mt-5 grid max-w-xl gap-3 border border-[#C8A84B]/45 bg-white/70 p-4 md:mt-6 md:grid-cols-[7.5rem_minmax(0,1fr)] md:gap-5 md:p-5">
                 <p className="font-jost text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C8A84B]">
                   Evidence
                 </p>
@@ -159,7 +159,7 @@ export default function InvestorBenefitsModule() {
                 </p>
               </div>
 
-              <p className="mt-6 font-jost text-[12px] text-[#2D1654]/45">
+              <p className="mt-5 font-jost text-[12px] text-[#2D1654]/45">
                 For fee schedules and full terms, open the{' '}
                 <Link
                   href="/login?audience=investor"
@@ -171,8 +171,7 @@ export default function InvestorBenefitsModule() {
               </p>
             </div>
 
-            {/* Small supporting plate — not a full photo column */}
-            <figure className="mx-auto w-full max-w-[17.5rem] justify-self-center lg:mx-0 lg:max-w-none lg:justify-self-end">
+            <figure className="mx-auto w-full max-w-[16.5rem] justify-self-center lg:mx-0 lg:max-w-[18rem] lg:justify-self-end">
               <div className="border border-[#C8A84B]/55 p-2 bg-white">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#2D1654]/5">
                   <Image
