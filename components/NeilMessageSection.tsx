@@ -17,7 +17,7 @@ export default function NeilMessageSection() {
   return (
     <section
       id="from-neil"
-      className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden pt-[max(5.5rem,var(--eci-nav-offset))] pb-20 md:pb-24"
+      className="home-window relative min-h-[100svh] flex flex-col items-center justify-center overflow-hidden pt-[max(5.5rem,var(--eci-nav-offset))] pb-20 md:pb-24"
       style={{
         background: 'linear-gradient(165deg, #2D1654 0%, #3d1f6e 48%, #1A1228 100%)',
       }}
@@ -42,11 +42,10 @@ export default function NeilMessageSection() {
               From the Director
             </p>
             <h2
-              className="mb-5 font-cormorant font-semibold leading-tight text-white"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
+              className="mb-5 whitespace-nowrap font-cormorant font-semibold leading-tight text-white"
+              style={{ fontSize: 'clamp(1.75rem, 3.2vw, 3.1rem)' }}
             >
-              Beyond the transaction.
-              <br />
+              Beyond the transaction.{' '}
               <em className="font-normal text-[#C8A84B]">Schools families love.</em>
             </h2>
             <div className="mb-5 h-1 w-14 bg-[#C8A84B]" />
