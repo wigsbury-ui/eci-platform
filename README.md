@@ -4,9 +4,9 @@ Next.js 16 + Supabase platform for the ECI public site and password-controlled p
 
 ## What is included
 
-- **Public site** — homepage, `/schools`, `/investors`, `/agents`
-- **`/growth`** — redirects to `/investors`
-- **Investor / agent / school / team portals** — password-controlled workspaces
+- **Public site**, homepage, `/schools`, `/investors`, `/agents`
+- **`/growth`**, redirects to `/investors`
+- **Investor / agent / school / team portals**, password-controlled workspaces
 
 ## Setup
 

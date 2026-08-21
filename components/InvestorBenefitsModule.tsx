@@ -171,7 +171,7 @@ export default function InvestorBenefitsModule() {
               </p>
             </div>
 
-            {/* Small supporting plate — not a full photo column */}
+            {/* Small supporting plate, not a full photo column */}
             <figure className="mx-auto w-full max-w-[17.5rem] justify-self-center lg:mx-0 lg:max-w-none lg:justify-self-end">
               <div className="border border-[#C8A84B]/55 p-2 bg-white">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#2D1654]/5">

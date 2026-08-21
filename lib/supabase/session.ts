@@ -62,7 +62,7 @@ export function previewProfile(
     full_name: names[role] || 'Preview User',
     role,
     school_id: schoolId,
-    job_title: 'Preview mode — connect Supabase for live auth',
+    job_title: 'Preview mode, connect Supabase for live auth',
     phone: null,
     avatar_url: null,
     created_at: new Date().toISOString(),

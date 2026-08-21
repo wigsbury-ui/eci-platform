@@ -37,7 +37,7 @@ export default function AgentReferralsClient({ profile }: { profile: Profile | n
         <h1 className="font-cormorant text-4xl text-[#2D1654] mb-3">Investor introductions</h1>
         <p className="text-gray-500 font-jost text-sm leading-relaxed">
           Submit qualified investor or operator introductions. ECI reviews each referral and leads
-          diligence — you retain visibility on status here.
+          diligence, you retain visibility on status here.
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export default function AgentReferralsClient({ profile }: { profile: Profile | n
           >
             {TOP_DESTINATIONS.map(d => (
               <option key={d.id} value={`${d.shortName} / ${d.country}`}>
-                #{d.rank} {d.shortName} — {d.country}
+                #{d.rank} {d.shortName}, {d.country}
               </option>
             ))}
             <option value="Multiple / regional">Multiple / regional</option>

@@ -19,7 +19,7 @@ export default function PreviewPartnerTierToggle({
   return (
     <div className="mb-6 border border-dashed border-[#0E7490]/40 bg-[#F0FDFA] px-4 py-3">
       <p className="text-xs font-jost text-[#0E7490] mb-2">
-        Preview mode — toggle access tier (no Supabase connected)
+        Preview mode, toggle access tier (no Supabase connected)
       </p>
       <button
         type="button"

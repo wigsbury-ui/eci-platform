@@ -10,10 +10,10 @@ import { Plus } from 'lucide-react'
 type UserRow = { id: string; name: string; email: string; role: UserRole; school: string }
 
 const SEED: UserRow[] = [
-  { id: '1', name: 'Network Director', email: 'international@ellesmere.com', role: 'super_admin', school: '—' },
+  { id: '1', name: 'Network Director', email: 'international@ellesmere.com', role: 'super_admin', school: '-' },
   { id: '2', name: 'Riyadh Head of School', email: 'head@ellesmerecollegeriyadh.com', role: 'school_partner', school: 'Ellesmere College Riyadh' },
-  { id: '3', name: 'Prospective Investor', email: 'partner@example.com', role: 'investor', school: '—' },
-  { id: '4', name: 'Introduction Agent', email: 'agent@example.com', role: 'agent', school: '—' },
+  { id: '3', name: 'Prospective Investor', email: 'partner@example.com', role: 'investor', school: '-' },
+  { id: '4', name: 'Introduction Agent', email: 'agent@example.com', role: 'agent', school: '-' },
 ]
 
 export default function TeamUsersManager({ profile }: { profile: Profile | null }) {
@@ -42,7 +42,7 @@ export default function TeamUsersManager({ profile }: { profile: Profile | null 
         <form
           onSubmit={e => {
             e.preventDefault()
-            setUsers(u => [...u, { id: String(Date.now()), name: form.name, email: form.email, role: form.role, school: form.school || '—' }])
+            setUsers(u => [...u, { id: String(Date.now()), name: form.name, email: form.email, role: form.role, school: form.school || '-' }])
             setShow(false)
           }}
           className="bg-white border border-gray-100 p-6 mb-8 grid md:grid-cols-2 gap-4"

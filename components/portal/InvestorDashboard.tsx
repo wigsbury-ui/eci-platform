@@ -15,7 +15,7 @@ const NEXT = [
   {
     href: '/investor/markets',
     label: 'Markets',
-    blurb: 'Ranked growth destinations open for new capital — with thesis and partner fit.',
+    blurb: 'Ranked growth destinations open for new capital, with thesis and partner fit.',
     icon: MapPinned,
   },
   {
@@ -27,7 +27,7 @@ const NEXT = [
   {
     href: '/investor/apply',
     label: 'Next steps',
-    blurb: 'Tell us markets, capital profile and timing — or request deeper access.',
+    blurb: 'Tell us markets, capital profile and timing, or request deeper access.',
     icon: MessageSquare,
   },
 ] as const

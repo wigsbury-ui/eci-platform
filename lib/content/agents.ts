@@ -8,7 +8,7 @@ export const AGENT_PROGRAM = {
   punchline: 'You open the door. We deliver the partnership.',
 }
 
-/** Keep this short — agents need a clear brief, not a brochure. */
+/** Keep this short, agents need a clear brief, not a brochure. */
 export const AGENT_WHAT_YOU_DO = [
   {
     title: 'Who to introduce',
@@ -31,12 +31,12 @@ export const AGENT_HOW_IT_WORKS = [
   {
     step: '02',
     title: 'Brief yourself',
-    body: 'Partnership models, Top 10 destinations, and the services framework — ready to use in conversation.',
+    body: 'Partnership models, Top 10 destinations, and the services framework, ready to use in conversation.',
   },
   {
     step: '03',
     title: 'Introduce with context',
-    body: 'Submit the investor or operator with market interest, capacity, and timing — not a cold name dump.',
+    body: 'Submit the investor or operator with market interest, capacity, and timing, not a cold name dump.',
   },
   {
     step: '04',

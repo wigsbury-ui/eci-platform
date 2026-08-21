@@ -69,12 +69,12 @@ export default function HeadsMessageSection() {
             <div className="space-y-4 text-white/85 font-jost leading-relaxed text-[1.02rem] max-w-xl">
               <p>
                 Ellesmere has always believed that education is about more than examination
-                results. Our purpose is to help young people become confident, kind and capable —
+                results. Our purpose is to help young people become confident, kind and capable:
                 ready for study, work and life.
               </p>
               <p>
                 Through Ellesmere College International, that same care for the individual, sense of
-                community and ambition for the future travels with our partner schools — from
+                community and ambition for the future travels with our partner schools, from
                 Riyadh today to Doha and further markets ahead.
               </p>
               <p>
@@ -85,7 +85,7 @@ export default function HeadsMessageSection() {
             </div>
             <p className="mt-7 font-cormorant text-2xl text-[#C8A84B] italic">Jon Shaw</p>
             <p className="text-white/45 text-xs font-jost mt-1">
-              Sample welcome — final wording to be provided by the Head.
+              Sample welcome, final wording to be provided by the Head.
             </p>
             <Link
               href="https://www.ellesmere.com/about-us/headmasters-welcome"

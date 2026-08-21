@@ -20,7 +20,7 @@ export default async function AgentMaterialsPage() {
       <h1 className="font-cormorant text-4xl text-[#2D1654] mb-2">Investor promotional materials</h1>
       <p className="text-gray-500 font-jost text-sm mb-8 max-w-2xl">
         Packs you may share with prospective investors after an introduction is underway. Do not
-        circulate due-diligence documents — those stay in the Investor Portal after ECI approval.
+        circulate due-diligence documents, those stay in the Investor Portal after ECI approval.
       </p>
 
       <DualDocumentArchive

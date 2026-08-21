@@ -6,7 +6,7 @@
 -- =============================================================================
 
 -- -----------------------------------------------------------------------------
--- PART 1 — Clear Evalent content
+-- PART 1, Clear Evalent content
 -- -----------------------------------------------------------------------------
 
 drop schema if exists intelligence cascade;
@@ -26,7 +26,7 @@ alter default privileges in schema public
   grant all on functions to postgres, anon, authenticated, service_role;
 
 -- -----------------------------------------------------------------------------
--- PART 2 — Extensions
+-- PART 2, Extensions
 -- -----------------------------------------------------------------------------
 
 create extension if not exists "pgcrypto";
@@ -34,7 +34,7 @@ create extension if not exists "pgcrypto";
 -- create extension if not exists vector;
 
 -- -----------------------------------------------------------------------------
--- PART 3 — Core ECI tables
+-- PART 3, Core ECI tables
 -- -----------------------------------------------------------------------------
 
 create table public.schools (
@@ -193,7 +193,7 @@ create table public.knowledge_chunks (
 );
 
 -- -----------------------------------------------------------------------------
--- PART 4 — Role helper (used by login / dashboard routing)
+-- PART 4, Role helper (used by login / dashboard routing)
 -- -----------------------------------------------------------------------------
 
 create or replace function public.get_my_role()
@@ -232,7 +232,7 @@ create trigger on_auth_user_created
   for each row execute function public.handle_new_user();
 
 -- -----------------------------------------------------------------------------
--- PART 5 — Row Level Security (starter policies)
+-- PART 5, Row Level Security (starter policies)
 -- -----------------------------------------------------------------------------
 
 alter table public.schools enable row level security;
@@ -372,7 +372,7 @@ create policy "Staff read enquiries"
     )
   );
 
--- Calendar / messaging / chat — authenticated for now (tighten later)
+-- Calendar / messaging / chat, authenticated for now (tighten later)
 create policy "Authenticated calendar read"
   on public.calendar_events for select to authenticated using (true);
 create policy "Staff calendar write"
@@ -408,7 +408,7 @@ create policy "Authenticated read knowledge"
   on public.knowledge_chunks for select to authenticated using (published = true);
 
 -- -----------------------------------------------------------------------------
--- PART 6 — Seed network schools + document categories
+-- PART 6, Seed network schools + document categories
 -- -----------------------------------------------------------------------------
 
 insert into public.schools (
@@ -466,5 +466,5 @@ insert into public.announcements (title, body, audience, is_pinned) values
 );
 
 -- -----------------------------------------------------------------------------
--- PART 7 — Done. Next manual steps are listed in the chat reply.
+-- PART 7, Done. Next manual steps are listed in the chat reply.
 -- -----------------------------------------------------------------------------

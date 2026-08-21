@@ -122,7 +122,7 @@ export interface CalendarEvent {
   created_by: string | null
   /** IANA timezone for the meeting wall clock (e.g. Asia/Riyadh). */
   timezone: string
-  /** People attending — display names for coordination. */
+  /** People attending, display names for coordination. */
   attendees: string[]
 }
 

@@ -41,7 +41,7 @@ const AUDIENCE_COPY: Record<
   },
   team: {
     headline: 'ECI team\nworkspace',
-    body: 'Internal tools for staff, board, and administrators — schools, documents, calendars, and governance.',
+    body: 'Internal tools for staff, board, and administrators, schools, documents, calendars, and governance.',
     bullets: [
       'Cross-network school and document oversight',
       'Team calendar and internal messaging',
@@ -107,7 +107,7 @@ function LoginForm() {
         }
       )
       const role = (await res.text()).replace(/"/g, '')
-      // Staff can open any portal they are allowed into — honour audience / redirectTo
+      // Staff can open any portal they are allowed into, honour audience / redirectTo
       window.location.href = resolvePortalDestination(role, { redirectTo, audience })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to sign in')

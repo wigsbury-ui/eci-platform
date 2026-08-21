@@ -29,7 +29,7 @@ export default function TeamSection() {
           </h2>
           <div className="w-14 h-1 bg-[#C8A84B] mt-4 mb-4" />
           <p className="text-[#2D1654]/70 font-jost leading-relaxed">
-            Educational stewardship and international partnership — the team that protects
+            Educational stewardship and international partnership, the team that protects
             Ellesmere&apos;s standards as the network grows.
           </p>
         </div>

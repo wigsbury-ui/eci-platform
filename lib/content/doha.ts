@@ -1,4 +1,4 @@
-/** Draft public content for Ellesmere College Doha — adapted from Teacher Horizons profile + ECI network notes.
+/** Draft public content for Ellesmere College Doha, adapted from Teacher Horizons profile + ECI network notes.
  *  Campus photography taken from the TH Doha profile gallery (UK Shropshire heritage shots excluded). */
 
 export const DOHA_SCHOOL = {
@@ -20,11 +20,11 @@ export const DOHA_SCHOOL = {
   spotlightImage: '/images/schools/doha/entrance-lobby.jpg',
   tagline: 'British heritage education, purpose-built for Doha.',
   mission:
-    'To offer a student experience that combines curricular and extra-curricular opportunities matching those available at Ellesmere College in Shropshire — so that, upon graduation, students are Life:Ready and take their places at universities of their choice.',
+    'To offer a student experience that combines curricular and extra-curricular opportunities matching those available at Ellesmere College in Shropshire, so that, upon graduation, students are Life:Ready and take their places at universities of their choice.',
   summary:
-    'Ellesmere College Doha is the newest campus in the Ellesmere international family — a purpose-built school in Qatar delivering British education with world-class facilities, in partnership with the Education Avenue Group.',
+    'Ellesmere College Doha is the newest campus in the Ellesmere international family, a purpose-built school in Qatar delivering British education with world-class facilities, in partnership with the Education Avenue Group.',
   spotlightBody:
-    'A new purpose-built campus in the heart of Doha — impressive facilities, an ambitious founding team, and the Ellesmere Life:Ready ethos arriving in Qatar.',
+    'A new purpose-built campus in the heart of Doha, impressive facilities, an ambitious founding team, and the Ellesmere Life:Ready ethos arriving in Qatar.',
 } as const
 
 export const DOHA_HIGHLIGHTS = [
@@ -38,7 +38,7 @@ export const DOHA_HIGHLIGHTS = [
   },
   {
     title: 'Life:Ready ambition',
-    body: 'Curricular and co-curricular opportunity modelled on Ellesmere College, Shropshire — preparing young people for university and life beyond.',
+    body: 'Curricular and co-curricular opportunity modelled on Ellesmere College, Shropshire, preparing young people for university and life beyond.',
   },
   {
     title: 'Founding leadership',

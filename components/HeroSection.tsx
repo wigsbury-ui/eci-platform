@@ -61,7 +61,7 @@ export default function HeroSection() {
             <em className="text-[#C8A84B] font-normal">Globally delivered.</em>
           </h1>
           <p className="text-white/85 text-lg leading-relaxed mb-10 font-jost max-w-xl">
-            From our Shropshire heritage campus to Ellesmere College Riyadh — and soon Doha — we
+            From our Shropshire heritage campus to Ellesmere College Riyadh, and soon Doha, we
             license the Ellesmere brand so investors can build schools that carry a Life:Ready
             education into new communities.
           </p>

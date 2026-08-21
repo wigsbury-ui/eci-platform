@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 /**
- * Neil Tomalin message — mirrors Head’s Message layout with the portrait on the right.
+ * Neil Tomalin message, mirrors Head’s Message layout with the portrait on the right.
  */
 export default function NeilMessageSection() {
   const [ready, setReady] = useState(false)
@@ -45,14 +45,14 @@ export default function NeilMessageSection() {
               className="mb-5 font-cormorant font-semibold leading-tight text-white"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
             >
-              Beyond the transaction —
+              Beyond the transaction.
               <br />
-              <em className="font-normal text-[#C8A84B]">schools families love.</em>
+              <em className="font-normal text-[#C8A84B]">Schools families love.</em>
             </h2>
             <div className="mb-5 h-1 w-14 bg-[#C8A84B]" />
             <div className="max-w-xl space-y-4 font-jost text-[1.02rem] leading-relaxed text-white/85">
               <p>
-                Brand licensing is how we grow — but the real work is building schools that
+                Brand licensing is how we grow, but the real work is building schools that
                 students and families love to be part of. A campus that feels like Ellesmere is not
                 only a commercial agreement; it is a living community with high standards, warm
                 pastoral care and a clear sense of belonging.
@@ -60,13 +60,13 @@ export default function NeilMessageSection() {
               <p>
                 Ellesmere College International exists to add value beyond the transactional. We
                 bring curriculum, quality assurance, leadership support and a network of partner
-                schools so that each new campus joins something larger — an extended Ellesmere
+                schools so that each new campus joins something larger: an extended Ellesmere
                 family that families recognise and want to stay inside.
               </p>
               <p>
                 When partners succeed, it is because the school becomes a place people are proud
                 of. That is the measure I care about most: not only that a campus opens, but that
-                students and families love it — and love being part of the wider network.
+                students and families love it, and love being part of the wider network.
               </p>
             </div>
             <p className="mt-7 font-cormorant text-2xl italic text-[#C8A84B]">Neil Tomalin</p>

@@ -77,7 +77,7 @@ export default function DohaSchoolPage() {
               <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-5">{DOHA_SCHOOL.summary}</p>
               <p className="text-[#2D1654]/70 font-jost leading-relaxed mb-8">{DOHA_SCHOOL.mission}</p>
               <p className="text-sm font-jost text-[#2D1654]/55 italic">
-                Draft profile adapted from public school materials — final wording to be confirmed
+                Draft profile adapted from public school materials, final wording to be confirmed
                 with Ellesmere College Doha leadership.
               </p>
             </div>

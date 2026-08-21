@@ -9,7 +9,7 @@
   --eci-gold-light: #F0E4B0;
   --eci-cream: #F8F4EF;
   --eci-dark: #1A1228;
-  /* Fixed public nav height — keeps scroll-snap / anchors clear of the menu */
+  /* Fixed public nav height, keeps scroll-snap / anchors clear of the menu */
   --eci-nav-offset: 5rem;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 /* Full-viewport marketing modules (home + growth).
-   No scroll-snap — previous proximity snap felt sticky and fought the fixed nav.
+   No scroll-snap, previous proximity snap felt sticky and fought the fixed nav.
    Do NOT use scroll-padding-top here: it leaves a body-coloured strip between the
    fixed nav and dark modules (e.g. Head’s Message) when hash-navigating.
    Content clears the nav via each section’s own padding / vertical centering. */

@@ -25,7 +25,7 @@ export default function InvestorsPage() {
     <main className="home-snap">
       <PublicNav solid />
 
-      {/* 1 — Hero: brand licensing first */}
+      {/* 1, Hero: brand licensing first */}
       <section className="home-window relative min-h-[100svh] flex flex-col overflow-hidden">
         <ParallaxHeroBackground
           src="/images/schools/doha-horizon.jpg"
@@ -49,7 +49,7 @@ export default function InvestorsPage() {
               </h1>
               <p className="text-white/75 font-jost max-w-xl mb-10 leading-relaxed">
                 Brand licensing is the core of how we grow: investors and operators work with ECI to
-                open an Ellesmere campus. Curriculum and advisory support are available as add-ons —
+                open an Ellesmere campus. Curriculum and advisory support are available as add-ons:
                 not parallel products.
               </p>
 
@@ -89,7 +89,7 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* 2 — Brand licensing offer + proof */}
+      {/* 2, Brand licensing offer + proof */}
       <section
         id="offer"
         className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#F8F4EF] py-16 md:py-20"
@@ -168,13 +168,13 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* 3 — Concrete partnership benefits (viewport-locked; scrolls inside) */}
+      {/* 3, Concrete partnership benefits (viewport-locked; scrolls inside) */}
       <InvestorBenefitsModule />
 
-      {/* 4 — From Neil Tomalin */}
+      {/* 4, From Neil Tomalin */}
       <NeilMessageSection />
 
-      {/* 5 — Riyadh success story */}
+      {/* 5, Riyadh success story */}
       <section
         id="riyadh"
         className="home-window relative min-h-[100svh] flex flex-col justify-center bg-white py-16 md:py-20"
@@ -202,7 +202,7 @@ export default function InvestorsPage() {
               <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-5 max-w-xl">
                 From a standing start to more than{' '}
                 <span className="text-[#2D1654] font-semibold">600 students</span> in just over two
-                years — a clear signal that families recognise the Ellesmere standard, and that brand
+                years, a clear signal that families recognise the Ellesmere standard, and that brand
                 licensing can scale with pace.
               </p>
               <p className="text-[#2D1654]/55 font-jost text-sm leading-relaxed max-w-xl mb-6">
@@ -284,10 +284,10 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* 5 — Expansion map */}
+      {/* 5, Expansion map */}
       <ExpansionSection asModule sectionId="top-destinations" ctaHref="/investors#offer" />
 
-      {/* 6 — Contact */}
+      {/* 6, Contact */}
       <ContactSection
         title="Start a growth conversation"
         subtitle="Tell us about markets, capital profile, and timing if you want to build under the Ellesmere brand. We typically respond within three working days."

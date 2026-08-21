@@ -72,7 +72,7 @@ export default function PartnerServicesSection({
             <div className="mt-3 w-16 h-1 bg-[#C8A84B]" />
           </div>
           <p className="font-jost text-sm leading-snug max-w-md lg:text-right text-[#2D1654]/75">
-            Three tiers — from non-negotiable foundations to premium specialisation.
+            Three tiers, from non-negotiable foundations to premium specialisation.
           </p>
         </div>
 

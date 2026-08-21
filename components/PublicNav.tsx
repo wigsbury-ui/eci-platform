@@ -8,13 +8,13 @@ import { Menu, X } from 'lucide-react'
 /**
  * Public navigation map
  *
- * Two destination types — never mix a page path with a same-named hash
+ * Two destination types, never mix a page path with a same-named hash
  * (that produced /investors#investors#investors):
  *
- * 1. Home chapters — scroll on `/`
+ * 1. Home chapters, scroll on `/`
  *    Head's Message · Team · Contact
  *
- * 2. Journey pages — own URL, always open at the top
+ * 2. Journey pages, own URL, always open at the top
  *    Our Schools · Investors · Agents
  *
  * Portal login is auth, not part of the marketing map.

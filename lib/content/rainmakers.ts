@@ -4,7 +4,7 @@ export const RAINMAKER_PROGRAM = {
   eyebrow: 'Rainmakers',
   title: 'Warm introductions from people who know Ellesmere',
   summary:
-    'Alumni, former parents and friends of the College who can open doors formal outreach often misses — motivated by loyalty to the school, not volume.',
+    'Alumni, former parents and friends of the College who can open doors formal outreach often misses, motivated by loyalty to the school, not volume.',
   punchline: 'Personal trust. One clear offer.',
 }
 
@@ -15,7 +15,7 @@ export const RAINMAKER_WHAT_YOU_DO = [
   },
   {
     title: 'How you are recognised',
-    body: 'Successful referrals can attract a share of the initial licensing fee and milestone recognition when a school opens — terms sit in a Referral Partner Agreement.',
+    body: 'Successful referrals can attract a share of the initial licensing fee and milestone recognition when a school opens, terms sit in a Referral Partner Agreement.',
   },
 ] as const
 
@@ -23,7 +23,7 @@ export const RAINMAKER_WHAT_YOU_DO = [
 export const RAINMAKER_VALUE_PROPS = [
   {
     title: 'Ambassadors, not brokers',
-    body: 'Notable alumni, former parents or industry allies with deep local networks. Motivated by loyalty to Ellesmere’s mission — not fees alone.',
+    body: 'Notable alumni, former parents or industry allies with deep local networks. Motivated by loyalty to Ellesmere’s mission, not fees alone.',
   },
   {
     title: 'High-trust introductions',
@@ -66,13 +66,13 @@ export const RAINMAKER_VS_AGENT = [
   {
     category: 'Incentives',
     rainmaker:
-      'Success-based rewards — share of licensing revenue, milestone bonuses, and recognition.',
-    agent: 'Commission or finder’s fees — typically a percentage of licensing fees.',
+      'Success-based rewards, share of licensing revenue, milestone bonuses, and recognition.',
+    agent: 'Commission or finder’s fees, typically a percentage of licensing fees.',
   },
   {
     category: 'Reach & network',
     rainmaker: 'Personal, high-trust connections into alumni and local circles.',
-    agent: 'Broader market coverage — lists, expos and structured outreach.',
+    agent: 'Broader market coverage, lists, expos and structured outreach.',
   },
   {
     category: 'Control & alignment',
@@ -81,7 +81,7 @@ export const RAINMAKER_VS_AGENT = [
   },
   {
     category: 'Scalability',
-    rainmaker: 'Selective and high-impact — a few trusted referrers per region.',
+    rainmaker: 'Selective and high-impact, a few trusted referrers per region.',
     agent: 'Easier to scale in number across markets, with more oversight.',
   },
 ] as const

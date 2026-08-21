@@ -61,7 +61,7 @@ export default function AboutSection() {
       id="about"
       className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#F8F4EF] py-16 md:py-20 lg:py-0"
     >
-      {/* Full-bleed campus image on the right half — students on the Shropshire campus */}
+      {/* Full-bleed campus image on the right half, students on the Shropshire campus */}
       <div className="absolute inset-y-0 right-0 w-1/2 hidden lg:block">
         <Image
           src="/images/campus/uk-historic.jpg"
@@ -75,7 +75,7 @@ export default function AboutSection() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 w-full flex flex-col justify-center">
-        {/* Main About copy — vertically centred in the window */}
+        {/* Main About copy, vertically centred in the window */}
         <div className="max-w-xl">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
             About ECI
@@ -91,10 +91,10 @@ export default function AboutSection() {
           <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
           <p className="text-[#2D1654]/80 leading-relaxed mb-4 font-jost">
             Ellesmere College International is the global licensing and partnership arm of Ellesmere
-            College, Shropshire — founded in {HERITAGE.founded} on a {HERITAGE.campusAcres}-acre
+            College, Shropshire, founded in {HERITAGE.founded} on a {HERITAGE.campusAcres}-acre
             campus in the English countryside. Our philosophy is simple and demanding:{' '}
-            <strong className="text-[#2D1654] font-semibold">{HERITAGE.tagline}</strong> —
-            academic excellence with character, confidence and care.
+            <strong className="text-[#2D1654] font-semibold">{HERITAGE.tagline}</strong>.
+            Academic excellence with character, confidence and care.
           </p>
           <p className="text-[#2D1654]/75 leading-relaxed mb-8 font-jost">
             Through carefully selected partnerships we extend Ellesmere&apos;s curriculum frameworks,
@@ -128,7 +128,7 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* Desktop: discreet team module — bottom right of the campus image */}
+      {/* Desktop: discreet team module, bottom right of the campus image */}
       <div className="hidden lg:block absolute bottom-8 right-8 xl:bottom-10 xl:right-10 w-[min(22rem,calc(50vw-3rem))] z-10">
         <div className="bg-white/95 backdrop-blur-sm border border-[#2D1654]/10 p-5 shadow-md">
           <TeamRotatorPanel

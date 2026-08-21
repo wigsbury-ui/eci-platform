@@ -122,7 +122,7 @@ export default function SchoolsSection() {
                 <p className="text-[#C8A84B] text-xs tracking-[0.25em] uppercase mb-3 font-jost">Heritage</p>
                 <h3 className="font-cormorant text-3xl mb-4">Ellesmere College, UK</h3>
                 <p className="text-white/75 text-sm font-jost leading-relaxed mb-6 max-w-md">
-                  The founding school — Shropshire, 1884 — remains the source of curriculum quality,
+                  The founding school in Shropshire (1884) remains the source of curriculum quality,
                   pastoral culture, and the Life:Ready ambition behind every international campus.
                 </p>
                 <a

@@ -1,4 +1,4 @@
-/** ECI Partner Services & Product Offering Framework — structured from the draft. */
+/** ECI Partner Services & Product Offering Framework, structured from the draft. */
 
 export type ServiceGroupId = 1 | 2 | 3
 
@@ -28,7 +28,7 @@ export const SERVICE_GROUPS = [
     subtitle: 'The non-negotiable foundation of every ECI partnership',
     colour: '#C8A84B',
     narrative:
-      'Shared commitments between ECI and the partner school — the bedrock of school quality and brand integrity. These are not optional extras; they define what it means to be an Ellesmere partner.',
+      'Shared commitments between ECI and the partner school, the bedrock of school quality and brand integrity. These are not optional extras; they define what it means to be an Ellesmere partner.',
     commercialNote: 'ECI core commitments · Partner commitments',
   },
   {
@@ -38,7 +38,7 @@ export const SERVICE_GROUPS = [
     subtitle: 'Experience-enhancing services that differentiate the school',
     colour: '#6B3DA8',
     narrative:
-      'Services that significantly enhance the student, staff and parent experience — adding market differentiation and educational impact. Typically integrated by agreement, with additional fees where appropriate.',
+      'Services that significantly enhance the student, staff and parent experience, adding market differentiation and educational impact. Typically integrated by agreement, with additional fees where appropriate.',
     commercialNote: 'Optional agreement integration · Additional fees attached',
   },
   {
@@ -48,7 +48,7 @@ export const SERVICE_GROUPS = [
     subtitle: 'High-value specialisation and strategic flexibility',
     colour: '#34D399',
     narrative:
-      'Premium offerings that enable deeper engagement and specialisation, while giving partners strategic flexibility to meet unique local needs — often with strong commercial potential.',
+      'Premium offerings that enable deeper engagement and specialisation, while giving partners strategic flexibility to meet unique local needs, often with strong commercial potential.',
     commercialNote: 'Premium engagement · High-margin / specialist delivery',
   },
 ] as const
@@ -71,7 +71,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Brand and Marketing Support',
     shortName: 'Brand & marketing',
     overview:
-      'Protects and projects the Ellesmere identity across every partner market — ensuring brand fidelity while enabling locally resonant storytelling, admissions marketing and network-wide visibility.',
+      'Protects and projects the Ellesmere identity across every partner market, ensuring brand fidelity while enabling locally resonant storytelling, admissions marketing and network-wide visibility.',
     attributes: [
       'Global brand standards and visual identity guidance',
       'Marketing playbooks for admissions and community engagement',
@@ -90,7 +90,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Academic and Curriculum Framework',
     shortName: 'Curriculum framework',
     overview:
-      'The academic DNA of the partnership — curriculum pathways, assessment philosophy and learning standards drawn from Ellesmere’s heritage and adapted for international delivery.',
+      'The academic DNA of the partnership, curriculum pathways, assessment philosophy and learning standards drawn from Ellesmere’s heritage and adapted for international delivery.',
     attributes: [
       'Curriculum frameworks aligned to ECI values and local regulation',
       'Pathway design across phases and programmes',
@@ -147,7 +147,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Alumni Integration',
     shortName: 'Alumni',
     overview:
-      'Connects partner schools into a living Ellesmere alumni community — strengthening belonging, reputation and lifelong relationship with the brand.',
+      'Connects partner schools into a living Ellesmere alumni community, strengthening belonging, reputation and lifelong relationship with the brand.',
     attributes: [
       'Alumni network participation',
       'Storytelling and ambassador opportunities',
@@ -166,7 +166,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Digital and Operational Infrastructure Support',
     shortName: 'Digital & operations',
     overview:
-      'Foundational systems and operational guidance that keep partner schools running coherently — from digital platforms to day-to-day organisational rhythm.',
+      'Foundational systems and operational guidance that keep partner schools running coherently, from digital platforms to day-to-day organisational rhythm.',
     attributes: [
       'Operational infrastructure guidance',
       'Core digital systems alignment',
@@ -185,7 +185,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'School Uniform and Branding Supply Chain',
     shortName: 'Uniform supply chain',
     overview:
-      'A centralised supply and distribution model with an ECI-managed supplier and online ordering platform — preserving global brand standards while easing procurement for schools and families.',
+      'A centralised supply and distribution model with an ECI-managed supplier and online ordering platform, preserving global brand standards while easing procurement for schools and families.',
     attributes: [
       'Centralised supplier partnership tailored to regional climates and cultures',
       'ECI-controlled online ordering platform for schools and families',
@@ -200,7 +200,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     ],
     successCriteria: [
       '90% of orders fulfilled on time for academic year starts; 99%+ platform uptime',
-      '100% brand alignment — no unapproved local variation',
+      '100% brand alignment, no unapproved local variation',
       '80%+ satisfaction from operations teams and/or families',
       'Positive contribution to ECI overhead recovery through margin or service fee',
     ],
@@ -216,7 +216,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'New School Design and Facilities Planning',
     shortName: 'School design',
     overview:
-      'Expert design advisory so campuses are efficient, future-proof and reflective of Ellesmere values — balancing aesthetics, functionality, sustainability and local compliance.',
+      'Expert design advisory so campuses are efficient, future-proof and reflective of Ellesmere values, balancing aesthetics, functionality, sustainability and local compliance.',
     attributes: [
       'Concept and schematic design advisory',
       'Learning-centric layouts and specialist space planning',
@@ -247,7 +247,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Organisational Design and Staffing Models',
     shortName: 'Org & staffing',
     overview:
-      'Efficient, scalable organisational models and staffing plans aligned to school size, curriculum pathways and financial reality — building long-term leadership capacity.',
+      'Efficient, scalable organisational models and staffing plans aligned to school size, curriculum pathways and financial reality, building long-term leadership capacity.',
     attributes: [
       'Organisational structure advisory',
       'Role definition and scoping',
@@ -272,7 +272,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Timetable and Curriculum Architecture Support',
     shortName: 'Timetable & architecture',
     overview:
-      'Strategic and technical support to design curriculum frameworks and timetables that align pedagogy with operational realities — the operational spine of the school.',
+      'Strategic and technical support to design curriculum frameworks and timetables that align pedagogy with operational realities, the operational spine of the school.',
     attributes: [
       'Curriculum architecture across Key Stages and programmes',
       'Timetable model advisory',
@@ -297,7 +297,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Playground Design and Development',
     shortName: 'Playgrounds',
     overview:
-      'Purposeful outdoor learning environments that foster exploration, creativity, social development and wellbeing — play as an extension of the Ellesmere whole-child model.',
+      'Purposeful outdoor learning environments that foster exploration, creativity, social development and wellbeing, play as an extension of the Ellesmere whole-child model.',
     attributes: [
       'Playground philosophy and design principles',
       'Age and purpose zoning',
@@ -335,7 +335,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Sport Academy Development Support',
     shortName: 'Sport academies',
     overview:
-      'Design and delivery of high-quality sport programmes and academies that become a signature of the school offer — from recreational provision to elite pathways.',
+      'Design and delivery of high-quality sport programmes and academies that become a signature of the school offer, from recreational provision to elite pathways.',
     attributes: [
       'Strategic sport positioning',
       'Academy model design and talent pathways',
@@ -354,7 +354,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'The Arts and Performance Partnerships',
     shortName: 'Arts & performance',
     overview:
-      'Robust arts programmes beyond the classroom — partnerships, enrichment and showcases that treat the arts as core to a holistic Ellesmere education.',
+      'Robust arts programmes beyond the classroom, partnerships, enrichment and showcases that treat the arts as core to a holistic Ellesmere education.',
     attributes: [
       'Arts curriculum enrichment',
       'Performance and exhibition strategy',
@@ -373,7 +373,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Cultural Exchange and Twinning Initiatives',
     shortName: 'Cultural exchange',
     overview:
-      'Structured twinning and exchange — physical or virtual — that builds intercultural understanding across the ECI network and beyond.',
+      'Structured twinning and exchange, physical or virtual, that builds intercultural understanding across the ECI network and beyond.',
     attributes: [
       'School twinning programme design',
       'Cultural and language exchange opportunities',
@@ -411,7 +411,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'EdTech Integration Support',
     shortName: 'EdTech',
     overview:
-      'Coherent digital strategies that enhance learning — platform selection, blended models and safeguarding-compliant practice.',
+      'Coherent digital strategies that enhance learning, platform selection, blended models and safeguarding-compliant practice.',
     attributes: [
       'Digital strategy development',
       'Platform and tool selection',
@@ -449,7 +449,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Service Learning and Citizenship Frameworks',
     shortName: 'Service learning',
     overview:
-      'Structured service learning that fosters empathy, responsibility and active citizenship — preparing students for life beyond examinations.',
+      'Structured service learning that fosters empathy, responsibility and active citizenship, preparing students for life beyond examinations.',
     attributes: [
       'Whole-school service learning frameworks',
       'Curriculum integration and assessment',
@@ -506,7 +506,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Centralised University Counselling Services',
     shortName: 'Centralised counselling',
     overview:
-      'A premium, remotely delivered counselling model from ECI specialists — personalised guidance through the full university admissions journey.',
+      'A premium, remotely delivered counselling model from ECI specialists, personalised guidance through the full university admissions journey.',
     attributes: [
       'One-to-one specialist counselling',
       'End-to-end application management',
@@ -531,7 +531,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Psychometric Profiling and Learner Analytics',
     shortName: 'Learner analytics',
     overview:
-      'Validated psychometric tools and analytics dashboards so schools understand learners beyond grades — informing teaching, pastoral care and pathways.',
+      'Validated psychometric tools and analytics dashboards so schools understand learners beyond grades, informing teaching, pastoral care and pathways.',
     attributes: [
       'Cognitive and aptitude profiling',
       'Learner analytics dashboards',
@@ -550,7 +550,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Bespoke Scholarship and Talent Identification Frameworks',
     shortName: 'Talent identification',
     overview:
-      'Fair, mission-aligned scholarship and talent frameworks — academic, arts or sport — that add value without compromising equity or rigour.',
+      'Fair, mission-aligned scholarship and talent frameworks, academic, arts or sport, that add value without compromising equity or rigour.',
     attributes: [
       'Scholarship programme design',
       'Talent assessment models',
@@ -569,7 +569,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'End-to-End Teacher Recruitment Services',
     shortName: 'Teacher recruitment',
     overview:
-      'Full-spectrum recruitment from sourcing to onboarding — reducing administrative burden while improving quality and values alignment.',
+      'Full-spectrum recruitment from sourcing to onboarding, reducing administrative burden while improving quality and values alignment.',
     attributes: [
       'Global sourcing and shortlisting',
       'Interview support and reference checks',
@@ -588,7 +588,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Leadership Secondment or Interim Placement',
     shortName: 'Leadership secondment',
     overview:
-      'Experienced interim leaders for openings, transitions or turnaround moments — ensuring continuity and building local capacity.',
+      'Experienced interim leaders for openings, transitions or turnaround moments, ensuring continuity and building local capacity.',
     attributes: [
       'Strategic matching to school context',
       'Defined scope and mandate',
@@ -607,7 +607,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Governance and Board Development',
     shortName: 'Governance',
     overview:
-      'Effective governance structures and board capability — bridging educational insight and corporate oversight for sustainable schools.',
+      'Effective governance structures and board capability, bridging educational insight and corporate oversight for sustainable schools.',
     attributes: [
       'Governance framework advisory',
       'Board training and induction',
@@ -626,7 +626,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Turnkey New School Opening Support',
     shortName: 'Turnkey opening',
     overview:
-      'End-to-end support from concept to enrolment for new Ellesmere-branded institutions — academic, operational, legal and market launch.',
+      'End-to-end support from concept to enrolment for new Ellesmere-branded institutions, academic, operational, legal and market launch.',
     attributes: [
       'School concept and positioning strategy',
       'Regulatory and licensing advisory',
@@ -651,7 +651,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Feasibility Studies and Market Entry Strategy',
     shortName: 'Feasibility & entry',
     overview:
-      'Data-driven due diligence before market entry — demographics, regulation, competition and strategic recommendations that reduce risk.',
+      'Data-driven due diligence before market entry, demographics, regulation, competition and strategic recommendations that reduce risk.',
     attributes: [
       'Demographic and market analysis',
       'Regulatory landscape mapping',
@@ -670,7 +670,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Integrated Boarding School Development',
     shortName: 'Boarding development',
     overview:
-      'Design and launch of boarding provision as a fully integrated part of the school offer — facilities, pastoral systems and market positioning.',
+      'Design and launch of boarding provision as a fully integrated part of the school offer, facilities, pastoral systems and market positioning.',
     attributes: [
       'Boarding strategy and positioning',
       'Facility and residential life planning',
@@ -689,7 +689,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Brand Licensing for Sub-Models',
     shortName: 'Sub-model licensing',
     overview:
-      'Licensed Ellesmere sub-models — such as sixth-form hubs or sport academies — that preserve brand integrity while adapting to specialised local opportunities.',
+      'Licensed Ellesmere sub-models, such as sixth-form hubs or sport academies, that preserve brand integrity while adapting to specialised local opportunities.',
     attributes: [
       'Sub-model definition and customisation',
       'Brand usage and quality control',
@@ -727,7 +727,7 @@ export const PARTNER_SERVICES: PartnerService[] = [
     name: 'Custom Research or Innovation Pilots',
     shortName: 'Innovation pilots',
     overview:
-      'Co-created research and innovation pilots with ECI — generating actionable insight while positioning the school as a forward-thinking institution.',
+      'Co-created research and innovation pilots with ECI, generating actionable insight while positioning the school as a forward-thinking institution.',
     attributes: [
       'Collaborative project design',
       'Implementation and monitoring support',
@@ -749,7 +749,7 @@ export const FRAMEWORK_INTRO = {
   title: 'Partner Services & Product Offering',
   eyebrow: 'The ECI product',
   summary:
-    'A clear, tiered suite of services for international partner schools — from non-negotiable foundations to premium specialisation — so quality, brand integrity and commercial clarity travel together.',
+    'A clear, tiered suite of services for international partner schools, from non-negotiable foundations to premium specialisation, so quality, brand integrity and commercial clarity travel together.',
   whyItMatters: [
     'Group 1 defines what every partnership must include to protect quality and brand.',
     'Group 2 enhances student, staff and parent experience with market-ready differentiation.',

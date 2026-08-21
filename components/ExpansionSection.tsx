@@ -214,7 +214,7 @@ export default function ExpansionSection({
             <div className="w-14 h-1 bg-[#C8A84B] mb-4" />
             <p className="text-white/70 font-jost leading-relaxed">
               Ten open growth markets ranked for demand, income fit, regulatory openness and cultural
-              alignment with Ellesmere. Operating campuses stay on the map for context — select any
+              alignment with Ellesmere. Operating campuses stay on the map for context, select any
               destination to focus the region.
             </p>
           </div>

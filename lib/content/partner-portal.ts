@@ -1,4 +1,4 @@
-/** Content tailored for introduction agents and rainmakers — portal tiers only. */
+/** Content tailored for introduction agents and rainmakers, portal tiers only. */
 
 import { HERITAGE, OPERATING_SCHOOLS, OPENING_SOON, PRIMARY_PARTNERSHIP } from '@/lib/content/network'
 import { Document } from '@/lib/types'
@@ -7,7 +7,7 @@ export const PARTNER_ABOUT = {
   eyebrow: 'About ECI',
   title: 'Ellesmere College International',
   summary:
-    'ECI extends Ellesmere College — a British independent school founded in 1884 — through brand licensing. Investors build and operate schools under the Ellesmere name; we protect standards.',
+    'ECI extends Ellesmere College, a British independent school founded in 1884, through brand licensing. Investors build and operate schools under the Ellesmere name; we protect standards.',
   facts: [
     { label: 'Founded', value: String(HERITAGE.founded) },
     { label: 'Heritage campus', value: `${HERITAGE.campusAcres} acres, Shropshire` },
@@ -33,7 +33,7 @@ export const PARTNER_WHY = {
   points: [
     {
       title: 'A clear product',
-      body: 'Brand licensing to build an Ellesmere school — not a catalogue of equal options. Curriculum and advisory are add-ons only when needed.',
+      body: 'Brand licensing to build an Ellesmere school, not a catalogue of equal options. Curriculum and advisory are add-ons only when needed.',
     },
     {
       title: 'Proof, not a paper franchise',
@@ -146,7 +146,7 @@ export const DEMO_AGENT_MARKETING: Document[] = [
   {
     id: 'am2',
     title: 'Introduction partner talking points',
-    description: 'Approved lines for agents and rainmakers — brand licensing only.',
+    description: 'Approved lines for agents and rainmakers, brand licensing only.',
     category_id: null,
     doc_type: 'marketing',
     access_level: 'agent',

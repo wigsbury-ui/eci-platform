@@ -1,4 +1,4 @@
-/** Top expansion destinations — investor-facing rewrite of ECI market targeting analysis. */
+/** Top expansion destinations, investor-facing rewrite of ECI market targeting analysis. */
 
 export type MarketSignal = 'Low' | 'Moderate' | 'High' | 'Very High'
 
@@ -17,7 +17,7 @@ export type DestinationScores = Record<ScoreDimension, 1 | 2 | 3 | 4 | 5>
 export type TopDestination = {
   id: string
   rank: number
-  /** Composite 0–100 from multi-criteria targeting — for portal context only. */
+  /** Composite 0–100 from multi-criteria targeting, for portal context only. */
   compositeScore: number
   name: string
   shortName: string
@@ -51,7 +51,7 @@ export const MARKET_METHODOLOGY = {
   eyebrow: 'Market intelligence',
   title: 'How priority destinations are selected',
   summary:
-    'ECI’s expansion map is grounded in consistent, cross-market analysis across seven MENA countries — so partners can compare opportunities on the same terms.',
+    'ECI’s expansion map is grounded in consistent, cross-market analysis across seven MENA countries, so partners can compare opportunities on the same terms.',
   countries: ['Saudi Arabia', 'United Arab Emirates', 'Kuwait', 'Oman', 'Bahrain', 'Egypt', 'Morocco'],
   criteria: [
     'Family demand for quality international schooling',
@@ -61,7 +61,7 @@ export const MARKET_METHODOLOGY = {
     'UK curriculum familiarity and cultural alignment with ECI’s ethos',
   ],
   note:
-    'Rankings blend local scorecards with strategic weight — scale, brand visibility and regional influence — so high-impact cities sit alongside clear first-mover corridors.',
+    'Rankings blend local scorecards with strategic weight, scale, brand visibility and regional influence, so high-impact cities sit alongside clear first-mover corridors.',
 }
 
 /** Investor-facing Top 10 growth destinations (allocated operating markets such as Riyadh are excluded). */
@@ -77,7 +77,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 30.028,
     lng: 31.47,
     publicSummary:
-      'Egypt’s leading growth corridor — affluent families, strong British-school demand, and improving investment-zone clarity.',
+      'Egypt’s leading growth corridor, affluent families, strong British-school demand, and improving investment-zone clarity.',
     investorThesis:
       'A flagship-scale Egyptian opportunity where affluent Egyptian and international families are concentrating. Demand for a mid-premium British model is deep, and New Administrative Capital planning improves the investment environment for a purpose-built campus.',
     whyNow: [
@@ -143,7 +143,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 34.0209,
     lng: -6.8416,
     publicSummary:
-      'Diplomatic and professional capital — strong investor access and cultural alignment with a UK-heritage model.',
+      'Diplomatic and professional capital, strong investor access and cultural alignment with a UK-heritage model.',
     investorThesis:
       'Rabat combines elite and diplomatic family demand with consistent regulatory frameworks and high brand visibility. Cultural affinity with British education makes it a natural North African flagship for partners who value reputation as much as enrolment scale.',
     whyNow: [
@@ -176,7 +176,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 29.9381,
     lng: 30.9138,
     publicSummary:
-      'Suburban Cairo growth belt — strong income fit, family clusters, and room to differentiate on a mid-fee British offer.',
+      'Suburban Cairo growth belt, strong income fit, family clusters, and room to differentiate on a mid-fee British offer.',
     investorThesis:
       'West Cairo’s planned suburbs concentrate family demand with mid-fee sensitivity and multiple school zones. Competition is more moderate than core New Cairo, creating space for a clearly positioned Ellesmere campus with scalable phased growth.',
     whyNow: [
@@ -211,11 +211,11 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     publicSummary:
       'High-income UAE capital with regulatory support and sustained demand for quality UK school brands.',
     investorThesis:
-      'Abu Dhabi’s large private-student base and ADEK’s openness to quality private provision create a premium UAE platform. Competition is real, but demand for distinctive mid-to-upper British brands remains strong — especially with a clear quality and pastoral differentiator.',
+      'Abu Dhabi’s large private-student base and ADEK’s openness to quality private provision create a premium UAE platform. Competition is real, but demand for distinctive mid-to-upper British brands remains strong, especially with a clear quality and pastoral differentiator.',
     whyNow: [
       'Sizeable affluent and expat family market',
       'Regulator welcomes reputable private-sector entrants',
-      'UK curriculum penetration already high — parents recognise the category',
+      'UK curriculum penetration already high, parents recognise the category',
       'Regional brand value across the wider UAE corridor',
     ],
     partnerFit:
@@ -242,9 +242,9 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 33.448,
     lng: -7.65,
     publicSummary:
-      'Modern suburban Casablanca — limited British competition and strong residential appeal for family campuses.',
+      'Modern suburban Casablanca, limited British competition and strong residential appeal for family campuses.',
     investorThesis:
-      'Bouskoura sits in Casablanca’s affluent growth belt with modern residential development and comparatively light British-school competition. It offers a first-mover suburban play adjacent to Morocco’s largest commercial population — without the saturation of the city centre.',
+      'Bouskoura sits in Casablanca’s affluent growth belt with modern residential development and comparatively light British-school competition. It offers a first-mover suburban play adjacent to Morocco’s largest commercial population, without the saturation of the city centre.',
     whyNow: [
       'Affluent suburban catchment with family-oriented housing growth',
       'Lower competitive intensity than central Casablanca',
@@ -275,7 +275,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 24.347,
     lng: 56.73,
     publicSummary:
-      'Oman’s northern economic hub — limited competition and strong cultural alignment with the Ellesmere ethos.',
+      'Oman’s northern economic hub, limited competition and strong cultural alignment with the Ellesmere ethos.',
     investorThesis:
       'Sohar is a regional diversification play with genuine white space for an international British campus. Supportive regional development policy and close cultural fit make it a compelling market for a first British-heritage campus in northern Oman.',
     whyNow: [
@@ -308,9 +308,9 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 21.4858,
     lng: 39.1925,
     publicSummary:
-      'Saudi Arabia’s western gateway — established private sector, strong fee alignment, and appetite for trusted brands.',
+      'Saudi Arabia’s western gateway, established private sector, strong fee alignment, and appetite for trusted brands.',
     investorThesis:
-      'Jeddah offers a mature private-education market with proven willingness to pay for quality international schooling. As the Kingdom’s Red Sea gateway, it pairs commercial scale with brand appetite — a natural second Saudi city for partners building a multi-campus KSA strategy with Riyadh.',
+      'Jeddah offers a mature private-education market with proven willingness to pay for quality international schooling. As the Kingdom’s Red Sea gateway, it pairs commercial scale with brand appetite, a natural second Saudi city for partners building a multi-campus KSA strategy with Riyadh.',
     whyNow: [
       'Well-established private K–12 sector and fee capacity',
       'Strong demand for recognised international brands',
@@ -343,7 +343,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     publicSummary:
       'Emerging family districts with growing mid-fee demand and social compatibility with the Ellesmere community model.',
     investorThesis:
-      'Southern Bahrain’s expanding residential zones — notably Riffa and Isa Town — are building mid-fee family demand with room for new investment. It pairs well with a Northern Governorate campus as a Bahrain network strategy, or stands alone as an accessible growth market.',
+      'Southern Bahrain’s expanding residential zones, notably Riffa and Isa Town, are building mid-fee family demand with room for new investment. It pairs well with a Northern Governorate campus as a Bahrain network strategy, or stands alone as an accessible growth market.',
     whyNow: [
       'Expanding residential catchments and young family growth',
       'More accessible land and campus options than denser Manama',
@@ -375,9 +375,9 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     lat: 25.3463,
     lng: 55.4209,
     publicSummary:
-      'A more accessible UAE market with rising demand for quality schooling at moderate fees — and room for a distinctive British offer.',
+      'A more accessible UAE market with rising demand for quality schooling at moderate fees, and room for a distinctive British offer.',
     investorThesis:
-      'Sharjah combines a large private-student base with more moderate fee expectations than Abu Dhabi or Dubai. Fewer premium British options today create space for an Ellesmere campus positioned on quality, pastoral care and fee realism — a strong UAE corridor play alongside Abu Dhabi.',
+      'Sharjah combines a large private-student base with more moderate fee expectations than Abu Dhabi or Dubai. Fewer premium British options today create space for an Ellesmere campus positioned on quality, pastoral care and fee realism, a strong UAE corridor play alongside Abu Dhabi.',
     whyNow: [
       'Large and growing private K–12 enrolment base',
       'Demand for quality at mid-fee price points remains underserved',

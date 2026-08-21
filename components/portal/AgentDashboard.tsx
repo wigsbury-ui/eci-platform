@@ -94,7 +94,7 @@ export default function AgentDashboard({
         <h1 className="font-cormorant text-4xl text-[#2D1654]">Partner overview</h1>
         <p className="text-sm text-gray-500 font-jost mt-2 max-w-2xl">
           Introduce investors who want to build a school under the Ellesmere brand. Use approved
-          marketing and investor materials only — then log every introduction as a referral.
+          marketing and investor materials only, then log every introduction as a referral.
         </p>
         <p className="mt-3 inline-block text-xs font-jost font-semibold uppercase tracking-wider px-2.5 py-1 bg-[#F0FDFA] text-[#0E7490]">
           {partnerStatusLabel('accepted')} · {channel}

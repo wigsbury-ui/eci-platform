@@ -30,7 +30,7 @@ export default function AgentsPage() {
     <main className="home-snap">
       <PublicNav solid />
 
-      {/* Hero — mirrored Investors layout */}
+      {/* Hero, mirrored Investors layout */}
       <section className="home-window relative min-h-[100svh] flex flex-col overflow-hidden">
         <ParallaxHeroBackground
           src="/images/agents/hero-dusk.jpg"
@@ -99,7 +99,7 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* How it works — image + process */}
+      {/* How it works, image + process */}
       <section
         id="how-it-works"
         className="home-window relative min-h-[100svh] flex flex-col justify-center bg-[#F8F4EF] py-16 md:py-20"
@@ -333,7 +333,7 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* One standard — compact, image-backed */}
+      {/* One standard, compact, image-backed */}
       <section className="home-window relative min-h-[70svh] flex flex-col justify-end overflow-hidden py-16 md:py-20">
         <Image
           src="/images/campus/uk-students-1.png"
