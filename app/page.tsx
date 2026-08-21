@@ -6,7 +6,6 @@ import SchoolsSection from '@/components/SchoolsSection'
 import DohaSpotlightSection from '@/components/DohaSpotlightSection'
 import ExpansionSection from '@/components/ExpansionSection'
 import PartnershipSection from '@/components/PartnershipSection'
-import AgentsSection from '@/components/AgentsSection'
 import TeamSection from '@/components/TeamSection'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
@@ -21,7 +20,6 @@ export default function HomePage() {
       <SchoolsSection />
       <DohaSpotlightSection />
       <ExpansionSection />
-      <AgentsSection />
       <TeamSection />
       <PartnershipSection />
       <ContactSection
