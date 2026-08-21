@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { TEAM_MEMBERS } from '@/lib/content/team'
 
 function LinkedInIcon({ className = 'w-4 h-4' }: { className?: string }) {
