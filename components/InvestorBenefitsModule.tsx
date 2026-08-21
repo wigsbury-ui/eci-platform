@@ -96,8 +96,8 @@ export default function InvestorBenefitsModule() {
               {INVESTOR_BENEFITS_INTRO.eyebrow}
             </p>
             <h2
-              className="max-w-[18ch] font-cormorant font-semibold leading-[1.02] tracking-[-0.025em] text-[#2D1654]"
-              style={{ fontSize: 'clamp(2.75rem, 5.4vw, 4.35rem)' }}
+              className="whitespace-nowrap font-cormorant font-semibold leading-[1.02] tracking-[-0.025em] text-[#2D1654]"
+              style={{ fontSize: 'clamp(1.85rem, 4.2vw, 4.35rem)' }}
             >
               {INVESTOR_BENEFITS_INTRO.title}
             </h2>
