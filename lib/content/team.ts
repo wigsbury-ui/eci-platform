@@ -27,18 +27,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'JS',
   },
   {
-    id: 'vicky-pritt-roberts',
-    name: 'Vicky Pritt-Roberts',
-    title: 'Senior Deputy Head, Ellesmere College',
-    shortBio:
-      'Long-serving Ellesmere leader supporting academic standards, pastoral care and the Life:Ready culture that travels with partner schools.',
-    fullBio:
-      'Vicky Pritt-Roberts is Senior Deputy Head at Ellesmere College, with long experience in school leadership, teaching and educational development. She helps uphold the academic and pastoral standards of the Shropshire campus so that partner schools in the Ellesmere College International network inherit a coherent, lived culture, not only a brand name.',
-    image: null,
-    linkedin: 'https://www.linkedin.com/in/vicky-pritt-roberts-58484953',
-    initials: 'VP',
-  },
-  {
     id: 'neil-tomalin',
     name: 'Neil Tomalin',
     title: 'Director of International Strategy & School Development, ECI',
@@ -50,6 +38,18 @@ export const TEAM_MEMBERS: TeamMember[] = [
     linkedin: 'https://www.linkedin.com/in/neil-tomalin/',
     initials: 'NT',
     avatarClassName: 'object-cover object-[center_18%] scale-[1.55]',
+  },
+  {
+    id: 'vicky-pritt-roberts',
+    name: 'Vicky Pritt-Roberts',
+    title: 'Senior Deputy Head, Ellesmere College',
+    shortBio:
+      'Long-serving Ellesmere leader supporting academic standards, pastoral care and the Life:Ready culture that travels with partner schools.',
+    fullBio:
+      'Vicky Pritt-Roberts is Senior Deputy Head at Ellesmere College, with long experience in school leadership, teaching and educational development. She helps uphold the academic and pastoral standards of the Shropshire campus so that partner schools in the Ellesmere College International network inherit a coherent, lived culture, not only a brand name.',
+    image: null,
+    linkedin: 'https://www.linkedin.com/in/vicky-pritt-roberts-58484953',
+    initials: 'VP',
   },
   {
     id: 'paul-shropshire',
