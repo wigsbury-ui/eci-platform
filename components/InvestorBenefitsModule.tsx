@@ -90,22 +90,22 @@ export default function InvestorBenefitsModule() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(5.25rem,var(--eci-nav-offset))] pb-6 md:px-10 md:pb-8">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(5.25rem,var(--eci-nav-offset))] pb-6 md:pb-8">
           <header className="relative shrink-0">
-            <p className="mb-3 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
+            <p className="mb-2 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
               {INVESTOR_BENEFITS_INTRO.eyebrow}
             </p>
             <h2
-              className="whitespace-nowrap font-cormorant font-semibold leading-[1.02] tracking-[-0.025em] text-[#2D1654]"
-              style={{ fontSize: 'clamp(1.85rem, 4.2vw, 4.35rem)' }}
+              className="whitespace-nowrap font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
             >
               {INVESTOR_BENEFITS_INTRO.title}
             </h2>
-            <div className="mt-5 h-1 w-14 bg-[#C8A84B]" />
+            <div className="mt-4 h-1 w-14 bg-[#C8A84B]" />
           </header>
 
           <nav
-            className="mt-7 flex shrink-0 gap-1 overflow-x-auto pb-1 eci-benefits-scroll md:mt-8 md:flex-wrap md:gap-x-1 md:gap-y-2 md:overflow-visible"
+            className="mt-5 flex shrink-0 gap-1 overflow-x-auto pb-1 eci-benefits-scroll md:flex-wrap md:gap-x-1 md:gap-y-2 md:overflow-visible"
             aria-label="Benefit topics"
           >
             {INVESTOR_BENEFITS.map((benefit, index) => {
@@ -130,11 +130,11 @@ export default function InvestorBenefitsModule() {
             })}
           </nav>
 
-          <div className="mt-2 h-px w-full bg-[#2D1654]/10" aria-hidden />
+          <div className="mt-1 h-px w-full bg-[#2D1654]/10" aria-hidden />
 
           <article
             key={item.id}
-            className="eci-benefits-card mt-6 grid min-h-0 flex-1 grid-cols-1 items-center gap-8 md:mt-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.7fr)] lg:gap-12"
+            className="eci-benefits-card mt-4 grid min-h-0 flex-1 grid-cols-1 items-start gap-6 md:mt-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.7fr)] lg:gap-10"
           >
             <div className="min-w-0">
               <p className="mb-2 font-jost text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
