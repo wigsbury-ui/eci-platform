@@ -85,13 +85,6 @@ export default function TeamSection() {
             </article>
           ))}
         </div>
-
-        <p className="mt-10 text-center text-sm font-jost text-[#2D1654]/55">
-          Photographs for additional colleagues can be added as they are confirmed.{' '}
-          <Link href="/#contact" className="text-[#2D1654] font-semibold hover:text-[#C8A84B]">
-            Get in touch →
-          </Link>
-        </p>
       </div>
     </section>
   )
