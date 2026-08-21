@@ -8,7 +8,7 @@
 
 export const INVESTOR_BENEFITS_INTRO = {
   eyebrow: 'Partnership benefits',
-  title: 'What an investing company actually gets',
+  title: 'What the partnership delivers',
 } as const
 
 export type InvestorBenefit = {
