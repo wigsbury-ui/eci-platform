@@ -33,7 +33,7 @@ export default function NeilMessageSection() {
 
       <div className="relative mx-auto w-full max-w-7xl px-6">
         <div
-          className={`grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start lg:gap-16 transition-all duration-1000 ${
+          className={`grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16 transition-all duration-1000 ${
             ready ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
           }`}
         >
@@ -86,7 +86,7 @@ export default function NeilMessageSection() {
             </Link>
           </div>
 
-          <div className="order-1 mx-auto w-fit max-w-full lg:order-2 lg:mx-0 lg:justify-self-end">
+          <div className="order-1 mx-auto w-fit max-w-full lg:order-2 lg:mx-0 lg:justify-self-end lg:pt-6">
             <div className="w-fit max-w-full border border-[#C8A84B]/60 p-2.5">
               <div className="relative aspect-[3/4] w-[min(100vw-3rem,18.5rem)] overflow-hidden bg-[#1A1228] sm:w-[19rem] xl:w-[20.5rem]">
                 <Image
@@ -99,13 +99,12 @@ export default function NeilMessageSection() {
                 />
               </div>
             </div>
-            <p className="mt-4 font-jost text-sm tracking-wide text-[#C8A84B]">
-              Neil Tomalin
-              <span className="text-white/50"> · </span>
-              <span className="text-white/70">
+            <div className="mt-4">
+              <p className="font-jost text-sm tracking-wide text-[#C8A84B]">Neil Tomalin</p>
+              <p className="mt-1 max-w-[19rem] font-jost text-sm leading-snug text-white/65 xl:max-w-[20.5rem]">
                 Director of International Strategy &amp; School Development
-              </span>
-            </p>
+              </p>
+            </div>
           </div>
         </div>
       </div>
