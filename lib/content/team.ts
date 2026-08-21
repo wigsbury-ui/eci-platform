@@ -34,10 +34,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
       'Leads ECI’s international growth, partner school development and strategic planning across the Middle East, building schools that families love to belong to.',
     fullBio:
       'As Director of International Strategy and School Development at Ellesmere College International, Neil leads international growth, strategic planning and partner school development. He brings senior school leadership experience, including as Principal of Ellesmere Muscat, to help partners open and run strong, future-facing campuses grounded in Ellesmere’s educational values.',
-    image: '/images/people/neil-tomalin.jpg',
+    image: '/images/people/neil-tomalin-avatar.jpg',
     linkedin: 'https://www.linkedin.com/in/neil-tomalin/',
     initials: 'NT',
-    avatarClassName: 'object-cover object-[center_18%] scale-[1.55]',
   },
   {
     id: 'vicky-pritt-roberts',
