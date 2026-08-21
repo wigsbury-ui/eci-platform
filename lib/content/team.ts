@@ -25,6 +25,18 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'JS',
   },
   {
+    id: 'vicky-pritt-roberts',
+    name: 'Vicky Pritt-Roberts',
+    title: 'Senior Deputy Head, Ellesmere College',
+    shortBio:
+      'Long-serving Ellesmere leader supporting academic standards, pastoral care and the Life:Ready culture that travels with partner schools.',
+    fullBio:
+      'Vicky Pritt-Roberts is Senior Deputy Head at Ellesmere College, with long experience in school leadership, teaching and educational development. She helps uphold the academic and pastoral standards of the Shropshire campus so that partner schools in the Ellesmere College International network inherit a coherent, lived culture, not only a brand name.',
+    image: null,
+    linkedin: 'https://www.linkedin.com/in/vicky-pritt-roberts-58484953',
+    initials: 'VP',
+  },
+  {
     id: 'neil-tomalin',
     name: 'Neil Tomalin',
     title: 'Director of International Strategy & School Development, ECI',
@@ -37,27 +49,15 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'NT',
   },
   {
-    id: 'partnerships-lead',
-    name: 'Head of Partnerships',
-    title: 'School & investor relations',
+    id: 'paul-shropshire',
+    name: 'Paul Shropshire',
+    title: 'Education Mentor',
     shortBio:
-      'Primary contact for partner schools and introduction agents, keeping strategy, quality assurance and day-to-day delivery coherent.',
+      'Former Principal of The British School of Kuwait, mentoring partner schools on leadership, standards and school improvement.',
     fullBio:
-      'The Head of Partnerships is the named relationship lead for ECI partner schools and trusted introduction agents. The role bridges educational quality, commercial clarity and operational support so every partnership remains accountable and ambitious.',
+      'Paul Shropshire is an Education Mentor with Ellesmere College International. He previously served as Principal of The British School of Kuwait, bringing nearly three decades of senior international school leadership. He supports partner campuses with practical mentoring on school improvement, leadership and the day-to-day standards that help families trust an Ellesmere education.',
     image: null,
-    linkedin: 'https://www.linkedin.com/',
-    initials: 'HP',
-  },
-  {
-    id: 'expansion-lead',
-    name: 'Expansion Lead',
-    title: 'Markets & new campuses',
-    shortBio:
-      'Advances ECI’s ranked growth destinations, from New Cairo and Bahrain to Morocco, Abu Dhabi and beyond.',
-    fullBio:
-      'The Expansion Lead works across ECI’s Top 10 priority destinations, supporting site selection conversations, regulatory readiness and the early-stage partnership work that turns market intelligence into operating campuses.',
-    image: null,
-    linkedin: 'https://www.linkedin.com/',
-    initials: 'EL',
+    linkedin: 'https://www.linkedin.com/in/paul-shropshire-88559843',
+    initials: 'PS',
   },
 ]

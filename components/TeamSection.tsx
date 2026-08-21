@@ -39,7 +39,7 @@ export default function TeamSection() {
             <article
               key={member.id}
               id={member.id}
-              className="border-2 border-[#2D1654]/10 bg-[#F8F4EF]/40 p-7 md:p-8 flex flex-col sm:flex-row gap-6"
+              className="border-2 border-[#2D1654]/10 bg-[#F8F4EF]/40 p-7 md:p-8 flex flex-col sm:flex-row sm:items-center gap-6"
             >
               <div className="shrink-0 mx-auto sm:mx-0">
                 {member.image ? (
@@ -86,8 +86,7 @@ export default function TeamSection() {
         </div>
 
         <p className="mt-10 text-sm font-jost text-[#2D1654]/55">
-          Names and photographs for additional colleagues can be updated as the ECI team is
-          confirmed.{' '}
+          Photographs for additional colleagues can be added as they are confirmed.{' '}
           <Link href="/#contact" className="text-[#2D1654] font-semibold hover:text-[#C8A84B]">
             Get in touch →
           </Link>
