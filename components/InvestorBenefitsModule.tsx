@@ -122,13 +122,6 @@ export default function InvestorBenefitsModule() {
                   }`}
                   aria-current={isActive ? 'true' : undefined}
                 >
-                  <span
-                    className={`mb-0.5 block font-jost text-[10px] tracking-[0.16em] ${
-                      isActive ? 'text-[#C8A84B]' : 'text-[#2D1654]/30'
-                    }`}
-                  >
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
                   <span className="block whitespace-nowrap font-jost text-[13px] leading-tight md:text-sm">
                     {benefit.label}
                   </span>
