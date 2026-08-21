@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 
 type Props = {
   title?: string
@@ -8,6 +9,11 @@ type Props = {
   defaultInterest?: string
   /** Extra classes on the outer section (e.g. full-viewport module layouts). */
   className?: string
+  /** Optional explainer video shown above the left-column copy (Agents contact). */
+  videoSrc?: string
+  videoPosterSrc?: string
+  videoTitle?: string
+  videoDurationLabel?: string
 }
 
 export default function ContactSection({
@@ -15,6 +21,10 @@ export default function ContactSection({
   subtitle = 'Whether you are exploring a full partnership, an investment opportunity, or simply want to learn more about ECI, we welcome your enquiry.',
   defaultInterest = '',
   className = '',
+  videoSrc,
+  videoPosterSrc,
+  videoTitle = 'How to get in touch',
+  videoDurationLabel = '48 second video',
 }: Props) {
   const [form, setForm] = useState({
     full_name: '',
@@ -61,6 +71,18 @@ export default function ContactSection({
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-20 items-start">
           <div>
+            {videoSrc && videoPosterSrc ? (
+              <div className="mb-10 max-w-md">
+                <GrowthHeroVideo
+                  variant="card"
+                  className="w-full max-w-md"
+                  videoSrc={videoSrc}
+                  posterSrc={videoPosterSrc}
+                  title={videoTitle}
+                  durationLabel={videoDurationLabel}
+                />
+              </div>
+            ) : null}
             <p className="text-[#4C2585] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">
               Get in touch
             </p>

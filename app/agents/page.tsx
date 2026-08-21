@@ -376,6 +376,10 @@ export default function AgentsPage() {
         subtitle="Tell us whether you are exploring the agent channel or the rainmaker network. We typically respond within three working days."
         defaultInterest="Agent / Introduction Partner"
         className="home-window min-h-[100svh] flex flex-col justify-center !py-20"
+        videoSrc="/videos/agent-apply.mp4"
+        videoPosterSrc="/videos/agent-apply-poster.jpg"
+        videoTitle="How to get in touch"
+        videoDurationLabel="48 second video"
       />
 
       <Footer />

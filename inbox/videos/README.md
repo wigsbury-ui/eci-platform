@@ -11,5 +11,6 @@ Expected filenames:
 |---|---|---|
 | Investors / Growth hero | `Investor_Intro_with_captions.mp4` | `public/videos/investor-intro.mp4` |
 | Agents hero | Google Drive / agent source | `public/videos/agent-intro.mp4` |
+| Agents contact | Google Drive / HeyGen export | `public/videos/agent-apply.mp4` |
 
 The agent will compress sources into `public/videos/` and can remove inbox originals afterwards so the repo stays lean.
