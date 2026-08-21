@@ -90,7 +90,7 @@ export default function InvestorBenefitsModule() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(5.25rem,var(--eci-nav-offset))] pb-6 md:pb-8">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(6.75rem,calc(var(--eci-nav-offset)+1.75rem))] pb-6 md:pb-8">
           <header className="relative shrink-0">
             <p className="mb-2 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
               {INVESTOR_BENEFITS_INTRO.eyebrow}
