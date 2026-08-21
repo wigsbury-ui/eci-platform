@@ -8,6 +8,7 @@ import ExpansionSection from '@/components/ExpansionSection'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import ParallaxHeroBackground from '@/components/ParallaxHeroBackground'
 import InvestorBenefitsModule from '@/components/InvestorBenefitsModule'
+import NeilMessageSection from '@/components/NeilMessageSection'
 import {
   INVESTOR_VALUE_PROPS,
   PRIMARY_PARTNERSHIP,
@@ -170,7 +171,10 @@ export default function InvestorsPage() {
       {/* 3 — Concrete partnership benefits (viewport-locked; scrolls inside) */}
       <InvestorBenefitsModule />
 
-      {/* 4 — Riyadh success story */}
+      {/* 4 — From Neil Tomalin */}
+      <NeilMessageSection />
+
+      {/* 5 — Riyadh success story */}
       <section
         id="riyadh"
         className="home-window relative min-h-[100svh] flex flex-col justify-center bg-white py-16 md:py-20"
@@ -280,10 +284,10 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* 4 — Expansion map */}
+      {/* 5 — Expansion map */}
       <ExpansionSection asModule sectionId="top-destinations" ctaHref="/investors#offer" />
 
-      {/* 5 — Contact */}
+      {/* 6 — Contact */}
       <ContactSection
         title="Start a growth conversation"
         subtitle="Tell us about markets, capital profile, and timing if you want to build under the Ellesmere brand. We typically respond within three working days."

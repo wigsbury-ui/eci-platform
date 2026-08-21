@@ -25,16 +25,16 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'JS',
   },
   {
-    id: 'network-director',
-    name: 'Network Director',
-    title: 'Ellesmere College International',
+    id: 'neil-tomalin',
+    name: 'Neil Tomalin',
+    title: 'Director of International Strategy & School Development, ECI',
     shortBio:
-      'Leads ECI’s international growth strategy — aligning investors, operators and school leaders around quality, brand and long-term partnership.',
+      'Leads ECI’s international growth, partner school development and strategic planning across the Middle East — building schools that families love to belong to.',
     fullBio:
-      'The Network Director oversees Ellesmere College International’s partnership pipeline across the Middle East and North Africa, coordinating market prioritisation, investor engagement and the delivery standards that protect the Ellesmere name in every new campus.',
-    image: null,
-    linkedin: 'https://www.linkedin.com/',
-    initials: 'ND',
+      'As Director of International Strategy and School Development at Ellesmere College International, Neil leads international growth, strategic planning and partner school development. He brings senior school leadership experience — including as Principal of Ellesmere Muscat — to help partners open and run strong, future-facing campuses grounded in Ellesmere’s educational values.',
+    image: '/images/people/neil-tomalin.jpg',
+    linkedin: 'https://www.linkedin.com/in/neil-tomalin/',
+    initials: 'NT',
   },
   {
     id: 'partnerships-lead',
