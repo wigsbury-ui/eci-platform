@@ -38,7 +38,7 @@ export default function TeamSection() {
             <article
               key={member.id}
               id={member.id}
-              className="flex flex-col gap-3 border border-[#2D1654]/10 bg-[#F8F4EF]/50 px-4 py-3.5 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-4"
+              className="flex flex-col gap-3.5 border border-[#2D1654]/10 bg-[#F8F4EF]/50 px-4 py-4 sm:flex-row sm:items-center sm:gap-4 sm:px-5 sm:py-5"
             >
               <div className="mx-auto shrink-0 sm:mx-0">
                 {member.image ? (
@@ -75,10 +75,10 @@ export default function TeamSection() {
                     <LinkedInIcon className="h-3.5 w-3.5" />
                   </a>
                 </div>
-                <p className="mb-1.5 font-jost text-xs font-medium text-[#4C2585] md:text-sm">
+                <p className="mb-2 font-jost text-xs font-medium text-[#4C2585] md:text-sm">
                   {member.title}
                 </p>
-                <p className="font-jost text-[13px] leading-snug text-[#2D1654]/70 md:text-sm md:leading-relaxed">
+                <p className="font-jost text-[13px] leading-relaxed text-[#2D1654]/70 md:text-sm">
                   {member.shortBio}
                 </p>
               </div>
