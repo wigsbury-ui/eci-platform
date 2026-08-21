@@ -17,24 +17,24 @@ export default function TeamSection() {
       className="relative py-24 md:py-28 bg-white scroll-mt-[var(--eci-nav-offset)]"
     >
       <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-2xl mb-14">
+        <div className="mx-auto mb-14 max-w-3xl text-center">
           <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
             Leadership
           </p>
           <h2
-            className="font-cormorant font-semibold text-[#2D1654] leading-tight"
-            style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
+            className="font-cormorant font-semibold text-[#2D1654] leading-tight whitespace-nowrap"
+            style={{ fontSize: 'clamp(1.75rem, 3.2vw, 3.25rem)' }}
           >
             The people behind the partnership
           </h2>
-          <div className="w-14 h-1 bg-[#C8A84B] mt-4 mb-4" />
-          <p className="text-[#2D1654]/70 font-jost leading-relaxed">
+          <div className="mx-auto w-14 h-1 bg-[#C8A84B] mt-4 mb-4" />
+          <p className="text-[#2D1654]/70 font-jost leading-relaxed max-w-2xl mx-auto">
             Educational stewardship and international partnership, the team that protects
             Ellesmere&apos;s standards as the network grows.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="mx-auto grid max-w-5xl md:grid-cols-2 gap-8">
           {TEAM_MEMBERS.map(member => (
             <article
               key={member.id}
@@ -86,7 +86,7 @@ export default function TeamSection() {
           ))}
         </div>
 
-        <p className="mt-10 text-sm font-jost text-[#2D1654]/55">
+        <p className="mt-10 text-center text-sm font-jost text-[#2D1654]/55">
           Photographs for additional colleagues can be added as they are confirmed.{' '}
           <Link href="/#contact" className="text-[#2D1654] font-semibold hover:text-[#C8A84B]">
             Get in touch →
