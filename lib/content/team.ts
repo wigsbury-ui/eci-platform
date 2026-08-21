@@ -9,6 +9,8 @@ export type TeamMember = {
   image: string | null
   linkedin: string
   initials: string
+  /** Optional object-fit / crop classes for circular avatars */
+  avatarClassName?: string
 }
 
 export const TEAM_MEMBERS: TeamMember[] = [
@@ -47,6 +49,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: '/images/people/neil-tomalin.jpg',
     linkedin: 'https://www.linkedin.com/in/neil-tomalin/',
     initials: 'NT',
+    avatarClassName: 'object-cover object-[center_18%] scale-[1.55]',
   },
   {
     id: 'paul-shropshire',

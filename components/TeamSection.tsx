@@ -43,14 +43,15 @@ export default function TeamSection() {
             >
               <div className="shrink-0 mx-auto sm:mx-0">
                 {member.image ? (
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    width={112}
-                    height={112}
-                    className="rounded-full object-cover object-top ring-2 ring-[#C8A84B]/40"
-                    style={{ width: 112, height: 112 }}
-                  />
+                  <div className="relative h-[112px] w-[112px] overflow-hidden rounded-full ring-2 ring-[#C8A84B]/40">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="112px"
+                      className={member.avatarClassName ?? 'object-cover object-top'}
+                    />
+                  </div>
                 ) : (
                   <div
                     className="rounded-full bg-[#2D1654] text-[#C8A84B] flex items-center justify-center font-cormorant font-semibold text-3xl ring-2 ring-[#C8A84B]/40"
