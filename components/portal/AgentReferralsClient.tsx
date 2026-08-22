@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react'
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
-import { AGENT_NAV_ITEMS, AGENT_PORTAL_ACCENT } from '@/components/portal/agentNav'
+import { AGENT_PORTAL_ACCENT, AGENT_PORTAL_NAME, agentNavForProfile } from '@/components/portal/agentNav'
 import { DEMO_AGENT_REFERRALS } from '@/lib/content/agents'
 import { TOP_DESTINATIONS } from '@/lib/content/expansion-markets'
 import { Profile } from '@/lib/types'
@@ -25,9 +25,9 @@ export default function AgentReferralsClient({ profile }: { profile: Profile | n
   return (
     <PortalShell
       profile={profile}
-      portalName="Agent Portal"
+      portalName={AGENT_PORTAL_NAME}
       portalAccent={AGENT_PORTAL_ACCENT}
-      navItems={AGENT_NAV_ITEMS}
+      navItems={agentNavForProfile(profile)}
       activeSection="/agent/referrals"
     >
       <div className="mb-10 max-w-3xl">
@@ -37,7 +37,7 @@ export default function AgentReferralsClient({ profile }: { profile: Profile | n
         <h1 className="font-cormorant text-4xl text-[#2D1654] mb-3">Investor introductions</h1>
         <p className="text-gray-500 font-jost text-sm leading-relaxed">
           Submit qualified investor or operator introductions. ECI reviews each referral and leads
-          diligence — you retain visibility on status here.
+          diligence, you retain visibility on status here.
         </p>
       </div>
 
@@ -99,7 +99,7 @@ export default function AgentReferralsClient({ profile }: { profile: Profile | n
           >
             {TOP_DESTINATIONS.map(d => (
               <option key={d.id} value={`${d.shortName} / ${d.country}`}>
-                #{d.rank} {d.shortName} — {d.country}
+                #{d.rank} {d.shortName}, {d.country}
               </option>
             ))}
             <option value="Multiple / regional">Multiple / regional</option>

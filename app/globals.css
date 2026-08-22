@@ -9,6 +9,8 @@
   --eci-gold-light: #F0E4B0;
   --eci-cream: #F8F4EF;
   --eci-dark: #1A1228;
+  /* Fixed public nav height, keeps scroll-snap / anchors clear of the menu */
+  --eci-nav-offset: 5rem;
 }
 
 body {
@@ -17,17 +19,23 @@ body {
   color: #111827;
 }
 
-/* Soft edge stickiness for full-viewport modules (home + growth) */
-@media (min-width: 768px) {
-  html:has(main.home-snap) {
-    scroll-snap-type: y proximity;
-    scroll-padding-top: 0;
-  }
+/* Full-viewport marketing modules (home + growth).
+   No scroll-snap, previous proximity snap felt sticky and fought the fixed nav.
+   Do NOT use scroll-padding-top here: it leaves a body-coloured strip between the
+   fixed nav and dark modules (e.g. Head’s Message) when hash-navigating.
+   Content clears the nav via each section’s own padding / vertical centering. */
+html:has(main.home-snap) {
+  scroll-padding-top: 0;
+}
 
-  main.home-snap > section.home-window {
-    scroll-snap-align: start;
-    scroll-margin-top: 0;
-  }
+main.home-snap > section.home-window {
+  scroll-snap-align: none;
+  scroll-margin-top: 0;
+}
+
+/* When a full-bleed module is the hash target, keep its paint flush under the nav. */
+main.home-snap > section.home-window[id] {
+  scroll-margin-top: 0;
 }
 
 .font-cormorant { font-family: 'Cormorant Garamond', Georgia, serif !important; }
@@ -67,6 +75,37 @@ body {
 
 @keyframes eci-map-arc-dash {
   to { stroke-dashoffset: -48; }
+}
+
+/* Investor benefits: pinned frame index + card enter */
+.eci-benefits-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(200, 168, 75, 0.55) transparent;
+}
+.eci-benefits-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.eci-benefits-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.eci-benefits-scroll::-webkit-scrollbar-thumb {
+  background: rgba(200, 168, 75, 0.45);
+  border-radius: 999px;
+}
+
+@keyframes eci-benefits-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eci-benefits-card {
+  animation: eci-benefits-card-in 0.45s ease-out both;
 }
 
 .eci-map-ripple {

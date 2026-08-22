@@ -9,6 +9,8 @@ export type TeamMember = {
   image: string | null
   linkedin: string
   initials: string
+  /** Optional object-fit / crop classes for circular avatars */
+  avatarClassName?: string
 }
 
 export const TEAM_MEMBERS: TeamMember[] = [
@@ -17,7 +19,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: 'Jon Shaw',
     title: 'Head, Ellesmere College',
     shortBio:
-      'Steward of Ellesmere’s Life:Ready philosophy — guiding how British heritage education travels with integrity into international partnerships.',
+      'Jon Shaw leads Ellesmere College in Shropshire and champions the educational values behind Ellesmere College International. He works to ensure every partner campus reflects the College’s commitment to academic excellence, pastoral care and preparing young people to be Life:Ready.',
     fullBio:
       'Jon Shaw leads Ellesmere College in Shropshire and champions the educational values that underpin Ellesmere College International. His focus is ensuring every partner campus reflects the College’s commitment to academic excellence, pastoral care and preparing young people to be Life:Ready.',
     image: '/images/people/jon-shaw.jpg',
@@ -25,39 +27,39 @@ export const TEAM_MEMBERS: TeamMember[] = [
     initials: 'JS',
   },
   {
-    id: 'network-director',
-    name: 'Network Director',
-    title: 'Ellesmere College International',
+    id: 'neil-tomalin',
+    name: 'Neil Tomalin',
+    title: 'Director of International Strategy & School Development, ECI',
     shortBio:
-      'Leads ECI’s international growth strategy — aligning investors, operators and school leaders around quality, brand and long-term partnership.',
+      'Neil leads ECI’s international growth, strategic planning and partner school development across the Middle East. A former Principal of Ellesmere Muscat, he helps partners open and run strong campuses grounded in Ellesmere’s values, with a focus on schools that families love to belong to.',
     fullBio:
-      'The Network Director oversees Ellesmere College International’s partnership pipeline across the Middle East and North Africa, coordinating market prioritisation, investor engagement and the delivery standards that protect the Ellesmere name in every new campus.',
-    image: null,
-    linkedin: 'https://www.linkedin.com/',
-    initials: 'ND',
+      'As Director of International Strategy and School Development at Ellesmere College International, Neil leads international growth, strategic planning and partner school development. He brings senior school leadership experience, including as Principal of Ellesmere Muscat, to help partners open and run strong, future-facing campuses grounded in Ellesmere’s educational values.',
+    image: '/images/people/neil-tomalin-avatar.jpg',
+    linkedin: 'https://www.linkedin.com/in/neil-tomalin/',
+    initials: 'NT',
   },
   {
-    id: 'partnerships-lead',
-    name: 'Head of Partnerships',
-    title: 'School & investor relations',
+    id: 'vicky-pritt-roberts',
+    name: 'Vicky Pritt-Roberts',
+    title: 'Senior Deputy Head, Ellesmere College',
     shortBio:
-      'Primary contact for partner schools and introduction agents — keeping strategy, quality assurance and day-to-day delivery coherent.',
+      'Vicky is Senior Deputy Head at Ellesmere College, with long experience in school leadership, teaching and educational development. She helps uphold the academic and pastoral standards of the Shropshire campus so partner schools inherit a coherent, lived culture, not only a brand name.',
     fullBio:
-      'The Head of Partnerships is the named relationship lead for ECI partner schools and trusted introduction agents. The role bridges educational quality, commercial clarity and operational support so every partnership remains accountable and ambitious.',
+      'Vicky Pritt-Roberts is Senior Deputy Head at Ellesmere College, with long experience in school leadership, teaching and educational development. She helps uphold the academic and pastoral standards of the Shropshire campus so that partner schools in the Ellesmere College International network inherit a coherent, lived culture, not only a brand name.',
     image: null,
-    linkedin: 'https://www.linkedin.com/',
-    initials: 'HP',
+    linkedin: 'https://www.linkedin.com/in/vicky-pritt-roberts-58484953',
+    initials: 'VP',
   },
   {
-    id: 'expansion-lead',
-    name: 'Expansion Lead',
-    title: 'Markets & new campuses',
+    id: 'paul-shropshire',
+    name: 'Paul Shropshire',
+    title: 'Education Mentor',
     shortBio:
-      'Advances ECI’s ranked growth destinations — from New Cairo and Bahrain to Morocco, Abu Dhabi and beyond.',
+      'Paul is an Education Mentor with ECI and formerly Principal of The British School of Kuwait, with nearly three decades of senior international school leadership. He mentors partner campuses on school improvement, leadership and the day-to-day standards families expect from an Ellesmere education.',
     fullBio:
-      'The Expansion Lead works across ECI’s Top 10 priority destinations, supporting site selection conversations, regulatory readiness and the early-stage partnership work that turns market intelligence into operating campuses.',
+      'Paul Shropshire is an Education Mentor with Ellesmere College International. He previously served as Principal of The British School of Kuwait, bringing nearly three decades of senior international school leadership. He supports partner campuses with practical mentoring on school improvement, leadership and the day-to-day standards that help families trust an Ellesmere education.',
     image: null,
-    linkedin: 'https://www.linkedin.com/',
-    initials: 'EL',
+    linkedin: 'https://www.linkedin.com/in/paul-shropshire-88559843',
+    initials: 'PS',
   },
 ]

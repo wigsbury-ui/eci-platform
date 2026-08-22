@@ -128,7 +128,7 @@ export default function DocumentUploadForm({
       {status === 'queued' && (
         <p className="text-sm font-jost text-eci-purple bg-eci-purple-light/60 px-3 py-2.5 rounded-lg flex items-center gap-2">
           <CheckCircle2 size={14} />
-          Upload queued — connect Supabase Storage to activate
+          Upload queued, connect Supabase Storage to activate
         </p>
       )}
       {status === 'done' && (

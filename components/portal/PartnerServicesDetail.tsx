@@ -135,14 +135,16 @@ export default function PartnerServicesDetail({ embedded = false }: { embedded?:
         <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-semibold">
           {FRAMEWORK_INTRO.eyebrow}
         </p>
-        <Title className="font-cormorant text-4xl text-[#2D1654] mb-3">{FRAMEWORK_INTRO.title}</Title>
-        <p className="text-gray-500 font-jost text-sm leading-relaxed mb-4">
+        <Title className="font-cormorant text-[2.35rem] md:text-[2.75rem] leading-tight text-[#2D1654] mb-4">
+          {FRAMEWORK_INTRO.title}
+        </Title>
+        <p className="text-[#2D1654]/75 font-jost text-base leading-relaxed mb-5">
           {FRAMEWORK_INTRO.summary} This portal view includes the full programme detail across all{' '}
           {PARTNER_SERVICES.length} services, partner commitments, and impact signals.
         </p>
-        <ul className="space-y-2">
+        <ul className="space-y-2.5">
           {FRAMEWORK_INTRO.whyItMatters.map(line => (
-            <li key={line} className="font-jost text-sm text-gray-600 flex gap-2">
+            <li key={line} className="font-jost text-base text-[#2D1654]/65 flex gap-2 leading-relaxed">
               <span className="text-[#C8A84B]">◆</span>
               {line}
             </li>
