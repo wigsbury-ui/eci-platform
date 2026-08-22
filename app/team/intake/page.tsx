@@ -4,15 +4,8 @@ import TeamIntakeReview from '@/components/portal/TeamIntakeReview'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { teamShellProps } from '@/components/portal/teamNav'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { getIntakeUploadToken } from '@/lib/intake/config'
+import { getIntakeShareUrl, getSiteBaseUrl } from '@/lib/intake/shareUrl'
 import type { DocumentDraft, DocumentIntakeBatch } from '@/lib/types'
-
-function intakeShareUrl() {
-  const token = getIntakeUploadToken()
-  if (!token) return null
-  const base = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://eci-platform-seven.vercel.app'
-  return `${base}/intake/${token}`
-}
 
 export default async function TeamIntakePage() {
   const { profile, preview } = await requirePortalAccess(
@@ -44,6 +37,8 @@ export default async function TeamIntakePage() {
     }
   }
 
+  const siteBase = getSiteBaseUrl()
+
   return (
     <PortalShell {...teamShellProps(profile, '/team/intake')}>
       <div className="mb-8">
@@ -57,7 +52,8 @@ export default async function TeamIntakePage() {
       <TeamIntakeReview
         batches={batches}
         drafts={drafts}
-        intakeShareUrl={intakeShareUrl()}
+        intakeShareUrl={getIntakeShareUrl()}
+        siteBase={siteBase}
       />
 
       <PortalChatbot audience="team" />

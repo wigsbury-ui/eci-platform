@@ -7,16 +7,16 @@ import {
   Sparkles,
   ChevronDown,
   ChevronUp,
-  Copy,
-  Check,
 } from 'lucide-react'
 import type { DocumentDraft, DocumentIntakeBatch, IntakeBatchStatus, IntakePillar } from '@/lib/types'
 import { INTAKE_BATCH_STATUSES, INTAKE_PILLARS } from '@/lib/intake/config'
+import IntakeSharePanel from '@/components/portal/IntakeSharePanel'
 
 type Props = {
   batches: DocumentIntakeBatch[]
   drafts: DocumentDraft[]
   intakeShareUrl: string | null
+  siteBase: string
 }
 
 function formatBytes(bytes: number) {
@@ -40,12 +40,11 @@ function pillarLabel(value: string | null) {
   return INTAKE_PILLARS.find(p => p.value === value)?.label ?? 'Unassigned'
 }
 
-export default function TeamIntakeReview({ batches: initialBatches, drafts: initialDrafts, intakeShareUrl }: Props) {
+export default function TeamIntakeReview({ batches: initialBatches, drafts: initialDrafts, intakeShareUrl, siteBase }: Props) {
   const [batches, setBatches] = useState(initialBatches)
   const [drafts, setDrafts] = useState(initialDrafts)
   const [expanded, setExpanded] = useState<string | null>(initialBatches[0]?.id ?? null)
   const [filter, setFilter] = useState<IntakeBatchStatus | 'all'>('all')
-  const [copied, setCopied] = useState(false)
   const [draftForm, setDraftForm] = useState<{
     batchId: string | null
     title: string
@@ -60,17 +59,6 @@ export default function TeamIntakeReview({ batches: initialBatches, drafts: init
     if (filter === 'all') return batches
     return batches.filter(b => b.status === filter)
   }, [batches, filter])
-
-  const copyLink = async () => {
-    if (!intakeShareUrl) return
-    try {
-      await navigator.clipboard.writeText(intakeShareUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      setMessage('Could not copy link')
-    }
-  }
 
   const updateBatch = async (
     batchId: string,
@@ -162,35 +150,7 @@ export default function TeamIntakeReview({ batches: initialBatches, drafts: init
 
   return (
     <div className="space-y-8">
-      <div className="bg-white border border-gray-100 rounded-xl p-6">
-        <h2 className="font-cormorant text-xl text-eci-purple-dark mb-2">Colleague upload link</h2>
-        <p className="text-sm text-gray-500 font-jost mb-4 leading-relaxed">
-          Share this link by email. Colleagues must enter <strong>name and email</strong> before files are
-          accepted. Uploads stay inside ECI for review and articulation, not in the partner library until
-          you publish finished documents.
-        </p>
-        {intakeShareUrl ? (
-          <div className="flex flex-wrap items-center gap-3">
-            <code className="text-xs bg-gray-50 border border-gray-100 px-3 py-2 rounded-lg font-mono text-gray-700 max-w-full truncate">
-              {intakeShareUrl}
-            </code>
-            <button
-              type="button"
-              onClick={copyLink}
-              className="inline-flex items-center gap-2 text-sm font-jost font-semibold text-eci-purple hover:text-eci-purple-dark"
-            >
-              {copied ? <Check size={16} /> : <Copy size={16} />}
-              {copied ? 'Copied' : 'Copy link'}
-            </button>
-          </div>
-        ) : (
-          <p className="text-sm font-jost text-amber-800 bg-amber-50 border border-amber-100 px-4 py-3 rounded-lg">
-            Set <code className="font-mono text-xs">DOCUMENT_INTAKE_TOKEN</code> and{' '}
-            <code className="font-mono text-xs">SUPABASE_SERVICE_ROLE_KEY</code> in the environment, then
-            redeploy. Link format: /intake/your-secret-token
-          </p>
-        )}
-      </div>
+      <IntakeSharePanel shareUrl={intakeShareUrl} siteBase={siteBase} />
 
       {message && (
         <p className="text-sm font-jost text-eci-purple bg-eci-purple-light/50 px-4 py-2.5 rounded-lg">
