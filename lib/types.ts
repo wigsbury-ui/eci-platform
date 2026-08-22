@@ -80,6 +80,62 @@ export interface Document {
   document_categories?: DocumentCategory
 }
 
+export type IntakePillar =
+  | 'governance'
+  | 'safeguarding'
+  | 'curriculum'
+  | 'operations'
+  | 'quality_assurance'
+
+export type IntakeBatchStatus =
+  | 'new'
+  | 'in_review'
+  | 'ready_for_articulation'
+  | 'promoted'
+  | 'archived'
+
+export type DocumentDraftStatus = 'draft' | 'in_review' | 'approved' | 'archived'
+
+export interface DocumentIntakeFile {
+  id: string
+  batch_id: string
+  storage_path: string
+  file_name: string
+  file_size_bytes: number
+  mime_type: string | null
+  extracted_text: string | null
+  created_at: string
+}
+
+export interface DocumentIntakeBatch {
+  id: string
+  submitter_name: string
+  submitter_email: string
+  department: string | null
+  notes: string | null
+  status: IntakeBatchStatus
+  review_notes: string | null
+  suggested_pillar: IntakePillar | null
+  reviewed_by: string | null
+  reviewed_at: string | null
+  created_at: string
+  document_intake_files?: DocumentIntakeFile[]
+}
+
+export interface DocumentDraft {
+  id: string
+  title: string
+  pillar: IntakePillar | null
+  prompt_notes: string | null
+  source_batch_id: string | null
+  source_file_ids: string[]
+  body_markdown: string | null
+  status: DocumentDraftStatus
+  created_by: string | null
+  updated_at: string
+  created_at: string
+}
+
 export interface Announcement {
   id: string
   title: string

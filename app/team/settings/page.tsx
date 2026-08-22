@@ -22,7 +22,8 @@ export default async function TeamSettingsPage() {
           { label: 'Charity number', value: HERITAGE.charityNumber },
           { label: 'Chatbot', value: 'First-party RAG enabled · set LLM_BASE_URL for self-hosted inference' },
           { label: 'Email notifications', value: 'Configure SMTP / Resend env vars to activate message alerts' },
-          { label: 'Storage buckets', value: 'school-docs · investor-packs · team-docs' },
+          { label: 'Storage buckets', value: 'school-docs · investor-packs · team-docs · doc-intake' },
+          { label: 'Document intake', value: 'Set DOCUMENT_INTAKE_TOKEN and share /intake/{token} with colleagues' },
         ].map(row => (
           <div key={row.label} className="bg-white border border-gray-100 p-5">
             <p className="text-xs uppercase tracking-wide text-gray-400 font-jost mb-1">{row.label}</p>
