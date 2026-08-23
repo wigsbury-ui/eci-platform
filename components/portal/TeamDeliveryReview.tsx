@@ -5,7 +5,6 @@ import type { School } from '@/lib/types'
 import type { ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
-import { PROMISE_STATUS_LABELS } from '@/lib/delivery/types'
 import { servicesByGroup } from '@/lib/content/partner-services'
 
 type Props = {
