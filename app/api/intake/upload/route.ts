@@ -7,6 +7,7 @@ import {
 } from '@/lib/intake/config'
 import { findActiveIntakeToken } from '@/lib/intake/links'
 import { isValidEmail, validateIntakeFile } from '@/lib/intake/validation'
+import { extractTextFromBuffer } from '@/lib/intake/extract'
 
 const RATE_WINDOW_MS = 60 * 60 * 1000
 const RATE_MAX_BATCHES = 30
@@ -126,6 +127,19 @@ export async function POST(request: Request) {
       if (fileError || !row) {
         console.error('intake file insert', fileError)
         return NextResponse.json({ error: 'Failed to record file metadata.' }, { status: 500 })
+      }
+
+      // Best-effort text extraction for later articulation (non-blocking on failure)
+      try {
+        const { text } = await extractTextFromBuffer(buffer, file.name, file.type)
+        if (text.trim()) {
+          await admin
+            .from('document_intake_files')
+            .update({ extracted_text: text })
+            .eq('id', row.id)
+        }
+      } catch (extractErr) {
+        console.error('intake extract', file.name, extractErr)
       }
 
       uploaded.push(row)

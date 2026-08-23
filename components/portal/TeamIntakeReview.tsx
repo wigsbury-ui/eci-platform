@@ -61,6 +61,8 @@ export default function TeamIntakeReview({
     notes: string
     fileIds: string[]
   }>({ batchId: null, title: '', pillar: '', notes: '', fileIds: [] })
+  const [selectedDraftId, setSelectedDraftId] = useState<string | null>(null)
+  const [draftBodyEdit, setDraftBodyEdit] = useState('')
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
 
@@ -68,6 +70,11 @@ export default function TeamIntakeReview({
     if (filter === 'all') return batches
     return batches.filter(b => b.status === filter)
   }, [batches, filter])
+
+  const selectedDraft = useMemo(
+    () => drafts.find(d => d.id === selectedDraftId) ?? null,
+    [drafts, selectedDraftId]
+  )
 
   const updateBatch = async (
     batchId: string,
@@ -111,11 +118,14 @@ export default function TeamIntakeReview({
 
   const openDraftForm = (batch: DocumentIntakeBatch) => {
     const files = batch.document_intake_files ?? []
+    const firstName = files[0]?.file_name?.replace(/\.[^.]+$/, '') || 'Partner document'
     setDraftForm({
       batchId: batch.id,
-      title: `Articulated document from ${batch.submitter_name}`,
+      title: firstName,
       pillar: batch.suggested_pillar ?? '',
-      notes: batch.notes ?? '',
+      notes:
+        batch.notes ||
+        'Rewrite as a clear partner-facing document: purpose, key points, and what partners should understand or do.',
       fileIds: files.map(f => f.id),
     })
     setExpanded(batch.id)
@@ -124,7 +134,7 @@ export default function TeamIntakeReview({
   const createDraft = async () => {
     if (!draftForm.batchId || !draftForm.title.trim()) return
     setSaving(true)
-    setMessage('')
+    setMessage('Reading source files and drafting… this can take up to a minute.')
     try {
       const res = await fetch('/api/team/intake/draft', {
         method: 'POST',
@@ -135,6 +145,7 @@ export default function TeamIntakeReview({
           prompt_notes: draftForm.notes,
           source_batch_id: draftForm.batchId,
           source_file_ids: draftForm.fileIds,
+          generate: true,
         }),
       })
       const data = await res.json()
@@ -149,9 +160,39 @@ export default function TeamIntakeReview({
         )
       )
       setDraftForm({ batchId: null, title: '', pillar: '', notes: '', fileIds: [] })
-      setMessage('Articulation draft created. Use it as the working document for improved partner copy.')
+      setSelectedDraftId(data.draft.id)
+      setDraftBodyEdit(data.draft.body_markdown || '')
+      setMessage(
+        data.draft.body_markdown
+          ? 'Draft generated. Review the text below, edit if needed, then save.'
+          : 'Draft record created, but no body was generated.'
+      )
     } catch {
       setMessage('Could not create draft')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const saveDraftBody = async () => {
+    if (!selectedDraftId) return
+    setSaving(true)
+    setMessage('')
+    try {
+      const res = await fetch('/api/team/intake/draft', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: selectedDraftId, body_markdown: draftBodyEdit }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setMessage(data.error || 'Could not save draft')
+        return
+      }
+      setDrafts(prev => prev.map(d => (d.id === selectedDraftId ? { ...d, ...data.draft } : d)))
+      setMessage('Draft saved')
+    } catch {
+      setMessage('Could not save draft')
     } finally {
       setSaving(false)
     }
@@ -338,7 +379,11 @@ export default function TeamIntakeReview({
                     {draftForm.batchId === batch.id && (
                       <div className="border border-eci-purple/20 bg-eci-purple-light/30 rounded-xl p-4 space-y-3">
                         <p className="text-sm font-jost font-semibold text-eci-purple-dark">
-                          New articulation draft
+                          Generate articulated draft
+                        </p>
+                        <p className="text-xs font-jost text-gray-600 leading-relaxed">
+                          We will read the uploaded file(s), then draft a clearer partner document from that
+                          content. Review and edit the result before treating it as final.
                         </p>
                         <input
                           type="text"
@@ -360,7 +405,7 @@ export default function TeamIntakeReview({
                           onClick={createDraft}
                           className="bg-[#2D1654] text-white px-4 py-2 rounded-lg text-sm font-jost font-semibold disabled:opacity-50"
                         >
-                          Create draft record
+                          {saving ? 'Generating…' : 'Generate draft from sources'}
                         </button>
                       </div>
                     )}
@@ -373,25 +418,61 @@ export default function TeamIntakeReview({
       </div>
 
       {drafts.length > 0 && (
-        <div className="bg-white border border-gray-100 rounded-xl p-6">
-          <h2 className="font-cormorant text-xl text-eci-purple-dark mb-4">Articulation drafts</h2>
-          <p className="text-sm text-gray-500 font-jost mb-4">
-            Working records linked to source intake files. Next step: draft body text here or via your LLM
-            workflow, then publish finished documents to the partner library.
-          </p>
+        <div className="bg-white border border-gray-100 rounded-xl p-6 space-y-4">
+          <div>
+            <h2 className="font-cormorant text-xl text-eci-purple-dark mb-1">Articulation drafts</h2>
+            <p className="text-sm text-gray-500 font-jost">
+              Generated from intake sources. Open a draft to review and edit the body text.
+            </p>
+          </div>
           <ul className="space-y-3">
             {drafts.map(draft => (
               <li key={draft.id} className="border border-gray-100 rounded-lg px-4 py-3 text-sm font-jost">
-                <p className="font-semibold text-gray-900">{draft.title}</p>
-                <p className="text-xs text-gray-400 mt-1">
-                  {pillarLabel(draft.pillar)} · {draft.status} · {formatDate(draft.created_at)}
-                </p>
-                {draft.prompt_notes && (
-                  <p className="text-gray-600 mt-2 text-xs leading-relaxed">{draft.prompt_notes}</p>
-                )}
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <p className="font-semibold text-gray-900">{draft.title}</p>
+                    <p className="text-xs text-gray-400 mt-1">
+                      {pillarLabel(draft.pillar)} · {draft.status} · {formatDate(draft.created_at)}
+                      {draft.body_markdown ? ' · body ready' : ' · no body yet'}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedDraftId(draft.id)
+                      setDraftBodyEdit(draft.body_markdown || '')
+                    }}
+                    className="text-xs font-semibold text-eci-purple hover:underline"
+                  >
+                    {selectedDraftId === draft.id ? 'Editing' : 'Open'}
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
+
+          {selectedDraft && (
+            <div className="border border-eci-purple/15 rounded-xl p-4 space-y-3 bg-[#FBF8F4]">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="font-cormorant text-lg text-eci-purple-dark">{selectedDraft.title}</h3>
+                <button
+                  type="button"
+                  disabled={saving}
+                  onClick={saveDraftBody}
+                  className="bg-eci-purple text-white px-3 py-1.5 rounded-lg text-xs font-jost font-semibold disabled:opacity-50"
+                >
+                  {saving ? 'Saving…' : 'Save edits'}
+                </button>
+              </div>
+              <textarea
+                rows={18}
+                value={draftBodyEdit}
+                onChange={e => setDraftBodyEdit(e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-3 text-sm font-jost leading-relaxed bg-white resize-y min-h-[280px]"
+                placeholder="Draft body will appear here after generation."
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
