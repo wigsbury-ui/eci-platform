@@ -136,8 +136,8 @@ export default function InvestorBenefitsModule() {
           <div className="mt-2 h-px w-full shrink-0 bg-[#2D1654]/10" aria-hidden />
 
           {/* Main card: vertically centred in remaining viewport */}
-          <div className="flex min-h-0 flex-1 items-center py-4 md:py-6">
-            <article className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+          <div className="flex min-h-0 flex-1 items-start py-4 md:items-center md:py-6">
+            <article className="grid w-full grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-10 xl:gap-14">
               <div className="min-w-0 order-2 lg:order-1">
                 <p className="mb-2 font-jost text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
                   {mark} / {String(count).padStart(2, '0')}
@@ -170,27 +170,26 @@ export default function InvestorBenefitsModule() {
 
               <figure
                 key={item.id}
-                className="eci-benefits-card order-1 w-full lg:order-2 lg:flex lg:flex-col lg:items-end"
+                className="eci-benefits-card order-1 w-full lg:order-2 lg:flex lg:flex-col lg:items-end lg:pt-0"
               >
                 <div
-                  className="mx-auto w-full max-w-[min(100%,20rem)] border border-[#C8A84B]/55 bg-white p-2 shadow-[0_12px_40px_rgba(45,22,84,0.07)] sm:max-w-[22rem] lg:mx-0 lg:w-full lg:max-w-[min(100%,28rem)] xl:max-w-[min(100%,32rem)]"
+                  className="mx-auto w-[min(100%,15.5rem)] border border-[#C8A84B]/55 bg-white p-2 shadow-[0_12px_40px_rgba(45,22,84,0.07)] sm:w-[min(100%,16.5rem)] lg:mx-0"
                 >
                   <div
-                    className="relative w-full overflow-hidden bg-[#2D1654]/5"
-                    style={{ aspectRatio: '4 / 5' }}
+                    className="relative h-[min(34vh,18.5rem)] sm:h-[min(36vh,19.5rem)] overflow-hidden bg-[#2D1654]/5"
                   >
                     <Image
                       src={item.image}
                       alt={item.imageAlt}
                       fill
-                      sizes="(max-width: 1024px) 360px, 420px"
+                      sizes="(max-width: 1024px) 280px, 264px"
                       className="object-cover object-center"
                       priority={active === 0}
                     />
                   </div>
                 </div>
                 <figcaption
-                  className="mt-3 w-full max-w-[min(100%,20rem)] text-center font-jost text-xs leading-snug text-[#2D1654]/55 sm:max-w-[22rem] lg:max-w-[min(100%,28rem)] lg:text-right xl:max-w-[min(100%,32rem)]"
+                  className="mt-2 w-[min(100%,15.5rem)] text-center font-jost text-xs leading-snug text-[#2D1654]/55 sm:w-[min(100%,16.5rem)] lg:text-right"
                 >
                   {item.imageCaption}
                 </figcaption>
