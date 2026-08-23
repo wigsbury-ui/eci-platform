@@ -14,11 +14,11 @@ export const PROMISE_STATUSES: PromiseStatus[] = [
 ]
 
 export const PROMISE_STATUS_LABELS: Record<PromiseStatus, string> = {
-  green: 'Green',
-  amber: 'Amber',
-  red: 'Red',
-  pending_verification: 'Awaiting verification',
-  over_delivered: 'Over-delivered',
+  green: 'On track',
+  amber: 'At risk',
+  red: 'Off track',
+  pending_verification: 'Needs check',
+  over_delivered: 'Ahead',
 }
 
 export interface ServicePromise {

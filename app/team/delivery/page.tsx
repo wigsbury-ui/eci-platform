@@ -1,6 +1,7 @@
+import { Suspense } from 'react'
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
-import TeamDeliveryCockpit from '@/components/portal/TeamDeliveryCockpit'
+import TeamDeliveryHub from '@/components/portal/TeamDeliveryHub'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { teamShellProps } from '@/components/portal/teamNav'
 import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
@@ -30,7 +31,14 @@ function seedSchools(): School[] {
   }))
 }
 
-export default async function TeamDeliveryPage() {
+type SearchParams = Promise<{ school?: string; view?: string; add?: string }>
+
+export default async function TeamDeliveryPage({
+  searchParams,
+}: {
+  searchParams: SearchParams
+}) {
+  const params = await searchParams
   const { profile, supabase, preview } = await requirePortalAccess(
     ['employee', 'admin', 'board_member', 'super_admin'],
     'super_admin'
@@ -56,14 +64,23 @@ export default async function TeamDeliveryPage() {
     }
   }
 
+  const initialSchoolId =
+    params.school && schools.some(s => s.id === params.school)
+      ? params.school
+      : schools[0]?.id
+
   return (
     <PortalShell {...teamShellProps(profile, '/team/delivery')}>
-      <TeamDeliveryCockpit
-        schools={schools}
-        initialPromises={promises}
-        initialNotifications={notifications}
-        demoMode={demoMode}
-      />
+      <Suspense fallback={<p className="font-jost text-sm text-gray-500">Loading delivery…</p>}>
+        <TeamDeliveryHub
+          schools={schools}
+          initialPromises={promises}
+          initialNotifications={notifications}
+          demoMode={demoMode}
+          initialSchoolId={initialSchoolId}
+          initialShowPicker={params.add === '1'}
+        />
+      </Suspense>
       <PortalChatbot audience="team" />
     </PortalShell>
   )

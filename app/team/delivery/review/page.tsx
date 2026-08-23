@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import TeamDeliveryReview from '@/components/portal/TeamDeliveryReview'
@@ -29,7 +30,14 @@ function seedSchools(): School[] {
   }))
 }
 
-export default async function TeamDeliveryReviewPage() {
+type SearchParams = Promise<{ school?: string }>
+
+export default async function TeamDeliveryReviewPage({
+  searchParams,
+}: {
+  searchParams: SearchParams
+}) {
+  const params = await searchParams
   const { profile, supabase, preview } = await requirePortalAccess(
     ['employee', 'admin', 'board_member', 'super_admin'],
     'super_admin'
@@ -42,6 +50,7 @@ export default async function TeamDeliveryReviewPage() {
   if (supabase && !preview) {
     const { data: s } = await supabase.from('schools').select('*').order('name')
     if (s?.length) schools = s as School[]
+
     const dbPromises = await listServicePromises()
     if (dbPromises.length > 0) {
       promises = dbPromises
@@ -51,9 +60,21 @@ export default async function TeamDeliveryReviewPage() {
     }
   }
 
+  const initialSchoolId =
+    params.school && schools.some(s => s.id === params.school)
+      ? params.school
+      : schools[0]?.id
+
   return (
     <PortalShell {...teamShellProps(profile, '/team/delivery')}>
-      <TeamDeliveryReview schools={schools} initialPromises={promises} demoMode={demoMode} />
+      <Suspense fallback={<p className="font-jost text-sm text-gray-500">Loading review…</p>}>
+        <TeamDeliveryReview
+          schools={schools}
+          initialPromises={promises}
+          demoMode={demoMode}
+          initialSchoolId={initialSchoolId}
+        />
+      </Suspense>
       <PortalChatbot audience="team" />
     </PortalShell>
   )
