@@ -101,6 +101,9 @@ export default function InvestorBenefitsModule() {
             >
               {INVESTOR_BENEFITS_INTRO.title}
             </h2>
+            <p className="mt-4 max-w-2xl font-jost text-[15px] leading-relaxed text-[#2D1654]/70 md:text-base">
+              {INVESTOR_BENEFITS_INTRO.summary}
+            </p>
             <div className="mt-4 h-1 w-14 bg-[#C8A84B]" />
           </header>
 
@@ -149,15 +152,6 @@ export default function InvestorBenefitsModule() {
               <p className="mt-4 max-w-xl font-jost text-[15px] leading-relaxed text-[#2D1654]/80 md:mt-5 md:text-base">
                 {item.benefit}
               </p>
-
-              <div className="mt-6 grid max-w-xl gap-3 border border-[#C8A84B]/45 bg-white/70 p-4 md:mt-7 md:grid-cols-[7.5rem_minmax(0,1fr)] md:gap-5 md:p-5">
-                <p className="font-jost text-[11px] font-semibold uppercase tracking-[0.2em] text-[#C8A84B]">
-                  Evidence
-                </p>
-                <p className="font-jost text-sm leading-relaxed text-[#2D1654]/70 md:text-[15px]">
-                  {item.evidence}
-                </p>
-              </div>
 
               <p className="mt-6 font-jost text-[12px] text-[#2D1654]/45">
                 For fee schedules and full terms, open the{' '}

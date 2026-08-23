@@ -1,6 +1,6 @@
 /**
- * Investor-facing partnership benefits, concrete commercial value, not soft marketing.
- * Every `evidence` line must be supportable from public ECI facts already used on the site.
+ * Investor-facing partnership benefits drawn from ECI's Ellesmere Difference framework:
+ * what a full partnership delivers beyond a transactional licence.
  * Do not invent fee yields, IRR, or unreleased financials.
  *
  * Plates are UK campus imagery exclusive to this module (not reused elsewhere on the site).
@@ -8,16 +8,17 @@
 
 export const INVESTOR_BENEFITS_INTRO = {
   eyebrow: 'Partnership benefits',
-  title: 'What the partnership delivers',
+  title: 'The Ellesmere difference',
+  summary:
+    'A high-involvement partnership model: sustained collaboration across brand, curriculum, people, quality and pupil experience, not a logo licence with occasional check-ins.',
 } as const
 
 export type InvestorBenefit = {
   id: string
-  /** Short index label, not the full headline */
+  /** Short index label for the topic rail */
   label: string
   title: string
   benefit: string
-  evidence: string
   image: string
   imageAlt: string
   /** Short plate caption under the image */
@@ -26,99 +27,103 @@ export type InvestorBenefit = {
 
 export const INVESTOR_BENEFITS: InvestorBenefit[] = [
   {
-    id: 'demand-signal',
-    label: 'Demand proven',
-    title: 'Proven parental demand for the brand',
+    id: 'active-partnership',
+    label: 'Active partnership',
+    title: 'High involvement, not a distant licence',
     benefit:
-      'You are not guessing whether families will pay for an Ellesmere campus. The brand has already attracted enrolment at pace in a live Middle East market, reducing the demand risk that kills most greenfield school launches.',
-    evidence:
-      'Ellesmere College Riyadh grew from a standing start to more than 600 students in just over two years, then added a second Riyadh site at Salwa Compound.',
-    image: '/images/campus/uk-campus-1.png',
-    imageAlt: 'Students on the lawn in front of the main building at Ellesmere College, Shropshire',
-    imageCaption: 'Ellesmere College, Shropshire',
+      'ECI operates as an active partner. Each year, Ellesmere UK and the campus agree a defined set of focus areas so support stays targeted and relevant. Strategic decisions are made jointly: Ellesmere brings institutional knowledge; the partner brings local market and regulatory expertise. Investors and operators get named UK contacts and shared accountability, not a brand fee with an annual survey.',
+    image: '/images/campus/uk-boarding.jpg',
+    imageAlt: 'Boarders in a house common room at Ellesmere College',
+    imageCaption: 'Partnership in practice · Ellesmere College',
   },
   {
-    id: 'brand-equity',
-    label: 'Brand equity',
-    title: 'Brand equity you do not have to build from zero',
+    id: 'brand-framework',
+    label: 'Brand & digital',
+    title: 'Brand representation you can launch with',
     benefit:
-      'Launching under Ellesmere means entering the market with a British independent-school identity already recognised by quality-conscious families, instead of spending years and marketing budget creating trust for an unknown name.',
-    evidence:
-      'Ellesmere College, Shropshire, was founded in 1884 and operates a 160-acre UK campus. International campuses carry that heritage under ECI brand licensing.',
+      'Ellesmere supports each partner school in adapting the Ellesmere UK website framework for local use, so families see a credible identity from day one. Content is co-developed for the local market, with set-up support, training and ongoing monitoring from the UK. That shortens the path from licence to a recognisable school brand without building digital presence from scratch.',
     image: '/images/campus/benefits/benefits-uk-grounds.jpg',
     imageAlt: 'Historic brick campus and grounds of a British independent school',
     imageCaption: 'UK campus heritage',
   },
   {
-    id: 'transferable-product',
-    label: 'School product',
-    title: 'A transferable school product, not a logo licence',
+    id: 'curriculum',
+    label: 'Curriculum',
+    title: 'Curriculum routes with UK depth',
     benefit:
-      'Partners receive curriculum frameworks, quality assurance, leadership mentoring and network support (the operating DNA of the school) so the campus can open to a defined standard rather than inventing pedagogy, pastoral systems and brand rules alone.',
-    evidence:
-      'Full Partnership covers branding and identity, curriculum and assessment frameworks, QA, leadership mentoring and ongoing network support. Curriculum-only and advisory models are available where full affiliation is not required.',
+      'ECI provides expert guidance on curriculum routes and subject choices, drawing on Ellesmere’s experience in the UK independent sector. Design is adapted in partnership to meet local regulatory requirements and market expectations, so the academic offer is credible for families and defensible to authorities. Partners are not left to invent pathways alone.',
     image: '/images/campus/uk-lower-school.jpg',
     imageAlt: 'Lower school pupils learning together at Ellesmere College',
     imageCaption: 'Teaching and learning · Ellesmere College',
   },
   {
-    id: 'replication',
-    label: 'Replication',
-    title: 'Evidence the model can be replicated',
+    id: 'staffing',
+    label: 'Staffing',
+    title: 'Leadership recruitment and staff development',
     benefit:
-      'A single successful campus can be an anecdote. A second campus in the same city, plus a third country opening, shows the operating and brand model transfers, which matters if your thesis is multi-site or multi-market.',
-    evidence:
-      'Operating today: Ellesmere College Riyadh and Salwa Compound (Saudi Arabia). Opening soon: Ellesmere College Doha (Qatar), purpose-built with Education Avenue Group.',
-    image: '/images/campus/uk-boarding.jpg',
-    imageAlt: 'Boarders in a house common room at Ellesmere College',
-    imageCaption: 'Boarding life · Ellesmere College',
-  },
-  {
-    id: 'market-map',
-    label: 'Market map',
-    title: 'A ranked expansion map instead of opportunistic site-picking',
-    benefit:
-      'Capital can underwrite a location thesis against the same criteria ECI uses: demand, income and fee-band fit, competition, regulation, UK-curriculum readiness and cultural fit, rather than chasing the loudest broker pitch in each city.',
-    evidence:
-      'ECI’s Top 10 open destinations are drawn from consistent analysis across seven MENA countries (Saudi Arabia, UAE, Kuwait, Oman, Bahrain, Egypt, Morocco). Allocated markets such as Riyadh are excluded from new growth bids.',
-    image: '/images/campus/benefits/benefits-uk-sport.jpg',
-    imageAlt: 'Students on the playing fields of a British independent school campus',
-    imageCaption: '160-acre UK campus setting',
-  },
-  {
-    id: 'local-economics',
-    label: 'Campus economics',
-    title: 'You keep the campus economics; we protect the brand',
-    benefit:
-      'The partnership model is built for investors and operators who build and run the school. ECI’s role is licensing, standards and network support, so commercial control of the campus sits with the partner, while brand and quality risk is actively managed by the licensor.',
-    evidence:
-      'ECI’s published growth model is brand licensing: investors and operators open an Ellesmere campus; curriculum and advisory sit as add-ons, not parallel products. Fee schedules and diligence packs are shared in the Investor Portal after NDA where required.',
-    image: '/images/campus/uk-sixth-form.jpg',
-    imageAlt: 'Sixth-form student in a science laboratory at Ellesmere College',
-    imageCaption: 'Sixth Form · Ellesmere College',
-  },
-  {
-    id: 'quality-governance',
-    label: 'Quality governance',
-    title: 'Quality governance that protects asset value',
-    benefit:
-      'A premium school’s long-term value depends on reputation. Network inspection frameworks and brand protection reduce the downside of quality drift that can destroy fees, enrolment and exit optionality.',
-    evidence:
-      'ECI applies licensing, inspection frameworks and network governance to protect the Ellesmere name across partner campuses. Ellesmere’s High Performance Learning (HPL) philosophy underpins the academic culture transferred internationally.',
+      'Through established recruitment partners, Ellesmere can support the hiring of key leadership staff, initially Heads and Deputy Heads, alongside whole-staff training and ongoing professional development. That helps partners attract and retain the people who make a premium school work, rather than navigating international recruitment without a network behind them.',
     image: '/images/campus/benefits/benefits-uk-study.jpg',
     imageAlt: 'Students studying in a British independent school library',
     imageCaption: 'Academic culture · UK campus',
   },
   {
-    id: 'partner-infrastructure',
-    label: 'Local partners',
-    title: 'Local operating partners already proven in market',
+    id: 'facilities',
+    label: 'Facilities',
+    title: 'Facilities planning from UK experience',
     benefit:
-      'Where ECI has entered, it has done so with established education groups, shortening the path from licence to a functioning school with local regulatory and operating capacity.',
-    evidence:
-      'Riyadh operates with Glory & Princeton International Schools Group. Doha is opening with Education Avenue Group on a purpose-built campus.',
+      'The Ellesmere team can assist in planning school buildings and facilities across all age groups. Advice is grounded in best practice and long experience of academic and facilities planning in boarding and day school settings. Whether the campus is purpose-built or repurposed, partners gain informed guidance on layout and functionality for the intended school model.',
+    image: '/images/campus/benefits/benefits-uk-sport.jpg',
+    imageAlt: 'Students on the playing fields of a British independent school campus',
+    imageCaption: '160-acre UK campus setting',
+  },
+  {
+    id: 'uk-support',
+    label: 'UK support',
+    title: 'Embedded support from Ellesmere UK',
+    benefit:
+      'Direct support is structured and multi-layered: staff training and mentoring, departmental links between UK and partner teams, resource sharing, appraisals for Heads and Deputy Heads, recruitment advice, and further guidance as required. This is access to the wider Ellesmere community of staff and departments, not a single relationship manager.',
     image: '/images/campus/benefits/benefits-uk-lab.jpg',
     imageAlt: 'Students in a science laboratory at a British independent school',
     imageCaption: 'Science and practical learning · UK campus',
+  },
+  {
+    id: 'quality-assurance',
+    label: 'Quality',
+    title: 'Quality assurance that protects reputation',
+    benefit:
+      'Quality assurance within the partnership is an ongoing, collaborative process. Regular review and reflection let both parties assess progress, identify development areas and adjust plans. Ambitious, aligned targets are set against honest evaluation. For investors, that reduces the risk of quality drift that can damage fees, enrolment and long-term asset value.',
+    image: '/images/campus/uk-sixth-form.jpg',
+    imageAlt: 'Sixth-form student in a science laboratory at Ellesmere College',
+    imageCaption: 'Sixth Form · Ellesmere College',
+  },
+  {
+    id: 'marketing-growth',
+    label: 'Marketing',
+    title: 'Marketing and admissions support',
+    benefit:
+      'Ellesmere supports partner marketing and admissions through published guidance, shared materials and strategic advice on campaign planning. ECI also provides regular online support and agreed in-person visits to work directly with Admissions and Marketing staff. Partners benefit from Ellesmere’s experience of school marketing and pupil recruitment, adapted for local context.',
+    image: '/images/campus/uk-campus-1.png',
+    imageAlt: 'Students on the lawn in front of the main building at Ellesmere College, Shropshire',
+    imageCaption: 'Ellesmere College, Shropshire',
+  },
+  {
+    id: 'pupil-distinction',
+    label: 'Pupil experience',
+    title: 'Exchange, immersion and community',
+    benefit:
+      'Partner schools can plan visits to Ellesmere UK for academic, sporting and cultural experiences, with reciprocal visits where possible. Groups can also arrange week-long language immersion stays: pupils join regular lessons, sports and activities alongside Ellesmere students and stay in purpose-built boarding accommodation. ECI advises on parent and community engagement so partners build reputation and recruitment through an engaged family network.',
+    image: '/images/campus/uk-campus-2.png',
+    imageAlt: 'Historic school buildings and grounds at Ellesmere College',
+    imageCaption: 'Boarding and campus life · UK',
+  },
+  {
+    id: 'long-term-commitment',
+    label: 'Long-term',
+    title: 'A partnership built to last',
+    benefit:
+      'Ellesmere College was founded in 1884. That heritage reflects an institutional culture of continuity, trust and long-term relationships. Any partnership with ECI is conceived with permanence in mind: the relationship is designed to deepen over time, not to be managed at arm’s length once the school is open. Investors underwriting a campus can align with a licensor that treats international work as core, not experimental.',
+    image: '/images/campus/uk-campus-3.png',
+    imageAlt: 'Ellesmere College campus buildings and landscape',
+    imageCaption: 'Founded 1884 · Ellesmere College',
   },
 ]
