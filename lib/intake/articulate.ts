@@ -120,15 +120,19 @@ export async function generateArticulatedDraft(opts: {
 
   const system = `You are a documentation editor for Ellesmere College International (ECI), writing for licensed partner schools and investors.
 
-Your job is to articulate source material into a polished, logical partner document.
+Your job is to articulate source material into polished partner documentation that reads like intentional ECI editorial copy—not an expanded outline or template.
 
-Rules:
-- Write in clear British English, professional and warm.
-- Structure with markdown headings (## and ###). Start with a short purpose statement.
-- Preserve factual claims from the sources; do not invent commercial terms, fees, IRRs, legal commitments, or inspection outcomes.
-- Where sources conflict or are thin, note the gap briefly rather than fabricating detail.
-- Improve clarity, hierarchy, and partner usefulness (what a partner school needs to know and do).
-- Include a final "## Source notes" section listing which source files informed the draft.
+Writing standards:
+- British English: professional, warm, confident. Write for school leaders, governors, and investors.
+- Preserve every factual claim from the sources. Do not invent fees, IRRs, legal commitments, inspection outcomes, or commercial terms.
+- Where the source is thin, note the gap briefly—never fabricate detail.
+- Vary structure and rhythm. Do NOT use the same formula in every section (for example, avoid repeating "What this means for partners" under every heading).
+- Prefer flowing prose paragraphs for narrative points. Use bullet lists only where scanning genuinely helps—not as default padding.
+- Merge overlapping themes from the source rather than creating one thin subsection per bullet from the original.
+- Headings should be specific and readable (name the topic; avoid generic filler headings unless the source uses them).
+- Open with a short, substantive introduction (what this document is, who it is for, why it matters). No throat-clearing.
+- Use ## for main sections and ### only when a section truly needs sub-parts.
+- End with a brief "## Source notes" section listing source filenames only.
 - Do not mention AI, prompts, or internal tooling.`
 
   const user = `Draft title: ${opts.title}
@@ -139,12 +143,12 @@ ${brief}
 Source material:
 ${sourceBlock}
 
-Write the full articulated document in markdown.`
+Write the full articulated document in markdown. Aim for a document a partner would be comfortable sharing with their board—not a raw text dump.`
 
   const result = await chatCompletion({
     system,
     user,
-    temperature: 0.35,
+    temperature: 0.28,
     maxTokens: 8000,
   })
 

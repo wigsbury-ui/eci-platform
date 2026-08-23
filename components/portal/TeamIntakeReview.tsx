@@ -11,6 +11,7 @@ import {
 import type { DocumentDraft, DocumentIntakeBatch, DocumentIntakeLink, IntakeBatchStatus, IntakePillar } from '@/lib/types'
 import { INTAKE_BATCH_STATUSES, INTAKE_PILLARS } from '@/lib/intake/config'
 import IntakeSharePanel from '@/components/portal/IntakeSharePanel'
+import MarkdownPreview from '@/components/portal/MarkdownPreview'
 
 type Props = {
   batches: DocumentIntakeBatch[]
@@ -63,6 +64,7 @@ export default function TeamIntakeReview({
   }>({ batchId: null, title: '', pillar: '', notes: '', fileIds: [] })
   const [selectedDraftId, setSelectedDraftId] = useState<string | null>(null)
   const [draftBodyEdit, setDraftBodyEdit] = useState('')
+  const [draftView, setDraftView] = useState<'preview' | 'edit'>('preview')
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [messageTone, setMessageTone] = useState<'info' | 'error' | 'success'>('info')
@@ -131,7 +133,7 @@ export default function TeamIntakeReview({
       pillar: batch.suggested_pillar ?? '',
       notes:
         batch.notes ||
-        'Rewrite as a clear partner-facing document: purpose, key points, and what partners should understand or do.',
+        'Rewrite as a polished partner document: confident prose, clear structure, and practical detail a school board could use. Preserve facts from the source; do not pad with repetitive section templates.',
       fileIds: files.map(f => f.id),
     })
     setExpanded(batch.id)
@@ -179,11 +181,23 @@ export default function TeamIntakeReview({
           showMessage(jsonError[1], 'error')
           return
         }
-        const snippet = raw.replace(/\s+/g, ' ').trim().slice(0, 180)
+        const stripped = raw
+          .replace(/<script[\s\S]*?<\/script>/gi, '')
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+        if (/couldn.t load|server error occurred/i.test(stripped)) {
+          showMessage(
+            'The draft API failed to start on the server (not your file). Wait for the latest deploy to finish, then try again.',
+            'error'
+          )
+          return
+        }
+        const snippet = stripped.slice(0, 180)
         showMessage(
           res.status === 504 || res.status === 408
             ? 'The request timed out while drafting. Please try again — longer documents may need a second attempt.'
-            : snippet && !snippet.startsWith('<')
+            : snippet
               ? snippet
               : `Draft request failed (${res.status}). Please try again.`,
           'error'
@@ -210,6 +224,7 @@ export default function TeamIntakeReview({
       // Keep the form open so success does not look like a silent reset; scroll to the draft body.
       setSelectedDraftId(data.draft.id)
       setDraftBodyEdit(data.draft.body_markdown || '')
+      setDraftView('preview')
       showMessage(
         data.draft.body_markdown
           ? 'Draft generated. Review the text in Articulation drafts below, edit if needed, then save.'
@@ -484,7 +499,7 @@ export default function TeamIntakeReview({
         <div>
           <h2 className="font-cormorant text-xl text-eci-purple-dark mb-1">Articulation drafts</h2>
           <p className="text-sm text-gray-500 font-jost">
-            Generated from intake sources. Open a draft to review and edit the body text.
+            Generated from intake sources. Preview reads like a document; Edit lets you refine the markdown.
           </p>
         </div>
         {drafts.length === 0 ? (
@@ -508,6 +523,7 @@ export default function TeamIntakeReview({
                     onClick={() => {
                       setSelectedDraftId(draft.id)
                       setDraftBodyEdit(draft.body_markdown || '')
+                      setDraftView('preview')
                     }}
                     className="text-xs font-semibold text-eci-purple hover:underline"
                   >
@@ -523,22 +539,50 @@ export default function TeamIntakeReview({
           <div className="border border-eci-purple/15 rounded-xl p-4 space-y-3 bg-[#FBF8F4]">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <h3 className="font-cormorant text-lg text-eci-purple-dark">{selectedDraft.title}</h3>
-              <button
-                type="button"
-                disabled={saving}
-                onClick={saveDraftBody}
-                className="bg-eci-purple text-white px-3 py-1.5 rounded-lg text-xs font-jost font-semibold disabled:opacity-50"
-              >
-                {saving ? 'Saving…' : 'Save edits'}
-              </button>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="inline-flex rounded-lg border border-gray-200 bg-white p-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setDraftView('preview')}
+                    className={`px-3 py-1 rounded-md text-xs font-jost font-semibold ${
+                      draftView === 'preview' ? 'bg-eci-purple text-white' : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Preview
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDraftView('edit')}
+                    className={`px-3 py-1 rounded-md text-xs font-jost font-semibold ${
+                      draftView === 'edit' ? 'bg-eci-purple text-white' : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Edit
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  disabled={saving}
+                  onClick={saveDraftBody}
+                  className="bg-eci-purple text-white px-3 py-1.5 rounded-lg text-xs font-jost font-semibold disabled:opacity-50"
+                >
+                  {saving ? 'Saving…' : 'Save edits'}
+                </button>
+              </div>
             </div>
-            <textarea
-              rows={18}
-              value={draftBodyEdit}
-              onChange={e => setDraftBodyEdit(e.target.value)}
-              className="w-full border border-gray-200 rounded-lg px-3 py-3 text-sm font-jost leading-relaxed bg-white resize-y min-h-[280px]"
-              placeholder="Draft body will appear here after generation."
-            />
+            {draftView === 'preview' ? (
+              <div className="bg-white border border-gray-100 rounded-lg px-5 py-5 max-h-[min(70vh,720px)] overflow-y-auto">
+                <MarkdownPreview markdown={draftBodyEdit} />
+              </div>
+            ) : (
+              <textarea
+                rows={18}
+                value={draftBodyEdit}
+                onChange={e => setDraftBodyEdit(e.target.value)}
+                className="w-full border border-gray-200 rounded-lg px-3 py-3 text-sm font-jost leading-relaxed bg-white resize-y min-h-[280px]"
+                placeholder="Draft body will appear here after generation."
+              />
+            )}
           </div>
         )}
       </div>
