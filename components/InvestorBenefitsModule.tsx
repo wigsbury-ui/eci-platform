@@ -115,7 +115,7 @@ export default function InvestorBenefitsModule() {
         </div>
 
         <div
-          className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(5.75rem,calc(var(--eci-nav-offset)+1rem))] pb-5 md:pb-6"
+          className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col justify-center px-6 py-[max(5rem,calc(var(--eci-nav-offset)+1rem))]"
         >
           <header className="shrink-0">
             <p className="mb-1 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
@@ -158,9 +158,9 @@ export default function InvestorBenefitsModule() {
 
           <div className="mt-2 h-px w-full shrink-0 bg-[#2D1654]/10" aria-hidden />
 
-          <div className="flex min-h-0 flex-1 flex-col py-3 md:py-4">
+          <div className="py-3 md:py-4">
             <article
-              className="grid min-h-0 flex-1 grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(16rem,21rem)] lg:items-start lg:gap-10 xl:gap-12"
+              className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1.08fr)_minmax(16rem,21rem)] lg:items-start lg:gap-10 xl:gap-12"
             >
               <div ref={copyRef} className="min-w-0 order-2 flex flex-col lg:order-1">
                 <p className="mb-2 font-jost text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
