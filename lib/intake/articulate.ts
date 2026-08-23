@@ -135,7 +135,7 @@ Write the full articulated document in markdown.`
     system,
     user,
     temperature: 0.35,
-    maxTokens: 4500,
+    maxTokens: 8000,
   })
 
   if (!result.ok) return result
