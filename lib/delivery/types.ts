@@ -44,6 +44,9 @@ export interface PromiseEvidence {
   promise_id: string
   title: string
   url: string | null
+  document_id: string | null
+  document_title?: string | null
+  document_file_url?: string | null
   added_by: string | null
   created_at: string
 }
@@ -57,6 +60,14 @@ export interface PromiseReview {
   new_status: string
   notes: string | null
 }
+
+export const KANBAN_COLUMNS: PromiseStatus[] = [
+  'red',
+  'amber',
+  'pending_verification',
+  'green',
+  'over_delivered',
+]
 
 export interface SchoolDeliverySummary {
   schoolId: string

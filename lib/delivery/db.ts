@@ -40,18 +40,24 @@ export async function listPromiseEvidence(promiseId: string): Promise<PromiseEvi
 
   const { data } = await admin
     .from('promise_evidence')
-    .select('*')
+    .select('*, documents(title, file_url)')
     .eq('promise_id', promiseId)
     .order('created_at', { ascending: false })
 
-  return (data ?? []).map(row => ({
-    id: String(row.id),
-    promise_id: String(row.promise_id),
-    title: String(row.title),
-    url: (row.url as string | null) ?? null,
-    added_by: (row.added_by as string | null) ?? null,
-    created_at: String(row.created_at),
-  }))
+  return (data ?? []).map(row => {
+    const doc = row.documents as { title?: string; file_url?: string | null } | null
+    return {
+      id: String(row.id),
+      promise_id: String(row.promise_id),
+      title: String(row.title),
+      url: (row.url as string | null) ?? null,
+      document_id: (row.document_id as string | null) ?? null,
+      document_title: doc?.title ?? null,
+      document_file_url: doc?.file_url ?? null,
+      added_by: (row.added_by as string | null) ?? null,
+      created_at: String(row.created_at),
+    }
+  })
 }
 
 export async function listPromiseReviews(promiseId: string): Promise<PromiseReview[]> {
@@ -102,5 +108,54 @@ export async function insertGroupPromises(
   if (error?.code === '42P01') {
     return { error: 'Run migration 010_partner_delivery.sql in Supabase.' }
   }
+  return { error: error?.message ?? null }
+}
+
+export async function insertPromiseEvidence(input: {
+  promise_id: string
+  title: string
+  url?: string | null
+  document_id?: string | null
+  added_by?: string | null
+}) {
+  const admin = createAdminClient()
+  if (!admin) return { error: 'Admin client unavailable', evidence: null }
+
+  const { data, error } = await admin
+    .from('promise_evidence')
+    .insert({
+      promise_id: input.promise_id,
+      title: input.title,
+      url: input.url ?? null,
+      document_id: input.document_id ?? null,
+      added_by: input.added_by ?? null,
+    })
+    .select('*, documents(title, file_url)')
+    .single()
+
+  if (error) return { error: error.message, evidence: null }
+
+  const doc = data.documents as { title?: string; file_url?: string | null } | null
+  return {
+    error: null,
+    evidence: {
+      id: String(data.id),
+      promise_id: String(data.promise_id),
+      title: String(data.title),
+      url: (data.url as string | null) ?? null,
+      document_id: (data.document_id as string | null) ?? null,
+      document_title: doc?.title ?? null,
+      document_file_url: doc?.file_url ?? null,
+      added_by: (data.added_by as string | null) ?? null,
+      created_at: String(data.created_at),
+    },
+  }
+}
+
+export async function deletePromiseEvidence(id: string) {
+  const admin = createAdminClient()
+  if (!admin) return { error: 'Admin client unavailable' }
+
+  const { error } = await admin.from('promise_evidence').delete().eq('id', id)
   return { error: error?.message ?? null }
 }

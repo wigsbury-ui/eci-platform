@@ -54,6 +54,7 @@ export function demoEvidence(promiseId: string): PromiseEvidence[] {
       promise_id: promiseId,
       title: 'Q2 brand compliance checklist',
       url: null,
+      document_id: null,
       added_by: null,
       created_at: isoDaysAgo(20),
     },

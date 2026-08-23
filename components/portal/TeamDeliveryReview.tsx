@@ -5,7 +5,7 @@ import type { School } from '@/lib/types'
 import type { ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
-import { servicesByGroup } from '@/lib/content/partner-services'
+import { servicesByGroup, type ServiceGroupId } from '@/lib/content/partner-services'
 
 type Props = {
   schools: School[]
@@ -15,21 +15,22 @@ type Props = {
 
 export default function TeamDeliveryReview({ schools, initialPromises, demoMode }: Props) {
   const [schoolId, setSchoolId] = useState(schools[0]?.id ?? '')
+  const [group, setGroup] = useState<ServiceGroupId>(1)
   const [promises, setPromises] = useState(initialPromises)
   const [step, setStep] = useState(0)
   const [notes, setNotes] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
   const [done, setDone] = useState(false)
 
-  const group1 = useMemo(() => {
+  const groupPromises = useMemo(() => {
     return promises
-      .filter(p => p.school_id === schoolId && p.service_group === 1)
+      .filter(p => p.school_id === schoolId && p.service_group === group)
       .sort((a, b) => a.title.localeCompare(b.title))
-  }, [promises, schoolId])
+  }, [promises, schoolId, group])
 
   const school = schools.find(s => s.id === schoolId)
-  const current = group1[step]
-  const frameworkNames = new Map(servicesByGroup(1).map(s => [s.id, s.name]))
+  const current = groupPromises[step]
+  const frameworkNames = new Map(servicesByGroup(group).map(s => [s.id, s.name]))
 
   const saveStep = async (status: ServicePromise['status']) => {
     if (!current) return
@@ -53,7 +54,7 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
         )
       )
       setSaving(false)
-      if (step >= group1.length - 1) setDone(true)
+      if (step >= groupPromises.length - 1) setDone(true)
       else setStep(s => s + 1)
       return
     }
@@ -72,7 +73,7 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
       const data = await res.json()
       if (!res.ok) throw new Error(data.error)
       setPromises(prev => prev.map(p => (p.id === current.id ? { ...p, ...data.promise, success_criteria: p.success_criteria } : p)))
-      if (step >= group1.length - 1) setDone(true)
+      if (step >= groupPromises.length - 1) setDone(true)
       else setStep(s => s + 1)
     } catch {
       alert('Could not save review step')
@@ -86,13 +87,13 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
       <div className="mb-6">
         <h1 className="font-cormorant text-4xl text-[#2D1654]">Quarterly review</h1>
         <p className="text-gray-400 text-sm font-jost mt-1 max-w-2xl">
-          Guided Group 1 walkthrough — verify promises, mark risk, set the next review date.
+          Guided walkthrough — verify promises by group, mark risk, set the next review date.
         </p>
       </div>
 
       <DeliverySubNav active="/team/delivery/review" />
 
-      <div className="mb-6">
+      <div className="mb-6 flex flex-wrap gap-4">
         <label className="font-jost text-xs text-gray-500">
           School
           <select
@@ -109,20 +110,36 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
             ))}
           </select>
         </label>
+        <label className="font-jost text-xs text-gray-500">
+          Group
+          <select
+            value={group}
+            onChange={e => {
+              setGroup(Number(e.target.value) as ServiceGroupId)
+              setStep(0)
+              setDone(false)
+            }}
+            className="ml-2 rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-sm"
+          >
+            <option value={1}>Group 1</option>
+            <option value={2}>Group 2</option>
+            <option value={3}>Group 3</option>
+          </select>
+        </label>
       </div>
 
-      {group1.length === 0 && (
+      {groupPromises.length === 0 && (
         <p className="font-jost text-sm text-gray-500">
-          No Group 1 promises for {school?.name}. Activate from the{' '}
+          No Group {group} promises for {school?.name}. Activate from the{' '}
           <a href="/team/delivery/framework" className="text-[#4C2585] hover:underline">framework browser</a>.
         </p>
       )}
 
-      {done && group1.length > 0 && (
+      {done && groupPromises.length > 0 && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-6">
           <p className="font-cormorant text-2xl text-emerald-900">Review complete</p>
           <p className="font-jost text-sm text-emerald-800 mt-2">
-            Group 1 for {school?.name} has been walked through. Next reviews default to three months out.
+            Group {group} for {school?.name} has been walked through. Next reviews default to three months out.
           </p>
         </div>
       )}
@@ -130,7 +147,7 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
       {!done && current && (
         <div className="rounded-xl border border-gray-200 bg-white p-6 max-w-2xl">
           <p className="font-jost text-xs uppercase tracking-[0.2em] text-gray-400">
-            Step {step + 1} of {group1.length}
+            Step {step + 1} of {groupPromises.length}
           </p>
           <h2 className="font-cormorant text-3xl text-[#2D1654] mt-2">{current.title}</h2>
           <div className="mt-2">
@@ -186,9 +203,9 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
           </div>
 
           <details className="mt-6">
-            <summary className="font-jost text-xs text-gray-400 cursor-pointer">All Group 1 items</summary>
+            <summary className="font-jost text-xs text-gray-400 cursor-pointer">All Group {group} items</summary>
             <ul className="mt-2 space-y-1">
-              {group1.map((p, i) => (
+              {groupPromises.map((p, i) => (
                 <li key={p.id} className="font-jost text-sm flex justify-between gap-2">
                   <span className={i === step ? 'text-[#2D1654] font-semibold' : 'text-gray-500'}>
                     {frameworkNames.get(p.service_id) ?? p.title}
