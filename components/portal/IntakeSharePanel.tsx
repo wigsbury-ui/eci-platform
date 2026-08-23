@@ -13,12 +13,12 @@ type Props = {
 
 const EMAIL_TEMPLATE = `Dear colleagues,
 
-We are building the ECI partner document library. Please upload any policies, curriculum materials, safeguarding documents, or operational guides you think should be included.
+Please upload any policies, curriculum materials, safeguarding documents, or operational guides that should form part of the ECI partner document library.
 
 Use this link (name and email required):
 {LINK}
 
-Drag and drop files in any common format. Do not worry about tidying filenames. We will review everything and draft articulated partner documentation from your uploads.
+Drag and drop files in any common format. There is no need to tidy filenames first.
 
 Thank you.`
 
