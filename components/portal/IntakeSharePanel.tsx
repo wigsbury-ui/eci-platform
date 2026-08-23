@@ -108,8 +108,8 @@ export default function IntakeSharePanel({
       <div>
         <h2 className="font-cormorant text-xl text-eci-purple-dark mb-1">Colleague upload link</h2>
         <p className="text-sm text-gray-500 font-jost leading-relaxed">
-          Share this link by email. Colleagues enter name and email, then drag-and-drop files. No Vercel
-          setup required. Uploads appear on this page for review and articulation.
+          Share this link by email. Colleagues enter their name and email, then drag and drop files.
+          Uploads appear on this page for review.
         </p>
       </div>
 
@@ -138,8 +138,7 @@ export default function IntakeSharePanel({
       ) : (
         <div className="space-y-3">
           <p className="text-sm font-jost text-amber-900 bg-amber-50 border border-amber-100 px-4 py-3 rounded-lg">
-            {setupError ||
-              'No active upload link yet. Create one with a single click (requires migration 009 in Supabase).'}
+            {setupError || 'No active upload link yet. Create one below.'}
           </p>
           <button
             type="button"

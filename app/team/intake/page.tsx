@@ -51,12 +51,10 @@ export default async function TeamIntakePage() {
       if (defaultLink) {
         intakeShareUrl = buildIntakeShareUrl(siteBase, defaultLink.token)
       } else {
-        setupError =
-          'Could not create an upload link automatically. Run migration 009_document_intake_links.sql in the Supabase SQL editor, then refresh this page.'
+        setupError = 'Could not create an upload link. Please refresh this page or try again shortly.'
       }
     } else {
-      setupError =
-        'SUPABASE_SERVICE_ROLE_KEY is required for document intake. Add it in Vercel if uploads should work.'
+      setupError = 'Document intake is temporarily unavailable. Please try again shortly.'
     }
   }
 
@@ -65,8 +63,7 @@ export default async function TeamIntakePage() {
       <div className="mb-8">
         <h1 className="font-cormorant text-4xl text-eci-purple-dark">Document intake</h1>
         <p className="text-gray-400 text-sm font-jost mt-1 max-w-2xl leading-relaxed">
-          Collect source material from colleagues inside ECI, then shape articulated partner documentation
-          from what they submit. This is the working inbox, not the published school partner library.
+          Collect source documents from colleagues, then use them to prepare partner documentation.
         </p>
       </div>
 

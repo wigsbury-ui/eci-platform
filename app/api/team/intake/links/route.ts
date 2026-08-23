@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         error: missingTable
-          ? 'Run migration 009_document_intake_links.sql in Supabase, then try again.'
+          ? 'Document intake is not fully ready yet. Please try again shortly.'
           : 'Could not create link.',
       },
       { status: 500 }

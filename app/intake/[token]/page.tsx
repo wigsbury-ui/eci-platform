@@ -47,8 +47,7 @@ export default async function IntakePage({ params }: Props) {
       <div className="max-w-2xl mx-auto px-6 py-10">
         {!supabaseReady ? (
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-6 font-jost text-sm text-amber-900">
-            Document intake requires Supabase to be configured on this environment. Contact the ECI
-            team if you reached this page in production.
+            Document intake is temporarily unavailable. Please contact the ECI team.
           </div>
         ) : (
           <DocumentIntakeDropzone token={token} />

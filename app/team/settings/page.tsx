@@ -26,8 +26,7 @@ export default async function TeamSettingsPage() {
     if (defaultLink) {
       shareUrl = buildIntakeShareUrl(siteBase, defaultLink.token)
     } else {
-      setupError =
-        'Run migration 009_document_intake_links.sql in Supabase, then refresh to auto-create the upload link.'
+      setupError = 'Could not create an upload link. Please refresh this page or try again shortly.'
     }
   }
 
