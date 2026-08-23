@@ -4,8 +4,13 @@ import TeamIntakeReview from '@/components/portal/TeamIntakeReview'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { teamShellProps } from '@/components/portal/teamNav'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { getIntakeShareUrl, getSiteBaseUrl } from '@/lib/intake/shareUrl'
-import type { DocumentDraft, DocumentIntakeBatch } from '@/lib/types'
+import {
+  buildIntakeShareUrl,
+  ensureDefaultIntakeLink,
+  listIntakeLinks,
+} from '@/lib/intake/links'
+import { resolveSiteBaseUrl } from '@/lib/intake/shareUrl'
+import type { DocumentDraft, DocumentIntakeBatch, DocumentIntakeLink } from '@/lib/types'
 
 export default async function TeamIntakePage() {
   const { profile, preview } = await requirePortalAccess(
@@ -15,6 +20,11 @@ export default async function TeamIntakePage() {
 
   let batches: DocumentIntakeBatch[] = []
   let drafts: DocumentDraft[] = []
+  let links: DocumentIntakeLink[] = []
+  let intakeShareUrl: string | null = null
+  let setupError: string | null = null
+
+  const siteBase = await resolveSiteBaseUrl()
 
   if (!preview) {
     const admin = createAdminClient()
@@ -34,10 +44,21 @@ export default async function TeamIntakePage() {
         .limit(100)
 
       drafts = (draftRows as DocumentDraft[]) ?? []
+
+      const defaultLink = await ensureDefaultIntakeLink(profile?.id ?? null)
+      links = await listIntakeLinks()
+
+      if (defaultLink) {
+        intakeShareUrl = buildIntakeShareUrl(siteBase, defaultLink.token)
+      } else {
+        setupError =
+          'Could not create an upload link automatically. Run migration 009_document_intake_links.sql in the Supabase SQL editor, then refresh this page.'
+      }
+    } else {
+      setupError =
+        'SUPABASE_SERVICE_ROLE_KEY is required for document intake. Add it in Vercel if uploads should work.'
     }
   }
-
-  const siteBase = getSiteBaseUrl()
 
   return (
     <PortalShell {...teamShellProps(profile, '/team/intake')}>
@@ -52,8 +73,10 @@ export default async function TeamIntakePage() {
       <TeamIntakeReview
         batches={batches}
         drafts={drafts}
-        intakeShareUrl={getIntakeShareUrl()}
+        intakeShareUrl={intakeShareUrl}
         siteBase={siteBase}
+        links={links}
+        setupError={setupError}
       />
 
       <PortalChatbot audience="team" />

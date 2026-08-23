@@ -23,7 +23,6 @@ export const INTAKE_BATCH_STATUSES = [
 
 export type IntakeBatchStatus = (typeof INTAKE_BATCH_STATUSES)[number]['value']
 
-/** Extensions we accept on the intake dropzone (broad office formats). */
 export const INTAKE_ALLOWED_EXTENSIONS = new Set([
   '.pdf',
   '.doc',
@@ -47,14 +46,9 @@ export const INTAKE_ALLOWED_EXTENSIONS = new Set([
   '.zip',
 ])
 
-export function getIntakeUploadToken() {
+/** Legacy env fallback only. Prefer DB links via lib/intake/links.ts. */
+export function getEnvIntakeToken() {
   return process.env.DOCUMENT_INTAKE_TOKEN?.trim() || process.env.INTAKE_UPLOAD_TOKEN?.trim() || ''
-}
-
-export function isValidIntakeToken(token: string) {
-  const expected = getIntakeUploadToken()
-  if (!expected) return false
-  return token === expected
 }
 
 export function sanitizeStorageFileName(name: string) {

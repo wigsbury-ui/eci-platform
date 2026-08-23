@@ -4,15 +4,32 @@ import IntakeSharePanel from '@/components/portal/IntakeSharePanel'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { HERITAGE } from '@/lib/content/network'
 import { teamShellProps } from '@/components/portal/teamNav'
-import { getIntakeShareUrl, getSiteBaseUrl } from '@/lib/intake/shareUrl'
+import {
+  buildIntakeShareUrl,
+  ensureDefaultIntakeLink,
+  listIntakeLinks,
+} from '@/lib/intake/links'
+import { resolveSiteBaseUrl } from '@/lib/intake/shareUrl'
+import type { DocumentIntakeLink } from '@/lib/types'
 
 export default async function TeamSettingsPage() {
-  const { profile } = await requirePortalAccess(
-    ['super_admin', 'admin'],
-    'super_admin'
-  )
+  const { profile, preview } = await requirePortalAccess(['super_admin', 'admin'], 'super_admin')
 
-  const siteBase = getSiteBaseUrl()
+  const siteBase = await resolveSiteBaseUrl()
+  let links: DocumentIntakeLink[] = []
+  let shareUrl: string | null = null
+  let setupError: string | null = null
+
+  if (!preview) {
+    const defaultLink = await ensureDefaultIntakeLink(profile?.id ?? null)
+    links = await listIntakeLinks()
+    if (defaultLink) {
+      shareUrl = buildIntakeShareUrl(siteBase, defaultLink.token)
+    } else {
+      setupError =
+        'Run migration 009_document_intake_links.sql in Supabase, then refresh to auto-create the upload link.'
+    }
+  }
 
   return (
     <PortalShell {...teamShellProps(profile, '/team/settings')}>
@@ -20,7 +37,12 @@ export default async function TeamSettingsPage() {
       <p className="text-gray-400 text-sm font-jost mb-10">Global ECI configuration controlled by super admins.</p>
 
       <div className="max-w-2xl mb-10">
-        <IntakeSharePanel shareUrl={getIntakeShareUrl()} siteBase={siteBase} />
+        <IntakeSharePanel
+          shareUrl={shareUrl}
+          siteBase={siteBase}
+          links={links}
+          setupError={setupError}
+        />
       </div>
 
       <div className="grid gap-6 max-w-2xl">

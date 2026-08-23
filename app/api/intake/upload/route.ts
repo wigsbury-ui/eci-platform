@@ -3,14 +3,14 @@ import { createAdminClient, hasServiceRoleEnv } from '@/lib/supabase/admin'
 import {
   INTAKE_BUCKET,
   INTAKE_MAX_FILES_PER_BATCH,
-  isValidIntakeToken,
   sanitizeStorageFileName,
 } from '@/lib/intake/config'
+import { findActiveIntakeToken } from '@/lib/intake/links'
 import { isValidEmail, validateIntakeFile } from '@/lib/intake/validation'
 
 const RATE_WINDOW_MS = 60 * 60 * 1000
 const RATE_MAX_BATCHES = 30
-const rateMap = new Map<string, { count: number; reset: number }>
+const rateMap = new Map<string, { count: number; reset: number }>()
 
 function rateLimit(ip: string): boolean {
   const now = Date.now()
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
   try {
     const form = await request.formData()
     const token = String(form.get('token') ?? '')
-    if (!isValidIntakeToken(token)) {
+    if (!(await findActiveIntakeToken(token))) {
       return NextResponse.json({ error: 'Invalid intake link.' }, { status: 403 })
     }
 

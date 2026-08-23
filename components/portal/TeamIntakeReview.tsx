@@ -8,7 +8,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from 'lucide-react'
-import type { DocumentDraft, DocumentIntakeBatch, IntakeBatchStatus, IntakePillar } from '@/lib/types'
+import type { DocumentDraft, DocumentIntakeBatch, DocumentIntakeLink, IntakeBatchStatus, IntakePillar } from '@/lib/types'
 import { INTAKE_BATCH_STATUSES, INTAKE_PILLARS } from '@/lib/intake/config'
 import IntakeSharePanel from '@/components/portal/IntakeSharePanel'
 
@@ -17,6 +17,8 @@ type Props = {
   drafts: DocumentDraft[]
   intakeShareUrl: string | null
   siteBase: string
+  links?: DocumentIntakeLink[]
+  setupError?: string | null
 }
 
 function formatBytes(bytes: number) {
@@ -40,7 +42,14 @@ function pillarLabel(value: string | null) {
   return INTAKE_PILLARS.find(p => p.value === value)?.label ?? 'Unassigned'
 }
 
-export default function TeamIntakeReview({ batches: initialBatches, drafts: initialDrafts, intakeShareUrl, siteBase }: Props) {
+export default function TeamIntakeReview({
+  batches: initialBatches,
+  drafts: initialDrafts,
+  intakeShareUrl,
+  siteBase,
+  links = [],
+  setupError = null,
+}: Props) {
   const [batches, setBatches] = useState(initialBatches)
   const [drafts, setDrafts] = useState(initialDrafts)
   const [expanded, setExpanded] = useState<string | null>(initialBatches[0]?.id ?? null)
@@ -150,7 +159,12 @@ export default function TeamIntakeReview({ batches: initialBatches, drafts: init
 
   return (
     <div className="space-y-8">
-      <IntakeSharePanel shareUrl={intakeShareUrl} siteBase={siteBase} />
+      <IntakeSharePanel
+        shareUrl={intakeShareUrl}
+        siteBase={siteBase}
+        links={links}
+        setupError={setupError}
+      />
 
       {message && (
         <p className="text-sm font-jost text-eci-purple bg-eci-purple-light/50 px-4 py-2.5 rounded-lg">

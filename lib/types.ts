@@ -136,6 +136,16 @@ export interface DocumentDraft {
   created_at: string
 }
 
+export interface DocumentIntakeLink {
+  id: string
+  token: string
+  label: string
+  is_active: boolean
+  created_by: string | null
+  created_at: string
+  revoked_at: string | null
+}
+
 export interface Announcement {
   id: string
   title: string

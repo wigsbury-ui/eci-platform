@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import DocumentIntakeDropzone from '@/components/intake/DocumentIntakeDropzone'
-import { isValidIntakeToken } from '@/lib/intake/config'
+import { findActiveIntakeToken } from '@/lib/intake/links'
 import { hasSupabaseEnv } from '@/lib/supabase/server'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default async function IntakePage({ params }: Props) {
   const { token } = await params
 
-  if (!isValidIntakeToken(token)) {
+  if (!(await findActiveIntakeToken(token))) {
     notFound()
   }
 
@@ -19,9 +19,7 @@ export default async function IntakePage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-[#F8F4EF]">
-      <div
-        className="border-b border-[#2D1654]/10 bg-gradient-to-r from-[#2D1654] to-[#4C2585] text-white px-6 py-10"
-      >
+      <div className="border-b border-[#2D1654]/10 bg-gradient-to-r from-[#2D1654] to-[#4C2585] text-white px-6 py-10">
         <div className="max-w-2xl mx-auto flex items-start gap-5">
           <Image
             src="/images/brand/eci-crest.png"

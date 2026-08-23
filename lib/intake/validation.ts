@@ -5,7 +5,6 @@ export function isAllowedIntakeFile(file: File) {
   const dot = name.lastIndexOf('.')
   const ext = dot >= 0 ? name.slice(dot) : ''
   if (INTAKE_ALLOWED_EXTENSIONS.has(ext)) return true
-  // Allow unknown extension if browser reports a common office mime
   const mime = file.type.toLowerCase()
   if (!mime || mime === 'application/octet-stream') return ext.length > 0
   return (
