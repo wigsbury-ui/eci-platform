@@ -2,9 +2,30 @@ import PortalShell from '@/components/portal/PortalShell'
 import InvestorDashboard from '@/components/portal/InvestorDashboard'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import { requirePortalAccess } from '@/lib/supabase/session'
+import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
 import { School } from '@/lib/types'
 import { INVESTOR_NAV_ITEMS, INVESTOR_PORTAL_ACCENT, INVESTOR_PORTAL_NAME } from '@/components/portal/investorNav'
-import { resolvePartnerSchools, seedPartnerSchools } from '@/lib/schools/partner-schools'
+
+function toSchools(): School[] {
+  return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
+    id: s.id,
+    name: s.name,
+    country: s.country,
+    city: s.city,
+    status: s.status,
+    logo_url: null,
+    website: s.website || null,
+    contact_name: null,
+    contact_email: null,
+    student_count: null,
+    year_joined: s.year_joined || null,
+    curriculum: s.curriculum,
+    accreditations: null,
+    description: s.description,
+    short_bio: s.short_bio,
+    is_public: true,
+  }))
+}
 
 export default async function InvestorPage() {
   const { profile, supabase, preview } = await requirePortalAccess(
@@ -12,10 +33,10 @@ export default async function InvestorPage() {
     'investor'
   )
 
-  let schools = seedPartnerSchools()
+  let schools = toSchools()
   if (supabase && !preview) {
     const { data } = await supabase.from('schools').select('*').eq('is_public', true)
-    if (data?.length) schools = resolvePartnerSchools(data as School[])
+    if (data?.length) schools = data
   }
 
   return (
