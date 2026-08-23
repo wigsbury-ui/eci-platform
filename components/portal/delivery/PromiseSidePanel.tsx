@@ -206,11 +206,11 @@ export default function PromiseSidePanel({
   return (
     <aside
       className="fixed inset-y-0 right-0 z-50 w-full max-w-md border-l border-gray-200 bg-white shadow-2xl flex flex-col"
-      aria-label="Promise detail"
+      aria-label="Service details"
     >
       <div className="flex items-start justify-between gap-3 border-b border-gray-100 px-5 py-4">
         <div>
-          <p className="font-jost text-[11px] uppercase tracking-[0.2em] text-gray-400">Promise</p>
+          <p className="font-jost text-[11px] uppercase tracking-[0.2em] text-gray-400">Tracked service</p>
           <h2 className="font-cormorant text-2xl text-[#2D1654] leading-snug mt-1">{promise.title}</h2>
           <div className="mt-2">
             <StatusBadge status={promise.status} />
@@ -229,7 +229,7 @@ export default function PromiseSidePanel({
       <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
         {promise.promise_text && (
           <div>
-            <p className="font-jost text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-2">Promise</p>
+            <p className="font-jost text-[11px] uppercase tracking-[0.2em] text-gray-400 mb-2">What we deliver</p>
             <p className="font-jost text-sm text-gray-600 leading-relaxed">{promise.promise_text}</p>
           </div>
         )}

@@ -2,4 +2,5 @@
 
 delete from public.schools
 where name ilike '%Ellesmere College Muscat%'
-   or (city = 'Muscat' and name ilike '%Ellesmere%');
+   or name ilike '%Ellesmere%Muscat%'
+   or (city ilike 'Muscat' and name ilike '%Ellesmere%');

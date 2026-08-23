@@ -4,32 +4,15 @@ import PortalChatbot from '@/components/portal/PortalChatbot'
 import TeamDeliveryHub from '@/components/portal/TeamDeliveryHub'
 import { requirePortalAccess } from '@/lib/supabase/session'
 import { teamShellProps } from '@/components/portal/teamNav'
-import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
 import type { School } from '@/lib/types'
 import { listServicePromises } from '@/lib/delivery/db'
 import { demoPromises } from '@/lib/delivery/demo'
 import { listDeliveryNotifications } from '@/lib/delivery/notifications'
-
-function seedSchools(): School[] {
-  return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
-    id: s.id,
-    name: s.name,
-    country: s.country,
-    city: s.city,
-    status: s.status,
-    logo_url: null,
-    website: s.website || null,
-    contact_name: null,
-    contact_email: null,
-    student_count: null,
-    year_joined: s.year_joined || null,
-    curriculum: s.curriculum,
-    accreditations: null,
-    description: s.description,
-    short_bio: s.short_bio,
-    is_public: true,
-  }))
-}
+import {
+  isExcludedPartnerSchool,
+  resolvePartnerSchools,
+  seedPartnerSchools,
+} from '@/lib/schools/partner-schools'
 
 type SearchParams = Promise<{ school?: string; view?: string; add?: string }>
 
@@ -44,19 +27,22 @@ export default async function TeamDeliveryPage({
     'super_admin'
   )
 
-  let schools = seedSchools()
+  let schools = seedPartnerSchools()
   let promises = demoPromises(schools)
   let notifications: Awaited<ReturnType<typeof listDeliveryNotifications>> = []
   let demoMode = true
 
   if (supabase && !preview) {
     const { data: s } = await supabase.from('schools').select('*').order('name')
-    if (s?.length) schools = s as School[]
+    schools = resolvePartnerSchools(s as School[] | null)
 
     const dbPromises = await listServicePromises()
     notifications = await listDeliveryNotifications({ audience: 'staff', limit: 20 })
-    if (dbPromises.length > 0) {
-      promises = dbPromises
+    const schoolIds = new Set(schools.map(s => s.id))
+    const activePromises = dbPromises.filter(p => schoolIds.has(p.school_id))
+
+    if (activePromises.length > 0) {
+      promises = activePromises
       demoMode = false
     } else {
       promises = demoPromises(schools)
@@ -65,7 +51,9 @@ export default async function TeamDeliveryPage({
   }
 
   const initialSchoolId =
-    params.school && schools.some(s => s.id === params.school)
+    params.school &&
+    schools.some(s => s.id === params.school) &&
+    !isExcludedPartnerSchool(schools.find(s => s.id === params.school)!)
       ? params.school
       : schools[0]?.id
 

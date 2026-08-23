@@ -17,6 +17,7 @@ import DeliveryServicePicker from '@/components/portal/delivery/DeliveryServiceP
 import PromiseSidePanel from '@/components/portal/delivery/PromiseSidePanel'
 import DeliveryNotificationsBanner from '@/components/portal/delivery/DeliveryNotificationsBanner'
 import { demoEvidence, demoReviews } from '@/lib/delivery/demo'
+import { filterPartnerSchools } from '@/lib/schools/partner-schools'
 import { AlertCircle, LayoutGrid, Plus } from 'lucide-react'
 
 type View = 'school' | 'network'
@@ -40,13 +41,14 @@ function attentionScore(p: ServicePromise) {
 }
 
 export default function TeamDeliveryHub({
-  schools,
+  schools: schoolsProp,
   initialPromises,
   initialNotifications = [],
   demoMode,
   initialSchoolId,
   initialShowPicker,
 }: Props) {
+  const schools = filterPartnerSchools(schoolsProp)
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -58,7 +60,9 @@ export default function TeamDeliveryHub({
     searchParams.get('school') ?? defaultSchoolId
   )
   const [groupFilter, setGroupFilter] = useState<GroupFilter>('all')
-  const [promises, setPromises] = useState(initialPromises)
+  const [promises, setPromises] = useState(
+    initialPromises.filter(p => schools.some(s => s.id === p.school_id))
+  )
   const [notifications, setNotifications] = useState(initialNotifications)
   const [pickerOpen, setPickerOpen] = useState(initialShowPicker ?? false)
   const [activating, setActivating] = useState(false)

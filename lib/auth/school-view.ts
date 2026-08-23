@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers'
 import { isStaff } from '@/lib/auth/roles'
-import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
+import { seedPartnerSchools } from '@/lib/schools/partner-schools'
 import { Profile } from '@/lib/types'
 
 export const VIEW_SCHOOL_COOKIE = 'eci_view_school'
 
-const KNOWN_SCHOOLS = [...OPERATING_SCHOOLS, ...OPENING_SOON]
+const KNOWN_SCHOOLS = seedPartnerSchools()
 
 export function schoolLabel(schoolId: string | null | undefined): string {
   if (!schoolId) return 'School'
