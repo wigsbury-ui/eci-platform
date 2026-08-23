@@ -8,11 +8,11 @@ import {
   INVESTOR_BENEFITS_INTRO,
 } from '@/lib/content/investor-benefits'
 
-const VH_PER_BENEFIT = 78
+const VH_PER_BENEFIT = 70
 
 /**
  * Viewport-pinned partnership benefits on a light ground.
- * Topic rail above; copy left + small framed UK campus plate right.
+ * Copy-led left column + compact landscape plate on the right.
  */
 export default function InvestorBenefitsModule() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -90,25 +90,25 @@ export default function InvestorBenefitsModule() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(6.75rem,calc(var(--eci-nav-offset)+1.75rem))] pb-6 md:pb-8">
-          <header className="relative shrink-0">
-            <p className="mb-2 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
+        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(6.25rem,calc(var(--eci-nav-offset)+1.5rem))] pb-5 md:pb-6">
+          <header className="relative shrink-0 max-w-3xl">
+            <p className="mb-1.5 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
               {INVESTOR_BENEFITS_INTRO.eyebrow}
             </p>
             <h2
-              className="whitespace-nowrap font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
+              className="font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
+              style={{ fontSize: 'clamp(2rem, 3.35vw, 3rem)' }}
             >
               {INVESTOR_BENEFITS_INTRO.title}
             </h2>
-            <p className="mt-4 max-w-2xl font-jost text-[15px] leading-relaxed text-[#2D1654]/70 md:text-base">
+            <p className="mt-3 font-jost text-[15px] leading-relaxed text-[#2D1654]/70 md:text-base md:leading-relaxed">
               {INVESTOR_BENEFITS_INTRO.summary}
             </p>
-            <div className="mt-4 h-1 w-14 bg-[#C8A84B]" />
+            <div className="mt-3 h-1 w-14 bg-[#C8A84B]" />
           </header>
 
           <nav
-            className="mt-5 flex shrink-0 gap-1 overflow-x-auto pb-1 eci-benefits-scroll md:flex-wrap md:gap-x-1 md:gap-y-2 md:overflow-visible"
+            className="mt-3 flex shrink-0 gap-0.5 overflow-x-auto pb-0.5 eci-benefits-scroll md:mt-3.5 md:flex-wrap md:gap-x-1 md:gap-y-1.5 md:overflow-visible"
             aria-label="Benefit topics"
           >
             {INVESTOR_BENEFITS.map((benefit, index) => {
@@ -118,14 +118,14 @@ export default function InvestorBenefitsModule() {
                   key={benefit.id}
                   type="button"
                   onClick={() => scrollToBenefit(index)}
-                  className={`shrink-0 border-b-2 px-2.5 py-2 text-left transition-colors md:px-3 ${
+                  className={`shrink-0 border-b-2 px-2 py-1.5 text-left transition-colors md:px-2.5 ${
                     isActive
                       ? 'border-[#C8A84B] text-[#2D1654]'
                       : 'border-transparent text-[#2D1654]/40 hover:text-[#2D1654]/75'
                   }`}
                   aria-current={isActive ? 'true' : undefined}
                 >
-                  <span className="block whitespace-nowrap font-jost text-[13px] leading-tight md:text-sm">
+                  <span className="block whitespace-nowrap font-jost text-[12px] leading-tight md:text-[13px]">
                     {benefit.label}
                   </span>
                 </button>
@@ -137,23 +137,23 @@ export default function InvestorBenefitsModule() {
 
           <article
             key={item.id}
-            className="eci-benefits-card mt-4 grid min-h-0 flex-1 grid-cols-1 items-start gap-6 md:mt-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(14rem,0.7fr)] lg:gap-10"
+            className="eci-benefits-card mt-3 grid min-h-0 flex-1 grid-cols-1 items-center gap-6 md:mt-4 lg:grid-cols-[minmax(0,1.28fr)_minmax(10.5rem,0.48fr)] lg:gap-10 xl:gap-12"
           >
-            <div className="min-w-0">
-              <p className="mb-2 font-jost text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
+            <div className="min-w-0 lg:py-1">
+              <p className="mb-2 font-jost text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
                 {mark} / {String(count).padStart(2, '0')}
               </p>
               <h3
-                className="font-cormorant font-semibold leading-[1.12] tracking-[-0.02em] text-[#2D1654]"
-                style={{ fontSize: 'clamp(1.7rem, 3.1vw, 2.55rem)' }}
+                className="font-cormorant font-semibold leading-[1.1] tracking-[-0.02em] text-[#2D1654]"
+                style={{ fontSize: 'clamp(1.95rem, 3.6vw, 2.85rem)' }}
               >
                 {item.title}
               </h3>
-              <p className="mt-4 max-w-xl font-jost text-[15px] leading-relaxed text-[#2D1654]/80 md:mt-5 md:text-base">
+              <p className="mt-4 max-w-2xl font-jost text-[17px] leading-[1.65] text-[#2D1654]/82 md:mt-5 md:text-lg md:leading-[1.7]">
                 {item.benefit}
               </p>
 
-              <p className="mt-6 font-jost text-[12px] text-[#2D1654]/45">
+              <p className="mt-5 font-jost text-[13px] text-[#2D1654]/45 md:mt-6">
                 For fee schedules and full terms, open the{' '}
                 <Link
                   href="/login?audience=investor"
@@ -165,21 +165,21 @@ export default function InvestorBenefitsModule() {
               </p>
             </div>
 
-            {/* Small supporting plate, not a full photo column */}
-            <figure className="mx-auto w-full max-w-[17.5rem] justify-self-center lg:mx-0 lg:max-w-none lg:justify-self-end">
-              <div className="border border-[#C8A84B]/55 p-2 bg-white">
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#2D1654]/5">
+            {/* Compact landscape plate, vertically centred with copy */}
+            <figure className="mx-auto w-full max-w-[15rem] justify-self-center lg:mx-0 lg:max-w-[13.5rem] lg:justify-self-end xl:max-w-[14.5rem]">
+              <div className="border border-[#C8A84B]/55 p-1.5 bg-white">
+                <div className="relative aspect-[5/3] overflow-hidden bg-[#2D1654]/5">
                   <Image
                     src={item.image}
                     alt={item.imageAlt}
                     fill
-                    sizes="(max-width: 1024px) 280px, 320px"
-                    className="object-cover"
+                    sizes="(max-width: 1024px) 240px, 260px"
+                    className="object-cover object-center"
                     priority={active === 0}
                   />
                 </div>
               </div>
-              <figcaption className="mt-3 font-jost text-[12px] leading-snug text-[#2D1654]/55">
+              <figcaption className="mt-2 font-jost text-[11px] leading-snug text-[#2D1654]/55 md:text-xs">
                 {item.imageCaption}
               </figcaption>
             </figure>
