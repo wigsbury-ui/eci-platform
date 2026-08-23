@@ -94,22 +94,17 @@ export default function InvestorBenefitsModule() {
           className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(6rem,calc(var(--eci-nav-offset)+1.25rem))] pb-6 md:pb-8"
         >
           {/* Compact header band */}
-          <header className="shrink-0 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:items-end">
-            <div>
-              <p className="mb-1.5 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
-                {INVESTOR_BENEFITS_INTRO.eyebrow}
-              </p>
-              <h2
-                className="font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
-                style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3.25rem)' }}
-              >
-                {INVESTOR_BENEFITS_INTRO.title}
-              </h2>
-              <div className="mt-3 h-1 w-14 bg-[#C8A84B]" />
-            </div>
-            <p className="mt-4 font-jost text-[15px] leading-relaxed text-[#2D1654]/72 md:text-base lg:mt-0 lg:pb-1">
-              {INVESTOR_BENEFITS_INTRO.summary}
+          <header className="shrink-0">
+            <p className="mb-1.5 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
+              {INVESTOR_BENEFITS_INTRO.eyebrow}
             </p>
+            <h2
+              className="font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
+              style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3.25rem)' }}
+            >
+              {INVESTOR_BENEFITS_INTRO.title}
+            </h2>
+            <div className="mt-3 h-1 w-14 bg-[#C8A84B]" />
           </header>
 
           <nav
@@ -142,36 +137,41 @@ export default function InvestorBenefitsModule() {
 
           {/* Main card: vertically centred in remaining viewport */}
           <div className="flex min-h-0 flex-1 items-center py-4 md:py-6">
-            <article
-              key={item.id}
-              className="eci-benefits-card grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16"
-            >
+            <article className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
               <div className="min-w-0 order-2 lg:order-1">
                 <p className="mb-2 font-jost text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
                   {mark} / {String(count).padStart(2, '0')}
                 </p>
-                <h3
-                  className="font-cormorant font-semibold leading-[1.08] tracking-[-0.02em] text-[#2D1654]"
-                  style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)' }}
-                >
-                  {item.title}
-                </h3>
-                <p className="mt-4 font-jost text-[16px] leading-[1.65] text-[#2D1654]/82 md:mt-5 md:text-[17px] md:leading-[1.7] lg:max-w-[36rem]">
-                  {item.benefit}
+                <p className="mb-4 max-w-xl font-jost text-[15px] leading-relaxed text-[#2D1654]/72 md:mb-5 md:text-base md:leading-relaxed lg:max-w-[36rem]">
+                  {INVESTOR_BENEFITS_INTRO.summary}
                 </p>
-                <p className="mt-5 font-jost text-[13px] text-[#2D1654]/45 md:mt-6">
-                  For fee schedules and full terms, open the{' '}
-                  <Link
-                    href="/login?audience=investor"
-                    className="text-[#4C2585] underline-offset-2 hover:underline"
+                <div key={item.id} className="eci-benefits-card">
+                  <h3
+                    className="font-cormorant font-semibold leading-[1.08] tracking-[-0.02em] text-[#2D1654]"
+                    style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)' }}
                   >
-                    Investor Portal
-                  </Link>
-                  .
-                </p>
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 font-jost text-[16px] leading-[1.65] text-[#2D1654]/82 md:mt-5 md:text-[17px] md:leading-[1.7] lg:max-w-[36rem]">
+                    {item.benefit}
+                  </p>
+                  <p className="mt-5 font-jost text-[13px] text-[#2D1654]/45 md:mt-6">
+                    For fee schedules and full terms, open the{' '}
+                    <Link
+                      href="/login?audience=investor"
+                      className="text-[#4C2585] underline-offset-2 hover:underline"
+                    >
+                      Investor Portal
+                    </Link>
+                    .
+                  </p>
+                </div>
               </div>
 
-              <figure className="order-1 w-full lg:order-2 lg:flex lg:flex-col lg:items-end">
+              <figure
+                key={item.id}
+                className="eci-benefits-card order-1 w-full lg:order-2 lg:flex lg:flex-col lg:items-end"
+              >
                 <div
                   className="mx-auto w-full max-w-[min(100%,20rem)] border border-[#C8A84B]/55 bg-white p-2 shadow-[0_12px_40px_rgba(45,22,84,0.07)] sm:max-w-[22rem] lg:mx-0 lg:w-full lg:max-w-[min(100%,28rem)] xl:max-w-[min(100%,32rem)]"
                 >
