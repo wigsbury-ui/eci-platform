@@ -37,7 +37,7 @@ export const PARTNER_WHY = {
     },
     {
       title: 'Proof, not a paper franchise',
-      body: 'Riyadh and Muscat operate today; Doha is opening. Investors can see the standard transferring across the Middle East.',
+      body: 'Riyadh campuses operate today; Doha is opening. Investors can see the standard transferring across the Middle East.',
     },
     {
       title: 'Quality protection',

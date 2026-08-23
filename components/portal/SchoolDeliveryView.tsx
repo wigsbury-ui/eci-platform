@@ -6,6 +6,7 @@ import StatusBadge from '@/components/portal/delivery/StatusBadge'
 import PromiseSidePanel from '@/components/portal/delivery/PromiseSidePanel'
 import DeliveryKanbanBoard from '@/components/portal/delivery/DeliveryKanbanBoard'
 import DeliveryNotificationsBanner from '@/components/portal/delivery/DeliveryNotificationsBanner'
+import DeliveryHowItWorks from '@/components/portal/delivery/DeliveryHowItWorks'
 import { demoEvidence, demoPromisesForSchool } from '@/lib/delivery/demo'
 
 type Props = {
@@ -74,6 +75,8 @@ export default function SchoolDeliveryView({
           Read-only view of ECI service commitments for {schoolName} — status, owners, and linked evidence.
         </p>
       </div>
+
+      <DeliveryHowItWorks audience="school" />
 
       <DeliveryNotificationsBanner
         notifications={notifications}

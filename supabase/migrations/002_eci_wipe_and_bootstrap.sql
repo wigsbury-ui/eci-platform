@@ -427,18 +427,6 @@ insert into public.schools (
   true
 ),
 (
-  'Ellesmere College Muscat',
-  'Oman',
-  'Muscat',
-  'active',
-  null,
-  2023,
-  array['IB Continuum', 'Early Years to Grade 12'],
-  'A vibrant international school combining the International Baccalaureate with Ellesmere’s Life:Ready ethos in Oman’s capital.',
-  'Opened in 2023, Ellesmere College Muscat serves students from early years to Grade 12.',
-  true
-),
-(
   'Ellesmere College Doha',
   'Qatar',
   'Doha',

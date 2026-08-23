@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { School } from '@/lib/types'
 import type { DeliveryNotification, PromiseStatus, ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
+import DeliveryHowItWorks from '@/components/portal/delivery/DeliveryHowItWorks'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
 import DeliveryNotificationsBanner from '@/components/portal/delivery/DeliveryNotificationsBanner'
 import {
@@ -68,6 +69,8 @@ export default function TeamDeliveryCockpit({
       </div>
 
       <DeliverySubNav active="/team/delivery" />
+
+      <DeliveryHowItWorks audience="team" />
 
       <DeliveryNotificationsBanner
         notifications={notifications}

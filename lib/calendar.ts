@@ -12,7 +12,7 @@ export const NETWORK_CALENDAR_COLOUR = '#4C2585'
 
 const SCHOOL_COLOURS: Record<string, string> = {
   riyadh: '#0F766E',
-  muscat: '#B45309',
+  'riyadh-salwa': '#0D9488',
   doha: '#1D4ED8',
 }
 
@@ -31,7 +31,7 @@ export const COMMON_TIMEZONES: { value: string; label: string }[] = [
 
 export const SCHOOL_DEFAULT_TIMEZONE: Record<string, string> = {
   riyadh: 'Asia/Riyadh',
-  muscat: 'Asia/Muscat',
+  'riyadh-salwa': 'Asia/Riyadh',
   doha: 'Asia/Qatar',
 }
 

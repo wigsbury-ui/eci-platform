@@ -31,9 +31,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: 'Neil Tomalin',
     title: 'Director of International Strategy & School Development, ECI',
     shortBio:
-      'Neil leads ECI’s international growth, strategic planning and partner school development across the Middle East. A former Principal of Ellesmere Muscat, he helps partners open and run strong campuses grounded in Ellesmere’s values, with a focus on schools that families love to belong to.',
+      'Neil leads ECI’s international growth, strategic planning and partner school development across the Middle East. He brings prior principal-level experience in the region and helps partners open and run strong campuses grounded in Ellesmere’s values, with a focus on schools that families love to belong to.',
     fullBio:
-      'As Director of International Strategy and School Development at Ellesmere College International, Neil leads international growth, strategic planning and partner school development. He brings senior school leadership experience, including as Principal of Ellesmere Muscat, to help partners open and run strong, future-facing campuses grounded in Ellesmere’s educational values.',
+      'As Director of International Strategy and School Development at Ellesmere College International, Neil leads international growth, strategic planning and partner school development. He brings senior school leadership experience from the Middle East to help partners open and run strong, future-facing campuses grounded in Ellesmere’s educational values.',
     image: '/images/people/neil-tomalin-avatar.jpg',
     linkedin: 'https://www.linkedin.com/in/neil-tomalin/',
     initials: 'NT',
