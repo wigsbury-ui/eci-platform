@@ -7,6 +7,10 @@ import { INTAKE_PILLARS } from '@/lib/intake/config'
 import { gatherSourceText, generateArticulatedDraft } from '@/lib/intake/articulate'
 import { isLlmConfigured } from '@/lib/llm/client'
 
+/** Allow long Anthropic generations on Vercel (Pro). */
+export const maxDuration = 300
+export const runtime = 'nodejs'
+
 const PILLAR_VALUES = new Set(INTAKE_PILLARS.map(p => p.value))
 
 async function assertStaff() {
@@ -50,7 +54,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Title is required' }, { status: 400 })
   }
   if (!sourceFileIds.length) {
-    return NextResponse.json({ error: 'Select at least one source file.' }, { status: 400 })
+    return NextResponse.json(
+      { error: 'No source files were selected. Expand the submission and try again.' },
+      { status: 400 }
+    )
   }
 
   const admin = createAdminClient()
@@ -59,23 +66,31 @@ export async function POST(request: Request) {
   }
 
   let bodyMarkdown: string | null = null
-  let generationWarning: string | null = null
 
   if (generate) {
     if (!isLlmConfigured()) {
       return NextResponse.json(
         {
           error:
-            'AI drafting is not available yet. Please ask the platform administrator to enable it, then try again.',
+            'AI drafting is not available. Add ANTHROPIC_API_KEY (and LLM_MODEL if needed) in Vercel, then redeploy.',
         },
         { status: 503 }
       )
     }
 
+    console.info('[intake-draft] extracting', { fileCount: sourceFileIds.length, title })
     const gathered = await gatherSourceText(sourceFileIds)
     if (!gathered.ok) {
-      return NextResponse.json({ error: gathered.error || 'Could not read source files.' }, { status: 400 })
+      console.error('[intake-draft] extract failed', gathered.error)
+      return NextResponse.json(
+        { error: gathered.error || 'Could not read text from the uploaded file(s). Prefer PDF or Word (.docx).' },
+        { status: 400 }
+      )
     }
+
+    console.info('[intake-draft] generating', {
+      sources: gathered.sources.map(s => ({ name: s.fileName, chars: s.text.length })),
+    })
 
     const drafted = await generateArticulatedDraft({
       title,
@@ -85,33 +100,55 @@ export async function POST(request: Request) {
     })
 
     if (!drafted.ok) {
+      console.error('[intake-draft] llm failed', drafted.error)
       return NextResponse.json({ error: drafted.error }, { status: 502 })
     }
     bodyMarkdown = drafted.body
   }
 
-  const { data, error } = await admin
-    .from('document_drafts')
-    .insert({
-      title,
-      pillar,
-      prompt_notes: promptNotes || null,
-      source_batch_id: sourceBatchId,
-      source_file_ids: sourceFileIds,
-      body_markdown: bodyMarkdown,
-      status: 'draft',
-      created_by: staff.profile.id,
-    })
-    .select('*')
-    .single()
+  const insertPayload = {
+    title,
+    pillar,
+    prompt_notes: promptNotes || null,
+    source_batch_id: sourceBatchId,
+    source_file_ids: sourceFileIds,
+    body_markdown: bodyMarkdown,
+    status: 'draft',
+    created_by: staff.profile.id,
+  }
+
+  const { data, error } = await admin.from('document_drafts').insert(insertPayload).select('*').single()
 
   if (error || !data) {
-    console.error('draft insert', error)
-    return NextResponse.json({ error: 'Could not create draft' }, { status: 500 })
+    console.error('[intake-draft] insert failed', error)
+    // Common cause: preview/fake profile id failing FK — retry without created_by
+    if (error?.code === '23503') {
+      const retry = await admin
+        .from('document_drafts')
+        .insert({ ...insertPayload, created_by: null })
+        .select('*')
+        .single()
+      if (retry.data) {
+        if (sourceBatchId) {
+          await admin
+            .from('document_intake_batches')
+            .update({
+              status: 'ready_for_articulation',
+              reviewed_at: new Date().toISOString(),
+            })
+            .eq('id', sourceBatchId)
+        }
+        return NextResponse.json({ draft: retry.data })
+      }
+    }
+    return NextResponse.json(
+      { error: error?.message ? `Could not save draft: ${error.message}` : 'Could not save draft' },
+      { status: 500 }
+    )
   }
 
   if (sourceBatchId) {
-    await admin
+    const { error: batchError } = await admin
       .from('document_intake_batches')
       .update({
         status: 'ready_for_articulation',
@@ -119,9 +156,13 @@ export async function POST(request: Request) {
         reviewed_at: new Date().toISOString(),
       })
       .eq('id', sourceBatchId)
+    if (batchError) {
+      console.error('[intake-draft] batch status update failed', batchError)
+    }
   }
 
-  return NextResponse.json({ draft: data, warning: generationWarning })
+  console.info('[intake-draft] ok', { draftId: data.id, bodyChars: bodyMarkdown?.length ?? 0 })
+  return NextResponse.json({ draft: data })
 }
 
 export async function PATCH(request: Request) {
@@ -156,7 +197,7 @@ export async function PATCH(request: Request) {
     .single()
 
   if (error || !data) {
-    console.error('draft update', error)
+    console.error('[intake-draft] update failed', error)
     return NextResponse.json({ error: 'Could not update draft' }, { status: 500 })
   }
 

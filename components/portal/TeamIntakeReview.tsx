@@ -65,6 +65,12 @@ export default function TeamIntakeReview({
   const [draftBodyEdit, setDraftBodyEdit] = useState('')
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
+  const [messageTone, setMessageTone] = useState<'info' | 'error' | 'success'>('info')
+
+  const showMessage = (text: string, tone: 'info' | 'error' | 'success' = 'info') => {
+    setMessage(text)
+    setMessageTone(tone)
+  }
 
   const filtered = useMemo(() => {
     if (filter === 'all') return batches
@@ -85,7 +91,7 @@ export default function TeamIntakeReview({
     }>
   ) => {
     setSaving(true)
-    setMessage('')
+    showMessage('')
     try {
       const res = await fetch(`/api/team/intake/batch/${batchId}`, {
         method: 'PATCH',
@@ -94,7 +100,7 @@ export default function TeamIntakeReview({
       })
       const data = await res.json()
       if (!res.ok) {
-        setMessage(data.error || 'Update failed')
+        showMessage(data.error || 'Update failed', 'error')
         return
       }
       setBatches(prev =>
@@ -108,9 +114,9 @@ export default function TeamIntakeReview({
             : b
         )
       )
-      setMessage('Saved')
+      showMessage('Saved', 'success')
     } catch {
-      setMessage('Update failed')
+      showMessage('Update failed', 'error')
     } finally {
       setSaving(false)
     }
@@ -133,8 +139,16 @@ export default function TeamIntakeReview({
 
   const createDraft = async () => {
     if (!draftForm.batchId || !draftForm.title.trim()) return
+    if (!draftForm.fileIds.length) {
+      showMessage(
+        'No source files found on this submission. Re-upload the document, then try again.',
+        'error'
+      )
+      return
+    }
+
     setSaving(true)
-    setMessage('Reading source files and drafting… this can take up to a minute.')
+    showMessage('Reading source files and drafting with Claude… this can take up to a minute.', 'info')
     try {
       const res = await fetch('/api/team/intake/draft', {
         method: 'POST',
@@ -148,27 +162,56 @@ export default function TeamIntakeReview({
           generate: true,
         }),
       })
-      const data = await res.json()
-      if (!res.ok) {
-        setMessage(data.error || 'Could not create draft')
+
+      const raw = await res.text()
+      let data: {
+        error?: string
+        draft?: DocumentDraft
+      } = {}
+      try {
+        data = raw ? JSON.parse(raw) : {}
+      } catch {
+        showMessage(
+          res.status === 504 || res.status === 408
+            ? 'The request timed out while drafting. Please try again — longer documents may need a second attempt.'
+            : `Draft request failed (${res.status}). Please try again.`,
+          'error'
+        )
         return
       }
-      setDrafts(prev => [data.draft, ...prev])
+
+      if (!res.ok) {
+        showMessage(data.error || `Could not create draft (${res.status}).`, 'error')
+        return
+      }
+
+      if (!data.draft) {
+        showMessage('Draft response was empty. Please try again.', 'error')
+        return
+      }
+
+      setDrafts(prev => [data.draft!, ...prev.filter(d => d.id !== data.draft!.id)])
       setBatches(prev =>
         prev.map(b =>
           b.id === draftForm.batchId ? { ...b, status: 'ready_for_articulation' as IntakeBatchStatus } : b
         )
       )
-      setDraftForm({ batchId: null, title: '', pillar: '', notes: '', fileIds: [] })
+      // Keep the form open so success does not look like a silent reset; scroll to the draft body.
       setSelectedDraftId(data.draft.id)
       setDraftBodyEdit(data.draft.body_markdown || '')
-      setMessage(
+      showMessage(
         data.draft.body_markdown
-          ? 'Draft generated. Review the text below, edit if needed, then save.'
-          : 'Draft record created, but no body was generated.'
+          ? 'Draft generated. Review the text in Articulation drafts below, edit if needed, then save.'
+          : 'Draft saved, but the body was empty. Check ANTHROPIC_API_KEY and LLM_MODEL in Vercel, then generate again.',
+        data.draft.body_markdown ? 'success' : 'error'
       )
-    } catch {
-      setMessage('Could not create draft')
+
+      requestAnimationFrame(() => {
+        document.getElementById('articulation-drafts')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    } catch (err) {
+      console.error('createDraft', err)
+      showMessage('Could not create draft. Check your connection and try again.', 'error')
     } finally {
       setSaving(false)
     }
@@ -177,7 +220,7 @@ export default function TeamIntakeReview({
   const saveDraftBody = async () => {
     if (!selectedDraftId) return
     setSaving(true)
-    setMessage('')
+    showMessage('')
     try {
       const res = await fetch('/api/team/intake/draft', {
         method: 'PATCH',
@@ -186,13 +229,13 @@ export default function TeamIntakeReview({
       })
       const data = await res.json()
       if (!res.ok) {
-        setMessage(data.error || 'Could not save draft')
+        showMessage(data.error || 'Could not save draft', 'error')
         return
       }
       setDrafts(prev => prev.map(d => (d.id === selectedDraftId ? { ...d, ...data.draft } : d)))
-      setMessage('Draft saved')
+      showMessage('Draft saved', 'success')
     } catch {
-      setMessage('Could not save draft')
+      showMessage('Could not save draft', 'error')
     } finally {
       setSaving(false)
     }
@@ -208,7 +251,16 @@ export default function TeamIntakeReview({
       />
 
       {message && (
-        <p className="text-sm font-jost text-eci-purple bg-eci-purple-light/50 px-4 py-2.5 rounded-lg">
+        <p
+          role={messageTone === 'error' ? 'alert' : 'status'}
+          className={`text-sm font-jost px-4 py-2.5 rounded-lg border ${
+            messageTone === 'error'
+              ? 'text-red-800 bg-red-50 border-red-200'
+              : messageTone === 'success'
+                ? 'text-emerald-900 bg-emerald-50 border-emerald-200'
+                : 'text-eci-purple bg-eci-purple-light/50 border-eci-purple/15'
+          }`}
+        >
           {message}
         </p>
       )}
@@ -417,14 +469,18 @@ export default function TeamIntakeReview({
         )}
       </div>
 
-      {drafts.length > 0 && (
-        <div className="bg-white border border-gray-100 rounded-xl p-6 space-y-4">
-          <div>
-            <h2 className="font-cormorant text-xl text-eci-purple-dark mb-1">Articulation drafts</h2>
-            <p className="text-sm text-gray-500 font-jost">
-              Generated from intake sources. Open a draft to review and edit the body text.
-            </p>
-          </div>
+      <div id="articulation-drafts" className="bg-white border border-gray-100 rounded-xl p-6 space-y-4 scroll-mt-24">
+        <div>
+          <h2 className="font-cormorant text-xl text-eci-purple-dark mb-1">Articulation drafts</h2>
+          <p className="text-sm text-gray-500 font-jost">
+            Generated from intake sources. Open a draft to review and edit the body text.
+          </p>
+        </div>
+        {drafts.length === 0 ? (
+          <p className="text-sm text-gray-500 font-jost">
+            No drafts yet. Expand a submission, click Start articulation draft, then Generate draft from sources.
+          </p>
+        ) : (
           <ul className="space-y-3">
             {drafts.map(draft => (
               <li key={draft.id} className="border border-gray-100 rounded-lg px-4 py-3 text-sm font-jost">
@@ -450,31 +506,31 @@ export default function TeamIntakeReview({
               </li>
             ))}
           </ul>
+        )}
 
-          {selectedDraft && (
-            <div className="border border-eci-purple/15 rounded-xl p-4 space-y-3 bg-[#FBF8F4]">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <h3 className="font-cormorant text-lg text-eci-purple-dark">{selectedDraft.title}</h3>
-                <button
-                  type="button"
-                  disabled={saving}
-                  onClick={saveDraftBody}
-                  className="bg-eci-purple text-white px-3 py-1.5 rounded-lg text-xs font-jost font-semibold disabled:opacity-50"
-                >
-                  {saving ? 'Saving…' : 'Save edits'}
-                </button>
-              </div>
-              <textarea
-                rows={18}
-                value={draftBodyEdit}
-                onChange={e => setDraftBodyEdit(e.target.value)}
-                className="w-full border border-gray-200 rounded-lg px-3 py-3 text-sm font-jost leading-relaxed bg-white resize-y min-h-[280px]"
-                placeholder="Draft body will appear here after generation."
-              />
+        {selectedDraft && (
+          <div className="border border-eci-purple/15 rounded-xl p-4 space-y-3 bg-[#FBF8F4]">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h3 className="font-cormorant text-lg text-eci-purple-dark">{selectedDraft.title}</h3>
+              <button
+                type="button"
+                disabled={saving}
+                onClick={saveDraftBody}
+                className="bg-eci-purple text-white px-3 py-1.5 rounded-lg text-xs font-jost font-semibold disabled:opacity-50"
+              >
+                {saving ? 'Saving…' : 'Save edits'}
+              </button>
             </div>
-          )}
-        </div>
-      )}
+            <textarea
+              rows={18}
+              value={draftBodyEdit}
+              onChange={e => setDraftBodyEdit(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-3 py-3 text-sm font-jost leading-relaxed bg-white resize-y min-h-[280px]"
+              placeholder="Draft body will appear here after generation."
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
