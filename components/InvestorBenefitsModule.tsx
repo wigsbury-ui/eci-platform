@@ -8,11 +8,11 @@ import {
   INVESTOR_BENEFITS_INTRO,
 } from '@/lib/content/investor-benefits'
 
-const VH_PER_BENEFIT = 70
+const VH_PER_BENEFIT = 72
 
 /**
- * Viewport-pinned partnership benefits on a light ground.
- * Copy-led left column + compact landscape plate on the right.
+ * Viewport-pinned partnership benefits: editorial two-column card
+ * (copy + framed UK plate) centred in the frame below the topic rail.
  */
 export default function InvestorBenefitsModule() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -90,25 +90,30 @@ export default function InvestorBenefitsModule() {
           />
         </div>
 
-        <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(6.25rem,calc(var(--eci-nav-offset)+1.5rem))] pb-5 md:pb-6">
-          <header className="relative shrink-0 max-w-3xl">
-            <p className="mb-1.5 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
-              {INVESTOR_BENEFITS_INTRO.eyebrow}
-            </p>
-            <h2
-              className="font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
-              style={{ fontSize: 'clamp(2rem, 3.35vw, 3rem)' }}
-            >
-              {INVESTOR_BENEFITS_INTRO.title}
-            </h2>
-            <p className="mt-3 font-jost text-[15px] leading-relaxed text-[#2D1654]/70 md:text-base md:leading-relaxed">
+        <div
+          className="relative z-10 mx-auto flex h-full w-full max-w-7xl min-h-0 flex-col px-6 pt-[max(6rem,calc(var(--eci-nav-offset)+1.25rem))] pb-6 md:pb-8"
+        >
+          {/* Compact header band */}
+          <header className="shrink-0 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-10 lg:items-end">
+            <div>
+              <p className="mb-1.5 font-jost text-[11px] font-bold uppercase tracking-[0.3em] text-[#C8A84B]">
+                {INVESTOR_BENEFITS_INTRO.eyebrow}
+              </p>
+              <h2
+                className="font-cormorant font-semibold leading-[1.05] tracking-[-0.02em] text-[#2D1654]"
+                style={{ fontSize: 'clamp(2.1rem, 3.8vw, 3.25rem)' }}
+              >
+                {INVESTOR_BENEFITS_INTRO.title}
+              </h2>
+              <div className="mt-3 h-1 w-14 bg-[#C8A84B]" />
+            </div>
+            <p className="mt-4 font-jost text-[15px] leading-relaxed text-[#2D1654]/72 md:text-base lg:mt-0 lg:pb-1">
               {INVESTOR_BENEFITS_INTRO.summary}
             </p>
-            <div className="mt-3 h-1 w-14 bg-[#C8A84B]" />
           </header>
 
           <nav
-            className="mt-3 flex shrink-0 gap-0.5 overflow-x-auto pb-0.5 eci-benefits-scroll md:mt-3.5 md:flex-wrap md:gap-x-1 md:gap-y-1.5 md:overflow-visible"
+            className="mt-4 shrink-0 overflow-x-auto pb-1 eci-benefits-scroll md:mt-5 md:flex md:flex-wrap md:gap-x-0.5 md:gap-y-1"
             aria-label="Benefit topics"
           >
             {INVESTOR_BENEFITS.map((benefit, index) => {
@@ -118,14 +123,14 @@ export default function InvestorBenefitsModule() {
                   key={benefit.id}
                   type="button"
                   onClick={() => scrollToBenefit(index)}
-                  className={`shrink-0 border-b-2 px-2 py-1.5 text-left transition-colors md:px-2.5 ${
+                  className={`shrink-0 border-b-2 px-3 py-2 text-left transition-colors ${
                     isActive
                       ? 'border-[#C8A84B] text-[#2D1654]'
                       : 'border-transparent text-[#2D1654]/40 hover:text-[#2D1654]/75'
                   }`}
                   aria-current={isActive ? 'true' : undefined}
                 >
-                  <span className="block whitespace-nowrap font-jost text-[12px] leading-tight md:text-[13px]">
+                  <span className="block whitespace-nowrap font-jost text-[13px] leading-tight md:text-sm">
                     {benefit.label}
                   </span>
                 </button>
@@ -133,57 +138,65 @@ export default function InvestorBenefitsModule() {
             })}
           </nav>
 
-          <div className="mt-1 h-px w-full bg-[#2D1654]/10" aria-hidden />
+          <div className="mt-2 h-px w-full shrink-0 bg-[#2D1654]/10" aria-hidden />
 
-          <article
-            key={item.id}
-            className="eci-benefits-card mt-3 grid min-h-0 flex-1 grid-cols-1 items-center gap-6 md:mt-4 lg:grid-cols-[minmax(0,1.28fr)_minmax(10.5rem,0.48fr)] lg:gap-10 xl:gap-12"
-          >
-            <div className="min-w-0 lg:py-1">
-              <p className="mb-2 font-jost text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
-                {mark} / {String(count).padStart(2, '0')}
-              </p>
-              <h3
-                className="font-cormorant font-semibold leading-[1.1] tracking-[-0.02em] text-[#2D1654]"
-                style={{ fontSize: 'clamp(1.95rem, 3.6vw, 2.85rem)' }}
-              >
-                {item.title}
-              </h3>
-              <p className="mt-4 max-w-2xl font-jost text-[17px] leading-[1.65] text-[#2D1654]/82 md:mt-5 md:text-lg md:leading-[1.7]">
-                {item.benefit}
-              </p>
-
-              <p className="mt-5 font-jost text-[13px] text-[#2D1654]/45 md:mt-6">
-                For fee schedules and full terms, open the{' '}
-                <Link
-                  href="/login?audience=investor"
-                  className="text-[#4C2585] underline-offset-2 hover:underline"
+          {/* Main card: vertically centred in remaining viewport */}
+          <div className="flex min-h-0 flex-1 items-center py-4 md:py-6">
+            <article
+              key={item.id}
+              className="eci-benefits-card grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16"
+            >
+              <div className="min-w-0 order-2 lg:order-1">
+                <p className="mb-2 font-jost text-xs font-semibold uppercase tracking-[0.22em] text-[#C8A84B]">
+                  {mark} / {String(count).padStart(2, '0')}
+                </p>
+                <h3
+                  className="font-cormorant font-semibold leading-[1.08] tracking-[-0.02em] text-[#2D1654]"
+                  style={{ fontSize: 'clamp(2rem, 3.5vw, 2.75rem)' }}
                 >
-                  Investor Portal
-                </Link>
-                .
-              </p>
-            </div>
-
-            {/* Compact landscape plate, vertically centred with copy */}
-            <figure className="mx-auto w-full max-w-[15rem] justify-self-center lg:mx-0 lg:max-w-[13.5rem] lg:justify-self-end xl:max-w-[14.5rem]">
-              <div className="border border-[#C8A84B]/55 p-1.5 bg-white">
-                <div className="relative aspect-[5/3] overflow-hidden bg-[#2D1654]/5">
-                  <Image
-                    src={item.image}
-                    alt={item.imageAlt}
-                    fill
-                    sizes="(max-width: 1024px) 240px, 260px"
-                    className="object-cover object-center"
-                    priority={active === 0}
-                  />
-                </div>
+                  {item.title}
+                </h3>
+                <p className="mt-4 font-jost text-[16px] leading-[1.65] text-[#2D1654]/82 md:mt-5 md:text-[17px] md:leading-[1.7] lg:max-w-[36rem]">
+                  {item.benefit}
+                </p>
+                <p className="mt-5 font-jost text-[13px] text-[#2D1654]/45 md:mt-6">
+                  For fee schedules and full terms, open the{' '}
+                  <Link
+                    href="/login?audience=investor"
+                    className="text-[#4C2585] underline-offset-2 hover:underline"
+                  >
+                    Investor Portal
+                  </Link>
+                  .
+                </p>
               </div>
-              <figcaption className="mt-2 font-jost text-[11px] leading-snug text-[#2D1654]/55 md:text-xs">
-                {item.imageCaption}
-              </figcaption>
-            </figure>
-          </article>
+
+              <figure className="order-1 w-full lg:order-2 lg:flex lg:flex-col lg:items-end">
+                <div
+                  className="mx-auto w-full max-w-[min(100%,20rem)] border border-[#C8A84B]/55 bg-white p-2 shadow-[0_12px_40px_rgba(45,22,84,0.07)] sm:max-w-[22rem] lg:mx-0 lg:w-full lg:max-w-[min(100%,28rem)] xl:max-w-[min(100%,32rem)]"
+                >
+                  <div
+                    className="relative w-full overflow-hidden bg-[#2D1654]/5"
+                    style={{ aspectRatio: '4 / 5' }}
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.imageAlt}
+                      fill
+                      sizes="(max-width: 1024px) 360px, 420px"
+                      className="object-cover object-center"
+                      priority={active === 0}
+                    />
+                  </div>
+                </div>
+                <figcaption
+                  className="mt-3 w-full max-w-[min(100%,20rem)] text-center font-jost text-xs leading-snug text-[#2D1654]/55 sm:max-w-[22rem] lg:max-w-[min(100%,28rem)] lg:text-right xl:max-w-[min(100%,32rem)]"
+                >
+                  {item.imageCaption}
+                </figcaption>
+              </figure>
+            </article>
+          </div>
         </div>
       </div>
     </section>
