@@ -36,24 +36,34 @@ export async function ensureFileExtracted(fileId: string): Promise<{
     return { ok: false, text: '', fileName: file.file_name, error: 'Could not download source file' }
   }
 
-  const buffer = Buffer.from(await blob.arrayBuffer())
-  const { text, method } = await extractTextFromBuffer(buffer, file.file_name, file.mime_type)
+  try {
+    const buffer = Buffer.from(await blob.arrayBuffer())
+    const { text, method } = await extractTextFromBuffer(buffer, file.file_name, file.mime_type)
 
-  if (!text.trim()) {
+    if (!text.trim()) {
+      return {
+        ok: false,
+        text: '',
+        fileName: file.file_name,
+        error:
+          method === 'unsupported'
+            ? `Cannot extract text from ${file.file_name}. Prefer PDF or Word (.docx).`
+            : `No readable text found in ${file.file_name}.`,
+      }
+    }
+
+    await admin.from('document_intake_files').update({ extracted_text: text }).eq('id', file.id)
+
+    return { ok: true, text, fileName: file.file_name }
+  } catch (err) {
+    console.error('ensureFileExtracted', file.file_name, err)
     return {
       ok: false,
       text: '',
       fileName: file.file_name,
-      error:
-        method === 'unsupported'
-          ? `Cannot extract text from ${file.file_name}. Prefer PDF or Word (.docx).`
-          : `No readable text found in ${file.file_name}.`,
+      error: `Could not read ${file.file_name}. Try re-uploading as PDF or Word (.docx).`,
     }
   }
-
-  await admin.from('document_intake_files').update({ extracted_text: text }).eq('id', file.id)
-
-  return { ok: true, text, fileName: file.file_name }
 }
 
 export async function gatherSourceText(fileIds: string[]): Promise<{

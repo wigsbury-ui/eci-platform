@@ -150,12 +150,15 @@ export default function TeamIntakeReview({
     setSaving(true)
     showMessage('Reading source files and drafting with Claude… this can take up to a minute.', 'info')
     try {
+      const batch = batches.find(b => b.id === draftForm.batchId)
+      const pillar = draftForm.pillar || batch?.suggested_pillar || null
+
       const res = await fetch('/api/team/intake/draft', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: draftForm.title.trim(),
-          pillar: draftForm.pillar || null,
+          pillar,
           prompt_notes: draftForm.notes,
           source_batch_id: draftForm.batchId,
           source_file_ids: draftForm.fileIds,
@@ -171,10 +174,18 @@ export default function TeamIntakeReview({
       try {
         data = raw ? JSON.parse(raw) : {}
       } catch {
+        const jsonError = raw.match(/"error"\s*:\s*"([^"]+)"/)
+        if (jsonError?.[1]) {
+          showMessage(jsonError[1], 'error')
+          return
+        }
+        const snippet = raw.replace(/\s+/g, ' ').trim().slice(0, 180)
         showMessage(
           res.status === 504 || res.status === 408
             ? 'The request timed out while drafting. Please try again — longer documents may need a second attempt.'
-            : `Draft request failed (${res.status}). Please try again.`,
+            : snippet && !snippet.startsWith('<')
+              ? snippet
+              : `Draft request failed (${res.status}). Please try again.`,
           'error'
         )
         return
