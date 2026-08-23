@@ -5,7 +5,6 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { isStaff } from '@/lib/auth/roles'
 import type { IntakePillar } from '@/lib/types'
 import { INTAKE_PILLARS } from '@/lib/intake/config'
-import { gatherSourceText, generateArticulatedDraft } from '@/lib/intake/articulate'
 import { sanitizeDraftMarkdown } from '@/lib/intake/sanitize'
 import { isLlmConfigured } from '@/lib/llm/client'
 
@@ -164,6 +163,7 @@ export async function POST(request: Request) {
       }
 
       console.info('[intake-draft] extracting', { fileCount: sourceFileIds.length, title })
+      const { gatherSourceText, generateArticulatedDraft } = await import('@/lib/intake/articulate')
       const gathered = await gatherSourceText(sourceFileIds)
       if (!gathered.ok) {
         console.error('[intake-draft] extract failed', gathered.error)

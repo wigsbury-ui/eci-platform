@@ -1,6 +1,3 @@
-import mammoth from 'mammoth'
-import { PDFParse } from 'pdf-parse'
-
 const MAX_CHARS = 120_000
 
 function extensionOf(fileName: string) {
@@ -18,7 +15,17 @@ function clip(text: string) {
   return `${cleaned.slice(0, MAX_CHARS)}\n\n[… text truncated for processing …]`
 }
 
+async function loadMammoth() {
+  const mod = await import('mammoth')
+  return mod.default ?? mod
+}
+
+async function loadPdfParse() {
+  return import('pdf-parse')
+}
+
 async function extractPdf(buffer: Buffer): Promise<string> {
+  const { PDFParse } = await loadPdfParse()
   const parser = new PDFParse({ data: buffer })
   try {
     const result = await parser.getText()
@@ -29,13 +36,15 @@ async function extractPdf(buffer: Buffer): Promise<string> {
 }
 
 async function extractDocx(buffer: Buffer): Promise<string> {
+  const mammoth = await loadMammoth()
   const result = await mammoth.extractRawText({ buffer })
   return result.value || ''
 }
 
 /**
  * Extract plain text from common office formats.
- * Returns empty string when format is unsupported or extraction yields nothing.
+ * Heavy parsers (mammoth, pdf-parse) are lazy-loaded so routes that only
+ * need docx do not pull pdfjs on serverless hosts.
  */
 export async function extractTextFromBuffer(
   buffer: Buffer,

@@ -1,6 +1,5 @@
 import { createAdminClient } from '@/lib/supabase/admin'
 import { INTAKE_BUCKET } from '@/lib/intake/config'
-import { extractTextFromBuffer } from '@/lib/intake/extract'
 import { chatCompletion } from '@/lib/llm/client'
 
 const SOURCE_CHAR_BUDGET = 60_000
@@ -38,6 +37,7 @@ export async function ensureFileExtracted(fileId: string): Promise<{
 
   try {
     const buffer = Buffer.from(await blob.arrayBuffer())
+    const { extractTextFromBuffer } = await import('@/lib/intake/extract')
     const { text, method } = await extractTextFromBuffer(buffer, file.file_name, file.mime_type)
 
     if (!text.trim()) {

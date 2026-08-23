@@ -1,7 +1,8 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ['pdf-parse', 'pdfjs-dist', 'mammoth'],
+  // Bundle office parsers for the server so Vercel resolves the Node build, not browser exports.
+  serverExternalPackages: ['mammoth'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'resources.finalsite.net' },

@@ -7,7 +7,6 @@ import {
 } from '@/lib/intake/config'
 import { findActiveIntakeToken } from '@/lib/intake/links'
 import { isValidEmail, validateIntakeFile } from '@/lib/intake/validation'
-import { extractTextFromBuffer } from '@/lib/intake/extract'
 
 const RATE_WINDOW_MS = 60 * 60 * 1000
 const RATE_MAX_BATCHES = 30
@@ -131,6 +130,7 @@ export async function POST(request: Request) {
 
       // Best-effort text extraction for later articulation (non-blocking on failure)
       try {
+        const { extractTextFromBuffer } = await import('@/lib/intake/extract')
         const { text } = await extractTextFromBuffer(buffer, file.name, file.type)
         if (text.trim()) {
           await admin
