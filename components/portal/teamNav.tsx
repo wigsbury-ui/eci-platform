@@ -8,6 +8,7 @@ import {
   Calendar,
   MessageSquare,
   FolderInput,
+  ClipboardCheck,
 } from 'lucide-react'
 import type { Profile } from '@/lib/types'
 
@@ -19,6 +20,7 @@ export const TEAM_NAV_ITEMS = [
   { label: 'People', href: '/team/users', icon: <Users size={16} /> },
   { label: 'Documents', href: '/team/documents', icon: <FileText size={16} /> },
   { label: 'Doc intake', href: '/team/intake', icon: <FolderInput size={16} /> },
+  { label: 'Delivery', href: '/team/delivery', icon: <ClipboardCheck size={16} /> },
   { label: 'Calendar', href: '/team/calendar', icon: <Calendar size={16} /> },
   { label: 'Messages', href: '/team/messages', icon: <MessageSquare size={16} /> },
   { label: 'Pipeline', href: '/team/enquiries', icon: <Inbox size={16} /> },
