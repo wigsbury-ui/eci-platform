@@ -1,11 +1,12 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { PromiseEvidence, PromiseReview, ServicePromise } from '@/lib/delivery/types'
+import type { DeliveryNotification, PromiseEvidence, ServicePromise } from '@/lib/delivery/types'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
 import PromiseSidePanel from '@/components/portal/delivery/PromiseSidePanel'
 import DeliveryKanbanBoard from '@/components/portal/delivery/DeliveryKanbanBoard'
-import { demoEvidence, demoPromisesForSchool, demoReviews } from '@/lib/delivery/demo'
+import DeliveryNotificationsBanner from '@/components/portal/delivery/DeliveryNotificationsBanner'
+import { demoEvidence, demoPromisesForSchool } from '@/lib/delivery/demo'
 
 type Props = {
   schoolId: string
@@ -23,7 +24,7 @@ export default function SchoolDeliveryView({
   const [promises, setPromises] = useState<ServicePromise[]>(initialPromises ?? [])
   const [selected, setSelected] = useState<ServicePromise | null>(null)
   const [evidence, setEvidence] = useState<PromiseEvidence[]>([])
-  const [reviews, setReviews] = useState<PromiseReview[]>([])
+  const [notifications, setNotifications] = useState<DeliveryNotification[]>([])
   const [viewMode, setViewMode] = useState<'matrix' | 'kanban'>('matrix')
   const [loading, setLoading] = useState(!initialPromises?.length && !demoMode)
 
@@ -34,9 +35,14 @@ export default function SchoolDeliveryView({
       return
     }
     setLoading(true)
-    const res = await fetch(`/api/school/delivery/promises?schoolId=${encodeURIComponent(schoolId)}`)
-    const data = await res.json()
-    if (data.promises) setPromises(data.promises)
+    const [promRes, notifRes] = await Promise.all([
+      fetch(`/api/school/delivery/promises?schoolId=${encodeURIComponent(schoolId)}`),
+      fetch(`/api/school/delivery/notifications?schoolId=${encodeURIComponent(schoolId)}`),
+    ])
+    const promData = await promRes.json()
+    const notifData = await notifRes.json()
+    if (promData.promises) setPromises(promData.promises)
+    if (notifData.notifications) setNotifications(notifData.notifications)
     setLoading(false)
   }, [demoMode, schoolId, schoolName])
 
@@ -53,13 +59,11 @@ export default function SchoolDeliveryView({
     setSelected(p)
     if (demoMode) {
       setEvidence(demoEvidence(p.id))
-      setReviews(demoReviews(p.id))
       return
     }
     const evRes = await fetch(`/api/school/delivery/evidence?promiseId=${encodeURIComponent(p.id)}`)
     const evData = await evRes.json()
     setEvidence(evData.evidence ?? [])
-    setReviews([])
   }
 
   return (
@@ -70,6 +74,16 @@ export default function SchoolDeliveryView({
           Read-only view of ECI service commitments for {schoolName} — status, owners, and linked evidence.
         </p>
       </div>
+
+      <DeliveryNotificationsBanner
+        notifications={notifications}
+        apiBase="/api/school/delivery"
+        onMarkRead={id =>
+          setNotifications(prev =>
+            prev.map(n => (n.id === id ? { ...n, read_at: new Date().toISOString() } : n))
+          )
+        }
+      />
 
       <div className="flex rounded-lg border border-gray-200 bg-white p-0.5 mb-4">
         <button
@@ -134,7 +148,7 @@ export default function SchoolDeliveryView({
       )}
 
       {!loading && sorted.length > 0 && viewMode === 'kanban' && (
-        <DeliveryKanbanBoard promises={sorted} onSelect={openPromise} />
+        <DeliveryKanbanBoard promises={sorted} onSelect={openPromise} readOnly />
       )}
 
       {selected && (
@@ -143,7 +157,7 @@ export default function SchoolDeliveryView({
           <PromiseSidePanel
             promise={selected}
             evidence={evidence}
-            reviews={reviews}
+            reviews={[]}
             onClose={() => setSelected(null)}
             readOnly
             demoMode={demoMode}

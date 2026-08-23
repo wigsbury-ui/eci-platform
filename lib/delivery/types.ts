@@ -47,6 +47,9 @@ export interface PromiseEvidence {
   document_id: string | null
   document_title?: string | null
   document_file_url?: string | null
+  file_url: string | null
+  file_name: string | null
+  storage_path: string | null
   added_by: string | null
   created_at: string
 }
@@ -76,4 +79,32 @@ export interface SchoolDeliverySummary {
   group1Green: number
   overdueCount: number
   lastReviewDate: string | null
+}
+
+export type DeliveryNotificationKind =
+  | 'status_change'
+  | 'evidence_added'
+  | 'overdue'
+  | 'review_reminder'
+
+export interface DeliveryNotification {
+  id: string
+  school_id: string
+  promise_id: string | null
+  audience: 'school_partner' | 'staff'
+  kind: DeliveryNotificationKind
+  title: string
+  body: string
+  metadata: Record<string, unknown>
+  read_at: string | null
+  created_at: string
+}
+
+export interface SchoolServiceAgreement {
+  id: string
+  school_id: string
+  service_group: number
+  activated_at: string
+  activated_by: string | null
+  notes: string | null
 }

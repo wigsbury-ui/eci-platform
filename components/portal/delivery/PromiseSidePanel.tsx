@@ -42,11 +42,36 @@ export default function PromiseSidePanel({
   const [evDocId, setEvDocId] = useState('')
   const [saving, setSaving] = useState(false)
   const [evSaving, setEvSaving] = useState(false)
+  const [fileUploading, setFileUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     setEvidence(initialEvidence)
   }, [initialEvidence])
+
+  const uploadFile = async (file: File) => {
+    if (readOnly || demoMode) return
+    setFileUploading(true)
+    setError(null)
+    try {
+      const form = new FormData()
+      form.append('promiseId', promise.id)
+      form.append('file', file)
+      const res = await fetch('/api/team/delivery/evidence/upload', {
+        method: 'POST',
+        body: form,
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error ?? 'Upload failed')
+      const next = [data.evidence, ...evidence]
+      setEvidence(next)
+      onEvidenceChange?.(next)
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Upload failed')
+    } finally {
+      setFileUploading(false)
+    }
+  }
 
   const save = async () => {
     if (readOnly || !onUpdated) return
@@ -109,6 +134,9 @@ export default function PromiseSidePanel({
         document_id: evDocId || null,
         document_title: schoolDocuments.find(d => d.id === evDocId)?.title ?? null,
         document_file_url: schoolDocuments.find(d => d.id === evDocId)?.file_url ?? null,
+        file_url: null,
+        file_name: null,
+        storage_path: null,
         added_by: null,
         created_at: new Date().toISOString(),
       }
@@ -170,8 +198,10 @@ export default function PromiseSidePanel({
     onEvidenceChange?.(next)
   }
 
-  const evidenceHref = (ev: PromiseEvidence) =>
-    ev.document_file_url || ev.url || null
+  const evidenceHref = (ev: PromiseEvidence) => {
+    if (ev.storage_path) return `/api/team/delivery/evidence/download/${ev.id}`
+    return ev.document_file_url || ev.url || null
+  }
 
   return (
     <aside
@@ -337,6 +367,19 @@ export default function PromiseSidePanel({
                   ))}
                 </select>
               )}
+              <label className="block">
+                <span className="font-jost text-xs text-gray-500">Upload file</span>
+                <input
+                  type="file"
+                  disabled={fileUploading}
+                  onChange={e => {
+                    const file = e.target.files?.[0]
+                    if (file) uploadFile(file)
+                    e.target.value = ''
+                  }}
+                  className="mt-1 w-full text-sm font-jost"
+                />
+              </label>
               <button
                 type="button"
                 onClick={addEvidence}

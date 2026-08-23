@@ -38,6 +38,9 @@ export async function GET(request: Request) {
       document_id: (row.document_id as string | null) ?? null,
       document_title: doc?.title ?? null,
       document_file_url: doc?.file_url ?? null,
+      file_url: (row.file_url as string | null) ?? null,
+      file_name: (row.file_name as string | null) ?? null,
+      storage_path: (row.storage_path as string | null) ?? null,
       added_by: null,
       created_at: String(row.created_at),
     }

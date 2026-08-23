@@ -34,6 +34,46 @@ export async function listServicePromises(schoolId?: string): Promise<ServicePro
   return data.map(row => mapPromise(row as Record<string, unknown>))
 }
 
+function mapEvidenceRow(row: Record<string, unknown>): PromiseEvidence {
+  const doc = row.documents as { title?: string; file_url?: string | null } | null
+  return {
+    id: String(row.id),
+    promise_id: String(row.promise_id),
+    title: String(row.title),
+    url: (row.url as string | null) ?? null,
+    document_id: (row.document_id as string | null) ?? null,
+    document_title: doc?.title ?? null,
+    document_file_url: doc?.file_url ?? null,
+    file_url: (row.file_url as string | null) ?? null,
+    file_name: (row.file_name as string | null) ?? null,
+    storage_path: (row.storage_path as string | null) ?? null,
+    added_by: (row.added_by as string | null) ?? null,
+    created_at: String(row.created_at),
+  }
+}
+
+export async function getPromiseEvidenceById(id: string) {
+  const admin = createAdminClient()
+  if (!admin) return null
+
+  const { data } = await admin
+    .from('promise_evidence')
+    .select('*, documents(title, file_url)')
+    .eq('id', id)
+    .single()
+
+  if (!data) return null
+  return mapEvidenceRow(data as Record<string, unknown>)
+}
+
+export async function getServicePromiseById(id: string) {
+  const admin = createAdminClient()
+  if (!admin) return null
+  const { data } = await admin.from('service_promises').select('*').eq('id', id).single()
+  if (!data) return null
+  return mapPromise(data as Record<string, unknown>)
+}
+
 export async function listPromiseEvidence(promiseId: string): Promise<PromiseEvidence[]> {
   const admin = createAdminClient()
   if (!admin) return []
@@ -44,20 +84,7 @@ export async function listPromiseEvidence(promiseId: string): Promise<PromiseEvi
     .eq('promise_id', promiseId)
     .order('created_at', { ascending: false })
 
-  return (data ?? []).map(row => {
-    const doc = row.documents as { title?: string; file_url?: string | null } | null
-    return {
-      id: String(row.id),
-      promise_id: String(row.promise_id),
-      title: String(row.title),
-      url: (row.url as string | null) ?? null,
-      document_id: (row.document_id as string | null) ?? null,
-      document_title: doc?.title ?? null,
-      document_file_url: doc?.file_url ?? null,
-      added_by: (row.added_by as string | null) ?? null,
-      created_at: String(row.created_at),
-    }
-  })
+  return (data ?? []).map(row => mapEvidenceRow(row as Record<string, unknown>))
 }
 
 export async function listPromiseReviews(promiseId: string): Promise<PromiseReview[]> {
@@ -116,6 +143,9 @@ export async function insertPromiseEvidence(input: {
   title: string
   url?: string | null
   document_id?: string | null
+  file_url?: string | null
+  file_name?: string | null
+  storage_path?: string | null
   added_by?: string | null
 }) {
   const admin = createAdminClient()
@@ -128,6 +158,9 @@ export async function insertPromiseEvidence(input: {
       title: input.title,
       url: input.url ?? null,
       document_id: input.document_id ?? null,
+      file_url: input.file_url ?? null,
+      file_name: input.file_name ?? null,
+      storage_path: input.storage_path ?? null,
       added_by: input.added_by ?? null,
     })
     .select('*, documents(title, file_url)')
@@ -135,20 +168,9 @@ export async function insertPromiseEvidence(input: {
 
   if (error) return { error: error.message, evidence: null }
 
-  const doc = data.documents as { title?: string; file_url?: string | null } | null
   return {
     error: null,
-    evidence: {
-      id: String(data.id),
-      promise_id: String(data.promise_id),
-      title: String(data.title),
-      url: (data.url as string | null) ?? null,
-      document_id: (data.document_id as string | null) ?? null,
-      document_title: doc?.title ?? null,
-      document_file_url: doc?.file_url ?? null,
-      added_by: (data.added_by as string | null) ?? null,
-      created_at: String(data.created_at),
-    },
+    evidence: mapEvidenceRow(data as Record<string, unknown>),
   }
 }
 
@@ -156,6 +178,12 @@ export async function deletePromiseEvidence(id: string) {
   const admin = createAdminClient()
   if (!admin) return { error: 'Admin client unavailable' }
 
+  const existing = await getPromiseEvidenceById(id)
   const { error } = await admin.from('promise_evidence').delete().eq('id', id)
-  return { error: error?.message ?? null }
+  if (error) return { error: error.message }
+
+  if (existing?.storage_path) {
+    await admin.storage.from('delivery-evidence').remove([existing.storage_path])
+  }
+  return { error: null }
 }

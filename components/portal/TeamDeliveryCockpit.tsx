@@ -3,9 +3,10 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import type { School } from '@/lib/types'
-import type { PromiseStatus, ServicePromise } from '@/lib/delivery/types'
+import type { DeliveryNotification, PromiseStatus, ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
+import DeliveryNotificationsBanner from '@/components/portal/delivery/DeliveryNotificationsBanner'
 import {
   deliveryWins,
   group1Wall,
@@ -16,11 +17,18 @@ import {
 type Props = {
   schools: School[]
   initialPromises: ServicePromise[]
+  initialNotifications?: DeliveryNotification[]
   demoMode?: boolean
 }
 
-export default function TeamDeliveryCockpit({ schools, initialPromises, demoMode }: Props) {
+export default function TeamDeliveryCockpit({
+  schools,
+  initialPromises,
+  initialNotifications = [],
+  demoMode,
+}: Props) {
   const [promises] = useState(initialPromises)
+  const [notifications, setNotifications] = useState(initialNotifications)
   const [schoolFilter, setSchoolFilter] = useState<string>('all')
   const [groupFilter, setGroupFilter] = useState<string>('all')
   const [statusFilter, setStatusFilter] = useState<string>('all')
@@ -60,6 +68,11 @@ export default function TeamDeliveryCockpit({ schools, initialPromises, demoMode
       </div>
 
       <DeliverySubNav active="/team/delivery" />
+
+      <DeliveryNotificationsBanner
+        notifications={notifications}
+        onMarkRead={id => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read_at: new Date().toISOString() } : n))}
+      />
 
       <div className="flex flex-wrap gap-3 mb-6">
         <FilterSelect label="School" value={schoolFilter} onChange={setSchoolFilter}>
@@ -186,6 +199,23 @@ export default function TeamDeliveryCockpit({ schools, initialPromises, demoMode
           </ul>
         </section>
       </div>
+
+      {notifications.length > 0 && (
+        <section className="mt-6 rounded-xl border border-gray-200 bg-white p-5">
+          <h2 className="font-jost text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-4">
+            Recent activity
+          </h2>
+          <ul className="space-y-2 max-h-48 overflow-y-auto">
+            {notifications.slice(0, 12).map(n => (
+              <li key={n.id} className="font-jost text-sm text-gray-600 border-b border-gray-50 pb-2">
+                <span className="text-gray-400 text-xs">{new Date(n.created_at).toLocaleString()}</span>
+                <span className="mx-2">·</span>
+                <span className="text-[#2D1654]">{n.title}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   )
 }

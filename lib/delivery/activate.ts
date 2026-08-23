@@ -1,4 +1,4 @@
-import { servicesByGroup, type PartnerService } from '@/lib/content/partner-services'
+import { servicesByGroup, PARTNER_SERVICES, type PartnerService } from '@/lib/content/partner-services'
 import type { ServicePromise } from '@/lib/delivery/types'
 
 export function promiseRowsFromServices(
@@ -21,4 +21,14 @@ export function promiseRowsFromServices(
 
 export function group1PromiseRows(schoolId: string) {
   return promiseRowsFromServices(schoolId, servicesByGroup(1))
+}
+
+export function serviceById(serviceId: string): PartnerService | undefined {
+  return PARTNER_SERVICES.find(s => s.id === serviceId)
+}
+
+export function singleServicePromiseRow(schoolId: string, serviceId: string) {
+  const service = serviceById(serviceId)
+  if (!service) return null
+  return promiseRowsFromServices(schoolId, [service])[0]
 }

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import type { Document, School } from '@/lib/types'
-import type { PromiseEvidence, PromiseReview, ServicePromise } from '@/lib/delivery/types'
+import type { PromiseEvidence, PromiseReview, SchoolServiceAgreement, ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
 import PromiseSidePanel from '@/components/portal/delivery/PromiseSidePanel'
@@ -34,6 +34,7 @@ export default function TeamDeliverySchoolBoard({
   const [schoolDocuments, setSchoolDocuments] = useState<Document[]>([])
   const [viewMode, setViewMode] = useState<ViewMode>('matrix')
   const [groupFilter, setGroupFilter] = useState<number | 'all'>('all')
+  const [agreements, setAgreements] = useState<SchoolServiceAgreement[]>([])
 
   const filtered = useMemo(() => {
     if (groupFilter === 'all') return promises
@@ -54,7 +55,45 @@ export default function TeamDeliverySchoolBoard({
 
   useEffect(() => {
     loadDocuments()
-  }, [loadDocuments])
+    if (!demoMode) {
+      fetch(`/api/team/delivery/agreements?schoolId=${encodeURIComponent(school.id)}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d.agreements) setAgreements(d.agreements)
+        })
+        .catch(() => {})
+    }
+  }, [loadDocuments, demoMode, school.id])
+
+  const changeStatus = async (promiseId: string, status: ServicePromise['status']) => {
+    if (demoMode) {
+      setPromises(prev =>
+        prev.map(p =>
+          p.id === promiseId
+            ? { ...p, status, last_reviewed_at: new Date().toISOString(), updated_at: new Date().toISOString() }
+            : p
+        )
+      )
+      return
+    }
+    const res = await fetch('/api/team/delivery/promises', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: promiseId, status }),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      alert(data.error ?? 'Could not update status')
+      return
+    }
+    setPromises(prev =>
+      prev.map(p =>
+        p.id === promiseId
+          ? { ...p, ...data.promise, success_criteria: p.success_criteria }
+          : p
+      )
+    )
+  }
 
   const openPromise = async (p: ServicePromise) => {
     setSelected(p)
@@ -137,6 +176,17 @@ export default function TeamDeliverySchoolBoard({
 
       <DeliverySubNav active="/team/delivery" />
 
+      {agreements.length > 0 && (
+        <p className="mb-4 font-jost text-xs text-gray-500">
+          Active agreements:{' '}
+          {agreements.map(a => (
+            <span key={a.id} className="mr-3">
+              Group {a.service_group} since {new Date(a.activated_at).toLocaleDateString()}
+            </span>
+          ))}
+        </p>
+      )}
+
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="flex rounded-lg border border-gray-200 bg-white p-0.5">
           <button
@@ -216,7 +266,11 @@ export default function TeamDeliverySchoolBoard({
           </table>
         </div>
       ) : (
-        <DeliveryKanbanBoard promises={sorted} onSelect={openPromise} />
+        <DeliveryKanbanBoard
+          promises={sorted}
+          onSelect={openPromise}
+          onStatusChange={changeStatus}
+        />
       )}
 
       <p className="mt-4 font-jost text-xs text-gray-400">

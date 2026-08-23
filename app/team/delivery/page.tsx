@@ -7,6 +7,7 @@ import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
 import type { School } from '@/lib/types'
 import { listServicePromises } from '@/lib/delivery/db'
 import { demoPromises } from '@/lib/delivery/demo'
+import { listDeliveryNotifications } from '@/lib/delivery/notifications'
 
 function seedSchools(): School[] {
   return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
@@ -37,6 +38,7 @@ export default async function TeamDeliveryPage() {
 
   let schools = seedSchools()
   let promises = demoPromises(schools)
+  let notifications: Awaited<ReturnType<typeof listDeliveryNotifications>> = []
   let demoMode = true
 
   if (supabase && !preview) {
@@ -44,6 +46,7 @@ export default async function TeamDeliveryPage() {
     if (s?.length) schools = s as School[]
 
     const dbPromises = await listServicePromises()
+    notifications = await listDeliveryNotifications({ audience: 'staff', limit: 20 })
     if (dbPromises.length > 0) {
       promises = dbPromises
       demoMode = false
@@ -55,7 +58,12 @@ export default async function TeamDeliveryPage() {
 
   return (
     <PortalShell {...teamShellProps(profile, '/team/delivery')}>
-      <TeamDeliveryCockpit schools={schools} initialPromises={promises} demoMode={demoMode} />
+      <TeamDeliveryCockpit
+        schools={schools}
+        initialPromises={promises}
+        initialNotifications={notifications}
+        demoMode={demoMode}
+      />
       <PortalChatbot audience="team" />
     </PortalShell>
   )

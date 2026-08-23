@@ -3,9 +3,11 @@ import { createClient } from '@/lib/supabase/server'
 import { isStaff } from '@/lib/auth/roles'
 import {
   deletePromiseEvidence,
+  getServicePromiseById,
   insertPromiseEvidence,
   listPromiseEvidence,
 } from '@/lib/delivery/db'
+import { createDeliveryNotification } from '@/lib/delivery/notifications'
 
 export async function GET(request: Request) {
   const supabase = await createClient()
@@ -50,6 +52,20 @@ export async function POST(request: Request) {
   })
 
   if (error) return NextResponse.json({ error }, { status: 500 })
+
+  const promise = await getServicePromiseById(promiseId)
+  if (promise) {
+    await createDeliveryNotification({
+      school_id: promise.school_id,
+      promise_id: promiseId,
+      audience: 'school_partner',
+      kind: 'evidence_added',
+      title: `New evidence: ${promise.title}`,
+      body: `${title} was linked to this promise.`,
+      metadata: { evidence_id: evidence?.id },
+    })
+  }
+
   return NextResponse.json({ evidence })
 }
 

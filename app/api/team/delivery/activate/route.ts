@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { isStaff } from '@/lib/auth/roles'
-import { group1PromiseRows } from '@/lib/delivery/activate'
+import {
+  group1PromiseRows,
+  promiseRowsFromServices,
+  singleServicePromiseRow,
+} from '@/lib/delivery/activate'
 import { insertGroupPromises } from '@/lib/delivery/db'
-import { servicesByGroup } from '@/lib/content/partner-services'
-import type { ServiceGroupId } from '@/lib/content/partner-services'
-import { promiseRowsFromServices } from '@/lib/delivery/activate'
+import { servicesByGroup, type ServiceGroupId } from '@/lib/content/partner-services'
+import { recordServiceAgreement } from '@/lib/delivery/notifications'
 
 export async function POST(request: Request) {
   const supabase = await createClient()
@@ -19,11 +22,25 @@ export async function POST(request: Request) {
 
   const body = await request.json()
   const schoolId = body.schoolId as string | undefined
-  const group = Number(body.group ?? 1) as ServiceGroupId
+  const serviceId = body.serviceId as string | undefined
+  const group = body.group != null ? Number(body.group) as ServiceGroupId : undefined
 
   if (!schoolId) return NextResponse.json({ error: 'Missing schoolId' }, { status: 400 })
-  if (![1, 2, 3].includes(group)) {
-    return NextResponse.json({ error: 'Invalid group' }, { status: 400 })
+
+  if (serviceId) {
+    const row = singleServicePromiseRow(schoolId, serviceId)
+    if (!row) return NextResponse.json({ error: 'Unknown service' }, { status: 400 })
+
+    const { error } = await insertGroupPromises([row])
+    if (error) return NextResponse.json({ error }, { status: 500 })
+
+    await recordServiceAgreement(schoolId, row.service_group, user.id)
+
+    return NextResponse.json({ activated: 1, serviceId, group: row.service_group })
+  }
+
+  if (!group || ![1, 2, 3].includes(group)) {
+    return NextResponse.json({ error: 'Provide group or serviceId' }, { status: 400 })
   }
 
   const rows =
@@ -33,6 +50,8 @@ export async function POST(request: Request) {
 
   const { error } = await insertGroupPromises(rows)
   if (error) return NextResponse.json({ error }, { status: 500 })
+
+  await recordServiceAgreement(schoolId, group, user.id)
 
   return NextResponse.json({ activated: rows.length, group })
 }

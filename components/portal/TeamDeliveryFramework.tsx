@@ -25,24 +25,32 @@ export default function TeamDeliveryFramework({ schools, demoMode }: Props) {
   const services = servicesByGroup(group)
   const groupMeta = SERVICE_GROUPS.find(g => g.id === group)
 
-  const activateService = async (service: PartnerService) => {
+  const activateService = async (service: PartnerService, mode: 'group' | 'single') => {
     if (demoMode) {
       setMessage(`Demo mode — would create promise for ${service.name} at ${schools.find(s => s.id === schoolId)?.name}.`)
       return
     }
     if (!schoolId) return
     setMessage(null)
+    const body =
+      mode === 'single'
+        ? { schoolId, serviceId: service.id }
+        : { schoolId, group: service.group }
     const res = await fetch('/api/team/delivery/activate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ schoolId, group: service.group }),
+      body: JSON.stringify(body),
     })
     const data = await res.json()
     if (!res.ok) {
       setMessage(data.error ?? 'Could not activate')
       return
     }
-    setMessage(`Activated ${data.activated} promises for Group ${data.group}. Open the school board to review.`)
+    if (mode === 'single') {
+      setMessage(`Created promise for ${service.name}. Open the school board to review.`)
+    } else {
+      setMessage(`Activated ${data.activated} promises for Group ${data.group}. Open the school board to review.`)
+    }
   }
 
   return (
@@ -137,13 +145,22 @@ export default function TeamDeliveryFramework({ schools, demoMode }: Props) {
                       ))}
                     </ul>
                   )}
-                  <button
-                    type="button"
-                    onClick={() => activateService(service)}
-                    className="rounded-lg bg-[#4C2585] px-4 py-2 text-sm font-jost font-semibold text-white hover:bg-[#2D1654]"
-                  >
-                    Activate Group {service.group} for school
-                  </button>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => activateService(service, 'single')}
+                      className="rounded-lg bg-[#2D1654] px-4 py-2 text-sm font-jost font-semibold text-white hover:bg-[#4C2585]"
+                    >
+                      Create promise from this service
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => activateService(service, 'group')}
+                      className="rounded-lg border border-[#4C2585] px-4 py-2 text-sm font-jost font-semibold text-[#4C2585] hover:bg-[#F8F4EF]"
+                    >
+                      Activate full Group {service.group}
+                    </button>
+                  </div>
                 </div>
               )}
             </article>

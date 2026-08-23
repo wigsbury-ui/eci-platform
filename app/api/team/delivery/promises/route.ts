@@ -4,7 +4,8 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { isStaff } from '@/lib/auth/roles'
 import { listServicePromises } from '@/lib/delivery/db'
 import type { PromiseStatus } from '@/lib/delivery/types'
-import { PROMISE_STATUSES } from '@/lib/delivery/types'
+import { PROMISE_STATUSES, PROMISE_STATUS_LABELS } from '@/lib/delivery/types'
+import { createDeliveryNotification } from '@/lib/delivery/notifications'
 
 export async function GET(request: Request) {
   const supabase = await createClient()
@@ -47,7 +48,11 @@ export async function PATCH(request: Request) {
   if (body.next_review_at !== undefined) updates.next_review_at = body.next_review_at
   if (body.notes !== undefined) updates.notes = body.notes
 
-  const { data: existing } = await admin.from('service_promises').select('status').eq('id', id).single()
+  const { data: existing } = await admin
+    .from('service_promises')
+    .select('status, title, school_id')
+    .eq('id', id)
+    .single()
 
   const { data, error } = await admin
     .from('service_promises')
@@ -71,6 +76,27 @@ export async function PATCH(request: Request) {
       previous_status: existing?.status ?? null,
       new_status: body.status,
       notes: (body.review_notes as string | null) ?? null,
+    })
+
+    const label = PROMISE_STATUS_LABELS[body.status as PromiseStatus]
+    const title = existing?.title ?? 'Partnership promise'
+    await createDeliveryNotification({
+      school_id: String(existing?.school_id),
+      promise_id: id,
+      audience: 'school_partner',
+      kind: 'status_change',
+      title: `Delivery update: ${title}`,
+      body: `Status is now ${label}. Open Delivery in your portal for detail.`,
+      metadata: { previous_status: existing?.status, new_status: body.status },
+    })
+    await createDeliveryNotification({
+      school_id: String(existing?.school_id),
+      promise_id: id,
+      audience: 'staff',
+      kind: 'status_change',
+      title: `${title} → ${label}`,
+      body: `Promise status updated by team.`,
+      metadata: { previous_status: existing?.status, new_status: body.status },
     })
   }
 
