@@ -112,8 +112,8 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
     title: 'Exchange, immersion and community',
     benefit:
       'Partner schools can plan visits to Ellesmere UK for academic, sporting and cultural experiences, with reciprocal visits where possible. Groups can also arrange week-long language immersion stays: pupils join regular lessons, sports and activities alongside Ellesmere students and stay in purpose-built boarding accommodation. ECI advises on parent and community engagement so partners build reputation and recruitment through an engaged family network.',
-    image: '/images/campus/uk-campus-2.png',
-    imageAlt: 'Historic school buildings and grounds at Ellesmere College',
+    image: '/images/campus/uk-campus-life.jpg',
+    imageAlt: 'Pupils on campus at Ellesmere College',
     imageCaption: 'Boarding and campus life · UK',
   },
   {
@@ -122,8 +122,8 @@ export const INVESTOR_BENEFITS: InvestorBenefit[] = [
     title: 'A partnership built to last',
     benefit:
       'Ellesmere College was founded in 1884. That heritage reflects an institutional culture of continuity, trust and long-term relationships. Any partnership with ECI is conceived with permanence in mind: the relationship is designed to deepen over time, not to be managed at arm’s length once the school is open. Investors underwriting a campus can align with a licensor that treats international work as core, not experimental.',
-    image: '/images/campus/uk-campus-3.png',
-    imageAlt: 'Ellesmere College campus buildings and landscape',
+    image: '/images/campus/uk-historic.jpg',
+    imageAlt: 'Historic buildings at Ellesmere College',
     imageCaption: 'Founded 1884 · Ellesmere College',
   },
 ]
