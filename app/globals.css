@@ -127,7 +127,7 @@ main.home-snap > section.home-window[id] {
 }
 
 .eci-map-stage {
-  transform-origin: 0 0;
+  transform-origin: 50% 50%;
   transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }

@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { growthMarketsForMap } from '@/lib/content/expansion-markets'
@@ -13,6 +12,8 @@ const LAT_MAX = 38
 
 const GROWTH_COLOUR = '#C8A84B'
 const GROWTH_SOFT = 'rgba(200, 168, 75, 0.45)'
+
+const MAP_HEIGHT = 'min(320px, 42vh)'
 
 function projectPct(lat: number, lng: number) {
   const left = ((lng - LON_MIN) / (LON_MAX - LON_MIN)) * 100
@@ -84,15 +85,12 @@ const LAND_RINGS: [number, number][][] = [
   ],
 ]
 
+/** Moderate zoom — keeps the pin visible without blowing past the map frame. */
 function zoomForLocation(id: string) {
-  if (
-    ['abu-dhabi', 'bahrain-north', 'bahrain-south', 'sohar', 'sharjah'].includes(id)
-  )
-    return 3.4
-  if (['jeddah'].includes(id)) return 2.6
-  if (['new-cairo', 'october-sheikh-zayed'].includes(id)) return 2.5
-  if (['rabat', 'bouskoura'].includes(id)) return 2.5
-  return 2.3
+  if (['abu-dhabi', 'bahrain-north', 'bahrain-south', 'sohar', 'sharjah'].includes(id)) return 1.85
+  if (id === 'jeddah') return 1.75
+  if (['new-cairo', 'october-sheikh-zayed', 'rabat', 'bouskoura'].includes(id)) return 1.7
+  return 1.65
 }
 
 export default function ExpansionSection({
@@ -106,7 +104,7 @@ export default function ExpansionSection({
 }) {
   const markets = useMemo(() => growthMarketsForMap(), [])
   const [activeId, setActiveId] = useState(markets[0]?.id ?? '')
-  const [zoomed, setZoomed] = useState(true)
+  const [zoomed, setZoomed] = useState(false)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -146,8 +144,8 @@ export default function ExpansionSection({
       id={sectionId}
       className={
         asModule
-          ? 'home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden bg-[#0E0A18] text-white py-16 md:py-20'
-          : 'relative py-24 md:py-28 overflow-hidden bg-[#0E0A18] text-white'
+          ? 'relative overflow-hidden bg-[#0E0A18] text-white py-14 md:py-16'
+          : 'relative py-20 md:py-24 overflow-hidden bg-[#0E0A18] text-white'
       }
     >
       <div
@@ -158,46 +156,68 @@ export default function ExpansionSection({
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="relative max-w-6xl mx-auto px-6">
         <div
-          className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-10 transition-all duration-700 ${
+          className={`mb-8 transition-all duration-700 ${
             visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <div className="max-w-2xl">
-            <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-bold">
-              Growth markets
-            </p>
-            <h2
-              className="font-cormorant font-semibold leading-tight mb-4"
-              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.25rem)' }}
-            >
-              Where the network grows next
-            </h2>
-            <div className="w-14 h-1 bg-[#C8A84B] mb-4" />
-            <p className="text-white/70 font-jost leading-relaxed">
-              Open markets where ECI is seeking investment and operating partners. Select a location
-              to explore the opportunity — operating campuses are shown elsewhere on the site.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-5 text-xs font-jost">
-            <span className="inline-flex items-center gap-2 text-white/70">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-6">
+            <div className="max-w-2xl">
+              <p className="text-[#C8A84B] text-xs tracking-[0.3em] uppercase mb-3 font-jost font-bold">
+                Growth markets
+              </p>
+              <h2
+                className="font-cormorant font-semibold leading-tight mb-3"
+                style={{ fontSize: 'clamp(1.75rem, 3vw, 2.75rem)' }}
+              >
+                Where the network grows next
+              </h2>
+              <p className="text-white/65 font-jost text-sm leading-relaxed max-w-xl">
+                {points.length} open markets across the Middle East and North Africa. Select a pin
+                or a name below — operating campuses are covered elsewhere on the site.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 text-xs font-jost text-white/60 shrink-0">
               <span
-                className="w-2.5 h-2.5 rounded-full"
-                style={{ background: GROWTH_COLOUR, boxShadow: `0 0 12px ${GROWTH_SOFT}` }}
+                className="w-2 h-2 rounded-full"
+                style={{ background: GROWTH_COLOUR, boxShadow: `0 0 8px ${GROWTH_SOFT}` }}
               />
               Open for partners
             </span>
           </div>
+
+          <div className="flex flex-wrap gap-2">
+            {points.map(p => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => selectLocation(p.id)}
+                className={`px-2.5 py-1 text-xs font-jost border transition-colors ${
+                  p.id === activeId
+                    ? 'border-[#C8A84B] text-[#C8A84B] bg-[#C8A84B]/10'
+                    : 'border-white/15 text-white/55 hover:border-white/35 hover:text-white'
+                }`}
+              >
+                {p.shortName}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-[1.55fr_0.95fr] gap-8 items-stretch">
+        <div
+          className={`grid lg:grid-cols-2 gap-6 items-start transition-opacity duration-700 ${
+            visible ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
           <div
-            className={`relative rounded-sm border border-white/10 bg-[#120e1c] overflow-hidden min-h-[380px] transition-opacity duration-1000 ${
-              asModule ? 'lg:min-h-[560px]' : 'lg:min-h-[480px]'
-            } ${visible ? 'opacity-100' : 'opacity-0'}`}
+            className="relative rounded-sm border border-white/10 bg-[#120e1c] overflow-hidden"
+            style={{ height: MAP_HEIGHT }}
           >
-            <div className="absolute inset-0 eci-map-stage" style={{ transform: mapTransform }}>
+            <div
+              className="absolute inset-0 eci-map-stage"
+              style={{ transform: mapTransform, transformOrigin: '50% 50%' }}
+            >
               <svg
                 viewBox="0 0 1000 560"
                 className="absolute inset-0 w-full h-full"
@@ -215,27 +235,6 @@ export default function ExpansionSection({
                   </linearGradient>
                 </defs>
                 <rect width="1000" height="560" fill="url(#ocean)" />
-
-                {Array.from({ length: 9 }).map((_, i) => (
-                  <line
-                    key={`v${i}`}
-                    x1={(1000 / 8) * i}
-                    y1={0}
-                    x2={(1000 / 8) * i}
-                    y2={560}
-                    stroke="rgba(255,255,255,0.035)"
-                  />
-                ))}
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <line
-                    key={`h${i}`}
-                    x1={0}
-                    y1={(560 / 5) * i}
-                    x2={1000}
-                    y2={(560 / 5) * i}
-                    stroke="rgba(255,255,255,0.035)"
-                  />
-                ))}
 
                 {landPaths.map((d, i) => (
                   <path
@@ -261,131 +260,80 @@ export default function ExpansionSection({
                       style={{
                         left: `${p.left}%`,
                         top: `${p.top}%`,
-                        animationDelay: `${150 + p.index * 80}ms`,
+                        animationDelay: `${150 + p.index * 60}ms`,
                         zIndex: selected ? 40 : 10,
-                        opacity: dimmed ? 0.4 : 1,
+                        opacity: dimmed ? 0.45 : 1,
                       }}
                       aria-label={`${p.shortName}, open for partners`}
                       aria-pressed={selected}
                     >
                       {selected && (
-                        <>
-                          <span
-                            className="absolute left-1/2 top-1/2 w-16 h-16 rounded-full eci-map-ripple"
-                            style={{ border: `1px solid ${GROWTH_COLOUR}` }}
-                          />
-                          <span
-                            className="absolute left-1/2 top-1/2 w-16 h-16 rounded-full eci-map-ripple eci-map-ripple-2"
-                            style={{ border: `1px solid ${GROWTH_COLOUR}` }}
-                          />
-                        </>
+                        <span
+                          className="absolute left-1/2 top-1/2 w-10 h-10 -translate-x-1/2 -translate-y-1/2 rounded-full eci-map-ripple"
+                          style={{ border: `1px solid ${GROWTH_COLOUR}` }}
+                        />
                       )}
                       <span
                         className={`relative block rounded-full transition-transform duration-300 ${
-                          selected ? 'scale-150' : 'scale-100 group-hover:scale-125'
+                          selected ? 'scale-125' : 'scale-100 group-hover:scale-110'
                         }`}
                         style={{
-                          width: selected ? 16 : 11,
-                          height: selected ? 16 : 11,
+                          width: selected ? 12 : 9,
+                          height: selected ? 12 : 9,
                           background: GROWTH_COLOUR,
                           boxShadow: selected
-                            ? `0 0 0 4px rgba(14,10,24,0.9), 0 0 28px ${GROWTH_SOFT}`
-                            : `0 0 0 3px rgba(14,10,24,0.85), 0 0 14px ${GROWTH_SOFT}`,
+                            ? `0 0 0 3px rgba(14,10,24,0.9), 0 0 16px ${GROWTH_SOFT}`
+                            : `0 0 0 2px rgba(14,10,24,0.85), 0 0 10px ${GROWTH_SOFT}`,
                         }}
                       />
-                      <span
-                        className={`pointer-events-none absolute left-1/2 -translate-x-1/2 -top-9 whitespace-nowrap font-jost text-sm font-semibold tracking-wide px-2 py-0.5 transition-opacity duration-200 ${
-                          selected
-                            ? 'opacity-100 text-white bg-[#0E0A18]/85'
-                            : 'opacity-0 group-hover:opacity-100 text-white bg-[#0E0A18]/90 z-50'
-                        }`}
-                      >
-                        {p.shortName}
-                      </span>
+                      {selected && (
+                        <span
+                          className="pointer-events-none absolute left-1/2 -translate-x-1/2 -top-7 whitespace-nowrap font-jost text-xs font-semibold text-white bg-[#0E0A18]/90 px-2 py-0.5"
+                        >
+                          {p.shortName}
+                        </span>
+                      )}
                     </button>
                   )
                 })}
               </div>
             </div>
 
-            <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-3 z-40 pointer-events-none">
-              <p className="text-[10px] font-jost text-white/35 tracking-wide">
-                {zoomed
-                  ? `Focused on ${active.shortName}`
-                  : 'Middle East & North Africa · growth markets only'}
+            <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between gap-2 z-40">
+              <p className="text-[10px] font-jost text-white/35">
+                {zoomed ? `Focused on ${active.shortName}` : 'MENA · all growth markets'}
               </p>
               <button
                 type="button"
                 onClick={() => setZoomed(z => !z)}
-                className="pointer-events-auto text-[11px] font-jost font-semibold px-3 py-1.5 border border-white/20 bg-[#0E0A18]/80 text-white/80 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
+                className="text-[10px] font-jost font-semibold px-2.5 py-1 border border-white/20 bg-[#0E0A18]/85 text-white/75 hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
               >
-                {zoomed ? 'Show full region' : 'Zoom to selection'}
+                {zoomed ? 'Show all' : 'Zoom in'}
               </button>
             </div>
           </div>
 
-          <aside className="flex flex-col gap-4">
-            <div className="flex-1 border border-white/10 bg-[#171225]/95 relative overflow-hidden">
-              <div className="relative aspect-[16/10] w-full">
-                <Image
-                  src={active.image}
-                  alt={`${active.name} — growth market`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  priority={false}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#171225] via-transparent to-transparent" />
-              </div>
-              <div className="p-7 md:p-8 relative">
-                <div
-                  className="absolute top-0 left-0 w-1 h-full"
-                  style={{ background: GROWTH_COLOUR }}
-                />
-                <p
-                  className="text-[10px] font-jost font-semibold tracking-[0.25em] uppercase mb-3"
-                  style={{ color: GROWTH_COLOUR }}
-                >
-                  Growth market · {active.country}
-                </p>
-                <h3 className="font-cormorant text-3xl text-white mb-2 leading-tight">
-                  {active.name}
-                </h3>
-                <p className="text-white/45 text-sm font-jost mb-5">{active.shortName}</p>
-                <p className="text-white/70 font-jost leading-relaxed mb-8">{active.detail}</p>
-
-                <div className="flex flex-wrap gap-2 mb-8 max-h-36 overflow-y-auto">
-                  {points.map(p => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => selectLocation(p.id)}
-                      className={`px-3 py-1.5 text-xs font-jost border transition-colors ${
-                        p.id === activeId
-                          ? 'border-[#C8A84B] text-[#C8A84B] bg-[#C8A84B]/10'
-                          : 'border-white/15 text-white/55 hover:border-white/35 hover:text-white'
-                      }`}
-                    >
-                      {p.shortName}
-                    </button>
-                  ))}
-                </div>
-
-                <Link
-                  href={ctaHref}
-                  className="inline-flex bg-[#C8A84B] text-[#2D1654] px-6 py-3 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
-                >
-                  Partner on this market
-                </Link>
-              </div>
-            </div>
-
-            <div className="border border-white/10 bg-white/[0.03] py-4 px-5 text-center">
-              <p className="font-cormorant text-3xl text-[#C8A84B]">{points.length}</p>
-              <p className="text-[10px] uppercase tracking-wider text-white/45 font-jost mt-1">
-                Open growth markets
-              </p>
-            </div>
+          <aside className="border border-white/10 bg-[#171225]/95 p-6 md:p-7 relative">
+            <div
+              className="absolute top-0 left-0 w-1 h-full"
+              style={{ background: GROWTH_COLOUR }}
+            />
+            <p
+              className="text-[10px] font-jost font-semibold tracking-[0.25em] uppercase mb-2"
+              style={{ color: GROWTH_COLOUR }}
+            >
+              Growth market · {active.country}
+            </p>
+            <h3 className="font-cormorant text-2xl md:text-3xl text-white mb-2 leading-tight">
+              {active.name}
+            </h3>
+            <p className="text-white/70 font-jost text-sm leading-relaxed mb-6">{active.detail}</p>
+            <Link
+              href={ctaHref}
+              className="inline-flex bg-[#C8A84B] text-[#2D1654] px-5 py-2.5 font-jost font-semibold text-sm hover:bg-[#F0E4B0] transition-colors"
+            >
+              Partner on this market
+            </Link>
           </aside>
         </div>
       </div>

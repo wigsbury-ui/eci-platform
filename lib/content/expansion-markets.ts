@@ -409,22 +409,6 @@ export function expansionPinDestinations() {
   return TOP_DESTINATIONS
 }
 
-/** Hero imagery for public growth-market map (future locations only, not operating campuses). */
-export const GROWTH_MARKET_IMAGES: Record<string, string> = {
-  'new-cairo': '/images/campus/hero-middle-east.jpg',
-  'bahrain-north': '/images/schools/doha-horizon.jpg',
-  rabat: '/images/schools/doha/campus-visit.jpg',
-  'october-sheikh-zayed': '/images/campus/hero-middle-east.jpg',
-  'abu-dhabi': '/images/schools/doha/rooftop-doha.jpg',
-  bouskoura: '/images/schools/doha/lobby-windows.jpg',
-  sohar: '/images/schools/doha-horizon.jpg',
-  jeddah: '/images/schools/doha/entrance-lobby.jpg',
-  'bahrain-south': '/images/schools/doha/auditorium.jpg',
-  sharjah: '/images/schools/doha/digital-art.jpg',
-}
-
-const DEFAULT_GROWTH_IMAGE = '/images/campus/hero-middle-east.jpg'
-
 /** Points for the public “Where the network grows next” map — growth markets only. */
 export function growthMarketsForMap() {
   return TOP_DESTINATIONS.map(d => ({
@@ -435,7 +419,6 @@ export function growthMarketsForMap() {
     detail: d.publicSummary,
     lat: d.lat,
     lng: d.lng,
-    image: GROWTH_MARKET_IMAGES[d.id] ?? DEFAULT_GROWTH_IMAGE,
   }))
 }
 
