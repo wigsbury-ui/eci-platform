@@ -19,7 +19,7 @@ export default function HomePage() {
       <HeadsMessageSection />
       <SchoolsSection />
       <DohaSpotlightSection />
-      <ExpansionSection />
+      <ExpansionSection asModule sectionId="growth-markets" />
       <TeamSection />
       <PartnershipSection />
       <ContactSection

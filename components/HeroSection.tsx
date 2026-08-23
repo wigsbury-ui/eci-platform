@@ -17,6 +17,7 @@ export default function HeroSection() {
         alt="Ellesmere College historic campus and grounds in Shropshire"
         fill
         priority
+        quality={80}
         className={`object-cover object-[center_40%] transition-transform duration-[2.4s] ease-out ${ready ? 'scale-100' : 'scale-110'}`}
         sizes="100vw"
       />

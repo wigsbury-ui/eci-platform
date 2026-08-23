@@ -285,7 +285,7 @@ export default function InvestorsPage() {
       </section>
 
       {/* 5, Expansion map */}
-      <ExpansionSection asModule sectionId="top-destinations" ctaHref="/investors#offer" />
+      <ExpansionSection asModule sectionId="growth-markets" ctaHref="/investors#contact" />
 
       {/* 6, Contact */}
       <ContactSection

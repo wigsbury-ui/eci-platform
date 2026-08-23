@@ -82,6 +82,7 @@ export default function ParallaxHeroBackground({
           alt={alt}
           fill
           priority={priority}
+          quality={80}
           className="object-cover"
           sizes="100vw"
         />

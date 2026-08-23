@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import GrowthHeroVideo from '@/components/GrowthHeroVideo'
+import { CONTACT_NOTIFY_EMAIL } from '@/lib/contact/config'
 
 type Props = {
   title?: string
@@ -40,9 +40,12 @@ export default function ContactSection({
     e.preventDefault()
     setStatus('sending')
     try {
-      const supabase = createClient()
-      const { error } = await supabase.from('investor_enquiries').insert([form])
-      setStatus(error ? 'error' : 'sent')
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      setStatus(res.ok ? 'sent' : 'error')
     } catch {
       setStatus('error')
     }
@@ -59,7 +62,8 @@ export default function ContactSection({
           </div>
           <h3 className="font-cormorant text-3xl text-[#2D1654] mb-3">Thank you</h3>
           <p className="text-gray-600 font-jost">
-            Your enquiry has been received. A member of the ECI team will be in touch within 3 working days.
+            Your enquiry has been received. Neil or a member of the ECI team will be in touch within 3
+            working days.
           </p>
         </div>
       </section>
@@ -102,7 +106,12 @@ export default function ContactSection({
               <p>
                 <strong className="text-[#4C2585]">Email</strong>
                 <br />
-                international@ellesmere.com
+                <a
+                  href={`mailto:${CONTACT_NOTIFY_EMAIL}`}
+                  className="text-[#4C2585] hover:text-[#2D1654] hover:underline"
+                >
+                  {CONTACT_NOTIFY_EMAIL}
+                </a>
               </p>
             </div>
           </div>
@@ -157,7 +166,11 @@ export default function ContactSection({
             </div>
             {status === 'error' && (
               <p className="text-red-600 text-sm font-jost bg-red-50 p-3">
-                We could not send your enquiry just now. Please email international@ellesmere.com directly.
+                We could not send your enquiry just now. Please email{' '}
+                <a href={`mailto:${CONTACT_NOTIFY_EMAIL}`} className="underline">
+                  {CONTACT_NOTIFY_EMAIL}
+                </a>{' '}
+                directly.
               </p>
             )}
             <button
