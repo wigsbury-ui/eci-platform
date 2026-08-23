@@ -5,6 +5,8 @@ import { requirePortalAccess } from '@/lib/supabase/session'
 import { teamShellProps } from '@/components/portal/teamNav'
 import { OPENING_SOON, OPERATING_SCHOOLS } from '@/lib/content/network'
 import type { School } from '@/lib/types'
+import { listServicePromises } from '@/lib/delivery/db'
+import { demoPromises } from '@/lib/delivery/demo'
 
 function seedSchools(): School[] {
   return [...OPERATING_SCHOOLS, ...OPENING_SOON].map(s => ({
@@ -34,14 +36,29 @@ export default async function TeamDeliveryFrameworkPage() {
   )
 
   let schools = seedSchools()
+  let promises = demoPromises(schools)
+  let demoMode = true
+
   if (supabase && !preview) {
     const { data: s } = await supabase.from('schools').select('*').order('name')
     if (s?.length) schools = s as School[]
+
+    const dbPromises = await listServicePromises()
+    if (dbPromises.length > 0) {
+      promises = dbPromises
+      demoMode = false
+    } else {
+      promises = demoPromises(schools)
+    }
   }
 
   return (
     <PortalShell {...teamShellProps(profile, '/team/delivery')}>
-      <TeamDeliveryFramework schools={schools} demoMode={preview || !supabase} />
+      <TeamDeliveryFramework
+        schools={schools}
+        initialPromises={promises}
+        demoMode={demoMode}
+      />
       <PortalChatbot audience="team" />
     </PortalShell>
   )

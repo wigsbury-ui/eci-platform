@@ -5,9 +5,9 @@ import Link from 'next/link'
 import type { School } from '@/lib/types'
 import type { DeliveryNotification, PromiseStatus, ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
-import DeliveryHowItWorks from '@/components/portal/delivery/DeliveryHowItWorks'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
 import DeliveryNotificationsBanner from '@/components/portal/delivery/DeliveryNotificationsBanner'
+import DeliveryPromiseLedger from '@/components/portal/delivery/DeliveryPromiseLedger'
 import {
   deliveryWins,
   group1Wall,
@@ -68,14 +68,7 @@ export default function TeamDeliveryCockpit({
         </p>
       </div>
 
-      <DeliverySubNav active="/team/delivery" />
-
-      <DeliveryHowItWorks audience="team" />
-
-      <DeliveryNotificationsBanner
-        notifications={notifications}
-        onMarkRead={id => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read_at: new Date().toISOString() } : n))}
-      />
+      <DeliverySubNav active="/team/delivery" schoolBoardHref={schoolFilter !== 'all' ? `/team/delivery/schools/${schoolFilter}` : schools[0] ? `/team/delivery/schools/${schools[0].id}` : null} />
 
       <div className="flex flex-wrap gap-3 mb-6">
         <FilterSelect label="School" value={schoolFilter} onChange={setSchoolFilter}>
@@ -105,6 +98,26 @@ export default function TeamDeliveryCockpit({
           <option value="over_delivered">Over-delivered</option>
         </FilterSelect>
       </div>
+
+      <DeliveryNotificationsBanner
+        notifications={notifications}
+        onMarkRead={id => setNotifications(prev => prev.map(n => n.id === id ? { ...n, read_at: new Date().toISOString() } : n))}
+      />
+
+      <section className="mb-8" aria-labelledby="cockpit-ledger">
+        <h2 id="cockpit-ledger" className="font-jost text-xs font-bold uppercase tracking-[0.2em] text-gray-400 mb-3">
+          Promise ledger {schoolFilter !== 'all' ? `· ${schools.find(s => s.id === schoolFilter)?.name}` : '· all schools'}
+        </h2>
+        <p className="font-jost text-xs text-gray-500 mb-3 max-w-2xl">
+          Every row is one trackable promise. Open a school board to edit status, owners, and evidence.
+        </p>
+        <DeliveryPromiseLedger
+          promises={filtered}
+          schoolId={schoolFilter !== 'all' ? schoolFilter : undefined}
+          schoolName={schoolFilter !== 'all' ? schools.find(s => s.id === schoolFilter)?.name : undefined}
+          emptyMessage="No promises match these filters. Activate services from Framework first."
+        />
+      </section>
 
       <div className="grid gap-5 lg:grid-cols-2">
         <section className="rounded-xl border border-gray-200 bg-white p-5">

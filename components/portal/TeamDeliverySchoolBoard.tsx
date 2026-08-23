@@ -5,6 +5,7 @@ import Link from 'next/link'
 import type { Document, School } from '@/lib/types'
 import type { PromiseEvidence, PromiseReview, SchoolServiceAgreement, ServicePromise } from '@/lib/delivery/types'
 import DeliverySubNav from '@/components/portal/delivery/DeliverySubNav'
+import DeliveryWorkflowSteps from '@/components/portal/delivery/DeliveryWorkflowSteps'
 import StatusBadge from '@/components/portal/delivery/StatusBadge'
 import PromiseSidePanel from '@/components/portal/delivery/PromiseSidePanel'
 import DeliveryKanbanBoard from '@/components/portal/delivery/DeliveryKanbanBoard'
@@ -135,11 +136,17 @@ export default function TeamDeliverySchoolBoard({
     <div>
       <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <Link href="/team/delivery" className="font-jost text-xs text-[#4C2585] hover:underline">
-            ← Cockpit
+          <Link href="/team/delivery/framework" className="font-jost text-xs text-[#4C2585] hover:underline">
+            ← Framework
           </Link>
-          <h1 className="font-cormorant text-4xl text-[#2D1654] mt-2">{school.name}</h1>
-          <p className="text-gray-400 text-sm font-jost mt-1">Delivery board · {school.city}, {school.country}</p>
+          <h1 className="font-cormorant text-4xl text-[#2D1654] mt-2">School board</h1>
+          <p className="text-gray-400 text-sm font-jost mt-1">
+            {school.name} · {promises.length} promise{promises.length === 1 ? '' : 's'} on the ledger
+          </p>
+          <p className="font-jost text-xs text-gray-500 mt-1 max-w-xl">
+            This is where you manage each promise: status, owner, next review, evidence, and notes.
+            Framework activation only creates the rows — you work them here.
+          </p>
         </div>
         {!demoMode && (
           <div className="flex flex-wrap gap-2">
@@ -174,7 +181,12 @@ export default function TeamDeliverySchoolBoard({
         )}
       </div>
 
-      <DeliverySubNav active="/team/delivery" />
+      <DeliverySubNav active={`/team/delivery/schools/${school.id}`} schoolBoardHref={`/team/delivery/schools/${school.id}`} />
+
+      <DeliveryWorkflowSteps
+        current={3}
+        schoolBoardHref={`/team/delivery/schools/${school.id}`}
+      />
 
       {agreements.length > 0 && (
         <p className="mb-4 font-jost text-xs text-gray-500">

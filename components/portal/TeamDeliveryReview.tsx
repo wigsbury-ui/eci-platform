@@ -91,7 +91,7 @@ export default function TeamDeliveryReview({ schools, initialPromises, demoMode 
         </p>
       </div>
 
-      <DeliverySubNav active="/team/delivery/review" />
+      <DeliverySubNav active="/team/delivery/review" schoolBoardHref={schoolId ? `/team/delivery/schools/${schoolId}` : undefined} />
 
       <div className="mb-6 flex flex-wrap gap-4">
         <label className="font-jost text-xs text-gray-500">
