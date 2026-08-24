@@ -9,6 +9,7 @@ import GrowthHeroVideo from '@/components/GrowthHeroVideo'
 import ParallaxHeroBackground from '@/components/ParallaxHeroBackground'
 import InvestorBenefitsModule from '@/components/InvestorBenefitsModule'
 import NeilMessageSection from '@/components/NeilMessageSection'
+import RiyadhSuccessQuote from '@/components/RiyadhSuccessQuote'
 import {
   INVESTOR_VALUE_PROPS,
   INVESTMENT_PARTNER_INTRO,
@@ -217,29 +218,8 @@ export default function InvestorsPage() {
             <div
               className="w-full eci-fade-up"
               style={{ animationDelay: '120ms' }}
-              aria-label="Riyadh school video placeholder"
             >
-              <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#1A1228] border border-[#2D1654]/10">
-                <Image
-                  src="/images/schools/riyadh/exterior.jpg"
-                  alt=""
-                  fill
-                  className="object-cover opacity-45"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-[#1A1228]/55" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/35 text-white mb-4">
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
-                  <p className="font-cormorant text-xl text-white">Video coming soon</p>
-                  <p className="font-jost text-xs text-white/55 mt-1.5 tracking-wide">
-                    Ellesmere College Riyadh
-                  </p>
-                </div>
-              </div>
+              <RiyadhSuccessQuote />
             </div>
           </div>
 
