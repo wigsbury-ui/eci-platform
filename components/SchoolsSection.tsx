@@ -1,11 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import NetworkLocationInset from '@/components/NetworkLocationInset'
 import { HOMEPAGE_NETWORK_SCHOOLS, type NetworkSchoolCard } from '@/lib/content/network'
 
 const STATUS: Record<string, { label: string; className: string }> = {
   active: { label: 'Open', className: 'bg-[#C8A84B] text-[#2D1654]' },
-  setting_up: { label: 'Opening soon', className: 'bg-[#2D1654] text-[#C8A84B]' },
+  setting_up: { label: 'Opening soon', className: 'bg-[#C8A84B] text-[#2D1654]' },
   prospect: { label: 'Proposed', className: 'bg-[#4C2585] text-white' },
   heritage: { label: 'Heritage', className: 'bg-[#C8A84B] text-[#2D1654]' },
 }
@@ -60,18 +59,12 @@ function SchoolCard({ school }: { school: NetworkSchoolCard }) {
       />
     </div>
 
-    <div className="absolute top-4 left-4 right-4 flex items-start justify-between gap-3 z-10">
+    <div className="absolute top-4 left-4 z-10">
       <span
-        className={`text-[10px] font-jost font-bold px-3 py-1.5 tracking-[0.12em] uppercase shrink-0 ${status.className}`}
+        className={`text-[10px] font-jost font-bold px-3 py-1.5 tracking-[0.12em] uppercase ${status.className}`}
       >
         {status.label}
       </span>
-      <div
-        className="w-[5.25rem] h-[3.75rem] shrink-0 overflow-hidden border-2 border-[#F8F4EF] shadow-lg shadow-black/25 bg-[#F8F4EF]"
-        aria-hidden
-      >
-        <NetworkLocationInset schoolId={school.id} />
-      </div>
     </div>
 
     <div className="relative z-10 flex flex-col justify-end flex-1 p-5 md:p-6">
