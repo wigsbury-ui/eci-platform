@@ -3,7 +3,6 @@ import HeroSection from '@/components/HeroSection'
 import AboutSection from '@/components/AboutSection'
 import HeadsMessageSection from '@/components/HeadsMessageSection'
 import SchoolsSection from '@/components/SchoolsSection'
-import DohaSpotlightSection from '@/components/DohaSpotlightSection'
 import ExpansionSection from '@/components/ExpansionSection'
 import PartnershipSection from '@/components/PartnershipSection'
 import TeamSection from '@/components/TeamSection'
@@ -18,7 +17,6 @@ export default function HomePage() {
       <AboutSection />
       <HeadsMessageSection />
       <SchoolsSection />
-      <DohaSpotlightSection />
       <ExpansionSection asModule sectionId="growth-markets" />
       <TeamSection />
       <PartnershipSection />
