@@ -5,9 +5,9 @@ import { HOMEPAGE_NETWORK_SCHOOLS, type NetworkSchoolCard } from '@/lib/content/
 
 const STATUS: Record<string, { label: string; className: string }> = {
   active: { label: 'Open', className: 'bg-[#C8A84B] text-[#2D1654]' },
-  setting_up: { label: 'Opening soon', className: 'bg-white/15 text-white backdrop-blur-sm' },
+  setting_up: { label: 'Opening soon', className: 'bg-[#2D1654] text-[#C8A84B]' },
   prospect: { label: 'Proposed', className: 'bg-[#4C2585] text-white' },
-  heritage: { label: 'Heritage', className: 'bg-[#C8A84B]/90 text-[#2D1654]' },
+  heritage: { label: 'Heritage', className: 'bg-[#C8A84B] text-[#2D1654]' },
 }
 
 function detailHref(school: NetworkSchoolCard): string | undefined {
@@ -37,13 +37,18 @@ function SchoolCard({ school }: { school: NetworkSchoolCard }) {
         alt={school.name}
         fill
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+        style={{ objectPosition: school.imagePosition ?? 'center' }}
         sizes="(max-width:768px) 100vw, 50vw"
+      />
+      <div
+        className="absolute inset-0 bg-[#2D1654]/20"
+        aria-hidden
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(26,18,40,0.15) 0%, rgba(26,18,40,0.35) 45%, rgba(26,18,40,0.92) 100%)',
+            'linear-gradient(180deg, rgba(26,18,40,0.62) 0%, rgba(26,18,40,0.18) 32%, rgba(26,18,40,0.35) 58%, rgba(26,18,40,0.94) 100%)',
         }}
       />
       <div
@@ -62,7 +67,7 @@ function SchoolCard({ school }: { school: NetworkSchoolCard }) {
         {status.label}
       </span>
       <div
-        className="w-[4.5rem] h-[3.25rem] shrink-0 overflow-hidden border border-white/20 shadow-lg shadow-black/30"
+        className="w-[5.25rem] h-[3.75rem] shrink-0 overflow-hidden border-2 border-[#F8F4EF] shadow-lg shadow-black/25 bg-[#F8F4EF]"
         aria-hidden
       >
         <NetworkLocationInset schoolId={school.id} />

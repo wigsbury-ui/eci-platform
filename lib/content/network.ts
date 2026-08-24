@@ -21,6 +21,8 @@ export type NetworkSchoolCard = {
   highlight?: string
   /** Short location line for cards (e.g. Al Hamra, central Riyadh). */
   locationLabel?: string
+  /** Optional CSS object-position for location photography. */
+  imagePosition?: string
   mapLat?: number
   mapLng?: number
 }
@@ -38,6 +40,7 @@ export const HERITAGE_CAMPUS: NetworkSchoolCard = {
   year_joined: 1884,
   website: 'https://www.ellesmere.com',
   image: '/images/campus/uk-160-acre.jpg',
+  imagePosition: 'center 40%',
   curriculum: ['GCSE', 'A Level', 'BTEC', 'Boarding'],
   highlight: 'Founded 1884, the source campus',
   locationLabel: 'Shropshire · United Kingdom',
@@ -58,7 +61,8 @@ export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
     status: 'active',
     year_joined: 2024,
     website: 'https://ellesmerecollegeriyadh.com',
-    image: '/images/schools/riyadh/exterior.jpg',
+    image: '/images/locations/riyadh-skyline.jpg',
+    imagePosition: 'center 35%',
     curriculum: ['Early Years', 'IGCSE', 'IB Pathways', 'American Diploma'],
     highlight: 'Open now',
     locationLabel: 'Al Hamra · central Riyadh',
@@ -77,7 +81,8 @@ export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
     status: 'active',
     year_joined: 2025,
     website: 'https://ellesmerecollegeriyadh.com',
-    image: '/images/schools/riyadh-campus-full.webp',
+    image: '/images/campus/hero-middle-east.jpg',
+    imagePosition: 'center 40%',
     curriculum: ['Early Years', 'Primary', 'Secondary'],
     highlight: 'Open now',
     locationLabel: 'Salwa · north of Riyadh',
@@ -97,7 +102,8 @@ export const OPENING_SOON: PartnerSchoolCard[] = [
     city: 'Doha',
     country: 'Qatar',
     status: 'setting_up',
-    image: '/images/schools/doha/lobby-windows.jpg',
+    image: '/images/schools/doha-horizon.jpg',
+    imagePosition: 'center 45%',
     href: '/schools/doha',
     curriculum: ['Early Years', 'British Primary'],
     highlight: 'Opening soon',
