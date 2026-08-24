@@ -2,7 +2,7 @@
 
 **Placement:** Left column above “Get in touch / Become an introduction partner” on `/agents`  
 **Working title:** How to apply  
-**Length:** ~45–60 seconds  
+**Length:** ~45-60 seconds  
 **Tone:** Clear, practical, welcoming  
 **Audience:** People who want to become an introduction agent or a rainmaker  
 **Suggested deliverable:** `public/videos/agent-apply.mp4` (+ poster)

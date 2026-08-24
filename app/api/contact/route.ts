@@ -16,11 +16,11 @@ async function notifyNeil(enquiry: EnquiryBody) {
   if (!apiKey) return
 
   const lines = [
-    `Name: ${enquiry.full_name ?? '—'}`,
-    `Organisation: ${enquiry.organisation ?? '—'}`,
-    `Email: ${enquiry.email ?? '—'}`,
-    `Country: ${enquiry.country ?? '—'}`,
-    `Interest: ${enquiry.investment_type ?? '—'}`,
+    `Name: ${enquiry.full_name ?? '-'}`,
+    `Organisation: ${enquiry.organisation ?? '-'}`,
+    `Email: ${enquiry.email ?? '-'}`,
+    `Country: ${enquiry.country ?? '-'}`,
+    `Interest: ${enquiry.investment_type ?? '-'}`,
     '',
     enquiry.message ?? '',
   ]
@@ -35,7 +35,7 @@ async function notifyNeil(enquiry: EnquiryBody) {
       from: CONTACT_FROM_EMAIL,
       to: [CONTACT_NOTIFY_EMAIL],
       reply_to: enquiry.email,
-      subject: `ECI website enquiry — ${enquiry.full_name ?? 'New contact'}`,
+      subject: `ECI website enquiry: ${enquiry.full_name ?? 'New contact'}`,
       text: lines.join('\n'),
     }),
   })

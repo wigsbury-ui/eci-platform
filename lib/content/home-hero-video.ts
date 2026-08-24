@@ -1,4 +1,4 @@
-/** Homepage hero intro film — school & heritage (see inbox/videos/home-hero-intro-script.md). */
+/** Homepage hero intro film: school and heritage (see inbox/videos/home-hero-intro-script.md). */
 
 export const HOME_HERO_VIDEO = {
   title: 'Discover Ellesmere College',

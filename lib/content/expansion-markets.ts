@@ -11,13 +11,13 @@ export type ScoreDimension =
   | 'ukCurriculum'
   | 'culturalFit'
 
-/** 1–5 scorecard inputs used for investor visuals (higher is stronger opportunity, except competition where higher = more saturated). */
+/** 1-5 scorecard inputs used for investor visuals (higher is stronger opportunity, except competition where higher = more saturated). */
 export type DestinationScores = Record<ScoreDimension, 1 | 2 | 3 | 4 | 5>
 
 export type TopDestination = {
   id: string
   rank: number
-  /** Composite 0–100 from multi-criteria targeting, for portal context only. */
+  /** Composite 0-100 from multi-criteria targeting, for portal context only. */
   compositeScore: number
   name: string
   shortName: string
@@ -81,7 +81,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     investorThesis:
       'A flagship-scale Egyptian opportunity where affluent Egyptian and international families are concentrating. Demand for a mid-premium British model is deep, and New Administrative Capital planning improves the investment environment for a purpose-built campus.',
     whyNow: [
-      'Very large private K–12 market with aspirational parents',
+      'Very large private K-12 market with aspirational parents',
       'Strong income fit for a premium-with-purpose British offer',
       'Clearer regulatory pathways in designated investment zones',
       'Room to differentiate even where competition is established',
@@ -312,7 +312,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     investorThesis:
       'Jeddah offers a mature private-education market with proven willingness to pay for quality international schooling. As the Kingdom’s Red Sea gateway, it pairs commercial scale with brand appetite, a natural second Saudi city for partners building a multi-campus KSA strategy with Riyadh.',
     whyNow: [
-      'Well-established private K–12 sector and fee capacity',
+      'Well-established private K-12 sector and fee capacity',
       'Strong demand for recognised international brands',
       'Strategic western-Kingdom coverage alongside Riyadh',
       'Supportive national investment climate under Vision 2030',
@@ -379,7 +379,7 @@ export const TOP_DESTINATIONS: TopDestination[] = [
     investorThesis:
       'Sharjah combines a large private-student base with more moderate fee expectations than Abu Dhabi or Dubai. Fewer premium British options today create space for an Ellesmere campus positioned on quality, pastoral care and fee realism, a strong UAE corridor play alongside Abu Dhabi.',
     whyNow: [
-      'Large and growing private K–12 enrolment base',
+      'Large and growing private K-12 enrolment base',
       'Demand for quality at mid-fee price points remains underserved',
       'Cultural fit with ECI’s ethos and family-centred model',
       'Complements an Abu Dhabi strategy across the northern Emirates',
@@ -409,7 +409,7 @@ export function expansionPinDestinations() {
   return TOP_DESTINATIONS
 }
 
-/** Points for the public “Where the network grows next” map — growth markets only. */
+/** Points for the public “Where the network grows next” map: growth markets only. */
 export function growthMarketsForMap() {
   return TOP_DESTINATIONS.map(d => ({
     id: d.id,

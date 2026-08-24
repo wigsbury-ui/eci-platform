@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 type Props = {
   src: string
   alt: string
-  /** How strongly the background lags behind scroll (0–1). */
+  /** How strongly the background lags behind scroll (0-1). */
   strength?: number
   priority?: boolean
   className?: string

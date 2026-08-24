@@ -85,7 +85,7 @@ const LAND_RINGS: [number, number][][] = [
   ],
 ]
 
-/** Moderate zoom — keeps the pin visible without blowing past the map frame. */
+/** Moderate zoom: keeps the pin visible without blowing past the map frame. */
 function zoomForLocation(id: string) {
   if (['abu-dhabi', 'bahrain-north', 'bahrain-south', 'sohar', 'sharjah'].includes(id)) return 1.85
   if (id === 'jeddah') return 1.75
@@ -175,7 +175,7 @@ export default function ExpansionSection({
               </h2>
               <p className="text-white/65 font-jost text-sm leading-relaxed max-w-xl">
                 {points.length} open markets across the Middle East and North Africa. Select a pin
-                or a name below — operating campuses are covered elsewhere on the site.
+                or a name below. Operating campuses are covered elsewhere on the site.
               </p>
             </div>
             <span className="inline-flex items-center gap-2 text-xs font-jost text-white/60 shrink-0">

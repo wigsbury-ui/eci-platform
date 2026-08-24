@@ -154,7 +154,7 @@ export default function SchoolsSection() {
             </h2>
             <div className="w-14 h-1 bg-[#C8A84B] mt-5 mb-4" />
             <p className="text-[#2D1654]/70 font-jost text-base leading-relaxed">
-              Two Riyadh campuses — Al Hamra in the city and Salwa to the north — with Doha opening
+              Two Riyadh campuses, Al Hamra in the city and Salwa to the north, with Doha opening
               soon and our founding school in Shropshire.
             </p>
           </div>

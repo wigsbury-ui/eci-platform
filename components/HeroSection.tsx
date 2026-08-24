@@ -42,8 +42,8 @@ export default function HeroSection() {
               <em className="text-[#C8A84B] font-normal">Globally delivered.</em>
             </h1>
             <p className="text-white/75 font-jost max-w-xl mb-10 leading-relaxed">
-              Founded in Shropshire in 1884, Ellesmere College is a living British boarding school
-              — the source of every international campus and the Life:Ready standard behind them.
+              Founded in Shropshire in 1884, Ellesmere College is a living British boarding school,
+              the source of every international campus and the Life:Ready standard behind them.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
