@@ -192,6 +192,17 @@ export const PRIMARY_PARTNERSHIP = PARTNERSHIP_MODELS.find(m => m.id === 'full')
 
 export const PARTNERSHIP_ADDONS = PARTNERSHIP_MODELS.filter(m => m.id !== 'full')
 
+/** Shared intro for investment-partner / brand-licensing modules (homepage + investors). */
+export const INVESTMENT_PARTNER_INTRO =
+  'Brand licensing is the core of how we grow: investors and operators work with ECI to open an Ellesmere campus. Curriculum and advisory support are available as add-ons — not parallel products.'
+
+export const INVESTMENT_PARTNER_OFFER_POINTS = [
+  'Ellesmere branding and identity',
+  'Curriculum frameworks and quality assurance',
+  'Leadership mentoring and network support',
+  'Standards proven on live Middle East campuses',
+] as const
+
 export const INVESTOR_VALUE_PROPS = [
   {
     title: 'Proven British heritage',

@@ -11,6 +11,8 @@ import InvestorBenefitsModule from '@/components/InvestorBenefitsModule'
 import NeilMessageSection from '@/components/NeilMessageSection'
 import {
   INVESTOR_VALUE_PROPS,
+  INVESTMENT_PARTNER_INTRO,
+  INVESTMENT_PARTNER_OFFER_POINTS,
   PRIMARY_PARTNERSHIP,
 } from '@/lib/content/network'
 
@@ -48,9 +50,7 @@ export default function InvestorsPage() {
                 <em className="text-[#C8A84B] font-normal">under the Ellesmere brand.</em>
               </h1>
               <p className="text-white/75 font-jost max-w-xl mb-10 leading-relaxed">
-                Brand licensing is the core of how we grow: investors and operators work with ECI to
-                open an Ellesmere campus. Curriculum and advisory support are available as add-ons:
-                not parallel products.
+                {INVESTMENT_PARTNER_INTRO}
               </p>
 
               <div className="flex flex-wrap gap-3 mb-8">
@@ -114,12 +114,7 @@ export default function InvestorsPage() {
                 {PRIMARY_PARTNERSHIP.ideal}
               </p>
               <ul className="space-y-2.5 mb-8 max-w-xl">
-                {[
-                  'Ellesmere branding and identity',
-                  'Curriculum frameworks and quality assurance',
-                  'Leadership mentoring and network support',
-                  'Standards proven on live Middle East campuses',
-                ].map(point => (
+                {INVESTMENT_PARTNER_OFFER_POINTS.map(point => (
                   <li key={point} className="font-jost text-sm text-[#2D1654]/75 flex gap-2.5">
                     <span className="text-[#C8A84B] shrink-0">◆</span>
                     {point}
