@@ -103,7 +103,9 @@ export default function ExpansionSection({
   ctaHref?: string
 }) {
   const markets = useMemo(() => growthMarketsForMap(), [])
-  const [activeId, setActiveId] = useState(markets[0]?.id ?? '')
+  const defaultId =
+    markets.find(m => m.id === 'abu-dhabi')?.id ?? markets[0]?.id ?? ''
+  const [activeId, setActiveId] = useState(defaultId)
   const [zoomed, setZoomed] = useState(false)
   const [visible, setVisible] = useState(false)
 
