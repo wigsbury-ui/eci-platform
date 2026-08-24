@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Play, X } from 'lucide-react'
 
 const DEFAULT_VIDEO_SRC = '/videos/investor-intro.mp4'
@@ -29,8 +30,13 @@ export default function GrowthHeroVideo({
   durationLabel = '90 second video',
 }: GrowthHeroVideoProps) {
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const isFrame = variant === 'frame'
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const close = useCallback(() => {
     const el = videoRef.current
@@ -68,6 +74,43 @@ export default function GrowthHeroVideo({
     }
     void play()
   }, [open])
+
+  const modal =
+    open && mounted
+      ? createPortal(
+          <div
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 p-4"
+            role="dialog"
+            aria-modal="true"
+            aria-label={title}
+            onClick={close}
+          >
+            <div
+              className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
+              onClick={e => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                onClick={close}
+                className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white transition hover:bg-black/75"
+                aria-label="Close video"
+              >
+                <X size={20} />
+              </button>
+              <video
+                ref={videoRef}
+                className="aspect-video w-full bg-black"
+                controls
+                playsInline
+                preload="auto"
+                poster={posterSrc}
+                src={videoSrc}
+              />
+            </div>
+          </div>,
+          document.body,
+        )
+      : null
 
   return (
     <>
@@ -115,39 +158,7 @@ export default function GrowthHeroVideo({
           )}
         </div>
       </button>
-
-      {open && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black p-4"
-          role="dialog"
-          aria-modal="true"
-          aria-label={title}
-          onClick={close}
-        >
-          <div
-            className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-black shadow-2xl"
-            onClick={e => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              onClick={close}
-              className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/55 text-white transition hover:bg-black/75"
-              aria-label="Close video"
-            >
-              <X size={20} />
-            </button>
-            <video
-              ref={videoRef}
-              className="aspect-video w-full bg-black"
-              controls
-              playsInline
-              preload="auto"
-              poster={posterSrc}
-              src={videoSrc}
-            />
-          </div>
-        </div>
-      )}
+      {modal}
     </>
   )
 }
