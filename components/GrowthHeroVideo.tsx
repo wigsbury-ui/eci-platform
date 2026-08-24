@@ -13,6 +13,8 @@ type GrowthHeroVideoProps = {
   className?: string
   videoSrc?: string
   posterSrc?: string
+  /** When posterSrc 404s, load this image instead of the global default. */
+  posterFallback?: string
   title?: string
   durationLabel?: string
 }
@@ -22,6 +24,7 @@ export default function GrowthHeroVideo({
   className = '',
   videoSrc = DEFAULT_VIDEO_SRC,
   posterSrc = DEFAULT_POSTER_SRC,
+  posterFallback = POSTER_FALLBACK,
   title = 'Introducing Ellesmere College International',
   durationLabel = '90 second video',
 }: GrowthHeroVideoProps) {
@@ -91,8 +94,8 @@ export default function GrowthHeroVideo({
               className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
               onError={e => {
                 const img = e.currentTarget
-                if (img.src.endsWith(POSTER_FALLBACK)) return
-                img.src = POSTER_FALLBACK
+                if (img.src.endsWith(posterFallback)) return
+                img.src = posterFallback
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />

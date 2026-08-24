@@ -9,6 +9,7 @@ Expected filenames:
 
 | Use | Inbox / source | Optimised output |
 |---|---|---|
+| **Home hero** (school & heritage intro) | `home-hero-intro-script.md` + production master | `public/videos/ellesmere-intro.mp4` |
 | Investors / Growth hero | `Investor_Intro_with_captions.mp4` | `public/videos/investor-intro.mp4` |
 | Agents hero | Google Drive / agent source | `public/videos/agent-intro.mp4` |
 | Agents contact | Google Drive / HeyGen export | `public/videos/agent-apply.mp4` |
