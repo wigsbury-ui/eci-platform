@@ -1,4 +1,4 @@
-/** Canonical public network content for ECI — used when DB is empty or as seed source of truth. */
+/** Canonical public network content for ECI, used when DB is empty or as seed source of truth. */
 
 import {
   expansionPinDestinations,
@@ -19,6 +19,12 @@ export type NetworkSchoolCard = {
   href?: string
   image: string
   highlight?: string
+  /** Short location line for cards (e.g. Al Hamra, central Riyadh). */
+  locationLabel?: string
+  /** Optional CSS object-position for location photography. */
+  imagePosition?: string
+  mapLat?: number
+  mapLng?: number
 }
 
 export type PartnerSchoolCard = Omit<NetworkSchoolCard, 'status'> & {
@@ -34,12 +40,16 @@ export const HERITAGE_CAMPUS: NetworkSchoolCard = {
   year_joined: 1884,
   website: 'https://www.ellesmere.com',
   image: '/images/campus/uk-160-acre.jpg',
+  imagePosition: 'center 40%',
   curriculum: ['GCSE', 'A Level', 'BTEC', 'Boarding'],
-  highlight: 'Founded 1884 — the source campus',
+  highlight: 'Founded 1884, the source campus',
+  locationLabel: 'Shropshire · United Kingdom',
+  mapLat: 52.882,
+  mapLng: -2.886,
   short_bio:
-    'The founding school in Shropshire: 160 acres, High Performance Learning, and the Life:Ready ethos behind every international campus.',
+    'Founded 1884 in Shropshire: 160 acres and the source of every international campus.',
   description:
-    'Ellesmere College, Shropshire, was founded in 1884. It remains the academic and pastoral source of Ellesmere College International — curriculum quality, character education, and the Life:Ready ambition carried by partner campuses.',
+    'Ellesmere College, Shropshire, was founded in 1884. It remains the academic and pastoral source of Ellesmere College International. Curriculum quality, character education, and the Life:Ready ambition are carried by partner campuses.',
 }
 
 export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
@@ -51,27 +61,35 @@ export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
     status: 'active',
     year_joined: 2024,
     website: 'https://ellesmerecollegeriyadh.com',
-    image: '/images/schools/riyadh-campus.webp',
+    image: '/images/locations/riyadh-skyline.jpg',
+    imagePosition: 'center 35%',
     curriculum: ['Early Years', 'IGCSE', 'IB Pathways', 'American Diploma'],
     highlight: 'Open now',
+    locationLabel: 'Al Hamra · central Riyadh',
+    mapLat: 24.692,
+    mapLng: 46.674,
     short_bio:
-      'British-heritage education for ages 3–18 in the heart of Riyadh, delivering High Performance Learning in a nurturing, inclusive community.',
+      'Ages 3-18 in Al Hamra: British heritage, High Performance Learning, and a nurturing city-centre community.',
     description:
       'Ellesmere College Riyadh brings the Ellesmere educational philosophy to the Kingdom of Saudi Arabia through partnership with the Glory & Princeton International Schools Group. Pupils enjoy Early Years through pre-university pathways, with a focus on academic excellence, wellbeing, and character.',
   },
   {
     id: 'riyadh-salwa',
-    name: 'Ellesmere College Riyadh — Salwa Compound',
+    name: 'Ellesmere College Riyadh, Salwa',
     city: 'Riyadh',
     country: 'Saudi Arabia',
     status: 'active',
     year_joined: 2025,
     website: 'https://ellesmerecollegeriyadh.com',
-    image: '/images/schools/riyadh-community.webp',
+    image: '/images/schools/riyadh/playground.jpg',
+    imagePosition: 'center 45%',
     curriculum: ['Early Years', 'Primary', 'Secondary'],
-    highlight: 'Open now — Salwa Compound',
+    highlight: 'Open now',
+    locationLabel: 'Salwa · north of Riyadh',
+    mapLat: 24.758,
+    mapLng: 46.715,
     short_bio:
-      'The Salwa Compound campus of Ellesmere College Riyadh, extending the same British-heritage offer to families in this Riyadh community.',
+      'North of central Riyadh, with the same Ellesmere standards for families in the Salwa community.',
     description:
       'Ellesmere College Riyadh’s Salwa Compound campus is a second operating site in the Kingdom, delivering the same Ellesmere standards, High Performance Learning culture and Life:Ready ethos as the principal Riyadh campus.',
   },
@@ -85,17 +103,21 @@ export const OPENING_SOON: PartnerSchoolCard[] = [
     country: 'Qatar',
     status: 'setting_up',
     image: '/images/schools/doha/lobby-windows.jpg',
+    imagePosition: 'center 40%',
     href: '/schools/doha',
     curriculum: ['Early Years', 'British Primary'],
-    highlight: 'Purpose-built campus — founding year',
+    highlight: 'Opening soon',
+    locationLabel: 'Doha · Qatar',
+    mapLat: 25.2854,
+    mapLng: 51.531,
     short_bio:
-      'Purpose-built British-heritage campus in Qatar offering EYFS and Primary pathways, with English and Arabic teaching languages and the Ellesmere Life:Ready ethos.',
+      'Purpose-built campus in Qatar: EYFS and Primary pathways with the Life:Ready ethos.',
     description:
       'Ellesmere College Doha is the newest addition to the Ellesmere international family, in partnership with the Education Avenue Group. The purpose-built campus offers British education with outstanding facilities and a broad academic and co-curricular programme designed to cultivate critical thinking, creativity and leadership.',
   },
 ]
 
-/** @deprecated Prefer TOP_DESTINATIONS — kept as a thin adapter for existing imports. */
+/** @deprecated Prefer TOP_DESTINATIONS, kept as a thin adapter for existing imports. */
 export const EXPANSION_MARKETS = TOP_DESTINATIONS.map(d => ({
   id: d.id,
   name: d.name,
@@ -114,7 +136,7 @@ export const MAP_LOCATIONS = [
     name: 'Ellesmere College Riyadh',
     shortName: 'Riyadh',
     detail:
-      'Operating campus — including the Salwa Compound site. This market is already allocated to an investment partner and is not open for new growth bids.',
+      'Operating campus, including the Salwa Compound site. This market is already allocated to an investment partner and is not open for new growth bids.',
     lat: 24.7136,
     lng: 46.6753,
     status: 'open' as const,
@@ -166,18 +188,33 @@ export const PARTNERSHIP_MODELS = [
   },
 ] as const
 
+export const PRIMARY_PARTNERSHIP = PARTNERSHIP_MODELS.find(m => m.id === 'full')!
+
+export const PARTNERSHIP_ADDONS = PARTNERSHIP_MODELS.filter(m => m.id !== 'full')
+
+/** Shared intro for investment-partner / brand-licensing modules (homepage + investors). */
+export const INVESTMENT_PARTNER_INTRO =
+  'Brand licensing is the core of how we grow: investors and operators work with ECI to open an Ellesmere campus. Curriculum and advisory support are available as add-ons, not parallel products.'
+
+export const INVESTMENT_PARTNER_OFFER_POINTS = [
+  'Ellesmere branding and identity',
+  'Curriculum frameworks and quality assurance',
+  'Leadership mentoring and network support',
+  'Standards proven on live Middle East campuses',
+] as const
+
 export const INVESTOR_VALUE_PROPS = [
   {
     title: 'Proven British heritage',
-    body: 'Ellesmere College, Shropshire — founded 1884 — provides the academic DNA, quality culture, and Life:Ready philosophy behind every international campus.',
+    body: 'Ellesmere College, Shropshire, founded 1884, provides the academic DNA, quality culture, and Life:Ready philosophy behind every international campus.',
   },
   {
     title: 'Operating proof points',
-    body: 'Live campuses in Riyadh — including Salwa Compound — with Doha opening soon, demonstrate transferable standards across the Middle East.',
+    body: 'Live campuses in Riyadh, including Salwa Compound, with Doha opening soon, demonstrate transferable standards across the Middle East.',
   },
   {
     title: 'Defined expansion map',
-    body: 'A ranked Top 10 growth set — from New Cairo and Northern Bahrain to Rabat, Abu Dhabi, Jeddah and Sharjah — selected through consistent multi-country market analysis. Allocated campuses such as Riyadh are excluded.',
+    body: 'A ranked Top 10 growth set, from New Cairo and Northern Bahrain to Rabat, Abu Dhabi, Jeddah and Sharjah, selected through consistent multi-country market analysis. Allocated campuses such as Riyadh are excluded.',
   },
   {
     title: 'Quality & brand protection',
@@ -201,4 +238,11 @@ export const PUBLIC_CAMPUSES: NetworkSchoolCard[] = [
   HERITAGE_CAMPUS,
   ...OPERATING_SCHOOLS,
   ...OPENING_SOON,
+]
+
+/** Homepage “Our network” module: two Riyadh campuses, Doha, and the UK heritage school. */
+export const HOMEPAGE_NETWORK_SCHOOLS: NetworkSchoolCard[] = [
+  ...OPERATING_SCHOOLS,
+  ...OPENING_SOON,
+  HERITAGE_CAMPUS,
 ]

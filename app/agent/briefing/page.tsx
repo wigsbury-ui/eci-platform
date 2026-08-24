@@ -95,7 +95,7 @@ export default async function AgentBriefingPage() {
           <h2 className="font-cormorant text-2xl text-[#2D1654] mb-2">Working with ECI</h2>
           <p className="text-gray-500 font-jost text-sm leading-relaxed">
             Commercial schedules and success fees are agreed in writing with ECI for each
-            engagement — they are not published in this portal.
+            engagement, they are not published in this portal.
           </p>
         </div>
         {[

@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import GrowthHeroVideo from '@/components/GrowthHeroVideo'
+import { CONTACT_NOTIFY_EMAIL } from '@/lib/contact/config'
 
 type Props = {
   title?: string
@@ -8,6 +9,11 @@ type Props = {
   defaultInterest?: string
   /** Extra classes on the outer section (e.g. full-viewport module layouts). */
   className?: string
+  /** Optional explainer video shown above the left-column copy (Agents contact). */
+  videoSrc?: string
+  videoPosterSrc?: string
+  videoTitle?: string
+  videoDurationLabel?: string
 }
 
 export default function ContactSection({
@@ -15,6 +21,10 @@ export default function ContactSection({
   subtitle = 'Whether you are exploring a full partnership, an investment opportunity, or simply want to learn more about ECI, we welcome your enquiry.',
   defaultInterest = '',
   className = '',
+  videoSrc,
+  videoPosterSrc,
+  videoTitle = 'How to get in touch',
+  videoDurationLabel = '48 second video',
 }: Props) {
   const [form, setForm] = useState({
     full_name: '',
@@ -30,9 +40,12 @@ export default function ContactSection({
     e.preventDefault()
     setStatus('sending')
     try {
-      const supabase = createClient()
-      const { error } = await supabase.from('investor_enquiries').insert([form])
-      setStatus(error ? 'error' : 'sent')
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      setStatus(res.ok ? 'sent' : 'error')
     } catch {
       setStatus('error')
     }
@@ -49,7 +62,8 @@ export default function ContactSection({
           </div>
           <h3 className="font-cormorant text-3xl text-[#2D1654] mb-3">Thank you</h3>
           <p className="text-gray-600 font-jost">
-            Your enquiry has been received. A member of the ECI team will be in touch within 3 working days.
+            Your enquiry has been received. Neil or a member of the ECI team will be in touch within 3
+            working days.
           </p>
         </div>
       </section>
@@ -61,6 +75,18 @@ export default function ContactSection({
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-20 items-start">
           <div>
+            {videoSrc && videoPosterSrc ? (
+              <div className="mb-10 max-w-md">
+                <GrowthHeroVideo
+                  variant="card"
+                  className="w-full max-w-md"
+                  videoSrc={videoSrc}
+                  posterSrc={videoPosterSrc}
+                  title={videoTitle}
+                  durationLabel={videoDurationLabel}
+                />
+              </div>
+            ) : null}
             <p className="text-[#4C2585] text-xs tracking-[0.3em] uppercase mb-4 font-jost font-semibold">
               Get in touch
             </p>
@@ -80,7 +106,12 @@ export default function ContactSection({
               <p>
                 <strong className="text-[#4C2585]">Email</strong>
                 <br />
-                international@ellesmere.com
+                <a
+                  href={`mailto:${CONTACT_NOTIFY_EMAIL}`}
+                  className="text-[#4C2585] hover:text-[#2D1654] hover:underline"
+                >
+                  {CONTACT_NOTIFY_EMAIL}
+                </a>
               </p>
             </div>
           </div>
@@ -115,12 +146,10 @@ export default function ContactSection({
                 className="w-full border border-gray-200 rounded-sm px-4 py-3 text-sm font-jost focus:outline-none focus:border-[#4C2585]"
               >
                 <option value="">Please select...</option>
-                <option>Investment Opportunity</option>
+                <option>Brand licensing / new Ellesmere school</option>
                 <option>Agent / Introduction Partner</option>
                 <option>Rainmaker / Referral Partner</option>
-                <option>Full Partnership</option>
-                <option>Curriculum Licensing</option>
-                <option>Advisory Partnership</option>
+                <option>Curriculum or advisory add-on</option>
                 <option>General Enquiry</option>
               </select>
             </div>
@@ -137,7 +166,11 @@ export default function ContactSection({
             </div>
             {status === 'error' && (
               <p className="text-red-600 text-sm font-jost bg-red-50 p-3">
-                We could not send your enquiry just now. Please email international@ellesmere.com directly.
+                We could not send your enquiry just now. Please email{' '}
+                <a href={`mailto:${CONTACT_NOTIFY_EMAIL}`} className="underline">
+                  {CONTACT_NOTIFY_EMAIL}
+                </a>{' '}
+                directly.
               </p>
             )}
             <button

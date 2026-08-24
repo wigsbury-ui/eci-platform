@@ -56,7 +56,7 @@ export default function TeamSchoolsClient({ profile }: { profile: Profile | null
         curriculum: [],
         accreditations: null,
         description: null,
-        short_bio: 'Added via super admin (local preview — persist when Supabase is connected).',
+        short_bio: 'Added via super admin (local preview, persist when Supabase is connected).',
         is_public: false,
       },
     ])

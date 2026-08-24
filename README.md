@@ -4,9 +4,9 @@ Next.js 16 + Supabase platform for the ECI public site and password-controlled p
 
 ## What is included
 
-- **Public site** — homepage, `/schools`, `/investors`, `/agents`
-- **`/growth`** — redirects to `/investors`
-- **Investor / agent / school / team portals** — password-controlled workspaces
+- **Public site**, homepage, `/schools`, `/investors`, `/agents`
+- **`/growth`**, redirects to `/investors`
+- **Investor / agent / school / team portals**, password-controlled workspaces
 
 ## Setup
 
@@ -21,9 +21,10 @@ npm run dev
 ```
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_ANON_KEY=
-LLM_BASE_URL=          # optional OpenAI-compatible self-hosted endpoint
-LLM_API_KEY=           # optional
-LLM_MODEL=             # optional
+SUPABASE_SERVICE_ROLE_KEY=   # required for document intake + draft generation
+ANTHROPIC_API_KEY=           # required for Generate draft
+LLM_MODEL=claude-sonnet-4-6  # optional; do not use retired claude-sonnet-4-20250514
+LLM_BASE_URL=                # optional OpenAI-compatible self-hosted endpoint
 ```
 
 Without Supabase env vars, public pages work and portals open in **preview mode** with demo data.

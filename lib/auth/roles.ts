@@ -18,7 +18,7 @@ export const PORTAL_HOMES: Record<PortalKey, string> = {
 const PORTAL_META: { key: PortalKey; label: string; shortLabel: string }[] = [
   { key: 'team', label: 'Super Admin / Team', shortLabel: 'Team' },
   { key: 'investor', label: 'Investor portal', shortLabel: 'Investor' },
-  { key: 'agent', label: 'Agent portal', shortLabel: 'Agent' },
+  { key: 'agent', label: 'Agents & rainmakers', shortLabel: 'Partners' },
   { key: 'school', label: 'School partner portal', shortLabel: 'School' },
 ]
 

@@ -409,7 +409,7 @@ export default function SharedCalendar({
               >
                 {COMMON_TIMEZONES.map(tz => (
                   <option key={tz.value} value={tz.value}>
-                    {tz.label} — {tz.value}
+                    {tz.label}, {tz.value}
                   </option>
                 ))}
               </select>
