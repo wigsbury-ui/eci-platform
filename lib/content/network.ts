@@ -44,7 +44,7 @@ export const HERITAGE_CAMPUS: NetworkSchoolCard = {
   mapLat: 52.882,
   mapLng: -2.886,
   short_bio:
-    'The founding school in Shropshire: 160 acres, High Performance Learning, and the Life:Ready ethos behind every international campus.',
+    'Founded 1884 in Shropshire — 160 acres and the source of every international campus.',
   description:
     'Ellesmere College, Shropshire, was founded in 1884. It remains the academic and pastoral source of Ellesmere College International. Curriculum quality, character education, and the Life:Ready ambition are carried by partner campuses.',
 }
@@ -58,14 +58,14 @@ export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
     status: 'active',
     year_joined: 2024,
     website: 'https://ellesmerecollegeriyadh.com',
-    image: '/images/schools/riyadh-campus.webp',
+    image: '/images/schools/riyadh/exterior.jpg',
     curriculum: ['Early Years', 'IGCSE', 'IB Pathways', 'American Diploma'],
     highlight: 'Open now',
     locationLabel: 'Al Hamra · central Riyadh',
     mapLat: 24.692,
     mapLng: 46.674,
     short_bio:
-      'British-heritage education for ages 3–18 in Al Hamra, in the heart of Riyadh, with High Performance Learning in a nurturing community.',
+      'Ages 3–18 in Al Hamra — British heritage, High Performance Learning, and a nurturing city-centre community.',
     description:
       'Ellesmere College Riyadh brings the Ellesmere educational philosophy to the Kingdom of Saudi Arabia through partnership with the Glory & Princeton International Schools Group. Pupils enjoy Early Years through pre-university pathways, with a focus on academic excellence, wellbeing, and character.',
   },
@@ -77,14 +77,14 @@ export const OPERATING_SCHOOLS: PartnerSchoolCard[] = [
     status: 'active',
     year_joined: 2025,
     website: 'https://ellesmerecollegeriyadh.com',
-    image: '/images/schools/riyadh-community.webp',
+    image: '/images/schools/riyadh-campus-full.webp',
     curriculum: ['Early Years', 'Primary', 'Secondary'],
     highlight: 'Open now',
     locationLabel: 'Salwa · north of Riyadh',
     mapLat: 24.758,
     mapLng: 46.715,
     short_bio:
-      'The Salwa campus north of central Riyadh, delivering the same Ellesmere standards and Life:Ready ethos for families in the Salwa community.',
+      'North of central Riyadh — the same Ellesmere standards for families in the Salwa community.',
     description:
       'Ellesmere College Riyadh’s Salwa Compound campus is a second operating site in the Kingdom, delivering the same Ellesmere standards, High Performance Learning culture and Life:Ready ethos as the principal Riyadh campus.',
   },
@@ -105,7 +105,7 @@ export const OPENING_SOON: PartnerSchoolCard[] = [
     mapLat: 25.2854,
     mapLng: 51.531,
     short_bio:
-      'Purpose-built British-heritage campus in Doha offering EYFS and Primary pathways, with the Ellesmere Life:Ready ethos.',
+      'Purpose-built campus in Qatar — EYFS and Primary pathways with the Life:Ready ethos.',
     description:
       'Ellesmere College Doha is the newest addition to the Ellesmere international family, in partnership with the Education Avenue Group. The purpose-built campus offers British education with outstanding facilities and a broad academic and co-curricular programme designed to cultivate critical thinking, creativity and leadership.',
   },
