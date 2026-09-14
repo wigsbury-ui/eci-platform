@@ -197,8 +197,8 @@ export default function InvestorsPage() {
               <div className="w-14 h-1 bg-[#C8A84B] mb-5" />
               <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-5 max-w-xl">
                 From a standing start to more than{' '}
-                <span className="text-[#2D1654] font-semibold">600 students</span> in just over two
-                years, a clear signal that families recognise the Ellesmere standard, and that brand
+                <span className="text-[#2D1654] font-semibold">800 students</span> in 3 years, a
+                clear signal that families recognise the Ellesmere standard, and that brand
                 licensing can scale with pace.
               </p>
               <p className="text-[#2D1654]/55 font-jost text-sm leading-relaxed max-w-xl mb-6">
