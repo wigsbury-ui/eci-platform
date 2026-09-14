@@ -136,7 +136,7 @@ export default function SchoolsPage() {
             Exploring a new campus with ECI?
           </p>
           <Link
-            href="/investors#contact"
+            href="/#contact"
             className="inline-block bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
           >
             Speak to the partnership team

@@ -28,7 +28,7 @@ export default async function AgentToolkitPage() {
         <h1 className="font-cormorant text-4xl text-[#2D1654] mb-3">Toolkit</h1>
         <p className="text-gray-500 font-jost text-sm leading-relaxed">
           Ranked markets and approved materials for introducing ECI. Do not circulate due-diligence
-          packs without authorisation — those remain inside the Investor Portal after NDA where
+          packs without authorisation, those remain inside the Investor Portal after NDA where
           required.
         </p>
       </div>

@@ -25,7 +25,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['investor', 'school', 'public', 'team'],
     title: 'Ellesmere heritage',
     source: 'About ECI',
-    text: `Ellesmere College in Shropshire was founded in ${HERITAGE.founded} and sits on approximately ${HERITAGE.campusAcres} acres. Ellesmere College International (ECI) extends the Ellesmere ethos — Life:Ready — to partner schools worldwide. Contact: ${HERITAGE.email}.`,
+    text: `Ellesmere College in Shropshire was founded in ${HERITAGE.founded} and sits on approximately ${HERITAGE.campusAcres} acres. Ellesmere College International (ECI) extends the Ellesmere ethos, Life:Ready, to partner schools worldwide. Contact: ${HERITAGE.email}.`,
   },
   {
     id: 'riyadh',
@@ -37,7 +37,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
   {
     id: 'riyadh-salwa',
     audience: ['investor', 'school', 'public', 'team'],
-    title: 'Ellesmere College Riyadh — Salwa Compound',
+    title: 'Ellesmere College Riyadh, Salwa Compound',
     source: 'Network schools',
     text: OPERATING_SCHOOLS.find(s => s.id === 'riyadh-salwa')!.description + ' Website: https://ellesmerecollegeriyadh.com',
   },
@@ -67,7 +67,7 @@ export const KNOWLEDGE_BASE: KnowledgeChunk[] = [
     audience: ['agent', 'public', 'team', 'investor'],
     title: 'Rainmaker referral network',
     source: 'Agents',
-    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Comparison with agents: ${RAINMAKER_VS_AGENT.map(r => `${r.category} — rainmaker: ${r.rainmaker} agent: ${r.agent}`).join(' ')}`,
+    text: `${RAINMAKER_PROGRAM.title}. ${RAINMAKER_PROGRAM.summary} ${RAINMAKER_VALUE_PROPS.map(v => `${v.title}: ${v.body}`).join(' ')} Comparison with agents: ${RAINMAKER_VS_AGENT.map(r => `${r.category}, rainmaker: ${r.rainmaker} agent: ${r.agent}`).join(' ')}`,
   },
   {
     id: 'partnerships',

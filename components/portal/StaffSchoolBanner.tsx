@@ -23,7 +23,7 @@ export default function StaffSchoolBanner({
             Viewing school portal as {schoolName}
           </p>
           <p className="text-xs text-gray-600 font-jost mt-0.5">
-            You stay signed in as super admin — switch school or return to the team portal anytime.
+            You stay signed in as super admin, switch school or return to the team portal anytime.
           </p>
         </div>
       </div>

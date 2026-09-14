@@ -72,7 +72,7 @@ export default function PartnerServicesSection({
             <div className="mt-3 w-16 h-1 bg-[#C8A84B]" />
           </div>
           <p className="font-jost text-sm leading-snug max-w-md lg:text-right text-[#2D1654]/75">
-            Three tiers — from non-negotiable foundations to premium specialisation.
+            Three tiers, from non-negotiable foundations to premium specialisation.
           </p>
         </div>
 
@@ -231,7 +231,7 @@ export default function PartnerServicesSection({
           {variant === 'home' ? (
             <>
               <Link
-                href="/investors#services"
+                href="/investors"
                 className="bg-[#C8A84B] text-[#2D1654] px-6 py-3 rounded-sm font-jost font-bold text-sm hover:bg-[#F0E4B0] transition-colors shadow-sm"
               >
                 Explore for investors

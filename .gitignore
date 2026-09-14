@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large video masters (optimised copies live in public/videos/)
+inbox/videos/*.mp4
+inbox/videos/*-source.mp4

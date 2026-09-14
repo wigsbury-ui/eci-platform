@@ -51,7 +51,7 @@ export default function DohaSchoolPage() {
               About the campus
             </a>
             <Link
-              href="/investors#contact"
+              href="/#contact"
               className="border border-white/40 text-white px-6 py-3.5 font-jost text-sm hover:border-[#C8A84B] hover:text-[#C8A84B] transition-colors"
             >
               Register interest
@@ -77,7 +77,7 @@ export default function DohaSchoolPage() {
               <p className="text-[#2D1654]/80 font-jost leading-relaxed mb-5">{DOHA_SCHOOL.summary}</p>
               <p className="text-[#2D1654]/70 font-jost leading-relaxed mb-8">{DOHA_SCHOOL.mission}</p>
               <p className="text-sm font-jost text-[#2D1654]/55 italic">
-                Draft profile adapted from public school materials — final wording to be confirmed
+                Draft profile adapted from public school materials, final wording to be confirmed
                 with Ellesmere College Doha leadership.
               </p>
             </div>
@@ -177,7 +177,7 @@ export default function DohaSchoolPage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <Link
-              href="/investors#contact"
+              href="/#contact"
               className="bg-[#2D1654] text-white px-7 py-3.5 font-jost font-semibold text-sm hover:bg-[#4C2585] transition-colors"
             >
               Contact ECI

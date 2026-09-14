@@ -16,18 +16,18 @@ const AUDIENCE_COPY: Record<
     headline: 'Investment &\npartnership access',
     body: 'Secure access to investor briefings, due-diligence materials, and expansion opportunities across the ECI network.',
     bullets: [
-      'Market opportunity and partnership models',
-      'Marketing packs and due-diligence library',
+      'Brand licensing to build an Ellesmere school',
+      'Priority markets and operating proof points',
       'Direct channel to the ECI leadership team',
     ],
   },
   agent: {
-    headline: 'Introduction\nagent access',
-    body: 'Tools for trusted agents who connect aligned investors and operators with Ellesmere College International.',
+    headline: 'Agents &\nrainmakers',
+    body: 'Applicant access covers ECI, why partner, and sample contracts. Accepted partners unlock marketing resources and investor promotional materials.',
     bullets: [
-      'Opportunity briefing and talking points',
-      'Priority market summaries for introductions',
-      'Referral desk to submit and track investor leads',
+      'About ECI and the brand-licensing offer',
+      'Why investors partner with Ellesmere',
+      'Sample agent and rainmaker agreements',
     ],
   },
   school: {
@@ -41,7 +41,7 @@ const AUDIENCE_COPY: Record<
   },
   team: {
     headline: 'ECI team\nworkspace',
-    body: 'Internal tools for staff, board, and administrators — schools, documents, calendars, and governance.',
+    body: 'Internal tools for staff, board, and administrators, schools, documents, calendars, and governance.',
     bullets: [
       'Cross-network school and document oversight',
       'Team calendar and internal messaging',
@@ -107,7 +107,7 @@ function LoginForm() {
         }
       )
       const role = (await res.text()).replace(/"/g, '')
-      // Staff can open any portal they are allowed into — honour audience / redirectTo
+      // Staff can open any portal they are allowed into, honour audience / redirectTo
       window.location.href = resolvePortalDestination(role, { redirectTo, audience })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unable to sign in')
@@ -169,7 +169,7 @@ function LoginForm() {
           <h3 className="font-cormorant text-3xl text-eci-purple-dark mb-1">Sign In</h3>
           <p className="text-gray-400 text-sm font-jost mb-8">
             {audience === 'investor' && 'Access the investor portal'}
-            {audience === 'agent' && 'Access the introduction agent portal'}
+            {audience === 'agent' && 'Access the agents & rainmakers portal'}
             {audience === 'team' && 'Access the ECI team portal'}
             {audience === 'school' && 'Access your school partner portal'}
           </p>

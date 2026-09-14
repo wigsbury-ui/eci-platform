@@ -5,8 +5,8 @@ import HeadsMessageSection from '@/components/HeadsMessageSection'
 import SchoolsSection from '@/components/SchoolsSection'
 import ExpansionSection from '@/components/ExpansionSection'
 import PartnershipSection from '@/components/PartnershipSection'
-import PartnerServicesSection from '@/components/PartnerServicesSection'
 import TeamSection from '@/components/TeamSection'
+import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
 
 export default function HomePage() {
@@ -17,10 +17,12 @@ export default function HomePage() {
       <AboutSection />
       <HeadsMessageSection />
       <SchoolsSection />
-      <ExpansionSection ctaHref="/investors#contact" />
-      <PartnerServicesSection variant="home" />
-      <PartnershipSection />
+      <ExpansionSection asModule sectionId="growth-markets" />
       <TeamSection />
+      <PartnershipSection />
+      <ContactSection
+        className="home-window min-h-[100svh] flex flex-col justify-center !py-20"
+      />
       <Footer />
     </main>
   )

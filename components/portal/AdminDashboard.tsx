@@ -102,7 +102,7 @@ export default function AdminDashboard({ schools, enquiries, announcements, docu
           </p>
           <p className="font-cormorant text-2xl text-eci-purple-dark">Create a time block</p>
           <p className="text-sm text-gray-500 font-jost mt-1">
-            Book visits on Admin and any school calendar in one step — e.g. Admin + Riyadh.
+            Book visits on Admin and any school calendar in one step, e.g. Admin + Riyadh.
           </p>
         </Link>
         <Link
@@ -224,9 +224,9 @@ export default function AdminDashboard({ schools, enquiries, announcements, docu
                 {enquiries.map(enq => (
                   <tr key={enq.id} className="hover:bg-gray-50">
                     <td className="py-3 pr-4 font-semibold text-gray-800">{enq.full_name}</td>
-                    <td className="py-3 pr-4 text-gray-600">{enq.organisation || '—'}</td>
-                    <td className="py-3 pr-4 text-gray-500">{enq.country || '—'}</td>
-                    <td className="py-3 pr-4 text-gray-500">{enq.investment_type || '—'}</td>
+                    <td className="py-3 pr-4 text-gray-600">{enq.organisation || '-'}</td>
+                    <td className="py-3 pr-4 text-gray-500">{enq.country || '-'}</td>
+                    <td className="py-3 pr-4 text-gray-500">{enq.investment_type || '-'}</td>
                     <td className="py-3 pr-4">
                       <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${ENQUIRY_STATUS[enq.status] || 'bg-gray-100 text-gray-600'}`}>
                         {enq.status}

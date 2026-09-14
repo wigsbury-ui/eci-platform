@@ -1,24 +1,21 @@
 import PortalShell from '@/components/portal/PortalShell'
 import PortalChatbot from '@/components/portal/PortalChatbot'
 import AgentDashboard from '@/components/portal/AgentDashboard'
-import { AGENT_NAV_ITEMS, AGENT_PORTAL_ACCENT } from '@/components/portal/agentNav'
-import { requirePortalAccess } from '@/lib/supabase/session'
+import { agentNavForProfile, AGENT_PORTAL_ACCENT, AGENT_PORTAL_NAME } from '@/components/portal/agentNav'
+import { requireAgentPortalAccess } from '@/lib/supabase/session'
 
 export default async function AgentPortalPage() {
-  const { profile } = await requirePortalAccess(
-    ['agent', 'admin', 'board_member', 'super_admin'],
-    'agent'
-  )
+  const { profile, preview } = await requireAgentPortalAccess('/agent')
 
   return (
     <PortalShell
       profile={profile}
-      portalName="Agent Portal"
+      portalName={AGENT_PORTAL_NAME}
       portalAccent={AGENT_PORTAL_ACCENT}
-      navItems={AGENT_NAV_ITEMS}
+      navItems={agentNavForProfile(profile)}
       activeSection="/agent"
     >
-      <AgentDashboard profile={profile} />
+      <AgentDashboard profile={profile} preview={preview} />
       <PortalChatbot audience="agent" />
     </PortalShell>
   )

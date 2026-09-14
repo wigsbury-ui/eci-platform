@@ -45,7 +45,7 @@ export const DEMO_NETWORK_DOCS: Document[] = [
   },
   {
     id: 'n3',
-    title: 'Curriculum Mapping — IGCSE to Pre-University',
+    title: 'Curriculum Mapping, IGCSE to Pre-University',
     description: 'Shared curriculum guidance for British pathway schools in the network.',
     category_id: 'curriculum',
     doc_type: 'guidance',
@@ -186,7 +186,7 @@ export function demoEvents() {
     {
       id: 'e2',
       title: 'Riyadh quality visit',
-      description: 'On-site QA and curriculum support visit — booked on Admin and Riyadh calendars.',
+      description: 'On-site QA and curriculum support visit, booked on Admin and Riyadh calendars.',
       starts_at: addDays(10, 8),
       ends_at: addDays(12, 16),
       visibility: 'school' as const,
@@ -202,7 +202,7 @@ export function demoEvents() {
     {
       id: 'e3',
       title: 'Doha launch planning',
-      description: 'Internal ECI planning workshop for Doha opening — admin calendar only.',
+      description: 'Internal ECI planning workshop for Doha opening, admin calendar only.',
       starts_at: addDays(5, 14),
       ends_at: addDays(5, 16),
       visibility: 'internal' as const,
@@ -224,7 +224,7 @@ export const DEMO_MESSAGES = [
     thread_id: 't1',
     sender_id: 'eci',
     sender_name: 'ECI Operations',
-    body: 'Welcome to the ECI messaging channel. Use this space for quick coordination with the central team — calendar invites and document links welcome.',
+    body: 'Welcome to the ECI messaging channel. Use this space for quick coordination with the central team, calendar invites and document links welcome.',
     created_at: new Date(Date.now() - 86400000).toISOString(),
   },
   {
@@ -232,7 +232,7 @@ export const DEMO_MESSAGES = [
     thread_id: 't1',
     sender_id: 'school',
     sender_name: 'School Partner',
-    body: 'Thank you — we will share our term-date draft here once finalised.',
+    body: 'Thank you, we will share our term-date draft here once finalised.',
     created_at: new Date(Date.now() - 3600000).toISOString(),
   },
 ]

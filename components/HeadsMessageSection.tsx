@@ -14,7 +14,7 @@ export default function HeadsMessageSection() {
   return (
     <section
       id="heads-message"
-      className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden py-20 md:py-24"
+      className="home-window relative min-h-[100svh] flex flex-col justify-center overflow-hidden pt-[max(5.5rem,var(--eci-nav-offset))] pb-20 md:pb-24"
       style={{
         background:
           'linear-gradient(165deg, #2D1654 0%, #3d1f6e 48%, #1A1228 100%)',
@@ -30,7 +30,7 @@ export default function HeadsMessageSection() {
 
       <div className="relative max-w-7xl mx-auto px-6 w-full">
         <div
-          className={`grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-10 lg:gap-16 items-center transition-all duration-1000 ${
+          className={`grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-10 lg:gap-16 lg:items-start transition-all duration-1000 ${
             ready ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
           }`}
         >
@@ -69,12 +69,12 @@ export default function HeadsMessageSection() {
             <div className="space-y-4 text-white/85 font-jost leading-relaxed text-[1.02rem] max-w-xl">
               <p>
                 Ellesmere has always believed that education is about more than examination
-                results. Our purpose is to help young people become confident, kind and capable —
+                results. Our purpose is to help young people become confident, kind and capable:
                 ready for study, work and life.
               </p>
               <p>
                 Through Ellesmere College International, that same care for the individual, sense of
-                community and ambition for the future travels with our partner schools — from
+                community and ambition for the future travels with our partner schools, from
                 Riyadh today to Doha and further markets ahead.
               </p>
               <p>
@@ -85,7 +85,7 @@ export default function HeadsMessageSection() {
             </div>
             <p className="mt-7 font-cormorant text-2xl text-[#C8A84B] italic">Jon Shaw</p>
             <p className="text-white/45 text-xs font-jost mt-1">
-              Sample welcome — final wording to be provided by the Head.
+              Sample welcome, final wording to be provided by the Head.
             </p>
             <Link
               href="https://www.ellesmere.com/about-us/headmasters-welcome"

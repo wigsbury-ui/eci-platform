@@ -20,7 +20,7 @@ export default async function InvestorApplyPage() {
     >
       <ContactSection
         title="Request next steps"
-        subtitle="Already inside the portal — tell us markets, capital profile and timing, or request diligence access. Our team will follow up."
+        subtitle="Already inside the portal, tell us markets, capital profile and timing, or request diligence access. Our team will follow up."
         defaultInterest="Investment Opportunity"
       />
       <PortalChatbot audience="investor" />

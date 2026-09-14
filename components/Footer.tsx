@@ -31,7 +31,7 @@ export default function Footer() {
                 ['Investors', '/investors'],
                 ['Agents', '/agents'],
                 ['Our team', '/#team'],
-                ['Contact', '/investors#contact'],
+                ['Contact', '/#contact'],
               ].map(([l, h]) => (
                 <li key={l}>
                   <Link href={h} className="hover:text-[#C8A84B] transition-colors">
