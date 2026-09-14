@@ -223,27 +223,36 @@ export default function InvestorsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
             {[
               {
-                src: '/images/schools/riyadh/classroom-bright.jpg',
-                alt: 'Bright classroom at Ellesmere College Riyadh',
+                src: '/images/schools/riyadh/gallery-exterior.jpg',
+                alt: 'Ellesmere College Riyadh campus entrance',
+                position: 'center 40%',
                 delay: '180ms',
               },
               {
-                src: '/images/schools/riyadh/playground.jpg',
-                alt: 'Shaded playground at Ellesmere College Riyadh',
-                delay: '260ms',
+                src: '/images/schools/riyadh/gallery-reading.jpg',
+                alt: 'Pupils reading together at Ellesmere College Riyadh',
+                position: 'center 30%',
+                delay: '240ms',
               },
               {
-                src: '/images/schools/riyadh/classroom.jpg',
-                alt: 'Students learning together at Ellesmere College Riyadh',
-                delay: '340ms',
+                src: '/images/schools/riyadh/gallery-football.jpg',
+                alt: 'Pupils playing football at Ellesmere College Riyadh',
+                position: 'center 35%',
+                delay: '300ms',
+              },
+              {
+                src: '/images/schools/riyadh/gallery-basketball.jpg',
+                alt: 'Pupils playing basketball at Ellesmere College Riyadh',
+                position: 'center 35%',
+                delay: '360ms',
               },
             ].map(img => (
               <div
                 key={img.src}
-                className="relative aspect-[4/3] overflow-hidden eci-fade-up"
+                className="relative aspect-[3/4] overflow-hidden eci-fade-up"
                 style={{ animationDelay: img.delay }}
               >
                 <Image
@@ -251,7 +260,8 @@ export default function InvestorsPage() {
                   alt={img.alt}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 640px) 100vw, 33vw"
+                  style={{ objectPosition: img.position }}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
                 />
               </div>
             ))}
