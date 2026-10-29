@@ -30,6 +30,13 @@ Without Supabase env vars, public pages work and portals open in **preview mode*
 
 Apply SQL in [`supabase/migrations/001_foundation.sql`](supabase/migrations/001_foundation.sql) in your Supabase project.
 
+## Production domain
+
+Target public hostname: **`https://international.ellesmere.com`** (subdomain of the school’s Finalsite-backed `ellesmere.com`).
+
+Hand this to Ellesmere IT:  
+[`docs/ellesmere-it-subdomain-launch-guide.md`](docs/ellesmere-it-subdomain-launch-guide.md) — step-by-step DNS/SSL guide (GoDaddy + Finalsite context). The subdomain must CNAME to the **ECI host**, not to Finalsite.
+
 ## Branding
 
 Public imagery includes assets from [ellesmere.com](https://www.ellesmere.com) / Finalsite CDN and [ellesmerecollegeriyadh.com](https://ellesmerecollegeriyadh.com), plus generated campus visuals for Middle East expansion storytelling. Crest used from the Riyadh site brand pack.

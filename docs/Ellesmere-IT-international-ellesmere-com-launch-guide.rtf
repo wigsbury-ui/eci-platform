@@ -1,0 +1,159 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Calibri;}}\f0\fs22
+\b\fs32 Launch guide: `international.ellesmere.com`\b0\fs22\par
+\b Audience:\b0  Ellesmere College IT / DNS administrators  \par
+\b Requested hostname:\b0  international.ellesmere.com  \par
+\b Purpose:\b0  Point this subdomain at the \b Ellesmere College International (ECI)\b0  web platform on \b Vercel\b0   \par
+\b ECI app today (temporary URL):\b0  https://eci-platform-seven.vercel.app  \par
+\b Main site today:\b0  Finalsite (www.ellesmere.com \u8594? ellesmerecom.finalsite.com)  \par
+\b DNS provider today:\b0  GoDaddy (ns43.domaincontrol.com / ns44.domaincontrol.com)\par
+\b\fs26 1. What you are being asked to do\b0\fs22\par
+Ellesmere College International runs on \b Vercel\b0  (Next.js). It is \b not\b0  a Finalsite Composer page, microsite, or Finalsite subdomain landing page.\par
+\par
+Your work is almost entirely \b DNS at GoDaddy\b0 . Do \b not\b0  move ellesmere.com nameservers to Vercel \u8212? that would break Finalsite and school email. Optional Finalsite work is limited to adding a normal hyperlink from the main site \u8212? not hosting the ECI app inside Finalsite.\par
+\b\fs26 2. Critical: do **not** use the Finalsite subdomain pattern\b0\fs22\par
+Finalsite\u8217?s standard docs say: create a CNAME for a subdomain \u8594? [keyword].finalsite.com, then open a Finalsite Support ticket so Composer can claim that hostname.\par
+\b That pattern is wrong for this launch.\b0 \par
+If international.ellesmere.com is pointed at Finalsite:\par
+Finalsite will try to serve Composer content\par
+Vercel will never receive traffic\par
+SSL for the ECI app will fail\par
+\b Correct pattern:\b0  DNS for international is a \b CNAME to Vercel\b0  (exact target from the Vercel Domains UI). Finalsite Support does \b not\b0  need a ticket to \u8220?claim\u8221? this hostname.\par
+\b\fs26 3. Roles and hand-offs\b0\fs22\par
+\par
+Order of operations (important)\par
+\b ECI team\b0  adds international.ellesmere.com in \b Vercel \u8594? Project \u8594? Settings \u8594? Domains\b0 .  \par
+Vercel shows the \b exact DNS records\b0  to create (CNAME for traffic; sometimes a TXT for verification).  \par
+ECI team sends those values to Ellesmere IT.  \par
+\b Ellesmere IT\b0  creates the record(s) in GoDaddy.  \par
+Vercel marks the domain \b Valid\b0  and issues HTTPS automatically.\par
+What Ellesmere IT will receive from the ECI team\par
+Copy the values \b exactly\b0  from Vercel\u8217?s Domains panel for this project. Do not reuse another project\u8217?s CNAME.\par
+Typical traffic record for a subdomain:\par
+\par
+\b Vercel\u8217?s current docs:\b0 \i  each project may show a \i0 \b unique\b0 \i  CNAME (example shape: \i0 \i d1d4fc829fe7bc7c.vercel-dns-017.com\i0 \i ). Always prefer the value on the domain card in the ECI Vercel project over any example in this document.\i0 \par
+Sometimes Vercel also asks for domain verification:\par
+\par
+\b Placeholder for IT \u8212? paste the live values here before cutover:\b0 \i   \i0 \par
+\i CNAME \i0 \i international\i0 \i  \u8594? \i0 \i ______________________________\i0 \i   \i0 \par
+\i TXT \i0 \i _vercel\i0 \i  (if required) \u8594? \i0 \i ______________________________\i0 \par
+\b\fs26 4. Pre-flight checks (Ellesmere IT)\b0\fs22\par
+Complete these before changing DNS.\par
+\b Confirm who can edit DNS\b0  for ellesmere.com in GoDaddy.\par
+\b Search existing records\b0  for anything named international (A, AAAA, CNAME, TXT).  \par
+   As of the pre-launch check, international.ellesmere.com did \b not\b0  resolve \u8212? treat this as \u8220?create new,\u8221? but re-check before you publish.\par
+\b Do not change\b0  existing records for:\par
+   - apex ellesmere.com\par
+   - www (must stay on Finalsite)\par
+   - MX / mail (ellesmere-com.mail.protection.outlook.com today)\par
+   - existing TXT / verification records (except adding a new _vercel TXT if Vercel requests it)\par
+\b Do not change nameservers\b0  from GoDaddy (ns43 / ns44.domaincontrol.com) to Vercel.\par
+Confirm with the ECI team that international.ellesmere.com is already listed under the ECI Vercel project\u8217?s \b Domains\b0  page.\par
+Agree a \b rollback\b0 : if something breaks, delete or disable only the new international CNAME (and any new _vercel TXT added for this launch) \u8212? never touch www.\par
+\b\fs26 5. Step-by-step: create the DNS record (GoDaddy)\b0\fs22\par
+These steps assume DNS remains on GoDaddy Domain Control.\par
+5.1 Open DNS management\par
+Sign in to GoDaddy.\par
+Open \b Domain Portfolio\b0  \u8594? select \b `ellesmere.com`\b0 .\par
+Open \b DNS\b0  / \b Manage DNS\b0 .\par
+5.2 Add the Vercel CNAME\par
+Create \b one\b0  new record for site traffic:\par
+\par
+Notes:\par
+Enter only international in the Name field (GoDaddy appends .ellesmere.com).\par
+If GoDaddy complains about a trailing dot, omit the trailing . \u8212? use e.g. cname.vercel-dns.com not cname.vercel-dns.com.\par
+Do \b not\b0  create an A or AAAA record for international. Vercel serves this subdomain via \b CNAME\b0 , not via Finalsite IPs and not via Vercel\u8217?s apex A record (76.76.21.21 \u8212? that A target is only for apex domains, which we are \b not\b0  changing).\par
+Do \b not\b0  point this CNAME at ellesmerecom.finalsite.com, eci-platform-seven.vercel.app, or any *.finalsite.com hostname. Point it only at the \b Vercel DNS CNAME target\b0  shown in Domains settings.\par
+5.3 Add verification TXT only if Vercel asks\par
+If the Vercel Domains UI shows a verification TXT:\par
+\par
+This does not move the domain to Vercel and does not affect Finalsite.\par
+5.4 Save and wait for propagation\par
+Save the record(s).\par
+Expect propagation in roughly \b minutes to a few hours\b0  (rarely up to 24\u8211?48 hours).\par
+Verify from your network:\par
+dig +short international.ellesmere.com CNAME\par
+dig +short international.ellesmere.com A\par
+You should see a \b Vercel\b0  CNAME chain (hostname containing vercel-dns) and then Vercel edge IPs \u8212? \b not\b0  Finalsite\u8217?s ellesmerecom.finalsite.com.\par
+Browser check:\par
+https://international.ellesmere.com should load the ECI site (or briefly show Vercel provisioning while the certificate issues).\par
+https://www.ellesmere.com must still be the unchanged Finalsite site.\par
+The temporary URL https://eci-platform-seven.vercel.app can keep working; production traffic should use the custom domain.\par
+\b\fs26 6. SSL / HTTPS\b0\fs22\par
+Ellesmere IT does \b not\b0  need to install a certificate in Finalsite, GoDaddy, or on school servers.\par
+\b Vercel\b0  issues and renews TLS for international.ellesmere.com automatically (Let\u8217?s Encrypt) once DNS is correct and the domain is attached to the project.\par
+In Vercel \u8594? Domains, wait until the domain status is \b Valid\b0 .\par
+If the browser shows a certificate name mismatch, DNS is wrong or the domain is not yet attached/verified in Vercel \u8212? fix DNS/Vercel config; do not buy a separate cert for Finalsite.\par
+Force-HTTPS is handled by Vercel.\par
+\b\fs26 7. Application-side tasks (ECI team \u8212? Vercel / Supabase)\b0\fs22\par
+Ellesmere IT can treat this as the ECI checklist running in parallel.\par
+In \b Vercel \u8594? ECI project \u8594? Settings \u8594? Domains\b0 , add international.ellesmere.com and copy the shown CNAME (and TXT if any) to IT.  \par
+Confirm Production env vars on Vercel (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, optional LLM keys).  \par
+In \b Supabase Auth \u8594? URL configuration\b0 , allow:\par
+   - Site URL: https://international.ellesmere.com\par
+   - Redirect URLs including:  \par
+     https://international.ellesmere.com/**  \par
+     https://international.ellesmere.com/auth/callback  \par
+   - Keep the existing *.vercel.app URL in redirect allow-lists if preview/staging still needs it.\par
+Confirm portals (/login, /investor, /agent, /school, /team) on the custom domain.  \par
+Smoke-test public routes: /, /schools, /investors, /agents.\par
+\b\fs26 8. Optional Finalsite work (links only)\b0\fs22\par
+If Marketing/International want visitors on the main school site to find ECI:\par
+In Finalsite Composer, edit the relevant nav item or International page.\par
+Add a normal external link to https://international.ellesmere.com.\par
+Do \b not\b0  create a Finalsite Domain / Host Name for international.ellesmere.com.\par
+Do \b not\b0  ask Finalsite Support to \u8220?point the subdomain at a Composer page.\u8221?\par
+Suggested labels: \u8220?Ellesmere College International\u8221?, \u8220?International\u8221?, or \u8220?Our international schools\u8221?.\par
+\b\fs26 9. Email and other services\b0\fs22\par
+\par
+\b\fs26 10. Go-live checklist\b0\fs22\par
+\b Ellesmere IT\b0 \par
+[ ] Received exact Vercel CNAME (and TXT if shown) from ECI team  \par
+[ ] Confirmed no conflicting international DNS record  \par
+[ ] Created CNAME international \u8594? Vercel target  \par
+[ ] Added _vercel TXT only if Vercel requested it  \par
+[ ] Verified with dig that the name resolves via vercel-dns, \b not\b0  Finalsite  \par
+[ ] Confirmed https://www.ellesmere.com still loads Finalsite  \par
+[ ] (Optional) Added Finalsite nav/page link to the new URL  \par
+\b ECI team\b0 \par
+[ ] Domain added on Vercel project; status \b Valid\b0 ; SSL issued  \par
+[ ] Supabase auth URLs updated for the custom domain  \par
+[ ] Production env vars set on Vercel  \par
+[ ] Public + portal smoke tests passed on https://international.ellesmere.com  \par
+[ ] Stakeholders notified of the live URL  \par
+\b\fs26 11. Rollback\b0\fs22\par
+In GoDaddy DNS, \b delete\b0  (or disable) only the international CNAME.  \par
+Remove any _vercel TXT that was added solely for this launch (if present).  \par
+Leave all Finalsite / www / mail / nameserver settings untouched.  \par
+Tell the ECI team so they can remove or pause the domain in Vercel \u8594? Domains.\par
+No Finalsite \u8220?Domain is live\u8221? change is involved, because this hostname was never added to Composer.\par
+\b\fs26 12. Suggested message you can send Finalsite (only if needed)\b0\fs22\par
+\i We are launching a separately hosted Ellesmere College International application on Vercel at \i0 \i international.ellesmere.com\i0 \i . This hostname must remain a DNS CNAME to Vercel and must \i0 \b not\b0 \i  be configured as a Finalsite Composer domain or Finalsite subdomain landing page. The primary site \i0 \i www.ellesmere.com\i0 \i  stays on Finalsite unchanged. We may add a standard hyperlink from Composer to \i0 \i https://international.ellesmere.com\i0 \i . Nameservers for \i0 \i ellesmere.com\i0 \i  remain with the school\u8217?s current DNS provider.\i0 \par
+\b\fs26 13. Contacts / blanks for the school to fill\b0\fs22\par
+\par
+\b\fs26 Appendix A \u8212? Current DNS snapshot (reference)\b0\fs22\par
+Observed before launch (for orientation; re-verify at cutover):\par
+\par
+\b\fs26 Appendix B \u8212? Why this is separate from Finalsite\b0\fs22\par
+The ECI platform is a Next.js application on \b Vercel\b0  (public marketing pages plus password-controlled investor, agent, school, and team portals) with a Supabase backend. Finalsite remains the system of record for the UK main school website. Only the international subdomain is delegated by CNAME to Vercel; the rest of the ellesmere.com DNS zone stays as it is.\par
+\par
+\b\fs32 Cover email \u8212? send to Ellesmere IT with the launch guide\b0\fs22\par
+\b Subject:\b0  Action required: DNS for international.ellesmere.com (Vercel \u8212? not Finalsite)\par
+Hello,\par
+We are ready to launch the Ellesmere College International (ECI) website on a school subdomain:\par
+\b `https://international.ellesmere.com`\b0 \par
+The app already runs on \b Vercel\b0  (temporary URL: https://eci-platform-seven.vercel.app). It is \b not\b0  built in Finalsite and must \b not\b0  be pointed at ellesmerecom.finalsite.com or configured as a Finalsite Composer domain. Please \b do not\b0  change nameservers for ellesmere.com.\par
+What we need from IT\par
+Create a \b CNAME\b0  record (exact value from our Vercel Domains panel):\par
+   - \b Host:\b0  international\par
+   - \b Points to:\b0  *[paste the CNAME shown in Vercel \u8594? Project \u8594? Settings \u8594? Domains for international.ellesmere.com]*\par
+If Vercel also shows a verification record, add:\par
+   - \b TXT\b0  host _vercel with the value Vercel displays\par
+Leave www.ellesmere.com, apex A records, MX, nameservers, and existing TXT records \b unchanged\b0  (aside from the new _vercel TXT if required).\par
+Optionally add a normal hyperlink from the main Finalsite site to https://international.ellesmere.com (nav/International page only \u8212? no Finalsite domain setup).\par
+Full step-by-step instructions, checks, and rollback are in the attached guide:\par
+\b `Ellesmere-IT-international-ellesmere-com-launch-guide`\b0 \par
+Please reply with confirmation once the CNAME is live, and with the name of the person who owns DNS for ellesmere.com going forward.\par
+Thank you,  \par
+*[Name / ECI project owner]*  \par
+*[Email / phone]*\par
+}
